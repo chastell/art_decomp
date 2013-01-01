@@ -26,7 +26,7 @@ module ArtDecomp describe KISSParser do
         { inputs: inputs, i_state: i_state, outputs: outputs, o_state: o_state }
       ]
 
-      result = KISSParser.new(kiss, circuit_factory: circuit_factory).circuit
+      result = KISSParser.new(circuit_factory: circuit_factory).circuit_for kiss
 
       result.must_equal circuit
       circuit_factory.verify
