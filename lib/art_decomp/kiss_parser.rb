@@ -1,6 +1,4 @@
 module ArtDecomp class KISSParser
-  DC = :-
-
   def initialize kiss, opts = {}
     @circuit_factory = opts.fetch(:circuit_factory) { CircuitFactory.new }
     @kiss            = kiss
@@ -20,30 +18,33 @@ module ArtDecomp class KISSParser
     Hash[[:inputs, :i_state, :o_state, :outputs].zip cols]
   end
 
-  def hashify array
-    array = array.map(&:to_sym)
-    Hash[(array.uniq - [DC]).map do |key|
-      [key, array.each_index.select { |i| array[i] == key or array[i] == DC }]
+  def hashify col, keys, dc
+    Hash[keys.map do |key|
+      [key.to_sym, col.each_index.select { |i| col[i] == key or col[i] == dc }]
     end]
   end
 
   def inputs
-    pluck_columns(col_groups[:inputs]).map { |col| hashify col }
+    pluck_columns(col_groups[:inputs]).map { |col| hashify col, ['0', '1'], '-' }
   end
 
   def i_state
-    hashify col_groups[:i_state]
+    hashify col_groups[:i_state], states, '*'
   end
 
   def outputs
-    pluck_columns(col_groups[:outputs]).map { |col| hashify col }
+    pluck_columns(col_groups[:outputs]).map { |col| hashify col, ['0', '1'], '-' }
   end
 
   def o_state
-    hashify col_groups[:o_state]
+    hashify col_groups[:o_state], states, '*'
   end
 
   def pluck_columns col_group
     col_group.map { |str| str.split '' }.transpose
+  end
+
+  def states
+    (col_groups[:i_state] + col_groups[:o_state]).uniq - ['*']
   end
 end end
