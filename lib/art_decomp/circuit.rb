@@ -6,15 +6,23 @@ module ArtDecomp class Circuit
     i_state = opts.fetch :i_state
     outputs = opts.fetch :outputs
     o_state = opts.fetch :o_state
+
+    encoding = [
+      inputs.map(&:keys)  + [i_state.keys],
+      outputs.map(&:keys) + [o_state.keys],
+    ]
+    table = [
+      inputs.map(&:values)  + [i_state.values],
+      outputs.map(&:values) + [o_state.values],
+    ]
+
     function_factory = opts.fetch(:function_factory) { Function }
-    function = function_factory.new inputs.map(&:values) + [i_state.values], outputs.map(&:values) + [o_state.values]
-    new functions: [function], encodings: {
-      function => [inputs.map(&:keys) + [i_state.keys], outputs.map(&:keys) + [o_state.keys]]
-    }
+    function = function_factory.new encoding: encoding, table: table
+
+    new functions: [function]
   end
 
   def initialize opts = {}
-    @encodings = opts.fetch(:encodings) { {} }
     @functions = opts.fetch(:functions) { [] }
   end
 end end

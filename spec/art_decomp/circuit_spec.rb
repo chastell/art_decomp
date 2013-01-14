@@ -16,16 +16,20 @@ module ArtDecomp describe Circuit do
       o_state = { s1: [0,2], s2: [0,1], s3: [0] }
 
       function = Object.new
-      function_factory = MiniTest::Mock.new.expect :new, function, [
-        [[[0,2], [1,2]], [[0,2], [0,1]], [[0,1], [], [2]]],
-        [[[0,2], [1,2]], [[0,1,2], [0,1,2]], [[0,1,2], [0,1]], [[0,2], [0,1], [0]]],
-      ]
+      function_factory = MiniTest::Mock.new.expect :new, function, [{
+        encoding: [
+          [[:'0', :'1'], [:'0', :'1'], [:s1, :s2, :s3]],
+          [[:'0', :'1'], [:'0', :'1'], [:'0', :'1'], [:s1, :s2, :s3]],
+        ],
+        table: [
+          [[[0,2], [1,2]], [[0,2], [0,1]], [[0,1], [], [2]]],
+          [[[0,2], [1,2]], [[0,1,2], [0,1,2]], [[0,1,2], [0,1]], [[0,2], [0,1], [0]]],
+        ],
+      }]
 
-      circuit = Circuit.from_fsm inputs: inputs, i_state: i_state, outputs: outputs, o_state: o_state, function_factory: function_factory
+      circuit = Circuit.from_fsm function_factory: function_factory,
+        inputs: inputs, i_state: i_state, outputs: outputs, o_state: o_state
       circuit.functions.must_equal [function]
-      circuit.encodings.must_equal({
-        function => [[[:'0', :'1'], [:'0', :'1'], [:s1, :s2, :s3]], [[:'0', :'1'], [:'0', :'1'], [:'0', :'1'], [:s1, :s2, :s3]]]
-      })
 
       function_factory.verify
     end
