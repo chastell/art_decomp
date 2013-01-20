@@ -1,5 +1,5 @@
 module ArtDecomp class Circuit
-  attr_reader :functions, :encodings
+  attr_reader :functions
 
   def self.from_fsm opts = {}
     inputs  = opts.fetch :inputs
