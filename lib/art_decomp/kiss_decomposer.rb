@@ -23,11 +23,11 @@ module ArtDecomp class KISSDecomposer
   private
 
   def options_from args
-    options = OpenStruct.new
-    OptionParser.new do |opts|
-      opts.on('--dir DIR', String) { |dir| options.vhdl_path = dir }
-    end.parse! args
-    options.kiss_path = args.first
-    options
+    OpenStruct.new.tap do |options|
+      OptionParser.new do |opts|
+        opts.on('--dir DIR', String) { |dir| options.vhdl_path = dir }
+      end.parse! args
+      options.kiss_path = args.first
+    end
   end
 end end
