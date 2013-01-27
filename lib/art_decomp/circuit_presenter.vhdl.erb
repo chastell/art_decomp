@@ -1,0 +1,46 @@
+library ieee;
+use ieee.numeric_std.all;
+use ieee.std_logic_1164.all;
+
+entity <%= name %> is
+  port(
+        reset: in  std_logic;
+        clock: in  std_logic;
+        fsm_i: in  std_logic_vector(0 to <%= fsm_i_width - 1 %>);
+        fsm_o: out std_logic_vector(0 to <%= fsm_o_width - 1 %>)
+      );
+end <%= name %>;
+
+architecture behaviour of <%= name %> is
+  signal fsm_q, fsm_p: std_logic_vector(0 to <%= fsm_q_width - 1 %>);
+
+% functions.each.with_index do |fun, i|
+  signal f<%= i %>_i: std_logic_vector(0 to <%= fun.i_width - 1 %>);
+  signal f<%= i %>_o: std_logic_vector(0 to <%= fun.o_width - 1 %>);
+% end
+% recoders.each.with_index do |rec, i|
+  signal r<%= i %>_i: std_logic_vector(0 to <%= rec.i_width - 1 %>);
+  signal r<%= i %>_o: std_logic_vector(0 to <%= rec.o_width - 1 %>);
+% end
+
+begin
+% wirings.each do |result, source|
+  <%= result %> <= <%= source %>;
+% end
+
+  process(reset, clock) begin
+    if reset = '1' then fsm_q <= "<%= reset_bits %>";
+    elsif rising_edge(clock) then fsm_q <= fsm_p;
+    end if;
+  end process;
+
+% functions.each.with_index do |fun, i|
+  f<%= i %>: process(f<%= i %>_i) begin
+    f<%= i %>_o <= (others => '-');
+% fun.rows.each.with_index do |(input, output), r|
+    <%= r.zero? ? 'if' : 'elsif' %> std_match(f<%= i %>_i, "<%= input %>") then f<%= i %>_o <= "<%= output %>";
+% end
+    end if;
+  end process;
+% end
+end behaviour;
