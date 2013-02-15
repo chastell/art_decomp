@@ -10,7 +10,7 @@ PATH
     art_decomp (0.0.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     ffi (1.4.0)
     minitest (4.6.1)
