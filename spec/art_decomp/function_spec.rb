@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe Function do
-  let(:inputs)  { [{ :'0' => [0], :'1' => [1] }, { s1: [0], s2: [1], s3: [2] }] }
-  let(:outputs) { [{ :'0' => [1], :'1' => [0] }, { s1: [1], s2: [2], s3: [0] }] }
-  let(:subject) { Function.new inputs, outputs }
+  let(:is) { [{ :'0' => [0], :'1' => [1] }, { s1: [0], s2: [1], s3: [2] }] }
+  let(:os) { [{ :'0' => [1], :'1' => [0] }, { s1: [1], s2: [2], s3: [0] }] }
+  let(:subject) { Function.new is, os }
 
   describe '#encodings' do
     it 'contains the encodings' do

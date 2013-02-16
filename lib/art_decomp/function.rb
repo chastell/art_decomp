@@ -1,17 +1,17 @@
 module ArtDecomp class Function
-  def initialize inputs, outputs
-    @inputs  = inputs
-    @outputs = outputs
+  def initialize is, os
+    @is = is
+    @os = os
   end
 
   def encodings
-    [inputs.map(&:keys), outputs.map(&:keys)]
+    [is.map(&:keys), os.map(&:keys)]
   end
 
   def table
-    [inputs.map(&:values), outputs.map(&:values)]
+    [is.map(&:values), os.map(&:values)]
   end
 
-  attr_reader :inputs, :outputs
-  private     :inputs, :outputs
+  attr_reader :is, :os
+  private     :is, :os
 end end
