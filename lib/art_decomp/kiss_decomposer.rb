@@ -3,22 +3,22 @@ require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
   def initialize opts = {}
-    @decomposer     = opts.fetch(:decomposer)     { Decomposer.new    }
-    @kiss_parser    = opts.fetch(:kiss_parser)    { KISSParser.new    }
-    @vhdl_presenter = opts.fetch(:vhdl_presenter) { VHDLPresenter.new }
+    @decomposer                = opts.fetch(:decomposer)                { Decomposer.new   }
+    @kiss_parser_factory       = opts.fetch(:kiss_parser_factory)       { KISSParser       }
+    @circuit_presenter_factory = opts.fetch(:circuit_presenter_factory) { CircuitPresenter }
   end
 
   def decompose args
     options    = options_from args
-    circuit    = kiss_parser.circuit_for File.read options.kiss_path
+    circuit    = kiss_parser_factory.new(File.read options.kiss_path).circuit
     decomposed = decomposer.decompose circuit
-    vhdl       = vhdl_presenter.vhdl_for decomposed
+    vhdl       = circuit_presenter_factory.new(decomposed).vhdl
     name       = File.basename options.kiss_path, '.kiss'
     File.write "#{options.vhdl_path}/#{name}.vhdl", vhdl
   end
 
-  attr_reader :decomposer, :kiss_parser, :vhdl_presenter
-  private     :decomposer, :kiss_parser, :vhdl_presenter
+  attr_reader :circuit_presenter_factory, :decomposer, :kiss_parser_factory
+  private     :circuit_presenter_factory, :decomposer, :kiss_parser_factory
 
   private
 
