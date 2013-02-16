@@ -8,8 +8,7 @@ module ArtDecomp describe Circuit do
       q  = { s1: [0], s2: [1], s3: [2] }
       p  = { s1: [1], s2: [2], s3: [0] }
 
-      function = Object.new
-      ff = MiniTest::Mock.new.expect :new, function, [is + [q], os + [p]]
+      ff = MiniTest::Mock.new.expect :new, function = double, [is + [q], os + [p]]
 
       circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, q: q, p: p
 

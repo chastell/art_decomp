@@ -4,10 +4,9 @@ require 'tmpdir'
 module ArtDecomp describe KISSDecomposer do
   describe '#decompose' do
     it 'decomposes the given KISS file into VHDL implementation' do
-      circuit    = Object.new
-      decomposer = MiniTest::Mock.new.expect :decompose, circuit, [circuit]
-      kp         = OpenStruct.new circuit: circuit
-      cp         = OpenStruct.new vhdl: 'some VHDL'
+      decomposer = MiniTest::Mock.new.expect :decompose, circuit = double, [circuit]
+      kp         = double circuit: circuit
+      cp         = double vhdl: 'some VHDL'
 
       Dir.mktmpdir do |vhdl_path|
         File.stub :read, 'some KISS' do

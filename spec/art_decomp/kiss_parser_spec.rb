@@ -19,9 +19,8 @@ module ArtDecomp describe KISSParser do
       q = { s1: [0,1], s2: [],    s3: [2] }
       p = { s1: [0,2], s2: [0,1], s3: [0] }
 
-      circuit = Object.new
-      cf      = MiniTest::Mock.new
-      cf.expect :from_fsm, circuit, [{ is: is, q: q, os: os, p: p }]
+      cf = MiniTest::Mock.new
+      cf.expect :from_fsm, circuit = double, [{ is: is, q: q, os: os, p: p }]
 
       KISSParser.new(kiss, circuit_factory: cf).circuit.must_equal circuit
 

@@ -7,3 +7,7 @@ class String
     gsub(/^#{self[/\A\s*/]}/, '')
   end
 end
+
+def double opts = {}
+  OpenStruct.new opts
+end

@@ -5,8 +5,8 @@ module ArtDecomp describe CircuitPresenter do
     Pin = Struct.new :object, :group, :index
 
     it 'returns VHDL for the given Circuit' do
-      function = OpenStruct.new i_widths: [1, 1, 1, 2], o_widths: [1, 1, 1, 1, 1, 2]
-      circuit  = OpenStruct.new functions: [function], recoders: [],
+      function = double i_widths: [1, 1, 1, 2], o_widths: [1, 1, 1, 1, 1, 2]
+      circuit  = double functions: [function], recoders: [],
         i_widths: [1, 1, 1], o_widths: [1, 1, 1, 1, 1], q_widths: [2], p_widths: [2]
       circuit.wirings = {
            Pin.new(function, :i, 0) => Pin.new(circuit, :i, 0),
@@ -21,7 +21,7 @@ module ArtDecomp describe CircuitPresenter do
            Pin.new(circuit, :p, 0) => Pin.new(function, :o, 5),
         }
 
-      function_presenter = OpenStruct.new i_width: 5, o_width: 7, rows: [
+      function_presenter = double i_width: 5, o_width: 7, rows: [
           ['0--10', '0001010'],
           ['-0-10', '0001010'],
           ['11-10', '1001011'],
@@ -41,11 +41,11 @@ module ArtDecomp describe CircuitPresenter do
     end
 
     it 'returns VHDL for the given decomposed Circuit' do
-      f0 = OpenStruct.new i_widths: [1, 1, 1], o_widths: [1, 1]
-      f1 = OpenStruct.new i_widths: [1, 1, 1, 1], o_widths: [1, 1, 1, 1, 1, 1, 1]
-      r0 = OpenStruct.new i_widths: [2], o_widths: [1, 1], i_width: 2, o_width: 2
-      r1 = OpenStruct.new i_widths: [1, 1], o_widths: [2], i_width: 2, o_width: 2
-      circuit = OpenStruct.new functions: [f0, f1], recoders: [r0, r1],
+      f0 = double i_widths: [1, 1, 1], o_widths: [1, 1]
+      f1 = double i_widths: [1, 1, 1, 1], o_widths: [1, 1, 1, 1, 1, 1, 1]
+      r0 = double i_widths: [2], o_widths: [1, 1], i_width: 2, o_width: 2
+      r1 = double i_widths: [1, 1], o_widths: [2], i_width: 2, o_width: 2
+      circuit = double functions: [f0, f1], recoders: [r0, r1],
         i_widths: [1, 1, 1], o_widths: [1, 1, 1, 1, 1], q_widths: [2], p_widths: [2]
       circuit.wirings = {
            Pin.new(f0, :i, 0) => Pin.new(circuit, :i, 0),
@@ -63,7 +63,7 @@ module ArtDecomp describe CircuitPresenter do
            Pin.new(circuit, :o, 4) => Pin.new(f1, :o, 6),
         }
 
-      fp0 = OpenStruct.new i_width: 3, o_width: 2, rows: [
+      fp0 = double i_width: 3, o_width: 2, rows: [
           ['000', '10'],
           ['001', '01'],
           ['010', '10'],
@@ -74,7 +74,7 @@ module ArtDecomp describe CircuitPresenter do
           ['111', '11'],
         ]
 
-      fp1 = OpenStruct.new i_width: 4, o_width: 7, rows: [
+      fp1 = double i_width: 4, o_width: 7, rows: [
           ['-000', '0001000'],
           ['-010', '0100010'],
           ['-100', '1011000'],
