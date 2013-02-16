@@ -1,10 +1,10 @@
 module ArtDecomp class KISSParser
-  def initialize opts = {}
+  def initialize kiss, opts = {}
+    @kiss            = kiss
     @circuit_factory = opts.fetch(:circuit_factory) { Circuit }
   end
 
-  def circuit_for kiss
-    @kiss = kiss
+  def circuit
     circuit_factory.from_fsm is: is, os: os, q: q, p: p
   end
 

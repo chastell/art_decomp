@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe KISSParser do
-  describe '#circuit_for' do
+  describe '#circuit' do
     it 'returns a Circuit represented by the KISS source' do
       kiss = <<-end.dedent
         .some comments
@@ -23,9 +23,8 @@ module ArtDecomp describe KISSParser do
       cf      = MiniTest::Mock.new
       cf.expect :from_fsm, circuit, [{ is: is, q: q, os: os, p: p }]
 
-      result = KISSParser.new(circuit_factory: cf).circuit_for kiss
+      KISSParser.new(kiss, circuit_factory: cf).circuit.must_equal circuit
 
-      result.must_equal circuit
       cf.verify
     end
   end
