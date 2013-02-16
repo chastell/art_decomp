@@ -2,33 +2,31 @@ require 'optparse'
 require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
-  def initialize opts = {}
+  def initialize args, opts = {}
     @decomposer = opts.fetch(:decomposer) { Decomposer.new }
+    @settings   = settings_from args
   end
 
-  def decompose args, opts = {}
-    options = options_from args
-    kiss    = File.read options.kiss_path
-    circuit = opts.fetch(:kiss_parser) { KISSParser.new kiss }.circuit
-    decd    = decomposer.decompose circuit
-
+  def decompose opts = {}
+    kiss = File.read settings.kiss_path
+    circ = opts.fetch(:kiss_parser) { KISSParser.new kiss }.circuit
+    decd = decomposer.decompose circ
     vhdl = opts.fetch(:circuit_presenter) { CircuitPresenter.new decd }.vhdl
-    name = File.basename options.kiss_path, '.kiss'
-
-    File.write "#{options.vhdl_path}/#{name}.vhdl", vhdl
+    name = File.basename settings.kiss_path, '.kiss'
+    File.write "#{settings.vhdl_path}/#{name}.vhdl", vhdl
   end
 
-  attr_reader :decomposer
-  private     :decomposer
+  attr_reader :decomposer, :settings
+  private     :decomposer, :settings
 
   private
 
-  def options_from args
-    OpenStruct.new.tap do |options|
+  def settings_from args
+    OpenStruct.new.tap do |settings|
       OptionParser.new do |opts|
-        opts.on('--dir DIR', String) { |dir| options.vhdl_path = dir }
+        opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
       end.parse! args
-      options.kiss_path = args.first
+      settings.kiss_path = args.first
     end
   end
 end end

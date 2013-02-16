@@ -11,9 +11,8 @@ module ArtDecomp describe KISSDecomposer do
 
       Dir.mktmpdir do |vhdl_path|
         File.stub :read, 'some KISS' do
-          kiss_decomposer = KISSDecomposer.new decomposer: decomposer
-          kiss_decomposer.decompose ['--dir', vhdl_path, 'foo/bar/mc.kiss'],
-            circuit_presenter: circuit_presenter, kiss_parser: kiss_parser
+          kiss_decomposer = KISSDecomposer.new ['--dir', vhdl_path, 'foo/bar/mc.kiss'], decomposer: decomposer
+          kiss_decomposer.decompose circuit_presenter: circuit_presenter, kiss_parser: kiss_parser
         end
         File.read("#{vhdl_path}/mc.vhdl").must_equal 'some VHDL'
       end
