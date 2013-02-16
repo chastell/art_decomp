@@ -4,7 +4,8 @@ require 'tmpdir'
 module ArtDecomp describe KISSDecomposer do
   describe '#decompose' do
     it 'decomposes the given KISS file into VHDL implementation' do
-      decomposer = MiniTest::Mock.new.expect :decompose, circuit = double, [circuit]
+      circuit    = double
+      decomposer = double decompose: -> _ { circuit }
       kp         = double circuit: circuit
       cp         = double vhdl: 'some VHDL'
 

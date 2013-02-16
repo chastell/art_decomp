@@ -33,7 +33,7 @@ module ArtDecomp describe CircuitPresenter do
           ['--001', '0100101'],
           ['--101', '1100110'],
         ]
-      fp_factory = MiniTest::Mock.new.expect :new, function_presenter, [function]
+      fp_factory = double new: -> _ { function_presenter }
 
       cp = CircuitPresenter.new circuit, fp_factory: fp_factory
 
@@ -88,9 +88,7 @@ module ArtDecomp describe CircuitPresenter do
           ['1101', '0111001'],
           ['1111', '0010110'],
         ]
-      fp_factory = MiniTest::Mock.new
-      fp_factory.expect :new, fp0, [f0]
-      fp_factory.expect :new, fp1, [f1]
+      fp_factory = double new: -> f { { f0 => fp0, f1 => fp1 }[f] }
 
       cp = CircuitPresenter.new circuit, fp_factory: fp_factory
 
