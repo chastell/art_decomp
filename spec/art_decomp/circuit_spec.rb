@@ -16,4 +16,57 @@ module ArtDecomp describe Circuit do
       ff.verify
     end
   end
+
+  describe '#functions' do
+    it 'returns the functions' do
+      Circuit.new.functions.must_equal []
+      Circuit.new(functions: functions = double).functions.must_equal functions
+    end
+  end
+
+  describe '#i_widths' do
+    it 'returns binary widths of inputs' do
+      Circuit.new.i_widths.must_equal []
+      Circuit.new(is: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+        .i_widths.must_equal [1, 2]
+    end
+  end
+
+  describe '#o_widths' do
+    it 'returns binary widths of outputs' do
+      Circuit.new.o_widths.must_equal []
+      Circuit.new(os: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+        .o_widths.must_equal [1, 2]
+    end
+  end
+
+  describe '#p_widths' do
+    it 'returns binary widths of next states' do
+      Circuit.new.p_widths.must_equal []
+      Circuit.new(ps: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+        .p_widths.must_equal [1, 2]
+    end
+  end
+
+  describe '#q_widths' do
+    it 'returns binary widths of states' do
+      Circuit.new.q_widths.must_equal []
+      Circuit.new(qs: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+        .q_widths.must_equal [1, 2]
+    end
+  end
+
+  describe '#recoders' do
+    it 'returns the recorders' do
+      Circuit.new.recoders.must_equal []
+      Circuit.new(recoders: recoders = double).recoders.must_equal recoders
+    end
+  end
+
+  describe '#wirings' do
+    it 'returns the wirings' do
+      Circuit.new.wirings.must_equal []
+      Circuit.new(wirings: wirings = double).wirings.must_equal wirings
+    end
+  end
 end end
