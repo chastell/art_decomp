@@ -9,27 +9,24 @@ module ArtDecomp describe KISSParser do
         11 s1 s2 1--
         -0 s3 s1 --0
       end
-      inputs = [
-        { :'0' => [0,2], :'1' => [1,2] },
-        { :'0' => [0,2], :'1' => [0,1] },
-      ]
-      outputs = [
+
+      is = [{ :'0' => [0,2], :'1' => [1,2] }, { :'0' => [0,2], :'1' => [0,1] }]
+      os = [
         { :'0' => [0,2],   :'1' => [1,2]   },
         { :'0' => [0,1,2], :'1' => [0,1,2] },
         { :'0' => [0,1,2], :'1' => [0,1]   },
       ]
-      i_state = { s1: [0,1], s2: [],    s3: [2] }
-      o_state = { s1: [0,2], s2: [0,1], s3: [0] }
-      circuit         = Object.new
-      circuit_factory = MiniTest::Mock.new
-      circuit_factory.expect :from_fsm, circuit, [
-        { inputs: inputs, i_state: i_state, outputs: outputs, o_state: o_state }
-      ]
+      q = { s1: [0,1], s2: [],    s3: [2] }
+      p = { s1: [0,2], s2: [0,1], s3: [0] }
 
-      result = KISSParser.new(circuit_factory: circuit_factory).circuit_for kiss
+      circuit = Object.new
+      cf      = MiniTest::Mock.new
+      cf.expect :from_fsm, circuit, [{ is: is, q: q, os: os, p: p }]
+
+      result = KISSParser.new(circuit_factory: cf).circuit_for kiss
 
       result.must_equal circuit
-      circuit_factory.verify
+      cf.verify
     end
   end
 end end
