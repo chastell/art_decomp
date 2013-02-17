@@ -20,20 +20,8 @@ module ArtDecomp class Circuit
     @wirings   = opts.fetch(:wirings)   { [] }
   end
 
-  def i_widths
-    (ss[:i] || []).map { |i| Math.log2(i.size).ceil }
-  end
-
-  def o_widths
-    (ss[:o] || []).map { |o| Math.log2(o.size).ceil }
-  end
-
-  def p_widths
-    (ss[:p] || []).map { |p| Math.log2(p.size).ceil }
-  end
-
-  def q_widths
-    (ss[:q] || []).map { |q| Math.log2(q.size).ceil }
+  def widths group
+    ss[group].map { |s| Math.log2(s.size).ceil }
   end
 
   attr_reader :ss
