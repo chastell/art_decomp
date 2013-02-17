@@ -12,6 +12,11 @@ module ArtDecomp class Function
     [is.map(&:values), os.map(&:values)]
   end
 
+  def widths group
+    ss = { i: is, o: os }[group]
+    ss.map { |s| Math.log2(s.size).ceil }
+  end
+
   attr_reader :is, :os
   private     :is, :os
 end end

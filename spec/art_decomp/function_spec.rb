@@ -22,4 +22,11 @@ module ArtDecomp describe Function do
       ]
     end
   end
+
+  describe '#widths' do
+    it 'returns binary widths of signals' do
+      subject.widths(:i).must_equal [1, 2]
+      subject.widths(:o).must_equal [1, 2]
+    end
+  end
 end end
