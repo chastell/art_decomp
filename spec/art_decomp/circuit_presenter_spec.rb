@@ -2,8 +2,6 @@ require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitPresenter do
   describe '#vhdl' do
-    Pin = Struct.new :object, :group, :index
-
     it 'returns VHDL for the given Circuit' do
       function = double widths: -> s { { i: [1,1,1,2], o: [1,1,1,1,1,2]}[s] }
       circuit  = double functions: [function], recoders: [],
