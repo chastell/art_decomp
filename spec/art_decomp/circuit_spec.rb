@@ -44,7 +44,7 @@ module ArtDecomp describe Circuit do
 
   describe '#wirings' do
     it 'returns the wirings' do
-      Circuit.new.wirings.must_equal []
+      Circuit.new.wirings.must_equal({})
       Circuit.new(wirings: wirings = double).wirings.must_equal wirings
     end
   end

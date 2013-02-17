@@ -17,7 +17,7 @@ module ArtDecomp class Circuit
     @ss        = opts.fetch(:ss)        { {} }
     @functions = opts.fetch(:functions) { [] }
     @recoders  = opts.fetch(:recoders)  { [] }
-    @wirings   = opts.fetch(:wirings)   { [] }
+    @wirings   = opts.fetch(:wirings)   { {} }
   end
 
   def widths group
