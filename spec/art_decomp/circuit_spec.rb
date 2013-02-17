@@ -13,6 +13,12 @@ module ArtDecomp describe Circuit do
       circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, q: q, p: p
 
       circuit.functions.must_equal [function]
+      circuit.wirings.must_equal({
+        Pin.new(function, :i, 0) => Pin.new(circuit, :i, 0),
+        Pin.new(function, :i, 1) => Pin.new(circuit, :q, 0),
+        Pin.new(circuit, :o, 0) => Pin.new(function, :o, 0),
+        Pin.new(circuit, :p, 0) => Pin.new(function, :o, 1),
+      })
       ff.verify
     end
   end
