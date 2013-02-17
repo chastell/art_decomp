@@ -27,7 +27,7 @@ module ArtDecomp describe Circuit do
   describe '#i_widths' do
     it 'returns binary widths of inputs' do
       Circuit.new.i_widths.must_equal []
-      Circuit.new(is: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+      Circuit.new(ss: { i: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }] })
         .i_widths.must_equal [1, 2]
     end
   end
@@ -35,7 +35,7 @@ module ArtDecomp describe Circuit do
   describe '#o_widths' do
     it 'returns binary widths of outputs' do
       Circuit.new.o_widths.must_equal []
-      Circuit.new(os: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+      Circuit.new(ss: { o: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }] })
         .o_widths.must_equal [1, 2]
     end
   end
@@ -43,7 +43,7 @@ module ArtDecomp describe Circuit do
   describe '#p_widths' do
     it 'returns binary widths of next states' do
       Circuit.new.p_widths.must_equal []
-      Circuit.new(ps: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+      Circuit.new(ss: { p: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }] })
         .p_widths.must_equal [1, 2]
     end
   end
@@ -51,7 +51,7 @@ module ArtDecomp describe Circuit do
   describe '#q_widths' do
     it 'returns binary widths of states' do
       Circuit.new.q_widths.must_equal []
-      Circuit.new(qs: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }])
+      Circuit.new(ss: { q: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }] })
         .q_widths.must_equal [1, 2]
     end
   end
