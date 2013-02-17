@@ -2,15 +2,11 @@ module ArtDecomp class Circuit
   attr_reader :functions, :recoders, :wirings
 
   def self.from_fsm opts
-    is = opts.fetch :is
-    os = opts.fetch :os
-    q  = opts.fetch :q
-    p  = opts.fetch :p
-
+    ss = { i: opts.fetch(:is), o: opts.fetch(:os), q: [opts.fetch(:q)], p: [opts.fetch(:p)] }
     function_factory = opts.fetch(:function_factory) { Function }
-    function = function_factory.new is + [q], os + [p]
+    functions = [function_factory.new(ss[:i] + ss[:q], ss[:o] + ss[:p])]
 
-    new functions: [function], ss: { i: is, o: os, q: [q], p: [p] }
+    new functions: functions, ss: ss
   end
 
   def initialize opts = {}
