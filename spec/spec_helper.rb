@@ -16,6 +16,8 @@ class Double < OpenStruct
       define_singleton_method(name) { |*args| callable.call(*args) }
     end
   end
+
+  alias == equal?
 end
 
 def double opts = {}
