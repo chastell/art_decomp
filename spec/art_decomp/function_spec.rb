@@ -14,6 +14,18 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#is' do
+    it 'returns the input signals' do
+      subject.is.must_equal is
+    end
+  end
+
+  describe '#os' do
+    it 'returns the input signals' do
+      subject.os.must_equal os
+    end
+  end
+
   describe '#table' do
     it 'contains the truth table' do
       subject.table.must_equal [

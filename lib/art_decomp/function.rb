@@ -1,4 +1,6 @@
 module ArtDecomp class Function
+  attr_reader :is, :os
+
   def initialize is, os
     @is = is
     @os = os
@@ -16,7 +18,4 @@ module ArtDecomp class Function
     ss = { i: is, o: os }[group]
     ss.map { |s| Math.log2(s.size).ceil }
   end
-
-  attr_reader :is, :os
-  private     :is, :os
 end end
