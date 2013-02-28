@@ -2,8 +2,8 @@ require 'optparse'
 require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
-  def initialize args, opts = {}
-    @decomposer = opts.fetch(:decomposer) { Decomposer.new }
+  def initialize args, decomposer: Decomposer.new
+    @decomposer = decomposer
     @settings   = settings_from args
   end
 
