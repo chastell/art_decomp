@@ -2,17 +2,16 @@ module ArtDecomp class Circuit
   attr_accessor :wirings
   attr_reader :functions, :recoders
 
-  def self.from_fsm opts
-    ss = { i: opts.fetch(:is), o: opts.fetch(:os), q: [opts.fetch(:q)], p: [opts.fetch(:p)] }
-    function_factory = opts.fetch(:function_factory) { Function }
-    function = function_factory.new ss[:i] + ss[:q], ss[:o] + ss[:p]
+  def self.from_fsm(function_factory: Function, is: nil, os: nil, q: nil, p: nil)
+    fun = function_factory.new is + [q], os + [p]
+    ss  = { i: is, o: os, q: [q], p: [p] }
 
-    new(functions: [function], ss: ss).tap do |circuit|
-      circuit.wirings = Hash[
-        ss[:i].map.with_index { |s, n| [Pin.new(function, :i, n), Pin.new(circuit, :i, n)] } +
-        [[Pin.new(function, :i, ss[:i].size), Pin.new(circuit, :q, 0)]] +
-        ss[:o].map.with_index { |s, n| [Pin.new(circuit, :o, n), Pin.new(function, :o, n)] } +
-        [[Pin.new(circuit, :p, 0), Pin.new(function, :o, ss[:o].size)]]
+    new(functions: [fun], ss: ss).tap do |circ|
+      circ.wirings = Hash[
+        (0...is.size).map { |n| [Pin.new(fun, :i, n), Pin.new(circ, :i, n)] } +
+        [[Pin.new(fun, :i, is.size), Pin.new(circ, :q, 0)]] +
+        (0...os.size).map { |n| [Pin.new(circ, :o, n), Pin.new(fun, :o, n)] } +
+        [[Pin.new(circ, :p, 0), Pin.new(fun, :o, os.size)]]
       ]
     end
   end
