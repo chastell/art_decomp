@@ -1,9 +1,9 @@
 require 'erb'
 
 module ArtDecomp class CircuitPresenter
-  def initialize circuit, opts = {}
+  def initialize circuit, fp_factory: FunctionPresenter
     @circuit    = circuit
-    @fp_factory = opts.fetch(:fp_factory) { FunctionPresenter }
+    @fp_factory = fp_factory
   end
 
   def vhdl name
