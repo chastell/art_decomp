@@ -17,11 +17,8 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize opts = {}
-    @ss        = opts.fetch(:ss)        { {} }
-    @functions = opts.fetch(:functions) { [] }
-    @recoders  = opts.fetch(:recoders)  { [] }
-    @wirings   = opts.fetch(:wirings)   { {} }
+  def initialize(functions: [], recoders: [], ss: {}, wirings: {})
+    @functions, @recoders, @ss, @wirings = functions, recoders, ss, wirings
   end
 
   def widths group
