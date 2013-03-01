@@ -28,12 +28,16 @@ module ArtDecomp class FunctionPresenter
     end]
     dont_care = DontCare.to_s * width
     Array.new(put.values.flatten.max + 1) do |row|
-      keys = put.select { |code, rows| rows.include? row }.keys.sort
-      case
-      when keys == all    then dont_care
-      when keys.size == 1 then mapping[keys.first]
-      else                raise 'trying to map multiple (but not all) keys'
-      end
+      entry_for put, row, mapping, dont_care
+    end
+  end
+
+  def entry_for put, row, mapping, dont_care
+    keys = put.select { |code, rows| rows.include? row }.keys.sort
+    case
+    when keys == put.keys.sort then dont_care
+    when keys.size == 1        then mapping[keys.first]
+    else                       raise 'trying to map multiple (but not all) keys'
     end
   end
 end end
