@@ -6,9 +6,7 @@ module ArtDecomp class FunctionPresenter
   end
 
   def rows
-    ins  = function.is.map { |i| column_from i }.transpose.map(&:join)
-    outs = function.os.map { |o| column_from o }.transpose.map(&:join)
-    ins.zip outs
+    columns_from(function.is).zip columns_from function.os
   end
 
   def widths group
@@ -25,6 +23,10 @@ module ArtDecomp class FunctionPresenter
     Array.new(put.values.flatten.max + 1) do |row|
       entry_for put, row, dont_care
     end
+  end
+
+  def columns_from puts
+    puts.map { |s| column_from s }.transpose.map(&:join)
   end
 
   def entry_for put, row, dont_care
