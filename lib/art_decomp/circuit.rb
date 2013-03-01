@@ -1,6 +1,5 @@
 module ArtDecomp class Circuit
-  attr_accessor :wirings
-  attr_reader :functions, :recoders
+  attr_accessor :functions, :recoders, :wirings
 
   def self.from_fsm(function_factory: Function, is: nil, os: nil, q: nil, p: nil)
     fun = function_factory.new is + [q], os + [p]

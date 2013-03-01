@@ -13,6 +13,7 @@ module ArtDecomp describe Circuit do
       circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, q: q, p: p
 
       circuit.functions.must_equal [function]
+      circuit.recoders.must_be :empty?
       circuit.wirings.must_equal({
         Pin.new(function, :i, 0) => Pin.new(circuit, :i, 0),
         Pin.new(function, :i, 1) => Pin.new(circuit, :q, 0),
@@ -23,17 +24,19 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#functions' do
-    it 'returns the functions' do
+  describe '#functions, #functions=' do
+    it 'gets/sets the functions' do
       Circuit.new.functions.must_equal []
-      Circuit.new(functions: functions = double).functions.must_equal functions
+      Circuit.new(functions: funs = double).functions.must_equal funs
+      Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
     end
   end
 
-  describe '#recoders' do
-    it 'returns the recorders' do
+  describe '#recoders, #recoders=' do
+    it 'gets/sets the recorders' do
       Circuit.new.recoders.must_equal []
-      Circuit.new(recoders: recoders = double).recoders.must_equal recoders
+      Circuit.new(recoders: recs = double).recoders.must_equal recs
+      Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
     end
   end
 
@@ -48,10 +51,11 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#wirings' do
-    it 'returns the wirings' do
+  describe '#wirings, #wirings=' do
+    it 'gets/sets the wirings' do
       Circuit.new.wirings.must_equal({})
-      Circuit.new(wirings: wirings = double).wirings.must_equal wirings
+      Circuit.new(wirings: wirs = double).wirings.must_equal wirs
+      Circuit.new.tap { |c| c.wirings = wirs }.wirings.must_equal wirs
     end
   end
 end end
