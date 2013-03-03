@@ -2,65 +2,63 @@ require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitPresenter do
   describe '#vhdl' do
+    let(:circuit) { KISSParser.new(File.read 'spec/fixtures/mc.kiss').circuit }
+    let(:circuit_presenter) { CircuitPresenter.new circuit }
+
     it 'returns VHDL for the given Circuit' do
-      circuit = KISSParser.new(File.read 'spec/fixtures/mc.kiss').circuit
-      circuit_presenter = CircuitPresenter.new circuit
       circuit_presenter.vhdl('mc').must_equal File.read 'spec/fixtures/mc.vhdl'
     end
 
     it 'returns VHDL for the given decomposed Circuit' do
-      f0 = double widths: -> s { { i: [1,1,1], o: [1,1] }[s] }
-      f1 = double widths: -> s { { i: [1,1,1,1], o: [1,1,1,1,1,1,1] }[s] }
-      r0 = double widths: -> s { { i: [2], o: [1,1] }[s] }
-      r1 = double widths: -> s { { i: [1,1], o: [2] }[s] }
-      circuit = double functions: [f0, f1], recoders: [r0, r1],
-        widths: -> s { { i: [1,1,1], o: [1,1,1,1,1], q: [2], p: [2] }[s] }
-      circuit.wirings = {
-           Pin.new(f0, :i, 0) => Pin.new(circuit, :i, 0),
-           Pin.new(f0, :i, 1) => Pin.new(circuit, :i, 1),
-           Pin.new(f0, :i, 2) => Pin.new(r0, :o, 1),
-           Pin.new(f1, :i, 0) => Pin.new(circuit, :i, 2),
-           Pin.new(f1, :i, 1) => Pin.new(f0, :o, 0),
-           Pin.new(f1, :i, 2) => Pin.new(f0, :o, 1),
-           Pin.new(f1, :i, 3) => Pin.new(r0, :o, 0),
-           Pin.new(circuit, :p, 0) => Pin.new(r1, :o, 0),
-           Pin.new(circuit, :o, 0) => Pin.new(f1, :o, 2),
-           Pin.new(circuit, :o, 1) => Pin.new(f1, :o, 3),
-           Pin.new(circuit, :o, 2) => Pin.new(f1, :o, 4),
-           Pin.new(circuit, :o, 3) => Pin.new(f1, :o, 5),
-           Pin.new(circuit, :o, 4) => Pin.new(f1, :o, 6),
-        }
+      f0is = [
+        { :'0' => [0,1,2,3], :'1' => [4,5,6,7] },
+        { :'0' => [0,1,4,5], :'1' => [2,3,6,7] },
+        { :a   => [0,2,4,6], :b   => [1,3,5,7] },
+      ]
+      f0os = [
+        { a: [1,3,4,5], b: [0,2,6,7] },
+        { a: [0,2,4,6], b: [1,3,5,7] },
+      ]
+      f1is = [
+        { :'0' => [0,1,2,3,4,5,6,7], :'1' => [0,1,2,3,8,9,10,11] },
+        { a: [0,1,4,5,8,9], b: [2,3,6,7,10,11] },
+        { a: [0,2,4,6,8,10], b: [1,3,5,7,9,11] },
+        { a: [0,1,2,3], b: [4,5,6,7,8,9,10,11] },
+      ]
+      f1os = [
+        { a: [0,1,8,9,10,11], b: [2,3,4,5,6,7] },
+        { a: [0,2,4,6,9,11], b: [1,3,5,7,8,10] },
+        { :'0' => [0,1,4,5,6,7], :'1' => [2,3,8,9,10,11] },
+        { :'0' => [1,3,5,7,9,11], :'1' => [0,2,4,6,8,10] },
+        { :'0' => [0,1,2,3,4,6,8,10], :'1' => [5,7,9,11] },
+        { :'0' => [0,2,4,6,8,10], :'1' => [1,3,5,7,9,11] },
+        { :'0' => [0,1,2,3,5,7,9,11], :'1' => [4,6,8,10] },
+      ]
+      f0 = Function.new f0is, f0os
+      f1 = Function.new f1is, f1os
+      r_state = [{ FG: [0], FY: [1], HG: [2], HY: [3] }]
+      r_coded = [{ a: [0,2], b: [1,3] }, { a: [0,1], b: [2,3] }]
+      r0 = Function.new r_state, r_coded
+      r1 = Function.new r_coded, r_state
+      circuit.functions = [f0, f1]
+      circuit.recoders  = [r0, r1]
+      circuit.wirings   = {
+        Pin.new(f0, :i, 0) => Pin.new(circuit, :i, 0),
+        Pin.new(f0, :i, 1) => Pin.new(circuit, :i, 1),
+        Pin.new(f0, :i, 2) => Pin.new(r0, :o, 1),
+        Pin.new(f1, :i, 0) => Pin.new(circuit, :i, 2),
+        Pin.new(f1, :i, 1) => Pin.new(f0, :o, 0),
+        Pin.new(f1, :i, 2) => Pin.new(f0, :o, 1),
+        Pin.new(f1, :i, 3) => Pin.new(r0, :o, 0),
+        Pin.new(circuit, :p, 0) => Pin.new(r1, :o, 0),
+        Pin.new(circuit, :o, 0) => Pin.new(f1, :o, 2),
+        Pin.new(circuit, :o, 1) => Pin.new(f1, :o, 3),
+        Pin.new(circuit, :o, 2) => Pin.new(f1, :o, 4),
+        Pin.new(circuit, :o, 3) => Pin.new(f1, :o, 5),
+        Pin.new(circuit, :o, 4) => Pin.new(f1, :o, 6),
+      }
 
-      fp0 = double widths: -> s { { i: [1,1,1], o: [1,1] }[s] }, rows: [
-          ['000', '10'],
-          ['001', '01'],
-          ['010', '10'],
-          ['011', '01'],
-          ['100', '00'],
-          ['101', '01'],
-          ['110', '10'],
-          ['111', '11'],
-        ]
-
-      fp1 = double widths: -> s { { i: [1,1,1,1], o: [1,1,1,1,1,1,1] }[s] }, rows: [
-          ['-000', '0001000'],
-          ['-010', '0100010'],
-          ['-100', '1011000'],
-          ['-110', '1110010'],
-          ['0001', '1001001'],
-          ['0011', '1100110'],
-          ['0101', '1001001'],
-          ['0111', '1100110'],
-          ['1001', '0111001'],
-          ['1011', '0010110'],
-          ['1101', '0111001'],
-          ['1111', '0010110'],
-        ]
-      fp_factory = double new: -> f { { f0 => fp0, f1 => fp1 }[f] }
-
-      cp = CircuitPresenter.new circuit, fp_factory: fp_factory
-
-      cp.vhdl('mc').must_equal File.read 'spec/fixtures/mc.decomposed.vhdl'
+      circuit_presenter.vhdl('mc').must_equal File.read 'spec/fixtures/mc.decomposed.vhdl'
     end
   end
 end end
