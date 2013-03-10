@@ -20,7 +20,7 @@ module ArtDecomp class Circuit
   end
 
   def widths group
-    ss[group].map { |s| Math.log2(s.size).ceil }
+    ss[group].map { |s| width_of s }
   end
 
   attr_reader :ss

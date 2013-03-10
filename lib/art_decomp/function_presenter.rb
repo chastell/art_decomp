@@ -44,8 +44,4 @@ module ArtDecomp class FunctionPresenter
       [key, index.to_s(2).rjust(width_of(put), '0')]
     end]
   end
-
-  def width_of put
-    Math.log2(put.size).ceil
-  end
 end end

@@ -16,6 +16,6 @@ module ArtDecomp class Function
 
   def widths group
     ss = { i: is, o: os }[group]
-    ss.map { |s| Math.log2(s.size).ceil }
+    ss.map { |s| width_of s }
   end
 end end
