@@ -7,11 +7,11 @@ module ArtDecomp class KISSDecomposer
     @settings   = settings_from args
   end
 
-  def decompose(circuit_presenter: nil, kiss_parser: nil)
+  def decompose(circuit_provider: KISSParser.method(:new), vhdl_provider: CircuitPresenter.method(:new))
     kiss = File.read settings.kiss_path
-    circ = (kiss_parser || KISSParser.new(kiss)).circuit
+    circ = circuit_provider.call(kiss).circuit
     decd = decomposer.decompose circ
-    vhdl = (circuit_presenter || CircuitPresenter.new(decd)).vhdl
+    vhdl = vhdl_provider.call(decd).vhdl
     name = File.basename settings.kiss_path, '.kiss'
     File.write "#{settings.vhdl_path}/#{name}.vhdl", vhdl
   end
