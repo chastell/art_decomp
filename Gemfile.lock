@@ -7,7 +7,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (4.6.2)
-    rake (10.0.3)
 
 PLATFORMS
   ruby
@@ -15,4 +14,3 @@ PLATFORMS
 DEPENDENCIES
   art_decomp!
   minitest (~> 4.0)
-  rake (~> 10.0)
