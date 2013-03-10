@@ -12,8 +12,8 @@ module ArtDecomp describe KISSDecomposer do
           args = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
           kiss_decomposer = KISSDecomposer.new args, decomposer: decomposer
           kiss_decomposer.decompose(
-            circuit_provider: ->(_) { double circuit: circuit  },
-            vhdl_provider:    ->(_) { double vhdl: 'some VHDL' },
+            circuit_provider: double(circuit_from_kiss: -> _ { circuit     }),
+            vhdl_provider:    double(vhdl_for_circuit:  -> _ { 'some VHDL' }),
           )
         end
         File.read("#{vhdl_path}/mc.vhdl").must_equal 'some VHDL'
