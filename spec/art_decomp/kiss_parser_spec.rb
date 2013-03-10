@@ -1,6 +1,14 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe KISSParser do
+  describe '.circuit_from_kiss' do
+    it 'parses the KISS and returns a Circuit' do
+      KISSParser.stub :new, double(circuit: circuit = double) do
+        KISSParser.circuit_from_kiss('some KISS').must_equal circuit
+      end
+    end
+  end
+
   describe '#circuit' do
     it 'returns a Circuit represented by the KISS source' do
       kiss = <<-end.dedent

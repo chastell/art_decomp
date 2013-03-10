@@ -1,4 +1,8 @@
 module ArtDecomp class KISSParser
+  def self.circuit_from_kiss kiss
+    new(kiss).circuit
+  end
+
   def initialize kiss
     @kiss = kiss
   end
