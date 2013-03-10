@@ -1,9 +1,8 @@
 require 'erb'
 
 module ArtDecomp class CircuitPresenter
-  def initialize circuit, fp_factory: FunctionPresenter
-    @circuit    = circuit
-    @fp_factory = fp_factory
+  def initialize circuit
+    @circuit = circuit
   end
 
   def vhdl name
@@ -11,13 +10,13 @@ module ArtDecomp class CircuitPresenter
     ERB.new(template, nil, '%').result binding
   end
 
-  attr_reader :circuit, :fp_factory
-  private     :circuit, :fp_factory
+  attr_reader :circuit
+  private     :circuit
 
   private
 
   def functions
-    @functions ||= circuit.functions.map { |fun| fp_factory.new fun }
+    @functions ||= circuit.functions.map { |fun| FunctionPresenter.new fun }
   end
 
   def fsm_i_width
