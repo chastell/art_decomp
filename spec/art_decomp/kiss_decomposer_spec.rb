@@ -4,15 +4,13 @@ require 'tmpdir'
 module ArtDecomp describe KISSDecomposer do
   describe '#decompose' do
     it 'decomposes the given KISS file into VHDL implementation' do
-      circuit    = double
-      decomposer = double decompose: -> _ { circuit }
-
       Dir.mktmpdir do |vhdl_path|
         File.stub :read, 'some KISS' do
           args = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
-          kiss_decomposer = KISSDecomposer.new args, decomposer: decomposer
+          kiss_decomposer = KISSDecomposer.new args
           kiss_decomposer.decompose(
-            circuit_provider: double(circuit_from_kiss: -> _ { circuit     }),
+            circuit_provider: double(circuit_from_kiss: -> _ { double      }),
+            decomposer:       double(decompose:         -> _ { double      }),
             vhdl_provider:    double(vhdl_for_circuit:  -> _ { 'some VHDL' }),
           )
         end

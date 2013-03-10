@@ -2,12 +2,11 @@ require 'optparse'
 require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
-  def initialize args, decomposer: Decomposer.new
-    @decomposer = decomposer
-    @settings   = settings_from args
+  def initialize args
+    @settings = settings_from args
   end
 
-  def decompose(circuit_provider: KISSParser, vhdl_provider: CircuitPresenter)
+  def decompose(circuit_provider: KISSParser, decomposer: Decomposer.new, vhdl_provider: CircuitPresenter)
     kiss = File.read settings.kiss_path
     circ = circuit_provider.circuit_from_kiss kiss
     decd = decomposer.decompose circ
@@ -16,8 +15,8 @@ module ArtDecomp class KISSDecomposer
     File.write "#{settings.vhdl_path}/#{name}.vhdl", vhdl
   end
 
-  attr_reader :decomposer, :settings
-  private     :decomposer, :settings
+  attr_reader :settings
+  private     :settings
 
   private
 
