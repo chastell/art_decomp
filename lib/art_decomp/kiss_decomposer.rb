@@ -10,8 +10,8 @@ module ArtDecomp class KISSDecomposer
     kiss = File.read settings.kiss_path
     circ = circuit_provider.circuit_from_kiss kiss
     decd = decomposer.decompose circ
-    vhdl = vhdl_provider.vhdl_for_circuit decd
     name = File.basename settings.kiss_path, '.kiss'
+    vhdl = vhdl_provider.vhdl_for_circuit decd, name
     File.write "#{settings.vhdl_path}/#{name}.vhdl", vhdl
   end
 
