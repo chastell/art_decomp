@@ -1,15 +1,14 @@
 module ArtDecomp class KISSParser
-  def initialize kiss, circuit_factory: Circuit
-    @kiss            = kiss
-    @circuit_factory = circuit_factory
+  def initialize kiss
+    @kiss = kiss
   end
 
-  def circuit
+  def circuit(circuit_factory: Circuit)
     circuit_factory.from_fsm is: is, os: os, q: q, p: p
   end
 
-  attr_reader :circuit_factory, :kiss
-  private     :circuit_factory, :kiss
+  attr_reader :kiss
+  private     :kiss
 
   private
 

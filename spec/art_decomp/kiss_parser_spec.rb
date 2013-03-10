@@ -22,7 +22,7 @@ module ArtDecomp describe KISSParser do
       cf = MiniTest::Mock.new
       cf.expect :from_fsm, circuit = double, [{ is: is, q: q, os: os, p: p }]
 
-      KISSParser.new(kiss, circuit_factory: cf).circuit.must_equal circuit
+      KISSParser.new(kiss).circuit(circuit_factory: cf).must_equal circuit
 
       cf.verify
     end
