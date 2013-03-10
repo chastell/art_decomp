@@ -1,6 +1,10 @@
 require 'erb'
 
 module ArtDecomp class CircuitPresenter
+  def self.vhdl_for_circuit circuit, name
+    new(circuit).vhdl name
+  end
+
   def initialize circuit
     @circuit = circuit
   end

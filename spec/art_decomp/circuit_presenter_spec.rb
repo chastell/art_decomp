@@ -1,6 +1,16 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitPresenter do
+  describe '.vhdl_for_circuit' do
+    it 'returns VHDL for the given circuit' do
+      circuit_presenter = MiniTest::Mock.new.expect :vhdl, 'VHDL', ['name']
+      CircuitPresenter.stub :new, circuit_presenter do
+        CircuitPresenter.vhdl_for_circuit(double, 'name').must_equal 'VHDL'
+      end
+      circuit_presenter.verify
+    end
+  end
+
   describe '#vhdl' do
     let(:circuit) { KISSParser.new(File.read 'spec/fixtures/mc.kiss').circuit }
     let(:circuit_presenter) { CircuitPresenter.new circuit }
