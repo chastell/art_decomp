@@ -9,7 +9,7 @@ module ArtDecomp describe KISSDecomposer do
           args = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
           KISSDecomposer.new(args).decompose(
             circuit_provider: double(circuit_from_kiss: -> _ { double }),
-            decomposer: double(decompose: -> _ { double }),
+            decomposer: double(decompose_circuit: -> _ { double }),
             vhdl_provider: double(vhdl_for_circuit: -> _,_ { 'some VHDL' }),
           )
         end
