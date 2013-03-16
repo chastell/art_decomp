@@ -10,4 +10,11 @@ module ArtDecomp describe Decomposer do
       decomposer.verify
     end
   end
+
+  describe '#decompose' do
+    it 'returns the circuit if its widest function fits width' do
+      circuit = double max_width: 7
+      Decomposer.new(circuit, width: 7).decompose.must_equal circuit
+    end
+  end
 end end
