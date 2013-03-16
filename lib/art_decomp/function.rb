@@ -6,6 +6,10 @@ module ArtDecomp class Function
     @os = os
   end
 
+  def width
+    widths(:i).reduce 0, :+
+  end
+
   def widths group
     ss = { i: is, o: os }[group]
     ss.map { |s| width_of s }

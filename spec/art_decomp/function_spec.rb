@@ -17,6 +17,13 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#width' do
+    it 'returns binary width of the function' do
+      Function.new([], []).width.must_equal 0
+      subject.width.must_equal 3
+    end
+  end
+
   describe '#widths' do
     it 'returns binary widths of signals' do
       subject.widths(:i).must_equal [1, 2]
