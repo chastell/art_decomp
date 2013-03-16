@@ -19,6 +19,10 @@ module ArtDecomp class Circuit
     @functions, @recoders, @ss, @wirings = functions, recoders, ss, wirings
   end
 
+  def max_width
+    functions.map(&:width).max || 0
+  end
+
   def widths group
     ss[group].map { |s| width_of s }
   end
