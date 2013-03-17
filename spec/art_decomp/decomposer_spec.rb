@@ -16,5 +16,18 @@ module ArtDecomp describe Decomposer do
       circuit = double max_width: 7
       Decomposer.new(circuit, width: 7).decompose.must_equal circuit
     end
+
+    it 'tells circuit to replace the widest function with decomposed' do
+      circuit = MiniTest::Mock.new
+      circuit.expect :max_width, 11
+      circuit.expect :widest_function, widest = double
+      fundec = MiniTest::Mock.new
+      fundec.expect :decompose, result = double, [widest, { width: 7 }]
+      circuit.expect :replace, decomposed = double, [widest, result]
+      decomposer = Decomposer.new circuit, width: 7
+      decomposer.decompose(function_decomposer: fundec).must_equal decomposed
+      circuit.verify
+      fundec.verify
+    end
   end
 end end
