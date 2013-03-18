@@ -8,9 +8,11 @@ module ArtDecomp class Decomposer
   end
 
   def decompose(function_decomposer: nil)
-    return circuit if circuit.max_width <= width
-    widest = circuit.widest_function
-    circuit.replace widest, function_decomposer.decompose(widest, width: width)
+    while circuit.max_width > width
+      widest   = circuit.widest_function
+      @circuit = circuit.replace widest, function_decomposer.decompose(widest, width: width)
+    end
+    circuit
   end
 
   attr_reader :circuit, :width
