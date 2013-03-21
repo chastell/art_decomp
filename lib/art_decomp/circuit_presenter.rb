@@ -24,15 +24,15 @@ module ArtDecomp class CircuitPresenter
   end
 
   def fsm_i_width
-    circuit.widths(:i).inject 0, :+
+    circuit.widths(:i).reduce 0, :+
   end
 
   def fsm_o_width
-    circuit.widths(:o).inject 0, :+
+    circuit.widths(:o).reduce 0, :+
   end
 
   def fsm_q_width
-    circuit.widths(:q).inject 0, :+
+    circuit.widths(:q).reduce 0, :+
   end
 
   def recoders
@@ -58,8 +58,8 @@ module ArtDecomp class CircuitPresenter
                   end
 
       Array.new dst.object.widths(dst.group)[dst.index] do |n|
-        dst_index = dst.object.widths(dst.group)[0...dst.index].inject(0, :+) + n
-        src_index = src.object.widths(src.group)[0...src.index].inject(0, :+) + n
+        dst_index = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
+        src_index = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
         ["#{dst_label}_#{dst.group}(#{dst_index})", "#{src_label}_#{src.group}(#{src_index})"]
       end
     end]
