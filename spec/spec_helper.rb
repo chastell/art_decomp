@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/art_decomp'
+require 'art_decomp'
 
 class String
   def dedent
