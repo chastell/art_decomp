@@ -3,10 +3,10 @@ require_relative '../spec_helper'
 module ArtDecomp describe Circuit do
   describe '.from_fsm' do
     it 'creates a Circuit representing the FSM' do
-      is = [{ :'0' => [0], :'1' => [1] }]
-      os = [{ :'0' => [1], :'1' => [0] }]
-      q  = { s1: [0], s2: [1], s3: [2] }
-      p  = { s1: [1], s2: [2], s3: [0] }
+      is = [{ :'0' => B[0], :'1' => B[1] }]
+      os = [{ :'0' => B[1], :'1' => B[0] }]
+      q  = { s1: B[0], s2: B[1], s3: B[2] }
+      p  = { s1: B[1], s2: B[2], s3: B[0] }
 
       ff = MiniTest::Mock.new.expect :new, function = double, [is + [q], os + [p]]
 
@@ -51,8 +51,8 @@ module ArtDecomp describe Circuit do
   describe '#widths' do
     it 'returns binary widths of signals' do
       circuit = Circuit.new(ss: {
-        i: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }],
-        q: [{ a: [0,1], b: [1,2] }, { a: [0], b: [1], c: [2] }],
+        i: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
+        q: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
       })
       circuit.widths(:i).must_equal [1, 2]
       circuit.widths(:q).must_equal [1, 2]

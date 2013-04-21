@@ -23,7 +23,10 @@ module ArtDecomp class KISSParser
 
   def hashify col, keys, dc
     Hash[keys.map do |key|
-      [key.to_sym, col.each_index.select { |i| col[i] == key or col[i] == dc }]
+      [
+        key.to_sym,
+        B[*col.each_index.select { |i| col[i] == key or col[i] == dc }],
+      ]
     end]
   end
 

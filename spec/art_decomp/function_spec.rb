@@ -1,8 +1,8 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe Function do
-  let(:is) { [{ :'0' => [0], :'1' => [1] }, { s1: [0], s2: [1], s3: [2] }] }
-  let(:os) { [{ :'0' => [1], :'1' => [0] }, { s1: [1], s2: [2], s3: [0] }] }
+  let(:is) { [{ :'0' => B[0], :'1' => B[1] }, { s1: B[0], s2: B[1], s3: B[2] }] }
+  let(:os) { [{ :'0' => B[1], :'1' => B[0] }, { s1: B[1], s2: B[2], s3: B[0] }] }
   let(:function) { Function.new is, os }
 
   describe '#is' do

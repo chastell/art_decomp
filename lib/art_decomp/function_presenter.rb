@@ -20,7 +20,7 @@ module ArtDecomp class FunctionPresenter
 
   def column_from put
     dont_care = DontCare.to_s * width_of(put)
-    Array.new(put.values.flatten.max + 1) do |row|
+    Array.new(put.values.max.to_s(2).size) do |row|
       entry_for put, row, dont_care
     end
   end
@@ -31,7 +31,7 @@ module ArtDecomp class FunctionPresenter
 
   def entry_for put, row, dont_care
     mapping = mapping_for put
-    keys = put.select { |code, rows| rows.include? row }.keys.sort
+    keys = put.select { |code, bits| (bits & 1 << row).nonzero? }.keys.sort
     case
     when keys == put.keys.sort then dont_care
     when keys.size == 1        then mapping[keys.first]
