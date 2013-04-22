@@ -1,16 +1,16 @@
 module ArtDecomp class Circuit
   attr_accessor :functions, :recoders, :wirings
 
-  def self.from_fsm(function_factory: Function, is: nil, os: nil, q: nil, p: nil)
-    fun = function_factory.new is + [q], os + [p]
-    ss  = { i: is, o: os, q: [q], p: [p] }
+  def self.from_fsm(function_factory: Function, is: nil, os: nil, qs: nil, ps: nil)
+    fun = function_factory.new is + qs, os + ps
+    ss  = { is: is, os: os, qs: qs, ps: ps }
 
     new(functions: [fun], ss: ss).tap do |circ|
       circ.wirings = Hash[
-        (0...is.size).map { |n| [Pin.new(fun, :i, n), Pin.new(circ, :i, n)] } +
-        [[Pin.new(fun, :i, is.size), Pin.new(circ, :q, 0)]] +
-        (0...os.size).map { |n| [Pin.new(circ, :o, n), Pin.new(fun, :o, n)] } +
-        [[Pin.new(circ, :p, 0), Pin.new(fun, :o, os.size)]]
+        (0...is.size).map { |n| [Pin.new(fun, :is, n), Pin.new(circ, :is, n)] } +
+        [[Pin.new(fun, :is, is.size), Pin.new(circ, :qs, 0)]] +
+        (0...os.size).map { |n| [Pin.new(circ, :os, n), Pin.new(fun, :os, n)] } +
+        [[Pin.new(circ, :ps, 0), Pin.new(fun, :os, os.size)]]
       ]
     end
   end

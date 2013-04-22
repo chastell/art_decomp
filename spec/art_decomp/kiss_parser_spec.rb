@@ -26,11 +26,11 @@ module ArtDecomp describe KISSParser do
         { :'0' => B[0,1,2], :'1' => B[0,1,2] },
         { :'0' => B[0,1,2], :'1' => B[0,1]   },
       ]
-      q = { s1: B[0,1], s2: B[],    s3: B[2] }
-      p = { s1: B[0,2], s2: B[0,1], s3: B[0] }
+      qs = [{ s1: B[0,1], s2: B[],    s3: B[2] }]
+      ps = [{ s1: B[0,2], s2: B[0,1], s3: B[0] }]
 
       cf = MiniTest::Mock.new
-      cf.expect :from_fsm, circuit = double, [{ is: is, q: q, os: os, p: p }]
+      cf.expect :from_fsm, circuit = double, [{ is: is, qs: qs, os: os, ps: ps }]
 
       KISSParser.new(kiss).circuit(circuit_factory: cf).must_equal circuit
 

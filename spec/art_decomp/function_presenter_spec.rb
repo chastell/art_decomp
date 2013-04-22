@@ -36,8 +36,8 @@ module ArtDecomp describe FunctionPresenter do
 
   describe '#widths' do
     it 'returns the Function widths' do
-      function_presenter.widths(:i).must_equal [1, 1, 1, 2]
-      function_presenter.widths(:o).must_equal [1, 1, 1, 1, 1, 2]
+      function_presenter.widths(:is).must_equal [1, 1, 1, 2]
+      function_presenter.widths(:os).must_equal [1, 1, 1, 1, 1, 2]
     end
   end
 end end

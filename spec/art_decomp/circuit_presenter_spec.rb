@@ -53,19 +53,19 @@ module ArtDecomp describe CircuitPresenter do
       circuit.functions = [f0, f1]
       circuit.recoders  = [r0, r1]
       circuit.wirings   = {
-        Pin.new(f0, :i, 0) => Pin.new(circuit, :i, 0),
-        Pin.new(f0, :i, 1) => Pin.new(circuit, :i, 1),
-        Pin.new(f0, :i, 2) => Pin.new(r0, :o, 1),
-        Pin.new(f1, :i, 0) => Pin.new(circuit, :i, 2),
-        Pin.new(f1, :i, 1) => Pin.new(f0, :o, 0),
-        Pin.new(f1, :i, 2) => Pin.new(f0, :o, 1),
-        Pin.new(f1, :i, 3) => Pin.new(r0, :o, 0),
-        Pin.new(circuit, :p, 0) => Pin.new(r1, :o, 0),
-        Pin.new(circuit, :o, 0) => Pin.new(f1, :o, 2),
-        Pin.new(circuit, :o, 1) => Pin.new(f1, :o, 3),
-        Pin.new(circuit, :o, 2) => Pin.new(f1, :o, 4),
-        Pin.new(circuit, :o, 3) => Pin.new(f1, :o, 5),
-        Pin.new(circuit, :o, 4) => Pin.new(f1, :o, 6),
+        Pin.new(f0, :is, 0) => Pin.new(circuit, :is, 0),
+        Pin.new(f0, :is, 1) => Pin.new(circuit, :is, 1),
+        Pin.new(f0, :is, 2) => Pin.new(r0, :os, 1),
+        Pin.new(f1, :is, 0) => Pin.new(circuit, :is, 2),
+        Pin.new(f1, :is, 1) => Pin.new(f0, :os, 0),
+        Pin.new(f1, :is, 2) => Pin.new(f0, :os, 1),
+        Pin.new(f1, :is, 3) => Pin.new(r0, :os, 0),
+        Pin.new(circuit, :ps, 0) => Pin.new(r1, :os, 0),
+        Pin.new(circuit, :os, 0) => Pin.new(f1, :os, 2),
+        Pin.new(circuit, :os, 1) => Pin.new(f1, :os, 3),
+        Pin.new(circuit, :os, 2) => Pin.new(f1, :os, 4),
+        Pin.new(circuit, :os, 3) => Pin.new(f1, :os, 5),
+        Pin.new(circuit, :os, 4) => Pin.new(f1, :os, 6),
       }
 
       circuit_presenter.vhdl('mc').must_equal File.read 'spec/fixtures/mc.decomposed.vhdl'

@@ -23,16 +23,16 @@ module ArtDecomp class CircuitPresenter
     @functions ||= circuit.functions.map { |fun| FunctionPresenter.new fun }
   end
 
-  def fsm_i_width
-    circuit.widths(:i).reduce 0, :+
+  def fsm_is_width
+    circuit.widths(:is).reduce 0, :+
   end
 
-  def fsm_o_width
-    circuit.widths(:o).reduce 0, :+
+  def fsm_os_width
+    circuit.widths(:os).reduce 0, :+
   end
 
-  def fsm_q_width
-    circuit.widths(:q).reduce 0, :+
+  def fsm_qs_width
+    circuit.widths(:qs).reduce 0, :+
   end
 
   def recoders
@@ -40,7 +40,7 @@ module ArtDecomp class CircuitPresenter
   end
 
   def reset_bits
-    '0' * fsm_q_width
+    '0' * fsm_qs_width
   end
 
   def wirings

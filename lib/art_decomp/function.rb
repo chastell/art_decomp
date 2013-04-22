@@ -7,11 +7,11 @@ module ArtDecomp class Function
   end
 
   def width
-    widths(:i).reduce 0, :+
+    widths(:is).reduce 0, :+
   end
 
   def widths group
-    ss = { i: is, o: os }[group]
+    ss = { is: is, os: os }[group]
     ss.map { |s| width_of s }
   end
 end end

@@ -5,20 +5,20 @@ module ArtDecomp describe Circuit do
     it 'creates a Circuit representing the FSM' do
       is = [{ :'0' => B[0], :'1' => B[1] }]
       os = [{ :'0' => B[1], :'1' => B[0] }]
-      q  = { s1: B[0], s2: B[1], s3: B[2] }
-      p  = { s1: B[1], s2: B[2], s3: B[0] }
+      qs = [{ s1: B[0], s2: B[1], s3: B[2] }]
+      ps = [{ s1: B[1], s2: B[2], s3: B[0] }]
 
-      ff = MiniTest::Mock.new.expect :new, function = double, [is + [q], os + [p]]
+      ff = MiniTest::Mock.new.expect :new, function = double, [is + qs, os + ps]
 
-      circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, q: q, p: p
+      circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, qs: qs, ps: ps
 
       circuit.functions.must_equal [function]
       circuit.recoders.must_be :empty?
       circuit.wirings.must_equal({
-        Pin.new(function, :i, 0) => Pin.new(circuit, :i, 0),
-        Pin.new(function, :i, 1) => Pin.new(circuit, :q, 0),
-        Pin.new(circuit, :o, 0) => Pin.new(function, :o, 0),
-        Pin.new(circuit, :p, 0) => Pin.new(function, :o, 1),
+        Pin.new(function, :is, 0) => Pin.new(circuit, :is, 0),
+        Pin.new(function, :is, 1) => Pin.new(circuit, :qs, 0),
+        Pin.new(circuit, :os, 0) => Pin.new(function, :os, 0),
+        Pin.new(circuit, :ps, 0) => Pin.new(function, :os, 1),
       })
       ff.verify
     end
@@ -51,11 +51,11 @@ module ArtDecomp describe Circuit do
   describe '#widths' do
     it 'returns binary widths of signals' do
       circuit = Circuit.new(ss: {
-        i: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
-        q: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
+        is: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
+        qs: [{ a: B[0,1], b: B[1,2] }, { a: B[0], b: B[1], c: B[2] }],
       })
-      circuit.widths(:i).must_equal [1, 2]
-      circuit.widths(:q).must_equal [1, 2]
+      circuit.widths(:is).must_equal [1, 2]
+      circuit.widths(:qs).must_equal [1, 2]
     end
   end
 
