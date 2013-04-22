@@ -2,8 +2,7 @@ module ArtDecomp class Function
   attr_reader :is, :os
 
   def initialize is, os
-    @is = is
-    @os = os
+    @is, @os = is, os
   end
 
   def width
@@ -11,7 +10,6 @@ module ArtDecomp class Function
   end
 
   def widths group
-    ss = { is: is, os: os }[group]
-    ss.map { |s| width_of s }
+    send(group).map { |s| width_of s }
   end
 end end
