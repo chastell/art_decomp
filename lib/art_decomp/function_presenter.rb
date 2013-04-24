@@ -1,20 +1,11 @@
-module ArtDecomp class FunctionPresenter
+require 'delegate'
+
+module ArtDecomp class FunctionPresenter < SimpleDelegator
   DontCare = :-
 
-  def initialize function
-    @function = function
-  end
-
   def rows
-    columns_from(function.is).zip columns_from function.os
+    columns_from(is).zip columns_from os
   end
-
-  def widths group
-    function.widths group
-  end
-
-  attr_reader :function
-  private     :function
 
   private
 
