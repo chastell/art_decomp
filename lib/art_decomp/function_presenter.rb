@@ -17,7 +17,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   end
 
   def columns_from puts
-    puts.map { |s| column_from s }.transpose.map(&:join)
+    puts.map { |put| column_from put }.transpose.map(&:join)
   end
 
   def entry_for put, row, dont_care
