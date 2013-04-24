@@ -21,18 +21,15 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   end
 
   def entry_for put, row, dc_line
-    mapping = mapping_for put
     keys = put.select { |code, bits| (bits & 1 << row).nonzero? }.keys.sort
     case keys.size
     when put.keys.size then dc_line
-    when 1             then mapping[keys.first]
+    when 1             then mapping_for put, keys.first
     else               raise 'trying to map multiple (but not all) keys'
     end
   end
 
-  def mapping_for put
-    Hash[put.keys.sort.map.with_index do |key, index|
-      [key, index.to_s(2).rjust(ArtDecomp.width_of(put), '0')]
-    end]
+  def mapping_for put, key
+    put.keys.sort.index(key).to_s(2).rjust ArtDecomp.width_of(put), '0'
   end
 end end
