@@ -39,7 +39,7 @@ module ArtDecomp class KISSParser
   end
 
   def ps
-    [col_groups[:ps]].map { |col| hashify col_groups[:ps], dc: '*', keys: states }
+    [hashify(col_groups[:ps], dc: '*', keys: states)]
   end
 
   def pluck_columns col_group
@@ -47,7 +47,7 @@ module ArtDecomp class KISSParser
   end
 
   def qs
-    [col_groups[:qs]].map { |col| hashify col, dc: '*', keys: states }
+    [hashify(col_groups[:qs], dc: '*', keys: states)]
   end
 
   def states
