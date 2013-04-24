@@ -10,9 +10,9 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   private
 
   def column_from put
-    dont_care = DontCare.to_s * ArtDecomp.width_of(put)
+    dc_line = DontCare.to_s * ArtDecomp.width_of(put)
     Array.new(put.values.max.to_s(2).size) do |row|
-      entry_for put, row, dont_care
+      entry_for put, row, dc_line
     end
   end
 
@@ -20,11 +20,11 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
     puts.map { |put| column_from put }.transpose.map(&:join)
   end
 
-  def entry_for put, row, dont_care
+  def entry_for put, row, dc_line
     mapping = mapping_for put
     keys = put.select { |code, bits| (bits & 1 << row).nonzero? }.keys.sort
     case keys.size
-    when put.keys.size then dont_care
+    when put.keys.size then dc_line
     when 1             then mapping[keys.first]
     else               raise 'trying to map multiple (but not all) keys'
     end
