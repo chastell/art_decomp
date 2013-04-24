@@ -38,12 +38,12 @@ module ArtDecomp class KISSParser
     pluck_columns(col_groups[:os]).map { |col| hashify col }
   end
 
-  def ps
-    [hashify(col_groups[:ps], dc: '*', keys: states)]
-  end
-
   def pluck_columns col_group
     col_group.map { |str| str.split '' }.transpose
+  end
+
+  def ps
+    [hashify(col_groups[:ps], dc: '*', keys: states)]
   end
 
   def qs
