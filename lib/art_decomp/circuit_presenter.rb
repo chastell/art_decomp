@@ -1,12 +1,9 @@
 require 'erb'
+require 'delegate'
 
-module ArtDecomp class CircuitPresenter
+module ArtDecomp class CircuitPresenter < SimpleDelegator
   def self.vhdl_for_circuit circuit, name
     new(circuit).vhdl name
-  end
-
-  def initialize circuit
-    @circuit = circuit
   end
 
   def vhdl name
@@ -14,29 +11,22 @@ module ArtDecomp class CircuitPresenter
     ERB.new(template, nil, '%').result binding
   end
 
-  attr_reader :circuit
-  private     :circuit
-
   private
 
   def functions
-    @functions ||= circuit.functions.map { |fun| FunctionPresenter.new fun }
+    @functions ||= super.map { |fun| FunctionPresenter.new fun }
   end
 
   def fsm_is_width
-    circuit.widths(:is).reduce 0, :+
+    widths(:is).reduce 0, :+
   end
 
   def fsm_os_width
-    circuit.widths(:os).reduce 0, :+
+    widths(:os).reduce 0, :+
   end
 
   def fsm_qs_width
-    circuit.widths(:qs).reduce 0, :+
-  end
-
-  def recoders
-    circuit.recoders
+    widths(:qs).reduce 0, :+
   end
 
   def reset_bits
@@ -44,17 +34,17 @@ module ArtDecomp class CircuitPresenter
   end
 
   def wirings
-    Hash[circuit.wirings.flat_map do |dst, src|
+    Hash[super.flat_map do |dst, src|
       dst_label = case
-                  when circuit == dst.object then 'fsm'
-                  when circuit.functions.include?(dst.object) then "f#{circuit.functions.index dst.object}"
-                  when circuit.recoders.include?(dst.object)  then "r#{circuit.recoders.index  dst.object}"
+                  when self == dst.object             then 'fsm'
+                  when functions.include?(dst.object) then "f#{functions.index dst.object}"
+                  when recoders.include?(dst.object)  then "r#{recoders.index  dst.object}"
                   end
 
       src_label = case
-                  when circuit == src.object then 'fsm'
-                  when circuit.functions.include?(src.object) then "f#{circuit.functions.index src.object}"
-                  when circuit.recoders.include?(src.object)  then "r#{circuit.recoders.index  src.object}"
+                  when self == src.object             then 'fsm'
+                  when functions.include?(src.object) then "f#{functions.index src.object}"
+                  when recoders.include?(src.object)  then "r#{recoders.index  src.object}"
                   end
 
       Array.new dst.object.widths(dst.group)[dst.index] do |n|
