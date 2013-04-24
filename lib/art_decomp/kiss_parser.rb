@@ -21,7 +21,7 @@ module ArtDecomp class KISSParser
     Hash[[:is, :qs, :ps, :os].zip cols]
   end
 
-  def hashify col, keys, dc
+  def hashify col, dc: '-', keys: ['0', '1']
     Hash[keys.map do |key|
       [
         key.to_sym,
@@ -31,15 +31,15 @@ module ArtDecomp class KISSParser
   end
 
   def is
-    pluck_columns(col_groups[:is]).map { |col| hashify col, ['0', '1'], '-' }
+    pluck_columns(col_groups[:is]).map { |col| hashify col }
   end
 
   def os
-    pluck_columns(col_groups[:os]).map { |col| hashify col, ['0', '1'], '-' }
+    pluck_columns(col_groups[:os]).map { |col| hashify col }
   end
 
   def ps
-    [col_groups[:ps]].map { |col| hashify col_groups[:ps], states, '*' }
+    [col_groups[:ps]].map { |col| hashify col_groups[:ps], dc: '*', keys: states }
   end
 
   def pluck_columns col_group
@@ -47,7 +47,7 @@ module ArtDecomp class KISSParser
   end
 
   def qs
-    [col_groups[:qs]].map { |col| hashify col, states, '*' }
+    [col_groups[:qs]].map { |col| hashify col, dc: '*', keys: states }
   end
 
   def states
