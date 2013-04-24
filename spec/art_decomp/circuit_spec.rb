@@ -10,7 +10,7 @@ module ArtDecomp describe Circuit do
 
       ff = MiniTest::Mock.new.expect :new, function = double, [is + qs, os + ps]
 
-      circuit = Circuit.from_fsm function_factory: ff, is: is, os: os, qs: qs, ps: ps
+      circuit = Circuit.from_fsm fun_fact: ff, is: is, os: os, qs: qs, ps: ps
 
       circuit.functions.must_equal [function]
       circuit.recoders.must_be :empty?
