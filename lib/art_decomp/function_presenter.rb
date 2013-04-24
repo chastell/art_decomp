@@ -19,7 +19,7 @@ module ArtDecomp class FunctionPresenter
   private
 
   def column_from put
-    dont_care = DontCare.to_s * width_of(put)
+    dont_care = DontCare.to_s * ArtDecomp.width_of(put)
     Array.new(put.values.max.to_s(2).size) do |row|
       entry_for put, row, dont_care
     end
@@ -41,7 +41,7 @@ module ArtDecomp class FunctionPresenter
 
   def mapping_for put
     Hash[put.keys.sort.map.with_index do |key, index|
-      [key, index.to_s(2).rjust(width_of(put), '0')]
+      [key, index.to_s(2).rjust(ArtDecomp.width_of(put), '0')]
     end]
   end
 end end

@@ -10,6 +10,6 @@ module ArtDecomp class Function
   end
 
   def widths group
-    send(group).map { |s| width_of s }
+    send(group).map { |s| ArtDecomp.width_of s }
   end
 end end
