@@ -23,10 +23,10 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   def entry_for put, row, dont_care
     mapping = mapping_for put
     keys = put.select { |code, bits| (bits & 1 << row).nonzero? }.keys.sort
-    case
-    when keys == put.keys.sort then dont_care
-    when keys.size == 1        then mapping[keys.first]
-    else                       raise 'trying to map multiple (but not all) keys'
+    case keys.size
+    when put.keys.size then dont_care
+    when 1             then mapping[keys.first]
+    else               raise 'trying to map multiple (but not all) keys'
     end
   end
 
