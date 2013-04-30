@@ -11,6 +11,10 @@ module ArtDecomp class Put
     blanket == other.blanket
   end
 
+  def size
+    blanket.size
+  end
+
   attr_reader :blanket
   protected   :blanket
 end end
