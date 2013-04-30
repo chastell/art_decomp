@@ -13,4 +13,10 @@ module ArtDecomp describe Put do
       Put[a: B[0,1], b: B[1,2]].size.must_equal 2
     end
   end
+
+  describe '#values' do
+    it 'returns the blanket’s blocks' do
+      Put[a: B[0,1], b: B[1,2]].values.must_equal [B[0,1], B[1,2]]
+    end
+  end
 end end
