@@ -15,6 +15,10 @@ module ArtDecomp class Put
     blanket.values
   end
 
+  def codes
+    blanket.keys
+  end
+
   def size
     blanket.size
   end
