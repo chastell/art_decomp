@@ -8,15 +8,15 @@ module ArtDecomp describe Put do
     end
   end
 
-  describe '#size' do
-    it 'returns the size of the blanket' do
-      Put[a: B[0,1], b: B[1,2]].size.must_equal 2
+  describe '#blocks' do
+    it 'returns the blanket’s blocks' do
+      Put[a: B[0,1], b: B[1,2]].blocks.must_equal [B[0,1], B[1,2]]
     end
   end
 
-  describe '#values' do
-    it 'returns the blanket’s blocks' do
-      Put[a: B[0,1], b: B[1,2]].values.must_equal [B[0,1], B[1,2]]
+  describe '#size' do
+    it 'returns the size of the blanket' do
+      Put[a: B[0,1], b: B[1,2]].size.must_equal 2
     end
   end
 end end

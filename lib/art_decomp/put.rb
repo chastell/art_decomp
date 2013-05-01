@@ -11,12 +11,12 @@ module ArtDecomp class Put
     blanket == other.blanket
   end
 
-  def size
-    blanket.size
+  def blocks
+    blanket.values
   end
 
-  def values
-    blanket.values
+  def size
+    blanket.size
   end
 
   attr_reader :blanket
