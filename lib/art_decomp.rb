@@ -8,9 +8,3 @@ require_relative 'art_decomp/kiss_decomposer'
 require_relative 'art_decomp/kiss_parser'
 require_relative 'art_decomp/pin'
 require_relative 'art_decomp/put'
-
-module ArtDecomp
-  def self.width_of put
-    Math.log2(put.size).ceil
-  end
-end
