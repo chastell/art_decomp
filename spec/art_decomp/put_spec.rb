@@ -32,4 +32,17 @@ module ArtDecomp describe Put do
       put.size.must_equal 2
     end
   end
+
+  describe '#width' do
+    it 'returns the bit width of the blanket' do
+      Put[].width.must_equal 0
+      Put[a: B[0]].width.must_equal 0
+      Put[a: B[0], b: B[1]].width.must_equal 1
+      Put[a: B[0], b: B[1], c: B[2]].width.must_equal 2
+      Put[a: B[0], b: B[1], c: B[2], d: B[3], e: B[4], f: B[5], g: B[6],
+        h: B[7]].width.must_equal 3
+      Put[a: B[0], b: B[1], c: B[2], d: B[3], e: B[4], f: B[5], g: B[6],
+        h: B[7], i: B[8]].width.must_equal 4
+    end
+  end
 end end

@@ -23,6 +23,10 @@ module ArtDecomp class Put
     blanket.size
   end
 
+  def width
+    size.zero? ? 0 : Math.log2(size).ceil
+  end
+
   attr_reader :blanket
   protected   :blanket
 end end
