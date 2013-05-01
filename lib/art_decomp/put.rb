@@ -15,8 +15,8 @@ module ArtDecomp class Put
     blanket.values
   end
 
-  def codes
-    blanket.keys
+  def codes &block
+    block_given? ? blanket.select(&block).keys : blanket.keys
   end
 
   def size

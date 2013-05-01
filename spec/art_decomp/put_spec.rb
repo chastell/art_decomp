@@ -19,6 +19,11 @@ module ArtDecomp describe Put do
     it 'returns the blanket’s codes' do
       put.codes.must_equal [:a, :b]
     end
+
+    it 'allows requesting just certain codes' do
+      put.codes { |code, block| code < :b }.must_equal [:a]
+      put.codes { |code, block| (block & B[2]).nonzero? }.must_equal [:b]
+    end
   end
 
   describe '#size' do
