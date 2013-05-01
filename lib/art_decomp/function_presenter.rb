@@ -10,7 +10,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   private
 
   def column_from put
-    Array.new(put.values.max.to_s(2).size) { |row| entry_for put, row }
+    Array.new(put.blocks.max.to_s(2).size) { |row| entry_for put, row }
   end
 
   def columns_from puts
@@ -18,15 +18,15 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   end
 
   def entry_for put, row
-    keys = put.select { |code, bits| (bits & 1 << row).nonzero? }.keys.sort
-    case keys.size
+    codes = put.codes { |code, block| (block & B[row]).nonzero? }.sort
+    case codes.size
     when put.size then DontCare.to_s * ArtDecomp.width_of(put)
-    when 1        then mapping_for put, keys.first
-    else          raise 'trying to map multiple (but not all) keys'
+    when 1        then mapping_for put, codes.first
+    else          raise 'trying to map multiple (but not all) codes'
     end
   end
 
-  def mapping_for put, key
-    put.keys.sort.index(key).to_s(2).rjust ArtDecomp.width_of(put), '0'
+  def mapping_for put, code
+    put.codes.sort.index(code).to_s(2).rjust ArtDecomp.width_of(put), '0'
   end
 end end
