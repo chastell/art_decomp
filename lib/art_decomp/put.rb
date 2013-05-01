@@ -1,9 +1,9 @@
 module ArtDecomp class Put
-  def self.[] blanket
+  def self.[] blanket = {}
     new blanket: blanket
   end
 
-  def initialize(blanket: blanket)
+  def initialize(blanket: {})
     @blanket = blanket
   end
 
