@@ -63,15 +63,19 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings_meta_for put
-    object_groups = { self => [:is, :os, :ps, :qs] }
-    functions.each { |fun| object_groups[fun] = [:is, :os] }
-    recoders.each  { |rec| object_groups[rec] = [:is, :os] }
-    object_groups.each do |obj, groups|
-      groups.each do |grp|
-        obj.send(grp).each_index do |idx|
-          return [obj, grp, idx] if obj.send(grp)[idx].equal? put
+    wirings_object_groups.each do |object, groups|
+      groups.each do |group|
+        object.send(group).each_index do |index|
+          return [object, group, index] if object.send(group)[index].equal? put
         end
       end
+    end
+  end
+
+  def wirings_object_groups
+    @wirings_object_groups ||= {}.tap do |wog|
+      wog[self] = [:is, :os, :ps, :qs]
+      (functions + recoders).each { |object| wog[object] = [:is, :os] }
     end
   end
 
