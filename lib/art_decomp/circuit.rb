@@ -1,28 +1,26 @@
 module ArtDecomp class Circuit
-  attr_accessor :functions, :recoders, :wirings
+  attr_accessor :functions, :recoders, :wires
+  attr_reader   :is, :os, :ps, :qs
 
-  def self.from_fsm(fun_fact: Function, is: [], os: [], qs: [], ps: [])
-    fun = fun_fact.new is + qs, os + ps
-    ss  = { is: is, os: os, qs: qs, ps: ps }
+  def self.from_fsm(is: [], os: [], ps: [], qs: [])
+    fun = Function.new is + qs, os + ps
 
-    new(functions: [fun], ss: ss).tap do |circ|
-      circ.wirings = Hash[
-        (0...is.size).map { |n| [Pin.new(fun, :is, n), Pin.new(circ, :is, n)] } +
-        [[Pin.new(fun, :is, is.size), Pin.new(circ, :qs, 0)]] +
-        (0...os.size).map { |n| [Pin.new(circ, :os, n), Pin.new(fun, :os, n)] } +
-        [[Pin.new(circ, :ps, 0), Pin.new(fun, :os, os.size)]]
-      ]
+    new(functions: [fun], is: is, os: os, ps: ps, qs: qs).tap do |circ|
+      circ.wires =
+        (0...is.size).map { |n| Wire.new(circ.is[n], fun.is[n]) } +
+        [Wire.new(circ.qs[0], fun.is[is.size])] +
+        (0...os.size).map { |n| Wire.new(fun.os[n], circ.os[n]) } +
+        [Wire.new(fun.os[os.size], circ.ps[0])]
     end
   end
 
-  def initialize(functions: [], recoders: [], ss: {}, wirings: {})
-    @functions, @recoders, @ss, @wirings = functions, recoders, ss, wirings
+  def initialize(functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
+                 wires: [])
+    @functions, @recoders, @wires = functions, recoders, wires
+    @is, @os, @ps, @qs = is, os, ps, qs
   end
 
   def widths group
-    ss[group].map(&:width)
+    send(group).map(&:width)
   end
-
-  attr_reader :ss
-  private     :ss
 end end

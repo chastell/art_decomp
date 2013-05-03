@@ -8,19 +8,21 @@ module ArtDecomp describe Circuit do
       qs = [Put[s1: B[0], s2: B[1], s3: B[2]]]
       ps = [Put[s1: B[1], s2: B[2], s3: B[0]]]
 
-      ff = MiniTest::Mock.new.expect :new, function = double, [is + qs, os + ps]
+      circuit = Circuit.from_fsm is: is, os: os, ps: ps, qs: qs
 
-      circuit = Circuit.from_fsm fun_fact: ff, is: is, os: os, qs: qs, ps: ps
+      circuit.functions.size.must_equal 1
+      circuit.functions.first.is.must_equal is + qs
+      circuit.functions.first.os.must_equal os + ps
 
-      circuit.functions.must_equal [function]
       circuit.recoders.must_be :empty?
-      circuit.wirings.must_equal({
-        Pin.new(function, :is, 0) => Pin.new(circuit, :is, 0),
-        Pin.new(function, :is, 1) => Pin.new(circuit, :qs, 0),
-        Pin.new(circuit, :os, 0) => Pin.new(function, :os, 0),
-        Pin.new(circuit, :ps, 0) => Pin.new(function, :os, 1),
-      })
-      ff.verify
+
+      function = circuit.functions[0]
+      circuit.wires.must_equal([
+        Wire.new(circuit.is[0], function.is[0]),
+        Wire.new(circuit.qs[0], function.is[1]),
+        Wire.new(function.os[0], circuit.os[0]),
+        Wire.new(function.os[1], circuit.ps[0]),
+      ])
     end
   end
 
@@ -29,6 +31,24 @@ module ArtDecomp describe Circuit do
       Circuit.new.functions.must_equal []
       Circuit.new(functions: funs = double).functions.must_equal funs
       Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
+    end
+  end
+
+  describe '#is, #os, #ps, @qs' do
+    it 'gets the puts' do
+      circ = Circuit.new
+      [circ.is, circ.os, circ.ps, circ.qs].must_equal [[], [], [], []]
+      circ = Circuit.new is: is = double, os: os = double, ps: ps = double, qs: qs = double
+      [circ.is, circ.os, circ.ps, circ.qs].must_equal [is, os, ps, qs]
+    end
+  end
+
+  describe '#is, #os, #ps, @qs' do
+    it 'gets the puts' do
+      [:is, :os, :ps, :qs].each do |ss|
+        Circuit.new.send(ss).must_equal []
+        Circuit.new(ss => puts = double).send(ss).must_equal puts
+      end
     end
   end
 
@@ -42,20 +62,20 @@ module ArtDecomp describe Circuit do
 
   describe '#widths' do
     it 'returns binary widths of signals' do
-      circuit = Circuit.new(ss: {
+      circuit = Circuit.new(
         is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
         qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-      })
+      )
       circuit.widths(:is).must_equal [1, 2]
       circuit.widths(:qs).must_equal [1, 2]
     end
   end
 
-  describe '#wirings, #wirings=' do
-    it 'gets/sets the wirings' do
-      Circuit.new.wirings.must_equal({})
-      Circuit.new(wirings: wirs = double).wirings.must_equal wirs
-      Circuit.new.tap { |c| c.wirings = wirs }.wirings.must_equal wirs
+  describe '#wires, #wires=' do
+    it 'gets/sets the wires' do
+      Circuit.new.wires.must_equal []
+      Circuit.new(wires: wires = double).wires.must_equal wires
+      Circuit.new.tap { |c| c.wires = wires }.wires.must_equal wires
     end
   end
 end end

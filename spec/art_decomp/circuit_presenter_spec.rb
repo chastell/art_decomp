@@ -52,21 +52,21 @@ module ArtDecomp describe CircuitPresenter do
       r1 = Function.new r_coded, r_state
       circuit.functions = [f0, f1]
       circuit.recoders  = [r0, r1]
-      circuit.wirings   = {
-        Pin.new(f0, :is, 0) => Pin.new(circuit, :is, 0),
-        Pin.new(f0, :is, 1) => Pin.new(circuit, :is, 1),
-        Pin.new(f0, :is, 2) => Pin.new(r0, :os, 1),
-        Pin.new(f1, :is, 0) => Pin.new(circuit, :is, 2),
-        Pin.new(f1, :is, 1) => Pin.new(f0, :os, 0),
-        Pin.new(f1, :is, 2) => Pin.new(f0, :os, 1),
-        Pin.new(f1, :is, 3) => Pin.new(r0, :os, 0),
-        Pin.new(circuit, :ps, 0) => Pin.new(r1, :os, 0),
-        Pin.new(circuit, :os, 0) => Pin.new(f1, :os, 2),
-        Pin.new(circuit, :os, 1) => Pin.new(f1, :os, 3),
-        Pin.new(circuit, :os, 2) => Pin.new(f1, :os, 4),
-        Pin.new(circuit, :os, 3) => Pin.new(f1, :os, 5),
-        Pin.new(circuit, :os, 4) => Pin.new(f1, :os, 6),
-      }
+      circuit.wires     = [
+        Wire.new(circuit.is[0], f0.is[0]),
+        Wire.new(circuit.is[1], f0.is[1]),
+        Wire.new(r0.os[1], f0.is[2]),
+        Wire.new(circuit.is[2], f1.is[0]),
+        Wire.new(f0.os[0], f1.is[1]),
+        Wire.new(f0.os[1], f1.is[2]),
+        Wire.new(r0.os[0], f1.is[3]),
+        Wire.new(r1.os[0], circuit.ps[0]),
+        Wire.new(f1.os[2], circuit.os[0]),
+        Wire.new(f1.os[3], circuit.os[1]),
+        Wire.new(f1.os[4], circuit.os[2]),
+        Wire.new(f1.os[5], circuit.os[3]),
+        Wire.new(f1.os[6], circuit.os[4]),
+      ]
 
       circuit_presenter.vhdl('mc').must_equal File.read 'spec/fixtures/mc.decomposed.vhdl'
     end

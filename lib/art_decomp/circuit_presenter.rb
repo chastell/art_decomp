@@ -34,23 +34,46 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings
-    Hash[super.flat_map do |dst, src|
+    object_groups = { self => [:is, :os, :ps, :qs] }
+    functions.each { |fun| object_groups[fun] = [:is, :os] }
+    recoders.each  { |rec| object_groups[rec] = [:is, :os] }
+    Hash[wires.flat_map do |wire|
+      dst_object, dst_group, dst_index = catch :found do
+        object_groups.each do |obj, groups|
+          groups.each do |grp|
+            obj.send(grp).each_index do |idx|
+              throw :found, [obj, grp, idx] if obj.send(grp)[idx].equal? wire.dst
+            end
+          end
+        end
+      end
+
+      src_object, src_group, src_index = catch :found do
+        object_groups.each do |obj, groups|
+          groups.each do |grp|
+            obj.send(grp).each_index do |idx|
+              throw :found, [obj, grp, idx] if obj.send(grp)[idx].equal? wire.src
+            end
+          end
+        end
+      end
+
       dst_label = case
-                  when self == dst.object             then 'fsm'
-                  when functions.include?(dst.object) then "f#{functions.index dst.object}"
-                  when recoders.include?(dst.object)  then "r#{recoders.index  dst.object}"
+                  when self == dst_object             then 'fsm'
+                  when functions.include?(dst_object) then "f#{functions.index dst_object}"
+                  when recoders.include?(dst_object)  then "r#{recoders.index  dst_object}"
                   end
 
       src_label = case
-                  when self == src.object             then 'fsm'
-                  when functions.include?(src.object) then "f#{functions.index src.object}"
-                  when recoders.include?(src.object)  then "r#{recoders.index  src.object}"
+                  when self == src_object             then 'fsm'
+                  when functions.include?(src_object) then "f#{functions.index src_object}"
+                  when recoders.include?(src_object)  then "r#{recoders.index  src_object}"
                   end
 
-      Array.new dst.object.widths(dst.group)[dst.index] do |n|
-        dst_index = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
-        src_index = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
-        ["#{dst_label}_#{dst.group}(#{dst_index})", "#{src_label}_#{src.group}(#{src_index})"]
+      Array.new dst_object.widths(dst_group)[dst_index] do |n|
+        dst_bindex = dst_object.widths(dst_group)[0...dst_index].reduce(0, :+) + n
+        src_bindex = src_object.widths(src_group)[0...src_index].reduce(0, :+) + n
+        ["#{dst_label}_#{dst_group}(#{dst_bindex})", "#{src_label}_#{src_group}(#{src_bindex})"]
       end
     end]
   end
