@@ -33,18 +33,17 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     '0' * fsm_qs_width
   end
 
+  Pin = Struct.new :object, :group, :index, :label
+
   def wirings
     Hash[wires.flat_map do |wire|
-      dst_object, dst_group, dst_index = wirings_meta_for wire.dst
-      src_object, src_group, src_index = wirings_meta_for wire.src
+      dst = wirings_pin_for wire.dst
+      src = wirings_pin_for wire.src
 
-      dst_label = wirings_label_for dst_object
-      src_label = wirings_label_for src_object
-
-      Array.new dst_object.widths(dst_group)[dst_index] do |n|
-        dst_bindex = dst_object.widths(dst_group)[0...dst_index].reduce(0, :+) + n
-        src_bindex = src_object.widths(src_group)[0...src_index].reduce(0, :+) + n
-        ["#{dst_label}_#{dst_group}(#{dst_bindex})", "#{src_label}_#{src_group}(#{src_bindex})"]
+      Array.new dst.object.widths(dst.group)[dst.index] do |n|
+        dst_bindex = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
+        src_bindex = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
+        ["#{dst.label}_#{dst.group}(#{dst_bindex})", "#{src.label}_#{src.group}(#{src_bindex})"]
       end
     end]
   end
@@ -68,5 +67,12 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
         end
       end
     end
+  end
+
+  def wirings_pin_for put
+    pin = Pin.new
+    pin.object, pin.group, pin.index = wirings_meta_for put
+    pin.label = wirings_label_for pin.object
+    pin
   end
 end end
