@@ -32,14 +32,6 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#max_width' do
-    it 'returns the width of the widest Function' do
-      Circuit.new.max_width.must_equal 0
-      functions = [double(width: 3), double(width: 4)]
-      Circuit.new(functions: functions).max_width.must_equal 4
-    end
-  end
-
   describe '#recoders, #recoders=' do
     it 'gets/sets the recorders' do
       Circuit.new.recoders.must_equal []
