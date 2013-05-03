@@ -34,29 +34,9 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings
-    object_groups = { self => [:is, :os, :ps, :qs] }
-    functions.each { |fun| object_groups[fun] = [:is, :os] }
-    recoders.each  { |rec| object_groups[rec] = [:is, :os] }
     Hash[wires.flat_map do |wire|
-      dst_object, dst_group, dst_index = catch :found do
-        object_groups.each do |obj, groups|
-          groups.each do |grp|
-            obj.send(grp).each_index do |idx|
-              throw :found, [obj, grp, idx] if obj.send(grp)[idx].equal? wire.dst
-            end
-          end
-        end
-      end
-
-      src_object, src_group, src_index = catch :found do
-        object_groups.each do |obj, groups|
-          groups.each do |grp|
-            obj.send(grp).each_index do |idx|
-              throw :found, [obj, grp, idx] if obj.send(grp)[idx].equal? wire.src
-            end
-          end
-        end
-      end
+      dst_object, dst_group, dst_index = wirings_meta_for wire.dst
+      src_object, src_group, src_index = wirings_meta_for wire.src
 
       dst_label = wirings_label_for dst_object
       src_label = wirings_label_for src_object
@@ -74,6 +54,19 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     when self == object             then 'fsm'
     when functions.include?(object) then "f#{functions.index object}"
     when recoders.include?(object)  then "r#{recoders.index  object}"
+    end
+  end
+
+  def wirings_meta_for put
+    object_groups = { self => [:is, :os, :ps, :qs] }
+    functions.each { |fun| object_groups[fun] = [:is, :os] }
+    recoders.each  { |rec| object_groups[rec] = [:is, :os] }
+    object_groups.each do |obj, groups|
+      groups.each do |grp|
+        obj.send(grp).each_index do |idx|
+          return [obj, grp, idx] if obj.send(grp)[idx].equal? put
+        end
+      end
     end
   end
 end end
