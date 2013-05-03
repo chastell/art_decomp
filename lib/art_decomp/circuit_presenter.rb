@@ -39,13 +39,19 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     Hash[wires.flat_map do |wire|
       dst = wirings_pin_for wire.dst
       src = wirings_pin_for wire.src
-
-      Array.new dst.object.widths(dst.group)[dst.index] do |n|
-        dst_bindex = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
-        src_bindex = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
-        ["#{dst.label}_#{dst.group}(#{dst_bindex})", "#{src.label}_#{src.group}(#{src_bindex})"]
-      end
+      wirings_for dst, src
     end]
+  end
+
+  def wirings_for dst, src
+    Array.new dst.object.widths(dst.group)[dst.index] do |n|
+      dst_bin = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
+      src_bin = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
+      [
+        "#{dst.label}_#{dst.group}(#{dst_bin})",
+        "#{src.label}_#{src.group}(#{src_bin})",
+      ]
+    end
   end
 
   def wirings_label_for object
