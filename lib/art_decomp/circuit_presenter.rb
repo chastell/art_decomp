@@ -70,9 +70,9 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings_pin_for put
-    pin = Pin.new
-    pin.object, pin.group, pin.index = wirings_meta_for put
-    pin.label = wirings_label_for pin.object
-    pin
+    Pin.new.tap do |pin|
+      pin.object, pin.group, pin.index = wirings_meta_for put
+      pin.label = wirings_label_for pin.object
+    end
   end
 end end
