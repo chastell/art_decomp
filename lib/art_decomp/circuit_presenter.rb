@@ -13,6 +13,8 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
 
   private
 
+  Pin = Struct.new :object, :group, :index, :label
+
   def functions
     @functions ||= super.map { |fun| FunctionPresenter.new fun }
   end
@@ -32,8 +34,6 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   def reset_bits
     '0' * fsm_qs_width
   end
-
-  Pin = Struct.new :object, :group, :index, :label
 
   def wirings
     Hash[wires.flat_map do |wire|
