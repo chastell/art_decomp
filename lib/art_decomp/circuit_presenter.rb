@@ -58,17 +58,8 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
         end
       end
 
-      dst_label = case
-                  when self == dst_object             then 'fsm'
-                  when functions.include?(dst_object) then "f#{functions.index dst_object}"
-                  when recoders.include?(dst_object)  then "r#{recoders.index  dst_object}"
-                  end
-
-      src_label = case
-                  when self == src_object             then 'fsm'
-                  when functions.include?(src_object) then "f#{functions.index src_object}"
-                  when recoders.include?(src_object)  then "r#{recoders.index  src_object}"
-                  end
+      dst_label = wirings_label_for dst_object
+      src_label = wirings_label_for src_object
 
       Array.new dst_object.widths(dst_group)[dst_index] do |n|
         dst_bindex = dst_object.widths(dst_group)[0...dst_index].reduce(0, :+) + n
@@ -76,5 +67,13 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
         ["#{dst_label}_#{dst_group}(#{dst_bindex})", "#{src_label}_#{src_group}(#{src_bindex})"]
       end
     end]
+  end
+
+  def wirings_label_for object
+    case
+    when self == object             then 'fsm'
+    when functions.include?(object) then "f#{functions.index object}"
+    when recoders.include?(object)  then "r#{recoders.index  object}"
+    end
   end
 end end
