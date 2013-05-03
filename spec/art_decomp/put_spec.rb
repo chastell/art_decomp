@@ -10,6 +10,14 @@ module ArtDecomp describe Put do
     end
   end
 
+  describe '#==' do
+    it 'compares two Puts by value' do
+      assert put == put.dup
+      assert Put[a: B[0], b: B[1]] == Put[b: B[1], a: B[0]]
+      refute Put[a: B[0], b: B[1]] == Put[a: B[1], b: B[0]]
+    end
+  end
+
   describe '#blocks' do
     it 'returns the blanket’s blocks' do
       put.blocks.must_equal [B[0,1], B[1,2]]
