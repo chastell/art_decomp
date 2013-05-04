@@ -24,7 +24,7 @@ module ArtDecomp class Circuit
     send(group).map(&:binwidth)
   end
 
-  def not_smaller_than
-    @not_smaller_than ||= functions.map(&:not_smaller_than).reduce 0, :+
+  def not_smaller_than(sizer: CircuitSizer)
+    @not_smaller_than ||= sizer.not_smaller_than functions.map(&:arch)
   end
 end end

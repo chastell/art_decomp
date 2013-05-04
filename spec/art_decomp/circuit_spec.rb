@@ -65,10 +65,13 @@ module ArtDecomp describe Circuit do
 
   describe '#not_smaller_than' do
     it 'returns the smallest possible size of the circuit' do
-      functions = [double(not_smaller_than: 1), double(not_smaller_than: 2),
-        double(not_smaller_than: 3)]
-      Circuit.new(functions: functions).not_smaller_than.must_equal 6
-      Circuit.new.not_smaller_than.must_equal 0
+      functions = [double(arch: Arch[1,2]), double(arch: Arch[3,4])]
+      sizer = MiniTest::Mock.new
+      sizer.expect :not_smaller_than, 7, [[Arch[1,2], Arch[3,4]]]
+      sizer.expect :not_smaller_than, 0, [[]]
+      Circuit.new(functions: functions).not_smaller_than(sizer: sizer)
+        .must_equal 7
+      Circuit.new.not_smaller_than(sizer: sizer).must_equal 0
     end
   end
 
