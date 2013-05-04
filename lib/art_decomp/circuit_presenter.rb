@@ -43,6 +43,15 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     '0' * fsm_qs_width
   end
 
+  def wiring_for dst, src, n
+    dst_bin = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
+    src_bin = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
+    [
+      "#{dst.label}_#{dst.group}(#{dst_bin})",
+      "#{src.label}_#{src.group}(#{src_bin})",
+    ]
+  end
+
   def wirings
     Hash[wires.flat_map do |wire|
       dst = wirings_pin_for wire.dst
@@ -53,12 +62,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
 
   def wirings_for dst, src
     Array.new dst.object.widths(dst.group)[dst.index] do |n|
-      dst_bin = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
-      src_bin = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
-      [
-        "#{dst.label}_#{dst.group}(#{dst_bin})",
-        "#{src.label}_#{src.group}(#{src_bin})",
-      ]
+      wiring_for dst, src, n
     end
   end
 
