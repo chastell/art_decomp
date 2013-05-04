@@ -3,6 +3,10 @@ require 'delegate'
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   DontCare = :-
 
+  def puts
+    [:is, :os]
+  end
+
   def rows
     columns_from(is).zip columns_from os
   end

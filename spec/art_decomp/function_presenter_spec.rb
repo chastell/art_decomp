@@ -17,6 +17,12 @@ module ArtDecomp describe FunctionPresenter do
   ]}
   let(:function_presenter) { FunctionPresenter.new Function.new(is, os) }
 
+  describe '#puts' do
+    it 'returns the types of Put groups it responds to' do
+      FunctionPresenter.new(Function.new).puts.must_equal [:is, :os]
+    end
+  end
+
   describe '#rows' do
     it 'returns binary-encoded row representation of the function' do
       function_presenter.rows.must_equal [
