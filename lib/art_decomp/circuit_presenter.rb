@@ -2,7 +2,7 @@ require 'erb'
 require 'delegate'
 
 module ArtDecomp class CircuitPresenter < SimpleDelegator
-  def self.vhdl_for_circuit circuit, name
+  def self.vhdl_for circuit, name
     new(circuit).vhdl name
   end
 

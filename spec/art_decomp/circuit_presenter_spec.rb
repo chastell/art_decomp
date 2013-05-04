@@ -1,11 +1,11 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitPresenter do
-  describe '.vhdl_for_circuit' do
+  describe '.vhdl_for' do
     it 'returns VHDL for the given circuit' do
       circuit_presenter = MiniTest::Mock.new.expect :vhdl, 'VHDL', ['name']
       CircuitPresenter.stub :new, circuit_presenter do
-        CircuitPresenter.vhdl_for_circuit(double, 'name').must_equal 'VHDL'
+        CircuitPresenter.vhdl_for(double, 'name').must_equal 'VHDL'
       end
       circuit_presenter.verify
     end
