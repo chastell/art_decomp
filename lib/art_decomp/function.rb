@@ -5,6 +5,10 @@ module ArtDecomp class Function
     @is, @os = is.map(&:dup), os.map(&:dup)
   end
 
+  def arch
+    Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
+  end
+
   def binwidth
     binwidths(:is).reduce 0, :+
   end

@@ -12,6 +12,13 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#arch' do
+    it 'returns the arch of the function' do
+      function.arch.must_equal Arch[3,3]
+      Function.new.arch.must_equal Arch[0,0]
+    end
+  end
+
   describe '#binwidth' do
     it 'returns binary width of the function' do
       Function.new.binwidth.must_equal 0
