@@ -17,6 +17,13 @@ module ArtDecomp describe FunctionPresenter do
   ]}
   let(:function_presenter) { FunctionPresenter.new Function.new(is, os) }
 
+  describe '#binwidths' do
+    it 'returns the Function binary widths' do
+      function_presenter.binwidths(:is).must_equal [1, 1, 1, 2]
+      function_presenter.binwidths(:os).must_equal [1, 1, 1, 1, 1, 2]
+    end
+  end
+
   describe '#puts' do
     it 'returns the types of Put groups it responds to' do
       FunctionPresenter.new(Function.new).puts.must_equal [:is, :os]
@@ -37,13 +44,6 @@ module ArtDecomp describe FunctionPresenter do
         ['--001', '0100101'],
         ['--101', '1100110'],
       ]
-    end
-  end
-
-  describe '#widths' do
-    it 'returns the Function widths' do
-      function_presenter.widths(:is).must_equal [1, 1, 1, 2]
-      function_presenter.widths(:os).must_equal [1, 1, 1, 1, 1, 2]
     end
   end
 end end

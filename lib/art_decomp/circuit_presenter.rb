@@ -23,16 +23,16 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     @functions ||= super.map { |function| FunctionPresenter.new function }
   end
 
-  def fsm_is_width
-    widths(:is).reduce 0, :+
+  def fsm_is_binwidth
+    binwidths(:is).reduce 0, :+
   end
 
-  def fsm_os_width
-    widths(:os).reduce 0, :+
+  def fsm_os_binwidth
+    binwidths(:os).reduce 0, :+
   end
 
-  def fsm_qs_width
-    widths(:qs).reduce 0, :+
+  def fsm_qs_binwidth
+    binwidths(:qs).reduce 0, :+
   end
 
   def recoders
@@ -40,12 +40,12 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def reset_bits
-    '0' * fsm_qs_width
+    '0' * fsm_qs_binwidth
   end
 
   def wiring_for dst, src, n
-    dst_bin = dst.object.widths(dst.group)[0...dst.index].reduce(0, :+) + n
-    src_bin = src.object.widths(src.group)[0...src.index].reduce(0, :+) + n
+    dst_bin = dst.object.binwidths(dst.group)[0...dst.index].reduce(0, :+) + n
+    src_bin = src.object.binwidths(src.group)[0...src.index].reduce(0, :+) + n
     [
       "#{dst.label}_#{dst.group}(#{dst_bin})",
       "#{src.label}_#{src.group}(#{src_bin})",
@@ -61,7 +61,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings_for dst, src
-    Array.new dst.object.widths(dst.group)[dst.index] do |n|
+    Array.new dst.object.binwidths(dst.group)[dst.index] do |n|
       wiring_for dst, src, n
     end
   end

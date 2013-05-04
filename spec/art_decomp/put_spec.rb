@@ -18,6 +18,18 @@ module ArtDecomp describe Put do
     end
   end
 
+  describe '#binwidth' do
+    it 'returns the binary width of the blanket' do
+      Put[].binwidth.must_equal 0
+      Put[a: 1].binwidth.must_equal 0
+      Put[a: 1, b: 2].binwidth.must_equal 1
+      Put[a: 1, b: 2, c: 3].binwidth.must_equal 2
+      Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8].binwidth.must_equal 3
+      Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9].binwidth
+        .must_equal 4
+    end
+  end
+
   describe '#blocks' do
     it 'returns the blanket’s blocks' do
       put.blocks.must_equal [B[0,1], B[1,2]]
@@ -38,17 +50,6 @@ module ArtDecomp describe Put do
   describe '#size' do
     it 'returns the size of the blanket' do
       put.size.must_equal 2
-    end
-  end
-
-  describe '#width' do
-    it 'returns the bit width of the blanket' do
-      Put[].width.must_equal 0
-      Put[a: 1].width.must_equal 0
-      Put[a: 1, b: 2].width.must_equal 1
-      Put[a: 1, b: 2, c: 3].width.must_equal 2
-      Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8].width.must_equal 3
-      Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9].width.must_equal 4
     end
   end
 end end

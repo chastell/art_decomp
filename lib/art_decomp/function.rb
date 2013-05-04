@@ -5,11 +5,11 @@ module ArtDecomp class Function
     @is, @os = is.map(&:dup), os.map(&:dup)
   end
 
-  def width
-    widths(:is).reduce 0, :+
+  def binwidth
+    binwidths(:is).reduce 0, :+
   end
 
-  def widths group
-    send(group).map(&:width)
+  def binwidths group
+    send(group).map(&:binwidth)
   end
 end end

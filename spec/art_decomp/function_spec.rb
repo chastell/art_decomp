@@ -12,6 +12,20 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#binwidth' do
+    it 'returns binary width of the function' do
+      Function.new.binwidth.must_equal 0
+      function.binwidth.must_equal 3
+    end
+  end
+
+  describe '#binwidths' do
+    it 'returns binary widths of signals' do
+      function.binwidths(:is).must_equal [1, 2]
+      function.binwidths(:os).must_equal [1, 2]
+    end
+  end
+
   describe '#is' do
     it 'returns the input signals' do
       function.is.must_equal is
@@ -21,20 +35,6 @@ module ArtDecomp describe Function do
   describe '#os' do
     it 'returns the input signals' do
       function.os.must_equal os
-    end
-  end
-
-  describe '#width' do
-    it 'returns binary width of the function' do
-      Function.new([], []).width.must_equal 0
-      function.width.must_equal 3
-    end
-  end
-
-  describe '#widths' do
-    it 'returns binary widths of signals' do
-      function.widths(:is).must_equal [1, 2]
-      function.widths(:os).must_equal [1, 2]
     end
   end
 end end

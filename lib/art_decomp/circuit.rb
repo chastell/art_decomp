@@ -20,7 +20,7 @@ module ArtDecomp class Circuit
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
-  def widths group
-    send(group).map(&:width)
+  def binwidths group
+    send(group).map(&:binwidth)
   end
 end end

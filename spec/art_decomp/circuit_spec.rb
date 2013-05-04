@@ -26,6 +26,17 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#binwidths' do
+    it 'returns binary widths of signals' do
+      circuit = Circuit.new(
+        is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
+        qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
+      )
+      circuit.binwidths(:is).must_equal [1, 2]
+      circuit.binwidths(:qs).must_equal [1, 2]
+    end
+  end
+
   describe '#functions, #functions=' do
     it 'gets/sets the functions' do
       Circuit.new.functions.must_equal []
@@ -57,17 +68,6 @@ module ArtDecomp describe Circuit do
       Circuit.new.recoders.must_equal []
       Circuit.new(recoders: recs = double).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
-    end
-  end
-
-  describe '#widths' do
-    it 'returns binary widths of signals' do
-      circuit = Circuit.new(
-        is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-        qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-      )
-      circuit.widths(:is).must_equal [1, 2]
-      circuit.widths(:qs).must_equal [1, 2]
     end
   end
 

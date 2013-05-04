@@ -11,6 +11,10 @@ module ArtDecomp class Put
     blanket == other.blanket
   end
 
+  def binwidth
+    size.zero? ? 0 : Math.log2(size).ceil
+  end
+
   def blocks
     blanket.values
   end
@@ -21,10 +25,6 @@ module ArtDecomp class Put
 
   def size
     blanket.size
-  end
-
-  def width
-    size.zero? ? 0 : Math.log2(size).ceil
   end
 
   attr_reader :blanket
