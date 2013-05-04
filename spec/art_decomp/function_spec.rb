@@ -26,14 +26,9 @@ module ArtDecomp describe Function do
     end
   end
 
-  describe '#is' do
-    it 'returns the input signals' do
+  describe '#is, #os' do
+    it 'returns the input/output signals' do
       function.is.must_equal is
-    end
-  end
-
-  describe '#os' do
-    it 'returns the input signals' do
       function.os.must_equal os
     end
   end
