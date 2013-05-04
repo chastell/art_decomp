@@ -20,7 +20,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   Pin = Struct.new :object, :group, :index, :label
 
   def functions
-    @functions ||= super.map { |fun| FunctionPresenter.new fun }
+    @functions ||= super.map { |function| FunctionPresenter.new function }
   end
 
   def fsm_is_width
@@ -60,7 +60,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
 
   def wirings_label_for object
     case
-    when self == object             then 'fsm'
+    when object == self             then 'fsm'
     when functions.include?(object) then "f#{functions.index object}"
     when recoders.include?(object)  then "r#{recoders.index  object}"
     end
