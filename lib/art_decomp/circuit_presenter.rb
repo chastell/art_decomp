@@ -35,6 +35,10 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     widths(:qs).reduce 0, :+
   end
 
+  def recoders
+    @recoders ||= super.map { |recoder| FunctionPresenter.new recoder }
+  end
+
   def reset_bits
     '0' * fsm_qs_width
   end
