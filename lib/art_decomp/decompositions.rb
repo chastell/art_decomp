@@ -3,7 +3,7 @@ module ArtDecomp class Decompositions
     new(circuit).decompositions
   end
 
-  def initialize circuit, decomposer: nil
+  def initialize circuit, decomposer: CircuitDecomposer
     @decomposer = decomposer
     @queue      = [circuit]
   end
