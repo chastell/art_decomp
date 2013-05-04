@@ -1,3 +1,4 @@
+require_relative 'art_decomp/arch'
 require_relative 'art_decomp/b'
 require_relative 'art_decomp/circuit'
 require_relative 'art_decomp/circuit_presenter'
