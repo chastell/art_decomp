@@ -6,14 +6,12 @@ module ArtDecomp class KISSDecomposer
     @settings = settings_from args
   end
 
-  def decompose(circuit_provider: KISSParser, decomposer: Decomposer,
-                vhdl_provider: CircuitPresenter)
+  def decompose(cp: CircuitPresenter, decs: Decompositions, parser: KISSParser)
     kiss = File.read settings.kiss_path
-    name = File.basename settings.kiss_path, '.kiss'
-    circuit = circuit_provider.circuit_from_kiss kiss
-    decomposer.decompositions_for(circuit).each.with_index do |decomposed, i|
-      vhdl = vhdl_provider.vhdl_for_circuit decomposed, name
-      File.write "#{settings.vhdl_path}/#{name}.#{i}.vhdl", vhdl
+    decs.for(parser.circuit_for kiss).each.with_index do |decomposed, i|
+      name = "#{File.basename settings.kiss_path, '.kiss'}_#{i}"
+      vhdl = cp.vhdl_for decomposed, name
+      File.write "#{settings.vhdl_path}/#{name}.vhdl", vhdl
     end
   end
 
