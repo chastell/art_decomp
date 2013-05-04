@@ -63,6 +63,15 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#not_smaller_than' do
+    it 'returns the smallest possible size of the circuit' do
+      functions = [double(not_smaller_than: 1), double(not_smaller_than: 2),
+        double(not_smaller_than: 3)]
+      Circuit.new(functions: functions).not_smaller_than.must_equal 6
+      Circuit.new.not_smaller_than.must_equal 0
+    end
+  end
+
   describe '#recoders, #recoders=' do
     it 'gets/sets the recorders' do
       Circuit.new.recoders.must_equal []

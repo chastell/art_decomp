@@ -23,4 +23,8 @@ module ArtDecomp class Circuit
   def binwidths group
     send(group).map(&:binwidth)
   end
+
+  def not_smaller_than
+    @not_smaller_than ||= functions.map(&:not_smaller_than).reduce 0, :+
+  end
 end end
