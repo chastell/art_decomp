@@ -14,7 +14,7 @@ module ArtDecomp class Decompositions
         circuit = queue.shift
         yielder << circuit
         decomposer.decomposed(circuit).each { |circ| queue << circ }
-        queue.sort_by!(&:not_smaller_than)
+        queue.sort_by!(&:size)
       end
     end
   end
