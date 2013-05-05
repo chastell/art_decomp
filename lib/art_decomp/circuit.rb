@@ -27,4 +27,8 @@ module ArtDecomp class Circuit
   def not_smaller_than(sizer: CircuitSizer)
     @not_smaller_than ||= sizer.not_smaller_than functions.map(&:arch)
   end
+
+  def size(sizer: CircuitSizer)
+    @size ||= sizer.size functions.map(&:arch)
+  end
 end end

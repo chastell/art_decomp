@@ -83,6 +83,17 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#size' do
+    it 'returns the size of the circuit' do
+      functions = [double(arch: Arch[1,2]), double(arch: Arch[3,4])]
+      sizer = MiniTest::Mock.new
+      sizer.expect :size, 7, [[Arch[1,2], Arch[3,4]]]
+      sizer.expect :size, 0, [[]]
+      Circuit.new(functions: functions).size(sizer: sizer).must_equal 7
+      Circuit.new.size(sizer: sizer).must_equal 0
+    end
+  end
+
   describe '#wires, #wires=' do
     it 'gets/sets the wires' do
       Circuit.new.wires.must_equal []
