@@ -3,12 +3,11 @@ module ArtDecomp class Decompositions
     new(circuit).decompositions
   end
 
-  def initialize circuit, decomposer: CircuitDecomposer
-    @decomposer = decomposer
-    @queue      = [circuit]
+  def initialize circuit
+    @queue = [circuit]
   end
 
-  def decompositions
+  def decompositions(decomposer: CircuitDecomposer)
     Enumerator.new do |yielder|
       until queue.empty?
         circuit = queue.shift
@@ -19,6 +18,6 @@ module ArtDecomp class Decompositions
     end
   end
 
-  attr_reader :decomposer, :queue
-  private     :decomposer, :queue
+  attr_reader :queue
+  private     :queue
 end end

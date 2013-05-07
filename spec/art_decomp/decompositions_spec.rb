@@ -24,7 +24,7 @@ module ArtDecomp describe Decompositions do
       tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
       tree.default = []
       decomposer = double decomposed: ->(circuit) { tree[circuit].to_enum }
-      decs = Decompositions.new(c1, decomposer: decomposer).decompositions
+      decs = Decompositions.new(c1).decompositions decomposer: decomposer
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
     end
