@@ -6,11 +6,11 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    minitest (4.7.4)
+    minitest (5.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   art_decomp!
-  minitest (~> 4.0)
+  minitest (~> 5.0)
