@@ -6,6 +6,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    bogus (0.0.3)
+      dependor (>= 0.0.4)
+    dependor (0.0.5)
     minitest (5.0.1)
 
 PLATFORMS
@@ -13,4 +16,5 @@ PLATFORMS
 
 DEPENDENCIES
   art_decomp!
+  bogus
   minitest (~> 5.0)
