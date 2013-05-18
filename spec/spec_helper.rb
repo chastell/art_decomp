@@ -1,7 +1,10 @@
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bogus/minitest'
 require 'art_decomp'
+
+Bogus.configure { |config| config.search_modules << ArtDecomp }
 
 class String
   def dedent
