@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/chastell/bogus.git
-  revision: 83a117d3f7d16ab0a87792cb3e82c7f4acaaf695
+  revision: bcd6a19ae7ef447ee06f0c7042f0d3c258d905a9
   branch: art_decomp
   specs:
     bogus (0.0.3)
@@ -15,7 +15,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     dependor (0.0.5)
-    minitest (5.0.1)
+    minitest (5.0.2)
 
 PLATFORMS
   ruby
