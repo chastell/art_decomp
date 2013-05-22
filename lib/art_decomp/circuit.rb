@@ -2,7 +2,7 @@ module ArtDecomp class Circuit
   attr_accessor :functions, :recoders, :wires
   attr_reader   :is, :os, :ps, :qs
 
-  def self.from_fsm(is: [], os: [], ps: [], qs: [])
+  def self.from_fsm is: [], os: [], ps: [], qs: []
     fun = Function.new is + qs, os + ps
 
     new(functions: [fun], is: is, os: os, ps: ps, qs: qs).tap do |circ|
@@ -14,8 +14,8 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize(functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
-                 wires: [])
+  def initialize functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
+                 wires: []
     @functions, @recoders, @wires = functions, recoders, wires
     @is, @os, @ps, @qs = is, os, ps, qs
   end
@@ -24,11 +24,11 @@ module ArtDecomp class Circuit
     send(group).map(&:binwidth)
   end
 
-  def not_smaller_than(sizer: CircuitSizer)
+  def not_smaller_than sizer: CircuitSizer
     @not_smaller_than ||= sizer.not_smaller_than functions.map(&:arch)
   end
 
-  def size(sizer: CircuitSizer)
+  def size sizer: CircuitSizer
     @size ||= sizer.size functions.map(&:arch)
   end
 end end

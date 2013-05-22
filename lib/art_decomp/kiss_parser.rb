@@ -7,7 +7,7 @@ module ArtDecomp class KISSParser
     @kiss = kiss
   end
 
-  def circuit(circuit_factory: Circuit)
+  def circuit circuit_factory: Circuit
     circuit_factory.from_fsm is: is, os: os, qs: qs, ps: ps
   end
 
