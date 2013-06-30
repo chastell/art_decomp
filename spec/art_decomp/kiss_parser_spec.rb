@@ -1,13 +1,13 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe KISSParser do
+  fake :circuit
+
   describe '.circuit_for' do
     it 'parses the KISS and returns a Circuit' do
-      kiss_parser = fake :k_i_s_s_parser
-      circuit     = fake :circuit
-      mock(kiss_parser).circuit { circuit }
-      stub(KISSParser).new('KISS') { kiss_parser }
-      KISSParser.circuit_for('KISS').must_equal circuit
+      mock(kpf = fake).new('KISS') { fake KISSParser, circuit: circuit }
+      KISSParser.circuit_for('KISS', kiss_parser_factory: kpf)
+        .must_equal circuit
     end
   end
 
@@ -32,8 +32,7 @@ module ArtDecomp describe KISSParser do
       qs = [Put[s1: B[0,1], s2: B[],    s3: B[2]]]
       ps = [Put[s1: B[0,2], s2: B[0,1], s3: B[0]]]
 
-      circuit = fake :circuit
-      cf      = fake :circuit, as: :class
+      cf = fake :circuit, as: :class
       mock(cf).from_fsm(is: is, qs: qs, os: os, ps: ps) { circuit }
 
       KISSParser.new(kiss).circuit(circuit_factory: cf).must_equal circuit
