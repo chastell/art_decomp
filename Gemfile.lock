@@ -15,7 +15,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     dependor (0.0.6)
-    minitest (5.0.4)
+    minitest (5.0.6)
     rake (10.1.0)
 
 PLATFORMS
