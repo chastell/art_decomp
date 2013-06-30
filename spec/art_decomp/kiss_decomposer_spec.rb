@@ -6,15 +6,14 @@ module ArtDecomp describe KISSDecomposer do
     it 'decomposes the given KISS file into VHDL implementation' do
       Dir.mktmpdir do |vhdl_path|
         File.stub :read, 'some KISS' do
-          args = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
-          KISSDecomposer.new(args).decompose(
-            cp: double(vhdl_for: proc { |_, name| "some VHDL for #{name}" }),
-            decs: double(for: proc { [double, double] }),
-            parser: double(circuit_for: proc { double }),
-          )
+          decs   = fake :decompositions,    as: :class, for: [fake, fake]
+          cp     = fake :circuit_presenter, as: :class, vhdl_for: 'some VHDL'
+          parser = fake KISSParser, as: :class, circuit_for: fake(:circuit)
+          args   = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
+          KISSDecomposer.new(args).decompose cp: cp, decs: decs, parser: parser
         end
-        File.read("#{vhdl_path}/mc_0.vhdl").must_equal 'some VHDL for mc_0'
-        File.read("#{vhdl_path}/mc_1.vhdl").must_equal 'some VHDL for mc_1'
+        File.read("#{vhdl_path}/mc_0.vhdl").must_equal 'some VHDL'
+        File.read("#{vhdl_path}/mc_1.vhdl").must_equal 'some VHDL'
       end
     end
   end
