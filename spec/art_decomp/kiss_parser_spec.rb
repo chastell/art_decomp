@@ -3,11 +3,11 @@ require_relative '../spec_helper'
 module ArtDecomp describe KISSParser do
   describe '.circuit_for' do
     it 'parses the KISS and returns a Circuit' do
-      kiss_parser = MiniTest::Mock.new.expect :circuit, circuit = double
-      KISSParser.stub :new, kiss_parser do
-        KISSParser.circuit_for('KISS').must_equal circuit
-      end
-      kiss_parser.verify
+      kiss_parser = fake :k_i_s_s_parser
+      circuit     = fake :circuit
+      mock(kiss_parser).circuit { circuit }
+      stub(KISSParser).new('KISS') { kiss_parser }
+      KISSParser.circuit_for('KISS').must_equal circuit
     end
   end
 
