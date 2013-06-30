@@ -16,7 +16,7 @@ GEM
   specs:
     dependor (0.0.6)
     minitest (5.0.4)
-    rake (10.1.0.beta.3)
+    rake (10.1.0)
 
 PLATFORMS
   ruby
@@ -25,4 +25,4 @@ DEPENDENCIES
   art_decomp!
   bogus!
   minitest (~> 5.0)
-  rake (>= 10.1.0.beta)
+  rake (~> 10.1)
