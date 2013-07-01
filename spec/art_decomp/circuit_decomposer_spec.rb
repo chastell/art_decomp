@@ -3,17 +3,17 @@ require_relative '../spec_helper'
 module ArtDecomp describe CircuitDecomposer do
   describe '.decompose' do
     it 'yields subsequent decomposed circuits' do
-      circuit = double largest_function: fun = double
-      df1, df2 = double, double
-      fun_dec = MiniTest::Mock.new.expect :decompose, [df1, df2].to_enum, [fun]
-      solder  = MiniTest::Mock.new
-      solder.expect :replace, dec1 = double, [circuit, fun, df1]
-      solder.expect :replace, dec2 = double, [circuit, fun, df2]
+      circuit = fake largest_function: fun = fake
+      f1, f2  = fake, fake
+      fun_dec = fake
+      mock(fun_dec).decompose(fun) { [f1, f2].to_enum }
+      d1, d2  = fake, fake
+      solder  = fake
+      mock(solder).replace(circuit, fun, f1) { d1 }
+      mock(solder).replace(circuit, fun, f2) { d2 }
       decs = CircuitDecomposer.decompose circuit, decomposer: fun_dec,
         solder: solder
-      decs.to_a.must_equal [dec1, dec2]
-      fun_dec.verify
-      solder.verify
+      decs.to_a.must_equal [d1, d2]
     end
   end
 end end
