@@ -49,7 +49,7 @@ module ArtDecomp describe Circuit do
     it 'gets the puts' do
       circ = Circuit.new
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [[], [], [], []]
-      circ = Circuit.new is: is = double, os: os = double, ps: ps = double, qs: qs = double
+      circ = Circuit.new is: is = fake, os: os = fake, ps: ps = fake, qs: qs = fake
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [is, os, ps, qs]
     end
   end
