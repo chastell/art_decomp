@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/chastell/bogus.git
-  revision: e2ab65a4cccd19803943d5a295a0000de2a13df0
+  revision: 9e6e502067b317feaeda710c880dbd3ff5800c28
   branch: art_decomp
   specs:
     bogus (0.1.0)
