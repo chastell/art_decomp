@@ -1,4 +1,7 @@
 module ArtDecomp class CircuitSizer
+  def self.not_smaller_than archs
+  end
+
   def self.size archs
     quarters = archs.map { |arch| quarters arch }.reduce 0, :+
     (quarters / 4.0).ceil

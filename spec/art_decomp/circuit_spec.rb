@@ -40,7 +40,7 @@ module ArtDecomp describe Circuit do
   describe '#functions, #functions=' do
     it 'gets/sets the functions' do
       Circuit.new.functions.must_equal []
-      Circuit.new(functions: funs = double).functions.must_equal funs
+      Circuit.new(functions: funs = fake).functions.must_equal funs
       Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
     end
   end
@@ -58,34 +58,34 @@ module ArtDecomp describe Circuit do
     it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|
         Circuit.new.send(ss).must_equal []
-        Circuit.new(ss => puts = double).send(ss).must_equal puts
+        Circuit.new(ss => puts = fake).send(ss).must_equal puts
       end
     end
   end
 
   describe '#not_smaller_than' do
     it 'returns the smallest possible size of the circuit' do
-      functions = [double(arch: Arch[1,2]), double(arch: Arch[3,4])]
-      sizer = MiniTest::Mock.new
-      sizer.expect :not_smaller_than, 7, [[Arch[1,2], Arch[3,4]]]
-      sizer.expect :not_smaller_than, 0, [[]]
-      Circuit.new(functions: functions).not_smaller_than(sizer: sizer)
+      functions = [fake(arch: Arch[1,2]), fake(arch: Arch[3,4])]
+      cs = fake :circuit_sizer, as: :class
+      stub(cs).not_smaller_than([Arch[1,2], Arch[3,4]]) { 7 }
+      stub(cs).not_smaller_than([]) { 0 }
+      Circuit.new(functions: functions).not_smaller_than(circuit_sizer: cs)
         .must_equal 7
-      Circuit.new.not_smaller_than(sizer: sizer).must_equal 0
+      Circuit.new.not_smaller_than(circuit_sizer: cs).must_equal 0
     end
   end
 
   describe '#recoders, #recoders=' do
     it 'gets/sets the recorders' do
       Circuit.new.recoders.must_equal []
-      Circuit.new(recoders: recs = double).recoders.must_equal recs
+      Circuit.new(recoders: recs = fake).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
     end
   end
 
   describe '#size' do
     it 'returns the size of the circuit' do
-      functions = [double(arch: Arch[1,2]), double(arch: Arch[3,4])]
+      functions = [fake(arch: Arch[1,2]), fake(arch: Arch[3,4])]
       sizer = MiniTest::Mock.new
       sizer.expect :size, 7, [[Arch[1,2], Arch[3,4]]]
       sizer.expect :size, 0, [[]]
@@ -97,7 +97,7 @@ module ArtDecomp describe Circuit do
   describe '#wires, #wires=' do
     it 'gets/sets the wires' do
       Circuit.new.wires.must_equal []
-      Circuit.new(wires: wires = double).wires.must_equal wires
+      Circuit.new(wires: wires = fake).wires.must_equal wires
       Circuit.new.tap { |c| c.wires = wires }.wires.must_equal wires
     end
   end
