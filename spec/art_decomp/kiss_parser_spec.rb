@@ -5,9 +5,8 @@ module ArtDecomp describe KISSParser do
 
   describe '.circuit_for' do
     it 'parses the KISS and returns a Circuit' do
-      mock(kpf = fake).new('KISS') { fake KISSParser, circuit: circuit }
-      KISSParser.circuit_for('KISS', kiss_parser_factory: kpf)
-        .must_equal circuit
+      kp = fake KISSParser, circuit: circuit
+      KISSParser.circuit_for('KISS', kiss_parser: kp).must_equal circuit
     end
   end
 
