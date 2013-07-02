@@ -86,11 +86,11 @@ module ArtDecomp describe Circuit do
   describe '#size' do
     it 'returns the size of the circuit' do
       functions = [fake(arch: Arch[1,2]), fake(arch: Arch[3,4])]
-      sizer = MiniTest::Mock.new
-      sizer.expect :size, 7, [[Arch[1,2], Arch[3,4]]]
-      sizer.expect :size, 0, [[]]
-      Circuit.new(functions: functions).size(sizer: sizer).must_equal 7
-      Circuit.new.size(sizer: sizer).must_equal 0
+      cs = fake :circuit_sizer, as: :class
+      stub(cs).size([Arch[1,2], Arch[3,4]]) { 7 }
+      stub(cs).size([]) { 0 }
+      Circuit.new(functions: functions).size(circuit_sizer: cs).must_equal 7
+      Circuit.new.size(circuit_sizer: cs).must_equal 0
     end
   end
 
