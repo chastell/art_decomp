@@ -40,7 +40,7 @@ module ArtDecomp describe Circuit do
   describe '#functions, #functions=' do
     it 'gets/sets the functions' do
       Circuit.new.functions.must_equal []
-      Circuit.new(functions: funs = fake).functions.must_equal funs
+      Circuit.new(functions: funs = fake(:array)).functions.must_equal funs
       Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
     end
   end
@@ -49,7 +49,8 @@ module ArtDecomp describe Circuit do
     it 'gets the puts' do
       circ = Circuit.new
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [[], [], [], []]
-      circ = Circuit.new is: is = fake, os: os = fake, ps: ps = fake, qs: qs = fake
+      circ = Circuit.new is: is = fake(:array), os: os = fake(:array),
+        ps: ps = fake(:array), qs: qs = fake(:array)
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [is, os, ps, qs]
     end
   end
@@ -58,14 +59,15 @@ module ArtDecomp describe Circuit do
     it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|
         Circuit.new.send(ss).must_equal []
-        Circuit.new(ss => puts = fake).send(ss).must_equal puts
+        Circuit.new(ss => puts = fake(:array)).send(ss).must_equal puts
       end
     end
   end
 
   describe '#not_smaller_than' do
     it 'returns the smallest possible size of the circuit' do
-      functions = [fake(arch: Arch[1,2]), fake(arch: Arch[3,4])]
+      functions = [fake(:function, arch: Arch[1,2]),
+        fake(:function, arch: Arch[3,4])]
       cs = fake :circuit_sizer, as: :class
       stub(cs).not_smaller_than([Arch[1,2], Arch[3,4]]) { 7 }
       stub(cs).not_smaller_than([]) { 0 }
@@ -78,14 +80,15 @@ module ArtDecomp describe Circuit do
   describe '#recoders, #recoders=' do
     it 'gets/sets the recorders' do
       Circuit.new.recoders.must_equal []
-      Circuit.new(recoders: recs = fake).recoders.must_equal recs
+      Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
     end
   end
 
   describe '#size' do
     it 'returns the size of the circuit' do
-      functions = [fake(arch: Arch[1,2]), fake(arch: Arch[3,4])]
+      functions = [fake(:function, arch: Arch[1,2]),
+        fake(:function, arch: Arch[3,4])]
       cs = fake :circuit_sizer, as: :class
       stub(cs).size([Arch[1,2], Arch[3,4]]) { 7 }
       stub(cs).size([]) { 0 }
@@ -97,7 +100,7 @@ module ArtDecomp describe Circuit do
   describe '#wires, #wires=' do
     it 'gets/sets the wires' do
       Circuit.new.wires.must_equal []
-      Circuit.new(wires: wires = fake).wires.must_equal wires
+      Circuit.new(wires: wires = fake(:array)).wires.must_equal wires
       Circuit.new.tap { |c| c.wires = wires }.wires.must_equal wires
     end
   end
