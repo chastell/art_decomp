@@ -12,7 +12,7 @@ module ArtDecomp describe Decompositions do
       c13  = fake :circuit, size: 11
       tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
       tree.default = []
-      decomposer = fake
+      decomposer = fake :circuit_decomposer
       decomposer.define_singleton_method(:decomposed) { |circ| tree[circ] }
       decs = Decompositions.for c1, decomposer: decomposer
       decs.must_be_kind_of Enumerator
