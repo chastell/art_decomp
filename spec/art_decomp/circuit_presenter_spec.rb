@@ -3,9 +3,8 @@ require_relative '../spec_helper'
 module ArtDecomp describe CircuitPresenter do
   describe '.vhdl_for' do
     it 'returns VHDL for the given circuit' do
-      circuit = fake :circuit
-      mock(cpf = fake).new(circuit) { fake :circuit_presenter, vhdl: 'VHDL' }
-      CircuitPresenter.vhdl_for(circuit, 'name', circuit_presenter_factory: cpf)
+      mock(cp = fake(:circuit_presenter)).vhdl('name') { 'VHDL' }
+      CircuitPresenter.vhdl_for(fake(:circuit), 'name', circuit_presenter: cp)
         .must_equal 'VHDL'
     end
   end
