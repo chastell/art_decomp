@@ -2,8 +2,8 @@ require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitPresenter do
   describe '.vhdl_for' do
-    it 'returns VHDL for the given circuit' do
-      mock(cp = fake(:circuit_presenter)).vhdl('name') { 'VHDL' }
+    it 'returns VHDL for the given Circuit' do
+      stub(cp = fake(:circuit_presenter)).vhdl('name') { 'VHDL' }
       CircuitPresenter.vhdl_for(fake(:circuit), 'name', circuit_presenter: cp)
         .must_equal 'VHDL'
     end
@@ -72,7 +72,8 @@ module ArtDecomp describe CircuitPresenter do
         Wire.new(f1.os[6], circuit.os[4]),
       ]
 
-      circuit_presenter.vhdl('mc').must_equal File.read 'spec/fixtures/mc.decomposed.vhdl'
+      vhdl = File.read 'spec/fixtures/mc.decomposed.vhdl'
+      circuit_presenter.vhdl('mc').must_equal vhdl
     end
   end
 end end
