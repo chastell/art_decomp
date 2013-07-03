@@ -25,6 +25,14 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '.new' do
+    it 'initialises the Circuit with minimal fuss' do
+      [:functions, :is, :os, :ps, :qs, :recoders, :wires].each do |attr|
+        Circuit.new.send(attr).must_equal []
+      end
+    end
+  end
+
   describe '#binwidths' do
     it 'returns binary widths of the given Put group' do
       circuit = Circuit.new(
@@ -38,7 +46,6 @@ module ArtDecomp describe Circuit do
 
   describe '#functions, #functions=' do
     it 'gets/sets the functions' do
-      Circuit.new.functions.must_equal []
       Circuit.new(functions: funs = fake(:array)).functions.must_equal funs
       Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
     end
@@ -46,8 +53,6 @@ module ArtDecomp describe Circuit do
 
   describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
-      circ = Circuit.new
-      [circ.is, circ.os, circ.ps, circ.qs].must_equal [[], [], [], []]
       circ = Circuit.new is: is = fake(:array), os: os = fake(:array),
         ps: ps = fake(:array), qs: qs = fake(:array)
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [is, os, ps, qs]
@@ -57,7 +62,6 @@ module ArtDecomp describe Circuit do
   describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|
-        Circuit.new.send(ss).must_equal []
         Circuit.new(ss => puts = fake(:array)).send(ss).must_equal puts
       end
     end
@@ -75,7 +79,6 @@ module ArtDecomp describe Circuit do
 
   describe '#recoders, #recoders=' do
     it 'gets/sets the Recorders' do
-      Circuit.new.recoders.must_equal []
       Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
     end
@@ -92,7 +95,6 @@ module ArtDecomp describe Circuit do
 
   describe '#wires, #wires=' do
     it 'gets/sets the wires' do
-      Circuit.new.wires.must_equal []
       Circuit.new(wires: wires = fake(:array)).wires.must_equal wires
       Circuit.new.tap { |c| c.wires = wires }.wires.must_equal wires
     end
