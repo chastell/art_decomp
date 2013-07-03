@@ -6,35 +6,35 @@ module ArtDecomp describe Function do
   let(:function) { Function.new is, os }
 
   describe '.new' do
-    it 'dups the puts' do
+    it 'dups the Puts' do
       refute function.is.first.equal? is.first
       refute function.os.last.equal?  os.last
     end
   end
 
   describe '#arch' do
-    it 'returns the arch of the function' do
+    it 'returns the Arch' do
       function.arch.must_equal Arch[3,3]
       Function.new.arch.must_equal Arch[0,0]
     end
   end
 
   describe '#binwidth' do
-    it 'returns binary width of the function' do
-      Function.new.binwidth.must_equal 0
+    it 'returns the binary width' do
       function.binwidth.must_equal 3
+      Function.new.binwidth.must_equal 0
     end
   end
 
   describe '#binwidths' do
-    it 'returns binary widths of signals' do
+    it 'returns binary widths of the given Puts group' do
       function.binwidths(:is).must_equal [1, 2]
       function.binwidths(:os).must_equal [1, 2]
     end
   end
 
   describe '#is, #os' do
-    it 'returns the input/output signals' do
+    it 'returns the input/output Puts' do
       function.is.must_equal is
       function.os.must_equal os
     end
