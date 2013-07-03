@@ -1,5 +1,5 @@
 module ArtDecomp class CircuitSizer
-  def self.not_smaller_than archs
+  def self.min_size archs
   end
 
   def self.size archs
