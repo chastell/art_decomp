@@ -13,13 +13,13 @@ module ArtDecomp describe Put do
   describe '#==' do
     it 'compares two Puts by value' do
       assert put == put.dup
-      assert Put[a: B[0], b: B[1]] == Put[b: B[1], a: B[0]]
-      refute Put[a: B[0], b: B[1]] == Put[a: B[1], b: B[0]]
+      assert put == Put[b: B[1,2], a: B[0,1]]
+      refute put == Put[a: B[1,2], b: B[0,1]]
     end
   end
 
   describe '#binwidth' do
-    it 'returns the binary width of the blanket' do
+    it 'returns the binary width' do
       Put[].binwidth.must_equal 0
       Put[a: 1].binwidth.must_equal 0
       Put[a: 1, b: 2].binwidth.must_equal 1
@@ -31,13 +31,13 @@ module ArtDecomp describe Put do
   end
 
   describe '#blocks' do
-    it 'returns the blanket’s blocks' do
+    it 'returns blocks' do
       put.blocks.must_equal [B[0,1], B[1,2]]
     end
   end
 
   describe '#codes' do
-    it 'returns the blanket’s codes' do
+    it 'returns codes' do
       put.codes.must_equal [:a, :b]
     end
 
@@ -48,7 +48,7 @@ module ArtDecomp describe Put do
   end
 
   describe '#size' do
-    it 'returns the size of the blanket' do
+    it 'returns size' do
       put.size.must_equal 2
     end
   end
