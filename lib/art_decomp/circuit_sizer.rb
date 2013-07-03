@@ -1,5 +1,6 @@
 module ArtDecomp class CircuitSizer
   def self.min_size archs
+    (archs.map { |arch| min_quarters arch }.reduce(0, :+) / 4.0).ceil
   end
 
   def self.size archs
@@ -7,6 +8,15 @@ module ArtDecomp class CircuitSizer
   end
 
   private
+
+  def self.min_quarters arch
+    case
+    when arch.i == 0 then 0
+    when arch.o == 0 then 0
+    when arch.i <= 5 then (arch.o / 2.0).ceil
+    else [(arch.i / 5.0).ceil, (arch.o / 2.0).ceil].max
+    end
+  end
 
   def self.quarters arch
     case
