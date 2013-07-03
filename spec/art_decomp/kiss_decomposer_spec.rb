@@ -13,7 +13,8 @@ module ArtDecomp describe KISSDecomposer do
           stub(cp).vhdl_for(c2, 'mc_1') { 'VHDL for mc_1' }
           parser = fake KISSParser, as: :class, circuit_for: fake(:circuit)
           args   = ['--dir', vhdl_path, 'foo/bar/mc.kiss']
-          KISSDecomposer.new(args).decompose cp: cp, decs: decs, parser: parser
+          KISSDecomposer.new(args).decompose circuit_presenter: cp,
+            decompositions: decs, kiss_parser: parser
         end
         File.read("#{vhdl_path}/mc_0.vhdl").must_equal 'VHDL for mc_0'
         File.read("#{vhdl_path}/mc_1.vhdl").must_equal 'VHDL for mc_1'
