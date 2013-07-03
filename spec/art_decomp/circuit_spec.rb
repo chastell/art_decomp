@@ -26,7 +26,7 @@ module ArtDecomp describe Circuit do
   end
 
   describe '#binwidths' do
-    it 'returns binary widths of signals' do
+    it 'returns binary widths of the given Put group' do
       circuit = Circuit.new(
         is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
         qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
@@ -44,7 +44,7 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#is, #os, #ps, @qs' do
+  describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
       circ = Circuit.new
       [circ.is, circ.os, circ.ps, circ.qs].must_equal [[], [], [], []]
@@ -54,7 +54,7 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#is, #os, #ps, @qs' do
+  describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|
         Circuit.new.send(ss).must_equal []
@@ -77,7 +77,7 @@ module ArtDecomp describe Circuit do
   end
 
   describe '#recoders, #recoders=' do
-    it 'gets/sets the recorders' do
+    it 'gets/sets the Recorders' do
       Circuit.new.recoders.must_equal []
       Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
