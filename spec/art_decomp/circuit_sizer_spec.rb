@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitSizer do
   describe '.size' do
-    it 'returns the size for the given archs' do
+    it 'returns the size for the given Archs' do
       {
         []                                => 0,
         [Arch[0,0]]                       => 0,
