@@ -64,15 +64,12 @@ module ArtDecomp describe Circuit do
   end
 
   describe '#not_smaller_than' do
-    it 'returns the smallest possible size of the circuit' do
-      functions = [fake(:function, arch: Arch[1,2]),
-        fake(:function, arch: Arch[3,4])]
-      cs = fake :circuit_sizer, as: :class
-      stub(cs).not_smaller_than([Arch[1,2], Arch[3,4]]) { 7 }
-      stub(cs).not_smaller_than([]) { 0 }
-      Circuit.new(functions: functions).not_smaller_than(circuit_sizer: cs)
+    it 'returns the smallest possible size of the Circuit' do
+      f1 = fake :function, arch: a1 = Arch[1,2]
+      f2 = fake :function, arch: a2 = Arch[3,4]
+      stub(cs = fake(:circuit_sizer, as: :class)).not_smaller_than([a1, a2]) { 7 }
+      Circuit.new(functions: [f1, f2]).not_smaller_than(circuit_sizer: cs)
         .must_equal 7
-      Circuit.new.not_smaller_than(circuit_sizer: cs).must_equal 0
     end
   end
 
@@ -85,14 +82,11 @@ module ArtDecomp describe Circuit do
   end
 
   describe '#size' do
-    it 'returns the size of the circuit' do
-      functions = [fake(:function, arch: Arch[1,2]),
-        fake(:function, arch: Arch[3,4])]
-      cs = fake :circuit_sizer, as: :class
-      stub(cs).size([Arch[1,2], Arch[3,4]]) { 7 }
-      stub(cs).size([]) { 0 }
-      Circuit.new(functions: functions).size(circuit_sizer: cs).must_equal 7
-      Circuit.new.size(circuit_sizer: cs).must_equal 0
+    it 'returns the size of the Circuit' do
+      f1 = fake :function, arch: a1 = Arch[1,2]
+      f2 = fake :function, arch: a2 = Arch[3,4]
+      stub(cs = fake(:circuit_sizer, as: :class)).size([a1, a2]) { 7 }
+      Circuit.new(functions: [f1, f2]).size(circuit_sizer: cs).must_equal 7
     end
   end
 
