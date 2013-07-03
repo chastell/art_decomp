@@ -1,26 +1,8 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitSizer do
-  describe '.min_size' do
-    it 'returns the smallest possible size for the given Archs' do
-      {
-        []                                => 0,
-        [Arch[0,0]]                       => 0,
-        [Arch[0,1]]                       => 0,
-        [Arch[1,0]]                       => 0,
-        [Arch[1,1]]                       => 1,
-        [Arch[5,2]]                       => 1,
-        [Arch[5,3], Arch[5,3], Arch[5,1]] => 2,
-        [Arch[20,8]]                      => 1,
-        [Arch[21,8]]                      => 2,
-        [Arch[20,9]]                      => 2,
-      }.each do |archs, size|
-        CircuitSizer.min_size(archs).must_equal size
-      end
-    end
-  end
-  describe '.size' do
-    it 'returns the size for the given Archs' do
+  describe '.max_size' do
+    it 'returns the maximum size for the given Archs' do
       {
         []                                => 0,
         [Arch[0,0]]                       => 0,
@@ -42,7 +24,26 @@ module ArtDecomp describe CircuitSizer do
         [Arch[9,4]]                       => 9,
         [Arch[14,7]]                      => 485,
       }.each do |archs, size|
-        CircuitSizer.size(archs).must_equal size
+        CircuitSizer.max_size(archs).must_equal size
+      end
+    end
+  end
+
+  describe '.min_size' do
+    it 'returns the smallest possible size for the given Archs' do
+      {
+        []                                => 0,
+        [Arch[0,0]]                       => 0,
+        [Arch[0,1]]                       => 0,
+        [Arch[1,0]]                       => 0,
+        [Arch[1,1]]                       => 1,
+        [Arch[5,2]]                       => 1,
+        [Arch[5,3], Arch[5,3], Arch[5,1]] => 2,
+        [Arch[20,8]]                      => 1,
+        [Arch[21,8]]                      => 2,
+        [Arch[20,9]]                      => 2,
+      }.each do |archs, size|
+        CircuitSizer.min_size(archs).must_equal size
       end
     end
   end

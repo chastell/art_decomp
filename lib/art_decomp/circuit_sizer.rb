@@ -1,10 +1,10 @@
 module ArtDecomp class CircuitSizer
-  def self.min_size archs
-    (archs.map { |arch| min_quarters arch }.reduce(0, :+) / 4.0).ceil
+  def self.max_size archs
+    (archs.map { |arch| quarters arch }.reduce(0, :+) / 4.0).ceil
   end
 
-  def self.size archs
-    (archs.map { |arch| quarters arch }.reduce(0, :+) / 4.0).ceil
+  def self.min_size archs
+    (archs.map { |arch| min_quarters arch }.reduce(0, :+) / 4.0).ceil
   end
 
   private

@@ -31,6 +31,6 @@ module ArtDecomp class Circuit
   end
 
   def size circuit_sizer: CircuitSizer
-    @size ||= circuit_sizer.size functions.map(&:arch)
+    @size ||= circuit_sizer.max_size functions.map(&:arch)
   end
 end end
