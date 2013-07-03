@@ -3,13 +3,13 @@ require_relative '../spec_helper'
 module ArtDecomp describe Decompositions do
   describe '.for' do
     it 'yields subsequent best decompositions' do
-      c1   = fake :circuit, size: 7
-      c11  = fake :circuit, size: 9
-      c111 = fake :circuit, size: 12
-      c112 = fake :circuit, size: 10
-      c12  = fake :circuit, size: 8
-      c121 = fake :circuit, size: 13
-      c13  = fake :circuit, size: 11
+      c1   = fake :circuit, min_size: 7
+      c11  = fake :circuit, min_size: 9
+      c111 = fake :circuit, min_size: 12
+      c112 = fake :circuit, min_size: 10
+      c12  = fake :circuit, min_size: 8
+      c121 = fake :circuit, min_size: 13
+      c13  = fake :circuit, min_size: 11
       tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
       tree.default = []
       decomposer = fake :circuit_decomposer, as: :class
