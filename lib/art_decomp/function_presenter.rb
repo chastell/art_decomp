@@ -1,5 +1,3 @@
-require 'delegate'
-
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   DontCare = :-
 
