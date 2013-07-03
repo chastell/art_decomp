@@ -1,4 +1,4 @@
 module ArtDecomp class CircuitSolder
-  def replace circuit, source, target
+  def replace circuit, function, decomposed
   end
 end end
