@@ -67,6 +67,15 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#max_size' do
+    it 'returns the maximum size of the Circuit' do
+      f1 = fake :function, arch: a1 = Arch[1,2]
+      f2 = fake :function, arch: a2 = Arch[3,4]
+      stub(cs = fake(:circuit_sizer, as: :class)).max_size([a1, a2]) { 7 }
+      Circuit.new(functions: [f1, f2]).max_size(circuit_sizer: cs).must_equal 7
+    end
+  end
+
   describe '#min_size' do
     it 'returns the smallest possible size of the Circuit' do
       f1 = fake :function, arch: a1 = Arch[1,2]
@@ -81,15 +90,6 @@ module ArtDecomp describe Circuit do
     it 'gets/sets the Recorders' do
       Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
       Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
-    end
-  end
-
-  describe '#size' do
-    it 'returns the size of the Circuit' do
-      f1 = fake :function, arch: a1 = Arch[1,2]
-      f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(cs = fake(:circuit_sizer, as: :class)).max_size([a1, a2]) { 7 }
-      Circuit.new(functions: [f1, f2]).size(circuit_sizer: cs).must_equal 7
     end
   end
 
