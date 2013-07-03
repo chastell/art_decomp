@@ -71,7 +71,7 @@ module ArtDecomp describe Circuit do
     it 'returns the maximum size of the Circuit' do
       f1 = fake :function, arch: a1 = Arch[1,2]
       f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(cs = fake(:circuit_sizer, as: :class)).max_size([a1, a2]) { 7 }
+      stub(cs = fake(:circuit_sizer)).max_size([a1, a2]) { 7 }
       Circuit.new(functions: [f1, f2]).max_size(circuit_sizer: cs).must_equal 7
     end
   end
@@ -80,7 +80,7 @@ module ArtDecomp describe Circuit do
     it 'returns the smallest possible size of the Circuit' do
       f1 = fake :function, arch: a1 = Arch[1,2]
       f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(cs = fake(:circuit_sizer, as: :class)).min_size([a1, a2]) { 7 }
+      stub(cs = fake(:circuit_sizer)).min_size([a1, a2]) { 7 }
       Circuit.new(functions: [f1, f2]).min_size(circuit_sizer: cs)
         .must_equal 7
     end

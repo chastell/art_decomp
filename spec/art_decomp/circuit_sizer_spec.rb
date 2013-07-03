@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitSizer do
-  describe '.max_size' do
+  describe '#max_size' do
     it 'returns the maximum size for the given Archs' do
       {
         []                                => 0,
@@ -24,12 +24,12 @@ module ArtDecomp describe CircuitSizer do
         [Arch[9,4]]                       => 9,
         [Arch[14,7]]                      => 485,
       }.each do |archs, size|
-        CircuitSizer.max_size(archs).must_equal size
+        CircuitSizer.new.max_size(archs).must_equal size
       end
     end
   end
 
-  describe '.min_size' do
+  describe '#min_size' do
     it 'returns the smallest possible size for the given Archs' do
       {
         []                                => 0,
@@ -43,7 +43,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[21,8]]                      => 2,
         [Arch[20,9]]                      => 2,
       }.each do |archs, size|
-        CircuitSizer.min_size(archs).must_equal size
+        CircuitSizer.new.min_size(archs).must_equal size
       end
     end
   end

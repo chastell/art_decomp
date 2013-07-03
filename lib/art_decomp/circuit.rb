@@ -26,11 +26,11 @@ module ArtDecomp class Circuit
   def largest_function
   end
 
-  def max_size circuit_sizer: CircuitSizer
+  def max_size circuit_sizer: CircuitSizer.new
     @max_size ||= circuit_sizer.max_size functions.map(&:arch)
   end
 
-  def min_size circuit_sizer: CircuitSizer
+  def min_size circuit_sizer: CircuitSizer.new
     @min_size ||= circuit_sizer.min_size functions.map(&:arch)
   end
 end end
