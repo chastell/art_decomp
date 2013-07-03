@@ -1,6 +1,6 @@
 module ArtDecomp class CircuitSizer
   def self.max_size archs
-    (archs.map { |arch| quarters arch }.reduce(0, :+) / 4.0).ceil
+    (archs.map { |arch| max_quarters arch }.reduce(0, :+) / 4.0).ceil
   end
 
   def self.min_size archs
@@ -18,14 +18,14 @@ module ArtDecomp class CircuitSizer
     end
   end
 
-  def self.quarters arch
+  def self.max_quarters arch
     case
     when arch.i == 0 then 0
     when arch.i <= 5 then (arch.o / 2.0).ceil
     when arch.i == 6 then arch.o
     when arch.i == 7 then arch.o * 2
     when arch.i == 8 then arch.o * 4
-    else arch.o * (quarters(Arch[6,1]) + 4 * quarters(Arch[arch.i-2,1]))
+    else arch.o * (max_quarters(Arch[6,1]) + 4 * max_quarters(Arch[arch.i-2,1]))
     end
   end
 end end
