@@ -12,8 +12,14 @@ module ArtDecomp describe Decompositions do
       c13  = fake :circuit, size: 11
       tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
       tree.default = []
-      decomposer = fake :circuit_decomposer
-      decomposer.define_singleton_method(:decomposed) { |circ| tree[circ] }
+      decomposer = fake :circuit_decomposer, as: :class
+      stub(decomposer).decompose(c1)   { [c11, c12, c13] }
+      stub(decomposer).decompose(c11)  { [c111, c112]    }
+      stub(decomposer).decompose(c111) { []              }
+      stub(decomposer).decompose(c112) { []              }
+      stub(decomposer).decompose(c12)  { [c121]          }
+      stub(decomposer).decompose(c121) { []              }
+      stub(decomposer).decompose(c13)  { []              }
       decs = Decompositions.for c1, decomposer: decomposer
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]

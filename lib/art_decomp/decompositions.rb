@@ -5,7 +5,7 @@ module ArtDecomp class Decompositions
       until queue.empty?
         circuit = queue.shift
         yielder << circuit
-        decomposer.decomposed(circuit).each { |circ| queue << circ }
+        decomposer.decompose(circuit).each { |circ| queue << circ }
         queue.sort_by!(&:size)
       end
     end
