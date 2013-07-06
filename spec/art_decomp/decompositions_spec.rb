@@ -20,7 +20,7 @@ module ArtDecomp describe Decompositions do
       stub(decomposer).decompose(c12)  { [c121]          }
       stub(decomposer).decompose(c121) { []              }
       stub(decomposer).decompose(c13)  { []              }
-      decs = Decompositions.for c1, decomposer: decomposer
+      decs = Decompositions.for c1, circuit_decomposer: decomposer
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
     end

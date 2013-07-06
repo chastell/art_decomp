@@ -1,11 +1,11 @@
 module ArtDecomp class Decompositions
-  def self.for circuit, decomposer: CircuitDecomposer
+  def self.for circuit, circuit_decomposer: CircuitDecomposer
     queue = [circuit]
     Enumerator.new do |yielder|
       until queue.empty?
         circuit = queue.shift
         yielder << circuit
-        decomposer.decompose(circuit).each { |circ| queue << circ }
+        circuit_decomposer.decompose(circuit).each { |circ| queue << circ }
         queue.sort_by!(&:min_size)
       end
     end
