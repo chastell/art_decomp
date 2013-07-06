@@ -39,6 +39,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[1,1]]                       => 1,
         [Arch[5,2]]                       => 1,
         [Arch[5,3], Arch[5,3], Arch[5,1]] => 2,
+        [Arch[7,0]]                       => 0,
         [Arch[20,8]]                      => 1,
         [Arch[21,8]]                      => 2,
         [Arch[20,9]]                      => 2,
