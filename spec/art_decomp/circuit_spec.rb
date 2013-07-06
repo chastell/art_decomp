@@ -53,14 +53,6 @@ module ArtDecomp describe Circuit do
 
   describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
-      circ = Circuit.new is: is = fake(:array), os: os = fake(:array),
-        ps: ps = fake(:array), qs: qs = fake(:array)
-      [circ.is, circ.os, circ.ps, circ.qs].must_equal [is, os, ps, qs]
-    end
-  end
-
-  describe '#is, #os, #ps, #qs' do
-    it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|
         Circuit.new(ss => puts = fake(:array)).send(ss).must_equal puts
       end
