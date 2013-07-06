@@ -12,15 +12,15 @@ module ArtDecomp describe Decompositions do
       c13  = fake :circuit, min_size: 11
       tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
       tree.default = []
-      decomposer = fake :circuit_decomposer, as: :class
-      stub(decomposer).decompose(c1)   { [c11, c12, c13] }
-      stub(decomposer).decompose(c11)  { [c111, c112]    }
-      stub(decomposer).decompose(c111) { []              }
-      stub(decomposer).decompose(c112) { []              }
-      stub(decomposer).decompose(c12)  { [c121]          }
-      stub(decomposer).decompose(c121) { []              }
-      stub(decomposer).decompose(c13)  { []              }
-      decs = Decompositions.for c1, circuit_decomposer: decomposer
+      circuit_decomposer = fake :circuit_decomposer
+      stub(circuit_decomposer).decompose(c1)   { [c11, c12, c13] }
+      stub(circuit_decomposer).decompose(c11)  { [c111, c112]    }
+      stub(circuit_decomposer).decompose(c111) { []              }
+      stub(circuit_decomposer).decompose(c112) { []              }
+      stub(circuit_decomposer).decompose(c12)  { [c121]          }
+      stub(circuit_decomposer).decompose(c121) { []              }
+      stub(circuit_decomposer).decompose(c13)  { []              }
+      decs = Decompositions.for c1, circuit_decomposer: circuit_decomposer
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
     end
