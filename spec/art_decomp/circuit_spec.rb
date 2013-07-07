@@ -59,6 +59,15 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#largest_function' do
+    it 'returns the largest Function (input- and output-wise)' do
+      f23 = fake :function, arch: Arch[2,3]
+      f32 = fake :function, arch: Arch[3,2]
+      f33 = fake :function, arch: Arch[3,3]
+      Circuit.new(functions: [f23, f32, f33]).largest_function.must_equal f33
+    end
+  end
+
   describe '#max_size' do
     it 'returns the maximum size of the Circuit' do
       f1 = fake :function, arch: a1 = Arch[1,2]
