@@ -1,6 +1,20 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe CircuitSizer do
+  describe '#adm_size' do
+    it 'returns the admissible heuristic size for the given Archs' do
+      {
+        []                      => 0,
+        [Arch[8,1]]             => 1,
+        [Arch[7,1], Arch[10,4]] => 1,
+        [Arch[8,2]]             => 2,
+        [Arch[20,8]]            => 1,
+      }.each do |archs, size|
+        CircuitSizer.new.adm_size(archs).must_equal size
+      end
+    end
+  end
+
   describe '#max_size' do
     it 'returns the maximum size for the given Archs' do
       {
