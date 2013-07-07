@@ -1,4 +1,7 @@
 module ArtDecomp class CircuitSizer
+  def adm_size archs
+  end
+
   def max_size archs
     (archs.map { |arch| max_quarters arch }.reduce(0, :+) / 4.0).ceil
   end

@@ -19,6 +19,10 @@ module ArtDecomp class Circuit
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
+  def adm_size circuit_sizer: CircuitSizer.new
+    @adm_size ||= circuit_sizer.adm_size functions.map(&:arch)
+  end
+
   def binwidths group
     send(group).map(&:binwidth)
   end
