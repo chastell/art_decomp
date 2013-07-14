@@ -35,10 +35,8 @@ module ArtDecomp describe Circuit do
 
   describe '#adm_size' do
     it 'returns the admissible heuristic size of the Circuit' do
-      f1 = fake :function, arch: a1 = Arch[1,2]
-      f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(as = fake(:arch_sizer)).adm_size([a1, a2]) { 7 }
-      Circuit.new(functions: [f1, f2]).adm_size(arch_sizer: as).must_equal 7
+      stub(cs = fake(:circuit_sizer)).adm_size { 7 }
+      Circuit.new.adm_size(circuit_sizer: cs).must_equal 7
     end
   end
 
@@ -79,20 +77,15 @@ module ArtDecomp describe Circuit do
 
   describe '#max_size' do
     it 'returns the maximum size of the Circuit' do
-      f1 = fake :function, arch: a1 = Arch[1,2]
-      f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(as = fake(:arch_sizer)).max_size([a1, a2]) { 7 }
-      Circuit.new(functions: [f1, f2]).max_size(arch_sizer: as).must_equal 7
+      stub(cs = fake(:circuit_sizer)).max_size { 7 }
+      Circuit.new.max_size(circuit_sizer: cs).must_equal 7
     end
   end
 
   describe '#min_size' do
     it 'returns the smallest possible size of the Circuit' do
-      f1 = fake :function, arch: a1 = Arch[1,2]
-      f2 = fake :function, arch: a2 = Arch[3,4]
-      stub(as = fake(:arch_sizer)).min_size([a1, a2]) { 7 }
-      Circuit.new(functions: [f1, f2]).min_size(arch_sizer: as)
-        .must_equal 7
+      stub(cs = fake(:circuit_sizer)).min_size { 7 }
+      Circuit.new.min_size(circuit_sizer: cs).must_equal 7
     end
   end
 
