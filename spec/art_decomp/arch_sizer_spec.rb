@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-module ArtDecomp describe CircuitSizer do
+module ArtDecomp describe ArchSizer do
   describe '#adm_size' do
     it 'returns the admissible heuristic size for the given Archs' do
       {
@@ -10,7 +10,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[8,2]]             => 2,
         [Arch[20,8]]            => 1,
       }.each do |archs, size|
-        CircuitSizer.new.adm_size(archs).must_equal size
+        ArchSizer.new.adm_size(archs).must_equal size
       end
     end
   end
@@ -38,7 +38,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[9,4]]                       => 9,
         [Arch[14,7]]                      => 485,
       }.each do |archs, size|
-        CircuitSizer.new.max_size(archs).must_equal size
+        ArchSizer.new.max_size(archs).must_equal size
       end
     end
   end
@@ -58,7 +58,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[21,8]]                      => 2,
         [Arch[20,9]]                      => 2,
       }.each do |archs, size|
-        CircuitSizer.new.min_size(archs).must_equal size
+        ArchSizer.new.min_size(archs).must_equal size
       end
     end
   end

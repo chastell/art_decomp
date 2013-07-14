@@ -19,8 +19,8 @@ module ArtDecomp class Circuit
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
-  def adm_size circuit_sizer: CircuitSizer.new
-    @adm_size ||= circuit_sizer.adm_size functions.map(&:arch)
+  def adm_size arch_sizer: ArchSizer.new
+    @adm_size ||= arch_sizer.adm_size functions.map(&:arch)
   end
 
   def binwidths group
@@ -31,11 +31,11 @@ module ArtDecomp class Circuit
     functions.max_by { |function| [function.arch.i, function.arch.o] }
   end
 
-  def max_size circuit_sizer: CircuitSizer.new
-    @max_size ||= circuit_sizer.max_size functions.map(&:arch)
+  def max_size arch_sizer: ArchSizer.new
+    @max_size ||= arch_sizer.max_size functions.map(&:arch)
   end
 
-  def min_size circuit_sizer: CircuitSizer.new
-    @min_size ||= circuit_sizer.min_size functions.map(&:arch)
+  def min_size arch_sizer: ArchSizer.new
+    @min_size ||= arch_sizer.min_size functions.map(&:arch)
   end
 end end

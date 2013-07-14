@@ -1,4 +1,4 @@
-module ArtDecomp class CircuitSizer
+module ArtDecomp class ArchSizer
   def adm_size archs
     max, min = archs.partition { |arch| arch.i <= 8 }
     quarters = max.map { |arch| max_quarters arch }.reduce(0, :+) +
