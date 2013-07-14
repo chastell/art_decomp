@@ -4,6 +4,10 @@ module ArtDecomp class CircuitSizer
   end
 
   def adm_size
+    max, min = circuit.functions.map(&:arch).partition { |arch| arch.i <= 8 }
+    quarters = max.map { |arch| max_quarters arch }.reduce(0, :+) +
+      min.map { |arch| min_quarters arch }.reduce(0, :+)
+    (quarters / 4.0).ceil
   end
 
   def max_size
