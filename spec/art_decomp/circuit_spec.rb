@@ -58,6 +58,15 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#function_archs' do
+    it 'returns the Archs of its Functions' do
+      f1 = fake :function, arch: Arch[2,1]
+      f2 = fake :function, arch: Arch[4,3]
+      Circuit.new(functions: [f1, f2]).function_archs
+        .must_equal [Arch[2,1], Arch[4,3]]
+    end
+  end
+
   describe '#is, #os, #ps, #qs' do
     it 'gets the puts' do
       [:is, :os, :ps, :qs].each do |ss|

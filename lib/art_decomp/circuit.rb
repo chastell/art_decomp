@@ -27,6 +27,10 @@ module ArtDecomp class Circuit
     send(group).map(&:binwidth)
   end
 
+  def function_archs
+    functions.map(&:arch)
+  end
+
   def largest_function
     functions.max_by { |function| [function.arch.i, function.arch.o] }
   end
