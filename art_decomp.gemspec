@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.executables = gem.files.grep(%r{^bin/}).map { |path| File.basename path }
   gem.test_files  = gem.files.grep %r{^spec/.*\.rb$}
 
-  gem.add_development_dependency 'bogus'
+  gem.add_development_dependency 'bogus',    '>= 0.1.3'
   gem.add_development_dependency 'minitest', '~> 5.0'
   gem.add_development_dependency 'rake',     '~> 10.1'
 end
