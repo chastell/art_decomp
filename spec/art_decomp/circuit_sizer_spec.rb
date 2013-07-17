@@ -10,8 +10,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[8,2]]             => 2,
         [Arch[20,8]]            => 1,
       }.each do |archs, size|
-        functions = archs.map { |arch| fake :function, arch: arch }
-        circuit   = fake :circuit, :functions => functions
+        circuit = fake :circuit, :function_archs => archs
         CircuitSizer.new(circuit).adm_size.must_equal size
       end
     end
@@ -40,8 +39,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[9,4]]                       => 9,
         [Arch[14,7]]                      => 485,
       }.each do |archs, size|
-        functions = archs.map { |arch| fake :function, arch: arch }
-        circuit   = fake :circuit, :functions => functions
+        circuit = fake :circuit, :function_archs => archs
         CircuitSizer.new(circuit).max_size.must_equal size
       end
     end
@@ -62,8 +60,7 @@ module ArtDecomp describe CircuitSizer do
         [Arch[21,8]]                      => 2,
         [Arch[20,9]]                      => 2,
       }.each do |archs, size|
-        functions = archs.map { |arch| fake :function, arch: arch }
-        circuit   = fake :circuit, :functions => functions
+        circuit = fake :circuit, :function_archs => archs
         CircuitSizer.new(circuit).min_size.must_equal size
       end
     end

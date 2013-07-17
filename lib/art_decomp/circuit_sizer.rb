@@ -23,7 +23,7 @@ module ArtDecomp class CircuitSizer
   private
 
   def archs
-    circuit.functions.map(&:arch)
+    circuit.function_archs
   end
 
   def max_quarters arch
