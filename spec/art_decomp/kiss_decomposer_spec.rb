@@ -7,7 +7,7 @@ module ArtDecomp describe KISSDecomposer do
       Dir.mktmpdir do |vhdl_path|
         File.stub :read, 'some KISS' do
           c1, c2     = fake(:circuit), fake(:circuit)
-          decomposer = fake :decomposer, for: [c1, c2]
+          decomposer = fake :decomposer, decompose_circuit: [c1, c2]
           cp         = fake :circuit_presenter, as: :class
           stub(cp).vhdl_for(c1, 'mc_0') { 'VHDL for mc_0' }
           stub(cp).vhdl_for(c2, 'mc_1') { 'VHDL for mc_1' }

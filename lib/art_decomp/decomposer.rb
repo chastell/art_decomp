@@ -1,5 +1,5 @@
 module ArtDecomp class Decomposer
-  def for circuit, circuit_decomposer: CircuitDecomposer.new
+  def decompose_circuit circuit, circuit_decomposer: CircuitDecomposer.new
     queue = [circuit]
     Enumerator.new do |yielder|
       until queue.empty?

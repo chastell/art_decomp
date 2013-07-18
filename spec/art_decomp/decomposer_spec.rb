@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe Decomposer do
-  describe '#for' do
+  describe '#decompose_circuit' do
     it 'yields subsequent best decompositions' do
       c1   = fake :circuit, adm_size: 7
       c11  = fake :circuit, adm_size: 9
@@ -20,7 +20,8 @@ module ArtDecomp describe Decomposer do
       stub(circuit_decomposer).decompose(c12)  { [c121]          }
       stub(circuit_decomposer).decompose(c121) { []              }
       stub(circuit_decomposer).decompose(c13)  { []              }
-      decs = Decomposer.new.for c1, circuit_decomposer: circuit_decomposer
+      decs = Decomposer.new.decompose_circuit c1,
+        circuit_decomposer: circuit_decomposer
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
     end
