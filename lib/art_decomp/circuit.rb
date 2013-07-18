@@ -19,7 +19,7 @@ module ArtDecomp class Circuit
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
-  def adm_size circuit_sizer: CircuitSizer.new
+  def adm_size circuit_sizer: CircuitSizer.new(self)
     @adm_size ||= circuit_sizer.adm_size
   end
 
@@ -35,11 +35,11 @@ module ArtDecomp class Circuit
     functions.max_by { |function| [function.arch.i, function.arch.o] }
   end
 
-  def max_size circuit_sizer: CircuitSizer.new
+  def max_size circuit_sizer: CircuitSizer.new(self)
     @max_size ||= circuit_sizer.max_size
   end
 
-  def min_size circuit_sizer: CircuitSizer.new
+  def min_size circuit_sizer: CircuitSizer.new(self)
     @min_size ||= circuit_sizer.min_size
   end
 end end
