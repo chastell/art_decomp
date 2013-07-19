@@ -1,8 +1,11 @@
+require_relative 'function_decomposer/parallel'
+require_relative 'function_decomposer/serial'
+
 module ArtDecomp class FunctionDecomposer
-  def decompose function, parallel_function_decomposer: ParallelFunctionDecomposer.new, serial_function_decomposer: SerialFunctionDecomposer.new
+  def decompose function, parallel: Parallel.new, serial: Serial.new
     Enumerator.new do |yielder|
-      parallel_function_decomposer.decompose(function).each { |c| yielder << c }
-      serial_function_decomposer.decompose(function).each   { |c| yielder << c }
+      parallel.decompose(function).each { |circuit| yielder << circuit }
+      serial.decompose(function).each   { |circuit| yielder << circuit }
     end
   end
 end end
