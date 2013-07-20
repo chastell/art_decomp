@@ -32,7 +32,7 @@ module ArtDecomp class Circuit
   end
 
   def largest_function
-    functions.max_by { |function| [function.arch.i, function.arch.o] }
+    functions.max_by(&:arch)
   end
 
   def max_size circuit_sizer: CircuitSizer.new(self)
