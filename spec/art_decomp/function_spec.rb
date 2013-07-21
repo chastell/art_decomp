@@ -12,6 +12,13 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#==' do
+    it 'compares two Functions by value' do
+      assert function == Function.new(is, os)
+      refute function == Function.new(os, is)
+    end
+  end
+
   describe '#arch' do
     it 'returns the Arch' do
       function.arch.must_equal Arch[3,3]
