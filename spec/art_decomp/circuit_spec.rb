@@ -33,6 +33,36 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#<=>' do
+    it 'compares Circuits by value' do
+      is, os    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+      ps, qs    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+      functions = [fake(:function), fake(:function)]
+      recoders  = [fake(:function), fake(:function)]
+      wires     = [fake(:wire), fake(:wire)]
+      circuit   = Circuit.new functions: functions, is: is, os: os, ps: ps,
+        qs: qs, recoders: recoders, wires: wires
+
+      assert Circuit.new == Circuit.new
+      assert circuit == Circuit.new(functions: functions, is: is, os: os,
+        ps: ps, qs: qs, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions.reverse, is: is,
+        os: os, ps: ps, qs: qs, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is.reverse,
+        os: os, ps: ps, qs: qs, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is,
+        os: os.reverse, ps: ps, qs: qs, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is, os: os,
+        ps: ps.reverse, qs: qs, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is, os: os,
+        ps: ps, qs: qs.reverse, recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is, os: os,
+        ps: ps, qs: qs, recoders: recoders.reverse, wires: wires)
+      refute circuit == Circuit.new(functions: functions, is: is, os: os,
+        ps: ps, qs: qs, recoders: recoders, wires: wires.reverse)
+    end
+  end
+
   describe '#adm_size' do
     it 'returns the admissible heuristic size of the Circuit' do
       stub(cs = fake(:circuit_sizer)).adm_size { 7 }

@@ -19,6 +19,12 @@ module ArtDecomp class Circuit
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
+  def == other
+    functions == other.functions and is == other.is and os == other.os and
+      ps == other.ps and qs == other.qs and recoders == other.recoders and
+      wires == other.wires
+  end
+
   def adm_size circuit_sizer: CircuitSizer.new(self)
     @adm_size ||= circuit_sizer.adm_size
   end
