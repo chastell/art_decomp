@@ -16,7 +16,7 @@ module ArtDecomp class FunctionDecomposer; class Parallel
         end
       end
 
-      yielder << circuit
+      yielder << circuit unless merged == [function]
     end
   end
 end end end
