@@ -23,6 +23,9 @@ module ArtDecomp class Put
     block_given? ? blanket.select(&block).keys : blanket.keys
   end
 
+  def seps
+  end
+
   def size
     blanket.size
   end

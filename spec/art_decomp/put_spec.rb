@@ -47,6 +47,10 @@ module ArtDecomp describe Put do
     end
   end
 
+  describe '#seps' do
+    it 'returns the Put’s Seps'
+  end
+
   describe '#size' do
     it 'returns size' do
       put.size.must_equal 2
