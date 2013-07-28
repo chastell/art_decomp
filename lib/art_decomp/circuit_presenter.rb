@@ -16,8 +16,6 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
 
   private
 
-  Pin = Struct.new :object, :group, :index, :label
-
   def functions
     @functions ||= super.map { |function| FunctionPresenter.new function }
   end
