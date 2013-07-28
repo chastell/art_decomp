@@ -41,19 +41,19 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wiring_for dst, src, n
+    dst_lab = wirings_label_for dst.object
+    src_lab = wirings_label_for src.object
     dst_bin = dst.object.binwidths(dst.group)[0...dst.index].reduce(0, :+) + n
     src_bin = src.object.binwidths(src.group)[0...src.index].reduce(0, :+) + n
     [
-      "#{dst.label}_#{dst.group}(#{dst_bin})",
-      "#{src.label}_#{src.group}(#{src_bin})",
+      "#{dst_lab}_#{dst.group}(#{dst_bin})",
+      "#{src_lab}_#{src.group}(#{src_bin})",
     ]
   end
 
   def wirings
     Hash[wires.flat_map do |wire|
-      dst = wirings_pin_for wire.dst
-      src = wirings_pin_for wire.src
-      wirings_for dst, src
+      wirings_for wire.dst, wire.src
     end]
   end
 
@@ -69,10 +69,5 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     when functions.include?(object) then "f#{functions.index object}"
     when recoders.include?(object)  then "r#{recoders.index  object}"
     end
-  end
-
-  def wirings_pin_for pin
-    pin.label = wirings_label_for pin.object
-    pin
   end
 end end
