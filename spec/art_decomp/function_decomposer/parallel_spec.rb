@@ -32,13 +32,13 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       stub(fm).merge([f1, f2, f3]) { [f1, f23] }
       circuit = Circuit.new functions: [f1, f23], is: [a, b, c], os: [anb, buc, nbuc]
       circuit.wires = [
-          Wire.new(circuit.is[0], f1.is[0]),
-          Wire.new(circuit.is[1], f1.is[1]),
-          Wire.new(f1.os[0], circuit.os[0]),
-          Wire.new(circuit.is[1], f23.is[0]),
-          Wire.new(circuit.is[2], f23.is[1]),
-          Wire.new(f23.os[0], circuit.os[1]),
-          Wire.new(f23.os[1], circuit.os[2]),
+          PinWire.new(Pin[circuit, :is, 0], Pin[f1, :is, 0]),
+          PinWire.new(Pin[circuit, :is, 1], Pin[f1, :is, 1]),
+          PinWire.new(Pin[f1, :os, 0], Pin[circuit, :os, 0]),
+          PinWire.new(Pin[circuit, :is, 1], Pin[f23, :is, 0]),
+          PinWire.new(Pin[circuit, :is, 2], Pin[f23, :is, 1]),
+          PinWire.new(Pin[f23, :os, 0], Pin[circuit, :os, 1]),
+          PinWire.new(Pin[f23, :os, 1], Pin[circuit, :os, 2]),
       ]
       fdp  = FunctionDecomposer::Parallel.new
       decs = fdp.decompose fun, function_merger: fm, function_simplifier: fs

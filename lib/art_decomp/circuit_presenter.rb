@@ -71,20 +71,8 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     end
   end
 
-  def wirings_meta_for put
-    ([self] + functions + recoders).each do |object|
-      object.puts.each do |group|
-        object.send(group).each_index do |index|
-          return [object, group, index] if object.send(group)[index].equal? put
-        end
-      end
-    end
-  end
-
-  def wirings_pin_for put
-    Pin.new.tap do |pin|
-      pin.object, pin.group, pin.index = wirings_meta_for put
-      pin.label = wirings_label_for pin.object
-    end
+  def wirings_pin_for pin
+    pin.label = wirings_label_for pin.object
+    pin
   end
 end end

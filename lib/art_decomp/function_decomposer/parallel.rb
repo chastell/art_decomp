@@ -8,11 +8,13 @@ module ArtDecomp class FunctionDecomposer; class Parallel
       circuit = Circuit.new functions: merged, is: function.is, os: function.os
 
       merged.each do |fun|
-        fun.is.each do |fi|
-          circuit.wires << Wire.new(circuit.is.find { |ci| ci == fi }, fi)
+        fun.is.each.with_index do |put, fi|
+          ci = circuit.is.index put
+          circuit.wires << PinWire.new(Pin[circuit, :is, ci], Pin[fun, :is, fi])
         end
-        fun.os.each do |fo|
-          circuit.wires << Wire.new(fo, circuit.os.find { |co| co == fo })
+        fun.os.each.with_index do |put, fo|
+          co = circuit.os.index put
+          circuit.wires << PinWire.new(Pin[fun, :os, fo], Pin[circuit, :os, co])
         end
       end
 
