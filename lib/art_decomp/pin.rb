@@ -1,3 +1,3 @@
 module ArtDecomp
-  Pin = Struct.new :object, :group, :index, :label
+  Pin = Struct.new :object, :group, :index
 end
