@@ -10,11 +10,11 @@ module ArtDecomp class FunctionDecomposer; class Parallel
       merged.each do |fun|
         fun.is.each.with_index do |put, fi|
           ci = circuit.is.index put
-          circuit.wires << PinWire.new(Pin[circuit, :is, ci], Pin[fun, :is, fi])
+          circuit.wires << Wire.new(Pin[circuit, :is, ci], Pin[fun, :is, fi])
         end
         fun.os.each.with_index do |put, fo|
           co = circuit.os.index put
-          circuit.wires << PinWire.new(Pin[fun, :os, fo], Pin[circuit, :os, co])
+          circuit.wires << Wire.new(Pin[fun, :os, fo], Pin[circuit, :os, co])
         end
       end
 

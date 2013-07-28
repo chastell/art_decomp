@@ -7,10 +7,10 @@ module ArtDecomp class Circuit
 
     new(functions: [fun], is: is, os: os, ps: ps, qs: qs).tap do |circ|
       circ.wires =
-        (0...is.size).map { |n| PinWire.new(Pin[circ, :is, n], Pin[fun, :is, n]) } +
-        [PinWire.new(Pin[circ, :qs, 0], Pin[fun, :is, is.size])] +
-        (0...os.size).map { |n| PinWire.new(Pin[fun, :os, n], Pin[circ, :os, n]) } +
-        [PinWire.new(Pin[fun, :os, os.size], Pin[circ, :ps, 0])]
+        (0...is.size).map { |n| Wire.new(Pin[circ, :is, n], Pin[fun, :is, n]) } +
+        [Wire.new(Pin[circ, :qs, 0], Pin[fun, :is, is.size])] +
+        (0...os.size).map { |n| Wire.new(Pin[fun, :os, n], Pin[circ, :os, n]) } +
+        [Wire.new(Pin[fun, :os, os.size], Pin[circ, :ps, 0])]
     end
   end
 
