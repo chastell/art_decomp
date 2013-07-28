@@ -17,10 +17,10 @@ module ArtDecomp describe Circuit do
       circuit.recoders.must_be :empty?
 
       circuit.wires.must_equal([
-        Wire.new(Pin[circuit, :is, 0], Pin[function, :is, 0]),
-        Wire.new(Pin[circuit, :qs, 0], Pin[function, :is, 1]),
-        Wire.new(Pin[function, :os, 0], Pin[circuit, :os, 0]),
-        Wire.new(Pin[function, :os, 1], Pin[circuit, :ps, 0]),
+        Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
+        Wire[Pin[circuit, :qs, 0], Pin[function, :is, 1]],
+        Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
+        Wire[Pin[function, :os, 1], Pin[circuit, :ps, 0]],
       ])
     end
   end
