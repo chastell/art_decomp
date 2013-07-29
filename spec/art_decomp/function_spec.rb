@@ -5,13 +5,6 @@ module ArtDecomp describe Function do
   let(:os) { [Put[:'0' => B[1], :'1' => B[0]], Put[s1: B[1], s2: B[2], s3: B[0]]] }
   let(:function) { Function.new is, os }
 
-  describe '.new' do
-    it 'dups the Puts' do
-      refute function.is.first.equal? is.first
-      refute function.os.last.equal?  os.last
-    end
-  end
-
   describe '#==' do
     it 'compares two Functions by value' do
       assert function == Function.new(is, os)
