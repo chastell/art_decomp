@@ -43,14 +43,11 @@ module ArtDecomp describe FunctionSimplifier do
         B[0,1], B[0,2], B[0,3], B[0,5], B[0,6], B[0,7],
         B[4,1], B[4,2], B[4,3], B[4,5], B[4,6], B[4,7],
       ]
-      fanb = fake :function, is: [a, b, c], os: [anb]
-      fbuc = fake :function, is: [a, b, c], os: [buc]
+      fanb = Function.new [a, b, c], [anb]
+      fbuc = Function.new [a, b, c], [buc]
       fs   = FunctionSimplifier.new
-      ff   = fake :function, as: :class
-      fs.simplify fanb, function_factory: ff
-      ff.must_have_received :new, [[a,b], [anb]]
-      fs.simplify fbuc, function_factory: ff
-      ff.must_have_received :new, [[c,b], [buc]]
+      fs.simplify(fanb).must_equal Function.new([a,b], [anb])
+      fs.simplify(fbuc).must_equal Function.new([c,b], [buc])
     end
   end
 end end
