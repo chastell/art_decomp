@@ -48,7 +48,9 @@ module ArtDecomp describe Put do
   end
 
   describe '#seps' do
-    it 'returns the Put’s Seps'
+    it 'returns the Put’s Seps' do
+      put.seps.must_equal Seps[B[0,1], B[1,2]]
+    end
   end
 
   describe '#size' do

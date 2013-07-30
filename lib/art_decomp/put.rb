@@ -24,6 +24,7 @@ module ArtDecomp class Put
   end
 
   def seps
+    @seps ||= Seps[*blanket.values]
   end
 
   def size
