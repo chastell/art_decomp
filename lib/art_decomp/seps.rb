@@ -4,7 +4,7 @@ module ArtDecomp class Seps
   end
 
   def initialize blocks: []
-    @blocks = blocks
+    @blocks = blocks.sort
   end
 
   def == other
