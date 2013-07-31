@@ -4,13 +4,19 @@ module ArtDecomp class Seps
   end
 
   def initialize blocks: []
-    @blocks = blocks.sort
+    @matrix = matrix_from blocks
   end
 
   def == other
-    blocks == other.blocks
+    matrix == other.matrix
   end
 
-  attr_reader :blocks
-  protected   :blocks
+  attr_reader :matrix
+  protected   :matrix
+
+  private
+
+  def matrix_from blocks
+    blocks.sort
+  end
 end end
