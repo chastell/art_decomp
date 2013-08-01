@@ -10,6 +10,12 @@ module ArtDecomp describe Seps do
     end
   end
 
+  describe '.new' do
+    it 'can take a matrix to start from' do
+      Seps.new(matrix: [0b100, 0b000, 0b001]).must_equal seps
+    end
+  end
+
   describe '#==' do
     it 'compares two Seps by value' do
       assert seps == seps.dup
