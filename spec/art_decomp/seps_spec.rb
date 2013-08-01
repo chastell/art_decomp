@@ -18,6 +18,14 @@ module ArtDecomp describe Seps do
     it 'normalises the matrix' do
       Seps[B[0,1,2]].must_equal Seps.new matrix: []
     end
+
+    it 'builds a proper matrix' do
+      Seps[].must_equal Seps.new matrix: []
+      Seps[B[0]].must_equal Seps.new matrix: []
+      Seps[B[0], B[1]].must_equal Seps.new matrix: [0b10, 0b01]
+      Seps[B[0], B[1], B[2,3], B[4]].must_equal Seps.new matrix:
+        [0b11110, 0b11101, 0b10011, 0b10011, 0b01111]
+    end
   end
 
   describe '#==' do

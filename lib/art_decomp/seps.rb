@@ -17,7 +17,7 @@ module ArtDecomp class Seps
   private
 
   def matrix_from blocks
-    size   = (blocks.max || 0).to_s(2).size
+    size   = Math.log2((blocks.max || 0) + 1).ceil
     ones   = (1 << size) - 1
     matrix = (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
