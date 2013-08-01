@@ -17,10 +17,12 @@ module ArtDecomp class Seps
   private
 
   def matrix_from blocks
-    size = (blocks.max || 0).to_s(2).size
-    ones = (1 << size) - 1
-    (0...size).map do |bit|
+    size   = (blocks.max || 0).to_s(2).size
+    ones   = (1 << size) - 1
+    matrix = (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
     end
+    matrix.pop until matrix.empty? or matrix.last.nonzero?
+    matrix
   end
 end end

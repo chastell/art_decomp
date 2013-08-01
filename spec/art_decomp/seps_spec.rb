@@ -14,6 +14,10 @@ module ArtDecomp describe Seps do
     it 'can take a matrix to start from' do
       Seps.new(matrix: [0b100, 0b000, 0b001]).must_equal seps
     end
+
+    it 'normalises the matrix' do
+      Seps[B[0,1,2]].must_equal Seps.new matrix: []
+    end
   end
 
   describe '#==' do
