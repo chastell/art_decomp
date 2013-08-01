@@ -1,6 +1,6 @@
 module ArtDecomp class FunctionSimplifier
   def simplify function
-    seps = function.os.map(&:seps).inject :+
+    seps = function.os.map(&:seps).reduce :+
     is   = function.is.sort_by { |i| (i.seps & seps).size }.reverse
     is   = is.take_while do |i|
       empty = seps.empty?
