@@ -11,6 +11,12 @@ module ArtDecomp class Seps
     matrix == other.matrix
   end
 
+  def & other
+    smaller, larger = [matrix, other.matrix].sort_by(&:size)
+    new = larger.zip(smaller).map { |a, b| a && b ? a & b : b }.compact
+    Seps.new matrix: new
+  end
+
   attr_reader :matrix
   protected   :matrix
 
