@@ -47,4 +47,12 @@ module ArtDecomp describe Seps do
       refute Seps[B[0,1], B[1,2]] == Seps[B[0,2], B[1,2]]
     end
   end
+
+  describe '#inspect' do
+    it 'returns self-initialising representation' do
+      Seps[].inspect.must_equal "ArtDecomp::Seps.new matrix: []"
+      Seps.new(matrix: [0b100, 0b000, 0b001]).inspect
+        .must_equal "ArtDecomp::Seps.new matrix: [0b100, 0b000, 0b001]"
+    end
+  end
 end end

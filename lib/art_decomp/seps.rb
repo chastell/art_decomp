@@ -17,6 +17,11 @@ module ArtDecomp class Seps
     Seps.new matrix: new
   end
 
+  def inspect
+    rows = matrix.map { |r| "0b#{r.to_s(2).rjust matrix.size, '0'}" }.join ', '
+    "ArtDecomp::Seps.new matrix: [#{rows}]"
+  end
+
   attr_reader :matrix
   protected   :matrix
 
