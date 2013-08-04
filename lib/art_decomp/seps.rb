@@ -13,7 +13,8 @@ module ArtDecomp class Seps
 
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    new = larger.zip(smaller).map { |a, b| a && b ? a & b : b }.compact
+    new = smaller.zip(larger).map { |a, b| a & b }
+    new.pop until new.empty? or new.last.nonzero?
     Seps.new matrix: new
   end
 

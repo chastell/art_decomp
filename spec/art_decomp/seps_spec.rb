@@ -39,8 +39,15 @@ module ArtDecomp describe Seps do
 
   describe '#&' do
     it 'returns the conjunction of the Seps' do
-      (Seps.new(matrix: [0b110, 0b001, 0b001]) & Seps.new(matrix:
-        [0b010, 0b101, 0b010])).must_equal Seps.new(matrix: [0b010, 0b001, 0b000])
+      sep_01                = Seps.new matrix: [0b10, 0b01]
+      sep_01_02             = Seps.new matrix: [0b110, 0b001, 0b001]
+      sep_01_12             = Seps.new matrix: [0b010, 0b101, 0b010]
+      sep_01_02_12          = Seps.new matrix: [0b110, 0b101, 0b011]
+      sep_01_02_03_04_13_14 = Seps.new matrix:
+        [0b11110, 0b11001, 0b00001, 0b00011, 0b00011]
+      (sep_01_02 & sep_01_12).must_equal sep_01
+      (sep_01_02_03_04_13_14 & sep_01_02_12).must_equal sep_01_02
+      (sep_01_02_12 & sep_01_02_03_04_13_14).must_equal sep_01_02
     end
   end
 
