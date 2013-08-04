@@ -28,16 +28,12 @@ module ArtDecomp class Seps
   private
 
   def matrix_from blocks
-    size   = Math.log2((blocks.max || 0) + 1).ceil
+    all    = blocks.reduce 0, :|
+    size   = Math.log2(all + 1).ceil
     ones   = (1 << size) - 1
+    blocks = blocks + [ones ^ all]
     matrix = (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
-    end
-    indices = (0...matrix.size).select { |i| matrix[i] == ones }
-    indices.each do |i|
-      indices.each do |j|
-        matrix[j] ^= 1 << i
-      end
     end
     matrix.pop until matrix.empty? or matrix.last.nonzero?
     matrix
