@@ -14,8 +14,7 @@ module ArtDecomp class Seps
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
     new = smaller.zip(larger).map { |a, b| a & b }
-    new.pop until new.empty? or new.last.nonzero?
-    Seps.new matrix: new
+    Seps.new matrix: normalise(new)
   end
 
   def inspect
@@ -36,6 +35,10 @@ module ArtDecomp class Seps
     matrix = (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
     end
+    normalise matrix
+  end
+
+  def normalise matrix
     matrix.pop until matrix.empty? or matrix.last.nonzero?
     matrix
   end
