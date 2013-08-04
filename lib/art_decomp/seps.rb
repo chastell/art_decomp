@@ -39,7 +39,6 @@ module ArtDecomp class Seps
   end
 
   def normalise matrix
-    matrix.pop until matrix.empty? or matrix.last.nonzero?
-    matrix
+    matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 end end
