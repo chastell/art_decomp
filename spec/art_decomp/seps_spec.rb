@@ -25,7 +25,7 @@ module ArtDecomp describe Seps do
       Seps[B[0], B[1], B[2,3], B[4]].must_equal Seps.new matrix:
         [0b11110, 0b11101, 0b10011, 0b10011, 0b01111]
       Seps[B[1], B[4]].must_equal Seps.new matrix:
-        [0b11111, 0b11101, 0b11111, 0b11111, 0b01111]
+        [0b10010, 0b11101, 0b10010, 0b10010, 0b01111]
       Seps[B[0,2,3], B[1], B[4]].must_equal Seps.new matrix:
         [0b10010, 0b11101, 0b10010, 0b10010, 0b01111]
       Seps[B[0,1,2,3], B[0,2,3,4]].must_equal Seps.new matrix:
