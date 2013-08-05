@@ -50,6 +50,19 @@ module ArtDecomp describe Seps do
     end
   end
 
+  describe '#+' do
+    it 'returns the disjunction of the Seps' do
+      sep_01_02          = Seps.new matrix: [0b110, 0b001, 0b001]
+      sep_01_12          = Seps.new matrix: [0b010, 0b101, 0b010]
+      sep_01_02_12       = Seps.new matrix: [0b110, 0b101, 0b011]
+      sep_01_02_03_13    = Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011]
+      sep_01_02_03_12_13 = Seps.new matrix: [0b1110, 0b1101, 0b0011, 0b0011]
+      (sep_01_12 + sep_01_02).must_equal sep_01_02_12
+      (sep_01_02_03_13 + sep_01_02_12).must_equal sep_01_02_03_12_13
+      (sep_01_02_12 + sep_01_02_03_13).must_equal sep_01_02_03_12_13
+    end
+  end
+
   describe '#==' do
     it 'compares two Seps by value' do
       assert Seps[B[0,1], B[1,2]] == Seps[B[0,1], B[1,2]].dup

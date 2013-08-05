@@ -17,6 +17,11 @@ module ArtDecomp class Seps
     Seps.new matrix: normalise(new)
   end
 
+  def + other
+    smaller, larger = [matrix, other.matrix].sort_by(&:size)
+    Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
+  end
+
   def inspect
     rows = matrix.map { |r| "0b#{r.to_s(2).rjust matrix.size, '0'}" }.join ', '
     "ArtDecomp::Seps.new matrix: [#{rows}]"
