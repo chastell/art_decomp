@@ -78,4 +78,16 @@ module ArtDecomp describe Seps do
         .must_equal "ArtDecomp::Seps.new matrix: [0b100, 0b000, 0b001]"
     end
   end
+
+  describe '#size' do
+    it 'returns the number of separations' do
+      Seps[].size.must_equal 0
+      Seps[B[0], B[1]].size.must_equal 1
+      Seps[B[0,1,2], B[1,2,3,4]].size.must_equal 2
+      Seps[B[0,2,3], B[1], B[4]].size.must_equal 7
+      Seps[B[0,1,2,3], B[0,2,3,4]].size.must_equal 1
+      Seps[B[0], B[1], B[2], B[3], B[4]].size.must_equal 10
+      Seps.new(matrix: [0b1110, 0b1101, 0b0011, 0b0011]).size.must_equal 5
+    end
+  end
 end end

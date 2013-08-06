@@ -27,6 +27,10 @@ module ArtDecomp class Seps
     "ArtDecomp::Seps.new matrix: [#{rows}]"
   end
 
+  def size
+    matrix.map { |int| int.to_s(2).count '1' }.reduce(0, :+) / 2
+  end
+
   attr_reader :matrix
   protected   :matrix
 
