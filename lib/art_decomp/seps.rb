@@ -23,7 +23,7 @@ module ArtDecomp class Seps
   end
 
   def empty?
-    matrix.all?(&:zero?)
+    matrix.empty?
   end
 
   def inspect
