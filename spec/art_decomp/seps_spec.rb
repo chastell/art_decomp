@@ -71,6 +71,14 @@ module ArtDecomp describe Seps do
     end
   end
 
+  describe '#empty?' do
+    it 'returns a predicate whether the Seps are empty' do
+      Seps[].must_be :empty?
+      Seps[B[0,1]].must_be :empty?
+      Seps[B[0], B[1]].wont_be :empty?
+    end
+  end
+
   describe '#inspect' do
     it 'returns self-initialising representation' do
       Seps[].inspect.must_equal "ArtDecomp::Seps.new matrix: []"
