@@ -22,6 +22,11 @@ module ArtDecomp class Seps
     Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
+  def - other
+    new = matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
+    Seps.new matrix: normalise(new)
+  end
+
   def empty?
     matrix.empty?
   end

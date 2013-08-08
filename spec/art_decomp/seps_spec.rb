@@ -63,6 +63,18 @@ module ArtDecomp describe Seps do
     end
   end
 
+  describe '#-' do
+    it 'returns the difference of the Seps' do
+      sep_01_02_03_13 = Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011]
+      sep_01_02_12    = Seps.new matrix: [0b110, 0b101, 0b011]
+      sep_03_13       = Seps.new matrix: [0b1000, 0b1000, 0b0000, 0b0011]
+      sep_12          = Seps.new matrix: [0b000, 0b100, 0b010]
+      (sep_01_02_03_13 - sep_01_02_12).must_equal sep_03_13
+      (sep_01_02_12 - sep_01_02_03_13).must_equal sep_12
+      (sep_03_13 - sep_03_13).must_be :empty?
+    end
+  end
+
   describe '#==' do
     it 'compares two Seps by value' do
       assert Seps[B[0,1], B[1,2]] == Seps[B[0,1], B[1,2]].dup
