@@ -1,6 +1,15 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe Seps do
+  let(:sep_01)             { Seps.new matrix: [0b10, 0b01]                     }
+  let(:sep_01_02)          { Seps.new matrix: [0b110, 0b001, 0b001]            }
+  let(:sep_01_02_03_12_13) { Seps.new matrix: [0b1110, 0b1101, 0b0011, 0b0011] }
+  let(:sep_01_02_03_13)    { Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011] }
+  let(:sep_01_02_12)       { Seps.new matrix: [0b110, 0b101, 0b011]            }
+  let(:sep_01_12)          { Seps.new matrix: [0b010, 0b101, 0b010]            }
+  let(:sep_03_13)          { Seps.new matrix: [0b1000, 0b1000, 0b0000, 0b0011] }
+  let(:sep_12)             { Seps.new matrix: [0b000, 0b100, 0b010]            }
+
   describe '.[]' do
     it 'creates Seps from the given blocks' do
       Seps[B[0,1], B[1,2]].must_equal Seps.new(blocks: [B[0,1], B[1,2]])
@@ -39,11 +48,6 @@ module ArtDecomp describe Seps do
 
   describe '#&' do
     it 'returns the conjunction of the Seps' do
-      sep_01          = Seps.new matrix: [0b10, 0b01]
-      sep_01_02       = Seps.new matrix: [0b110, 0b001, 0b001]
-      sep_01_12       = Seps.new matrix: [0b010, 0b101, 0b010]
-      sep_01_02_12    = Seps.new matrix: [0b110, 0b101, 0b011]
-      sep_01_02_03_13 = Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011]
       (sep_01_02 & sep_01_12).must_equal sep_01
       (sep_01_02_03_13 & sep_01_02_12).must_equal sep_01_02
       (sep_01_02_12 & sep_01_02_03_13).must_equal sep_01_02
@@ -52,11 +56,6 @@ module ArtDecomp describe Seps do
 
   describe '#+' do
     it 'returns the disjunction of the Seps' do
-      sep_01_02          = Seps.new matrix: [0b110, 0b001, 0b001]
-      sep_01_12          = Seps.new matrix: [0b010, 0b101, 0b010]
-      sep_01_02_12       = Seps.new matrix: [0b110, 0b101, 0b011]
-      sep_01_02_03_13    = Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011]
-      sep_01_02_03_12_13 = Seps.new matrix: [0b1110, 0b1101, 0b0011, 0b0011]
       (sep_01_12 + sep_01_02).must_equal sep_01_02_12
       (sep_01_02_03_13 + sep_01_02_12).must_equal sep_01_02_03_12_13
       (sep_01_02_12 + sep_01_02_03_13).must_equal sep_01_02_03_12_13
@@ -65,10 +64,6 @@ module ArtDecomp describe Seps do
 
   describe '#-' do
     it 'returns the difference of the Seps' do
-      sep_01_02_03_13 = Seps.new matrix: [0b1110, 0b1001, 0b0001, 0b0011]
-      sep_01_02_12    = Seps.new matrix: [0b110, 0b101, 0b011]
-      sep_03_13       = Seps.new matrix: [0b1000, 0b1000, 0b0000, 0b0011]
-      sep_12          = Seps.new matrix: [0b000, 0b100, 0b010]
       (sep_01_02_03_13 - sep_01_02_12).must_equal sep_03_13
       (sep_01_02_12 - sep_01_02_03_13).must_equal sep_12
       (sep_03_13 - sep_03_13).must_be :empty?
