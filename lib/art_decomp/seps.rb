@@ -32,8 +32,9 @@ module ArtDecomp class Seps
   end
 
   def inspect
-    rows = matrix.map { |r| "0b#{r.to_s(2).rjust matrix.size, '0'}" }.join ', '
-    "ArtDecomp::Seps.new matrix: [#{rows}]"
+    bits = matrix.map { |r| (0...r.to_s(2).size).select { |bit| r[bit] == 1 } }
+    blocks = bits.map { |r| "B[#{r.join ','}]" }
+    "ArtDecomp::Seps.new matrix: [#{blocks.join ', '}]"
   end
 
   def size
