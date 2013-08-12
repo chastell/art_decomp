@@ -88,9 +88,9 @@ module ArtDecomp describe Seps do
 
   describe '#inspect' do
     it 'returns self-initialising representation' do
-      Seps[].inspect.must_equal "ArtDecomp::Seps.new matrix: []"
+      Seps[].inspect.must_equal 'ArtDecomp::Seps.new matrix: []'
       Seps.new(matrix: [B[2], B[], B[0]]).inspect
-        .must_equal "ArtDecomp::Seps.new matrix: [B[2], B[], B[0]]"
+        .must_equal 'ArtDecomp::Seps.new matrix: [B[2], B[], B[0]]'
     end
   end
 
