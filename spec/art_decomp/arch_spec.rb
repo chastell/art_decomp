@@ -7,4 +7,10 @@ module ArtDecomp describe Arch do
       [a33, a24, a43, a23].sort.must_equal [a23, a24, a33, a43]
     end
   end
+
+  describe '#inspect' do
+    it 'returns self-initialising representation' do
+      Arch[1,2].inspect.must_equal 'ArtDecomp::Arch[1,2]'
+    end
+  end
 end end
