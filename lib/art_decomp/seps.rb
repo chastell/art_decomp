@@ -7,24 +7,24 @@ module ArtDecomp class Seps
     @matrix = matrix || matrix_from(blocks)
   end
 
-  def == other
-    matrix == other.matrix
-  end
-
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
     new = smaller.zip(larger).map { |a, b| a & b }
     Seps.new matrix: normalise(new)
   end
 
-  def + other
-    smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
-  end
-
   def - other
     new = matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
     Seps.new matrix: normalise(new)
+  end
+
+  def == other
+    matrix == other.matrix
+  end
+
+  def | other
+    smaller, larger = [matrix, other.matrix].sort_by(&:size)
+    Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
   def empty?

@@ -54,14 +54,6 @@ module ArtDecomp describe Seps do
     end
   end
 
-  describe '#+' do
-    it 'returns the disjunction of the Seps' do
-      (sep_01_12 + sep_01_02).must_equal sep_01_02_12
-      (sep_01_02_03_13 + sep_01_02_12).must_equal sep_01_02_03_12_13
-      (sep_01_02_12 + sep_01_02_03_13).must_equal sep_01_02_03_12_13
-    end
-  end
-
   describe '#-' do
     it 'returns the difference of the Seps' do
       (sep_01_02_03_13 - sep_01_02_12).must_equal sep_03_13
@@ -75,6 +67,14 @@ module ArtDecomp describe Seps do
       assert Seps[B[0,1], B[1,2]] == Seps[B[0,1], B[1,2]].dup
       assert Seps[B[0,1], B[1,2]] == Seps[B[1,2], B[0,1]]
       refute Seps[B[0,1], B[1,2]] == Seps[B[0,2], B[1,2]]
+    end
+  end
+
+  describe '#|' do
+    it 'returns the disjunction of the Seps' do
+      (sep_01_12 | sep_01_02).must_equal sep_01_02_12
+      (sep_01_02_03_13 | sep_01_02_12).must_equal sep_01_02_03_12_13
+      (sep_01_02_12 | sep_01_02_03_13).must_equal sep_01_02_03_12_13
     end
   end
 
