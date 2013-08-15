@@ -23,6 +23,10 @@ module ArtDecomp class Put
     block_given? ? blanket.select(&block).keys : blanket.keys
   end
 
+  def inspect
+    "ArtDecomp::Put[#{blanket}]"
+  end
+
   def seps
     @seps ||= Seps[*blanket.values]
   end

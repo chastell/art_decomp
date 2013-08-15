@@ -47,6 +47,13 @@ module ArtDecomp describe Put do
     end
   end
 
+  describe '#inspect' do
+    it 'returns self-initialising representation' do
+      Put[a: B[0,1], b: B[1,2]].inspect
+        .must_equal 'ArtDecomp::Put[{:a=>3, :b=>6}]'
+    end
+  end
+
   describe '#seps' do
     it 'returns the Put’s Seps' do
       put.seps.must_equal Seps[B[0,1], B[1,2]]
