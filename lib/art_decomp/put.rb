@@ -24,7 +24,11 @@ module ArtDecomp class Put
   end
 
   def inspect
-    "ArtDecomp::Put[#{blanket}]"
+    blocks = blanket.map do |key, block|
+      bits = (0...block.to_s(2).size).select { |bit| block[bit] == 1 }
+      "#{key.inspect} => B[#{bits.join ','}]"
+    end
+    "ArtDecomp::Put[{ #{blocks.join ', '} }]"
   end
 
   def seps
