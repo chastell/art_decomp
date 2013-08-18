@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/rom-rb/devtools.git
-  revision: a7fefbd7ea3cf3bacb6f4b27fdd04fd090106125
-  specs:
-    devtools (0.0.2)
-
 PATH
   remote: .
   specs:
@@ -24,6 +18,5 @@ PLATFORMS
 DEPENDENCIES
   art_decomp!
   bogus (>= 0.1.3)
-  devtools!
   minitest (~> 5.0)
   rake (~> 10.1)
