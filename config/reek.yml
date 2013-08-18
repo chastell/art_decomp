@@ -1,0 +1,4 @@
+---
+UncommunicativeModuleName:
+  exclude:
+  - ArtDecomp::B
