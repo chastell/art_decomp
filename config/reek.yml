@@ -1,4 +1,6 @@
 ---
+IrresponsibleModule:
+  enabled: false
 UncommunicativeModuleName:
   exclude:
   - ArtDecomp::B
