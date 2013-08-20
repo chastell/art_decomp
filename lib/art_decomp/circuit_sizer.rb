@@ -27,13 +27,14 @@ module ArtDecomp class CircuitSizer
   end
 
   def max_quarters arch
+    i, o = *arch
     case
-    when arch.i == 0 then 0
-    when arch.i <= 5 then (arch.o / 2.0).ceil
-    when arch.i == 6 then arch.o
-    when arch.i == 7 then arch.o * 2
-    when arch.i == 8 then arch.o * 4
-    else arch.o * (max_quarters(Arch[6,1]) + 4 * max_quarters(Arch[arch.i-2,1]))
+    when i == 0 then 0
+    when i <= 5 then (o / 2.0).ceil
+    when i == 6 then o
+    when i == 7 then o * 2
+    when i == 8 then o * 4
+    else o * (max_quarters(Arch[6,1]) + 4 * max_quarters(Arch[i-2,1]))
     end
   end
 
