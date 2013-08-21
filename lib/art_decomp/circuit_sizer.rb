@@ -39,11 +39,12 @@ module ArtDecomp class CircuitSizer
   end
 
   def min_quarters arch
+    i, o = *arch
     case
-    when arch.i == 0 then 0
-    when arch.o == 0 then 0
-    when arch.i <= 5 then (arch.o / 2.0).ceil
-    else [(arch.i / 5.0).ceil, (arch.o / 2.0).ceil].max
+    when i == 0 then 0
+    when o == 0 then 0
+    when i <= 5 then (o / 2.0).ceil
+    else [(i / 5.0).ceil, (o / 2.0).ceil].max
     end
   end
 end end
