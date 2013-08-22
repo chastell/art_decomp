@@ -1,6 +1,6 @@
 module ArtDecomp class CircuitSizer
   def initialize circuit
-    @circuit = circuit
+    @archs = circuit.function_archs
   end
 
   def adm_size
@@ -17,14 +17,10 @@ module ArtDecomp class CircuitSizer
     (archs.map { |arch| min_quarters arch }.reduce(0, :+) / 4.0).ceil
   end
 
-  attr_reader :circuit
-  private     :circuit
+  attr_reader :archs
+  private     :archs
 
   private
-
-  def archs
-    circuit.function_archs
-  end
 
   def max_quarters arch
     i, o = *arch
