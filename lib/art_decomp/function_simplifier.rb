@@ -1,12 +1,13 @@
 module ArtDecomp class FunctionSimplifier
   def simplify function
-    seps = function.os.map(&:seps).reduce :|
+    os   = function.os
+    seps = os.map(&:seps).reduce :|
     is   = function.is.sort_by { |i| (i.seps & seps).size }.reverse
     is   = is.take_while do |i|
       empty = seps.empty?
       seps -= i.seps
       not empty
     end
-    Function.new is, function.os
+    Function.new is, os
   end
 end end
