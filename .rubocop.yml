@@ -10,9 +10,6 @@ AndOr:
 BlockAlignment:
   Enabled: false
 
-Blocks:
-  Enabled: false
-
 ConstantName:
   Enabled: false
 
