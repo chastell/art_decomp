@@ -1,14 +1,13 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe Seps do
-  let(:sep_01)             { Seps.new matrix: [B[1], B[0]]                         }
-  let(:sep_01_02)          { Seps.new matrix: [B[1,2], B[0], B[0]]                 }
-  let(:sep_01_02_03_12_13) { Seps.new matrix: [B[1,2,3], B[0,2,3], B[0,1], B[0,1]] }
-  let(:sep_01_02_03_13)    { Seps.new matrix: [B[1,2,3], B[0,3], B[0], B[0,1]]     }
-  let(:sep_01_02_12)       { Seps.new matrix: [B[1,2], B[0,2], B[0,1]]             }
-  let(:sep_01_12)          { Seps.new matrix: [B[1], B[0,2], B[1]]                 }
-  let(:sep_03_13)          { Seps.new matrix: [B[3], B[3], B[], B[0,1]]            }
-  let(:sep_12)             { Seps.new matrix: [B[], B[2], B[1]]                    }
+  let(:sep_01)          { Seps.new matrix: [B[1], B[0]]                     }
+  let(:sep_01_02)       { Seps.new matrix: [B[1,2], B[0], B[0]]             }
+  let(:sep_01_02_03_13) { Seps.new matrix: [B[1,2,3], B[0,3], B[0], B[0,1]] }
+  let(:sep_01_02_12)    { Seps.new matrix: [B[1,2], B[0,2], B[0,1]]         }
+  let(:sep_01_12)       { Seps.new matrix: [B[1], B[0,2], B[1]]             }
+  let(:sep_03_13)       { Seps.new matrix: [B[3], B[3], B[], B[0,1]]        }
+  let(:sep_12)          { Seps.new matrix: [B[], B[2], B[1]]                }
 
   describe '.[]' do
     it 'creates Seps from the given blocks' do
@@ -73,8 +72,8 @@ module ArtDecomp describe Seps do
   describe '#|' do
     it 'returns the disjunction of the Seps' do
       (sep_01_12 | sep_01_02).must_equal sep_01_02_12
-      (sep_01_02_03_13 | sep_01_02_12).must_equal sep_01_02_03_12_13
-      (sep_01_02_12 | sep_01_02_03_13).must_equal sep_01_02_03_12_13
+      (sep_01_02 | sep_12).must_equal sep_01_02_12
+      (sep_12 | sep_01_02).must_equal sep_01_02_12
     end
   end
 
