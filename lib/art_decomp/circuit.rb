@@ -14,7 +14,8 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize functions: [], is: [], os: [], ps: [], qs: [], recoders: [], wires: []
+  def initialize functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
+                 wires: []
     @functions, @recoders, @wires = functions, recoders, wires
     @is, @os, @ps, @qs = is, os, ps, qs
   end

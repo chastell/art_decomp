@@ -30,7 +30,8 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       stub(fs).simplify(Function.new([a,b,c], [buc]))  { f2 }
       stub(fs).simplify(Function.new([a,b,c], [nbuc])) { f3 }
       stub(fm).merge([f1, f2, f3]) { [f1, f23] }
-      circuit = Circuit.new functions: [f1, f23], is: [a, b, c], os: [anb, buc, nbuc]
+      circuit = Circuit.new functions: [f1, f23], is: [a, b, c],
+        os: [anb, buc, nbuc]
       circuit.wires = [
           Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],

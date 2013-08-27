@@ -25,9 +25,6 @@ EndAlignment:
 HashSyntax:
   Enabled: false
 
-LineLength:
-  Enabled: false
-
 MethodLength:
   Enabled: false
 

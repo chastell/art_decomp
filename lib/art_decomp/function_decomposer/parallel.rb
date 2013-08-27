@@ -1,5 +1,6 @@
 module ArtDecomp class FunctionDecomposer; class Parallel
-  def decompose function, function_merger: FunctionMerger.new, function_simplifier: FunctionSimplifier.new
+  def decompose function, function_merger: FunctionMerger.new,
+                function_simplifier: FunctionSimplifier.new
     Enumerator.new do |yielder|
       split  = function.os.map { |o| Function.new function.is, [o] }
       simple = split.map { |fun| function_simplifier.simplify fun }
