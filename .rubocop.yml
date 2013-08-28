@@ -43,13 +43,7 @@ RegexpLiteral:
 SpaceAfterComma:
   Enabled: false
 
-SpaceAroundBraces:
-  Enabled: false
-
 SpaceAroundOperators:
-  Enabled: false
-
-SpaceInsideBrackets:
   Enabled: false
 
 UselessComparison:
