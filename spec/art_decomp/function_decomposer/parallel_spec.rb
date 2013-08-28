@@ -41,8 +41,9 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
           Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
           Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
       ]
-      fdp  = FunctionDecomposer::Parallel.new
-      decs = fdp.decompose fun, function_merger: fm, function_simplifier: fs
+      fdp  = FunctionDecomposer::Parallel.new function_merger: fm,
+        function_simplifier: fs
+      decs = fdp.decompose fun
       decs.to_a.must_equal [circuit]
     end
 
@@ -50,8 +51,9 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       fun  = fake :function, is: [fake(:put)], os: [fake(:put)]
       fs   = fake :function_simplifier
       fm   = fake :function_merger, merge: [fun]
-      fdp  = FunctionDecomposer::Parallel.new
-      decs = fdp.decompose fun, function_merger: fm, function_simplifier: fs
+      fdp  = FunctionDecomposer::Parallel.new function_merger: fm,
+        function_simplifier: fs
+      decs = fdp.decompose fun
       decs.to_a.must_be_empty
     end
   end
