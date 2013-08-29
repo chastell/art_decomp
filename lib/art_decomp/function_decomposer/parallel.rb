@@ -9,18 +9,10 @@ module ArtDecomp class FunctionDecomposer; class Parallel
     Enumerator.new do |yielder|
       merged  = merge function
       circuit = Circuit.new functions: merged, is: function.is, os: function.os
-
       merged.each do |fun|
-        fun.is.each.with_index do |put, fi|
-          ci = circuit.is.index put
-          circuit.wires << Wire[Pin[circuit, :is, ci], Pin[fun, :is, fi]]
-        end
-        fun.os.each.with_index do |put, fo|
-          co = circuit.os.index put
-          circuit.wires << Wire[Pin[fun, :os, fo], Pin[circuit, :os, co]]
-        end
+        add_is_wires fun, circuit
+        add_os_wires fun, circuit
       end
-
       yielder << circuit unless merged == [function]
     end
   end
@@ -29,6 +21,20 @@ module ArtDecomp class FunctionDecomposer; class Parallel
   private     :function_merger, :function_simplifier
 
   private
+
+  def add_is_wires fun, circuit
+    fun.is.each.with_index do |put, fi|
+      ci = circuit.is.index put
+      circuit.wires << Wire[Pin[circuit, :is, ci], Pin[fun, :is, fi]]
+    end
+  end
+
+  def add_os_wires fun, circuit
+    fun.os.each.with_index do |put, fo|
+      co = circuit.os.index put
+      circuit.wires << Wire[Pin[fun, :os, fo], Pin[circuit, :os, co]]
+    end
+  end
 
   def merge function
     split  = function.os.map { |o| Function.new function.is, [o] }
