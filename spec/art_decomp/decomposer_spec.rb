@@ -10,16 +10,15 @@ module ArtDecomp describe Decomposer do
       c12  = fake :circuit, adm_size: 8
       c121 = fake :circuit, adm_size: 13
       c13  = fake :circuit, adm_size: 11
-      circuit_decomposer = fake :circuit_decomposer
-      stub(circuit_decomposer).decompose(c1)   { [c11, c12, c13] }
-      stub(circuit_decomposer).decompose(c11)  { [c111, c112]    }
-      stub(circuit_decomposer).decompose(c111) { []              }
-      stub(circuit_decomposer).decompose(c112) { []              }
-      stub(circuit_decomposer).decompose(c12)  { [c121]          }
-      stub(circuit_decomposer).decompose(c121) { []              }
-      stub(circuit_decomposer).decompose(c13)  { []              }
-      decs = Decomposer.new.decompose_circuit c1,
-        circuit_decomposer: circuit_decomposer
+      cd   = fake :circuit_decomposer
+      stub(cd).decompose(c1)   { [c11, c12, c13] }
+      stub(cd).decompose(c11)  { [c111, c112]    }
+      stub(cd).decompose(c111) { []              }
+      stub(cd).decompose(c112) { []              }
+      stub(cd).decompose(c12)  { [c121]          }
+      stub(cd).decompose(c121) { []              }
+      stub(cd).decompose(c13)  { []              }
+      decs = Decomposer.new.decompose_circuit c1, circuit_decomposer: cd
       decs.must_be_kind_of Enumerator
       decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
     end
