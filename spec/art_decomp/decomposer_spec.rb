@@ -10,8 +10,6 @@ module ArtDecomp describe Decomposer do
       c12  = fake :circuit, adm_size: 8
       c121 = fake :circuit, adm_size: 13
       c13  = fake :circuit, adm_size: 11
-      tree = { c1 => [c11, c12, c13], c11 => [c111, c112], c12 => [c121] }
-      tree.default = []
       circuit_decomposer = fake :circuit_decomposer
       stub(circuit_decomposer).decompose(c1)   { [c11, c12, c13] }
       stub(circuit_decomposer).decompose(c11)  { [c111, c112]    }
