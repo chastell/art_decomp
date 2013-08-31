@@ -42,6 +42,3 @@ SpaceAroundOperators:
 
 UselessComparison:
   Enabled: false
-
-WordArray:
-  Enabled: false

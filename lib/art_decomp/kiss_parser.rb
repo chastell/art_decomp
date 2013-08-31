@@ -37,7 +37,7 @@ module ArtDecomp class KISSParser
     [putify(col_groups[:ps], dc: '*', codes: states)]
   end
 
-  def putify col, dc: '-', codes: ['0', '1']
+  def putify col, dc: '-', codes: %w[0 1]
     Put[Hash[codes.map do |code|
       [
         code.to_sym,
