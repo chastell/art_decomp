@@ -34,9 +34,6 @@ ParameterLists:
 ReduceArguments:
   Enabled: false
 
-RegexpLiteral:
-  Enabled: false
-
 SpaceAfterComma:
   Enabled: false
 

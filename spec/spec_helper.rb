@@ -8,6 +8,6 @@ Bogus.configure { |config| config.search_modules << ArtDecomp }
 
 class String
   def dedent
-    gsub(/^#{self[/\A\s*/]}/, '')
+    gsub(%r(^#{self[/\A\s*/]}), '')
   end
 end
