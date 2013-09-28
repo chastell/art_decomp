@@ -54,6 +54,14 @@ module ArtDecomp describe Put do
     end
   end
 
+  describe '#mapping_for' do
+    it 'returns a String version of the binary mapping for a given code' do
+      put.mapping_for(:a).must_equal '0'
+      put.mapping_for(:b).must_equal '1'
+      Put[a: B[0], b: B[1], c: B[2]].mapping_for(:b).must_equal '01'
+    end
+  end
+
   describe '#seps' do
     it 'returns the Put’s Seps' do
       put.seps.must_equal Seps[B[0,1], B[1,2]]
