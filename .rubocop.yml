@@ -1,6 +1,9 @@
 AccessControl:
   Enabled: false
 
+AlignHash:
+  Enabled: false
+
 AndOr:
   Enabled: false
 
