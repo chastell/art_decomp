@@ -1,6 +1,10 @@
----
 IrresponsibleModule:
   enabled: false
+
 UncommunicativeModuleName:
   exclude:
   - ArtDecomp::B
+
+UncommunicativeVariableName:
+  exclude:
+  - ArtDecomp::CircuitPresenter#wirings_for
