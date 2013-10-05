@@ -23,7 +23,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
     codes = put.codes { |code, block| (block & B[row]).nonzero? }.sort
     case codes.size
     when put.size then DontCare.to_s * put.binwidth
-    when 1        then put.mapping_for codes.first
+    when 1        then PutPresenter.new(put).mapping_for codes.first
     else          raise 'trying to map multiple (but not all) codes'
     end
   end

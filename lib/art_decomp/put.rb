@@ -31,10 +31,6 @@ module ArtDecomp class Put
     "ArtDecomp::Put[#{blocks.join ', '}]"
   end
 
-  def mapping_for code
-    codes.sort.index(code).to_s(2).rjust binwidth, '0'
-  end
-
   def seps
     @seps ||= Seps[*blanket.values]
   end
