@@ -3,10 +3,6 @@ module ArtDecomp class PutPresenter < SimpleDelegator
     Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
   end
 
-  def mapping_for code
-    codes.sort.index(code).to_s(2).rjust binwidth, '0'
-  end
-
   private
 
   def entry_for row
@@ -16,5 +12,9 @@ module ArtDecomp class PutPresenter < SimpleDelegator
     when 1    then mapping_for row_codes.first
     else      raise 'trying to map multiple (but not all) codes'
     end
+  end
+
+  def mapping_for code
+    codes.sort.index(code).to_s(2).rjust binwidth, '0'
   end
 end end
