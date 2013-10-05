@@ -9,20 +9,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
 
   private
 
-  def column_from put
-    Array.new(put.blocks.max.to_s(2).size) { |row| entry_for put, row }
-  end
-
   def columns_from puts
-    puts.map { |put| column_from put }.transpose.map(&:join)
-  end
-
-  def entry_for put, row
-    codes = put.codes { |code, block| (block & B[row]).nonzero? }.sort
-    case codes.size
-    when put.size then DontCare.to_s * put.binwidth
-    when 1        then PutPresenter.new(put).mapping_for codes.first
-    else          raise 'trying to map multiple (but not all) codes'
-    end
+    puts.map { |put| PutPresenter.new(put).bin_column }.transpose.map(&:join)
   end
 end end
