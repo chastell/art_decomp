@@ -1,3 +1,0 @@
-module ArtDecomp
-  DontCare = :-
-end

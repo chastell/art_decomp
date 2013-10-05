@@ -1,4 +1,6 @@
 module ArtDecomp class PutPresenter < SimpleDelegator
+  DontCare = :-
+
   def bin_column
     Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
   end
