@@ -1,6 +1,4 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
-  DontCare = :-
-
   def puts
     [:is, :os]
   end
