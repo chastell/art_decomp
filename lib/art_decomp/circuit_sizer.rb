@@ -1,21 +1,21 @@
 module ArtDecomp class CircuitSizer
   def initialize circuit
-    @archs = circuit.function_archs
+    @archs = circuit.function_archs.map { |arch| ArchSizer.new arch }
   end
 
   def adm_size
     max, min = archs.partition { |arch| arch.i <= 8 }
-    max_quarters = max.map { |arch| max_quarters arch }
-    min_quarters = min.map { |arch| min_quarters arch }
+    max_quarters = max.map(&:max_quarters)
+    min_quarters = min.map(&:min_quarters)
     ((max_quarters + min_quarters).reduce(0, :+) / 4.0).ceil
   end
 
   def max_size
-    (archs.map { |arch| max_quarters arch }.reduce(0, :+) / 4.0).ceil
+    (archs.map(&:max_quarters).reduce(0, :+) / 4.0).ceil
   end
 
   def min_size
-    (archs.map { |arch| min_quarters arch }.reduce(0, :+) / 4.0).ceil
+    (archs.map(&:min_quarters).reduce(0, :+) / 4.0).ceil
   end
 
   attr_reader :archs
@@ -23,24 +23,26 @@ module ArtDecomp class CircuitSizer
 
   private
 
-  def max_quarters arch
-    i, o = *arch
-    case
-    when i.zero?, o.zero? then 0
-    when i <= 5           then (o / 2.0).ceil
-    when i == 6           then o
-    when i == 7           then o * 2
-    when i == 8           then o * 4
-    else o * (max_quarters(Arch[6,1]) + 4 * max_quarters(Arch[i-2,1]))
+  class ArchSizer < SimpleDelegator
+    def max_quarters
+      case
+      when i.zero?, o.zero? then 0
+      when i <= 5           then (o / 2.0).ceil
+      when i == 6           then o
+      when i == 7           then o * 2
+      when i == 8           then o * 4
+      else
+        o * (self.class.new(Arch[6,1]).max_quarters +
+             4 * self.class.new(Arch[i-2,1]).max_quarters)
+      end
     end
-  end
 
-  def min_quarters arch
-    i, o = *arch
-    case
-    when i.zero?, o.zero? then 0
-    when i <= 5           then (o / 2.0).ceil
-    else [(i / 5.0).ceil, (o / 2.0).ceil].max
+    def min_quarters
+      case
+      when i.zero?, o.zero? then 0
+      when i <= 5           then (o / 2.0).ceil
+      else [(i / 5.0).ceil, (o / 2.0).ceil].max
+      end
     end
   end
 end end
