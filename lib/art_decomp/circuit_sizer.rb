@@ -4,7 +4,7 @@ module ArtDecomp class CircuitSizer
   end
 
   def adm_size
-    max, min = archs.partition { |arch| arch.i <= 8 }
+    max, min = archs.partition(&:fits?)
     max_quarters = max.map(&:max_quarters)
     min_quarters = min.map(&:min_quarters)
     ((max_quarters + min_quarters).reduce(0, :+) / 4.0).ceil
@@ -24,6 +24,10 @@ module ArtDecomp class CircuitSizer
   private
 
   class ArchSizer < SimpleDelegator
+    def fits?
+      i <= 8
+    end
+
     def max_quarters
       case
       when i.zero?, o.zero? then 0
