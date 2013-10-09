@@ -3,9 +3,9 @@ module ArtDecomp class Decomposer
     queue = [circuit]
     Enumerator.new do |yielder|
       until queue.empty?
-        circuit = queue.shift
-        yielder << circuit
-        circuit_decomposer.decompose(circuit).each { |circ| queue << circ }
+        smallest = queue.shift
+        yielder << smallest
+        queue.concat circuit_decomposer.decompose smallest
         queue.sort_by!(&:adm_size)
       end
     end
