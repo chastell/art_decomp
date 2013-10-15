@@ -7,9 +7,6 @@ AlignHash:
 AndOr:
   Enabled: false
 
-BlockAlignment:
-  Enabled: false
-
 ConstantName:
   Enabled: false
 
@@ -22,9 +19,6 @@ Documentation:
 EndAlignment:
   Enabled: false
 
-HashSyntax:
-  Enabled: false
-
 IndentationWidth:
   Enabled: false
 
@@ -35,6 +29,9 @@ ParameterLists:
   Enabled: false
 
 ReduceArguments:
+  Enabled: false
+
+SignalException:
   Enabled: false
 
 SpaceAfterComma:
