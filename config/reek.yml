@@ -1,10 +1,28 @@
+DuplicateMethodCall:
+  exclude:
+  - ArtDecomp::CircuitPresenter#wiring_for
+  - ArtDecomp::CircuitSizer::ArchSizer#min_quarters
+  - ArtDecomp::FunctionDecomposer#decompose
+
 IrresponsibleModule:
   enabled: false
+
+NestedIterators:
+  max_allowed_nesting: 2
 
 UncommunicativeModuleName:
   exclude:
   - ArtDecomp::B
 
+UncommunicativeParameterName:
+  exclude:
+  - ArtDecomp::CircuitPresenter#wiring_for
+
 UncommunicativeVariableName:
   exclude:
   - ArtDecomp::CircuitPresenter#wirings_for
+  - ArtDecomp::FunctionSimplifier#simplify
+  - ArtDecomp::FunctionSimplifier#take_required
+
+UnusedParameters:
+  enabled: false
