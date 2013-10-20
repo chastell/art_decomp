@@ -15,8 +15,8 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
-                 wires: []
+  def initialize(functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
+                 wires: [])
     @functions, @recoders, @wires = functions, recoders, wires
     @is, @os, @ps, @qs = is, os, ps, qs
   end
@@ -27,7 +27,7 @@ module ArtDecomp class Circuit
       wires == other.wires
   end
 
-  def adm_size circuit_sizer: CircuitSizer.new(self)
+  def adm_size(circuit_sizer: CircuitSizer.new(self))
     @adm_size ||= circuit_sizer.adm_size
   end
 
@@ -43,11 +43,11 @@ module ArtDecomp class Circuit
     functions.max_by(&:arch)
   end
 
-  def max_size circuit_sizer: CircuitSizer.new(self)
+  def max_size(circuit_sizer: CircuitSizer.new(self))
     @max_size ||= circuit_sizer.max_size
   end
 
-  def min_size circuit_sizer: CircuitSizer.new(self)
+  def min_size(circuit_sizer: CircuitSizer.new(self))
     @min_size ||= circuit_sizer.min_size
   end
 end end

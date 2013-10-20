@@ -3,7 +3,7 @@ module ArtDecomp class Seps
     new blocks: blocks
   end
 
-  def initialize blocks: [], matrix: nil
+  def initialize(blocks: [], matrix: nil)
     @matrix = matrix || matrix_from(blocks)
   end
 

@@ -6,8 +6,8 @@ module ArtDecomp class KISSDecomposer
     @args = args
   end
 
-  def decompose circuit_presenter: CircuitPresenter,
-                decomposer: Decomposer.new, kiss_parser: KISSParser
+  def decompose(circuit_presenter: CircuitPresenter,
+                decomposer: Decomposer.new, kiss_parser: KISSParser)
     circuit = kiss_parser.circuit_for File.read settings.kiss_path
     decomposer.decompose_circuit(circuit).each.with_index do |dc, i|
       name = "#{File.basename settings.kiss_path, '.kiss'}_#{i}"
