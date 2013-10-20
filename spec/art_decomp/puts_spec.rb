@@ -7,6 +7,13 @@ module ArtDecomp describe Puts do
       os = [stub(:put), stub(:put)]
       Puts.new(is: is, os: os).is.must_equal is
     end
+
+    it 'raises if the given Put set wasn’t defined' do
+      is = [stub(:put), stub(:put), stub(:put)]
+      os = [stub(:put), stub(:put)]
+      -> { Puts.new(is: is, os: os).ps }.must_raise NoMethodError
+      assert Puts.new(is: is, os: os, ps: nil).ps.nil?
+    end
   end
 
   describe '#respond_to?' do

@@ -4,10 +4,10 @@ module ArtDecomp class Puts
   end
 
   def method_missing name
-    ss[name] or super
+    ss.fetch(name) { super }
   end
 
-  def respond_to_missing? name, include_all
+  def respond_to? name
     ss.key? name or super
   end
 
