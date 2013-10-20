@@ -1,6 +1,6 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def puts
-    [:is, :os]
+    %i[is os]
   end
 
   def rows

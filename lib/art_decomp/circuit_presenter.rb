@@ -6,7 +6,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def puts
-    [:is, :os, :ps, :qs]
+    %i[is os ps qs]
   end
 
   def vhdl name

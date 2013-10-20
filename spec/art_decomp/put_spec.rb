@@ -38,7 +38,7 @@ module ArtDecomp describe Put do
 
   describe '#codes' do
     it 'returns codes' do
-      put.codes.must_equal [:a, :b]
+      put.codes.must_equal %i[a b]
     end
 
     it 'allows requesting just certain codes' do
