@@ -1,8 +1,4 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
-  def puts
-    %i[is os]
-  end
-
   def rows
     columns_from(is).zip columns_from os
   end
