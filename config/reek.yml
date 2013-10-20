@@ -1,14 +1,23 @@
 DuplicateMethodCall:
   exclude:
+  - ArtDecomp::Circuit#self.from_fsm
   - ArtDecomp::CircuitPresenter#wiring_for
   - ArtDecomp::CircuitSizer::ArchSizer#min_quarters
   - ArtDecomp::FunctionDecomposer#decompose
+  - ArtDecomp::KISSDecomposer#decompose
+  - ArtDecomp::KISSParser#putify
 
 IrresponsibleModule:
   enabled: false
 
 NestedIterators:
+  exclude:
+  - ArtDecomp::KISSDecomposer#settings
   max_allowed_nesting: 2
+
+TooManyStatements:
+  exclude:
+  - ArtDecomp::Seps#matrix_from
 
 UncommunicativeModuleName:
   exclude:
@@ -23,6 +32,7 @@ UncommunicativeVariableName:
   - ArtDecomp::CircuitPresenter#wirings_for
   - ArtDecomp::FunctionSimplifier#simplify
   - ArtDecomp::FunctionSimplifier#take_required
+  - ArtDecomp::Seps#|
 
 UnusedParameters:
   enabled: false
