@@ -3,7 +3,7 @@ require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
   def initialize args
-    @settings = settings_from args
+    @args = args
   end
 
   def decompose circuit_presenter: CircuitPresenter,
@@ -16,13 +16,13 @@ module ArtDecomp class KISSDecomposer
     end
   end
 
-  attr_reader :settings
-  private     :settings
+  attr_reader :args
+  private     :args
 
   private
 
-  def settings_from args
-    OpenStruct.new.tap do |settings|
+  def settings
+    @settings ||= OpenStruct.new.tap do |settings|
       OptionParser.new do |opts|
         opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
       end.parse! args
