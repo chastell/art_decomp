@@ -8,7 +8,7 @@ module ArtDecomp class KISSParser
   end
 
   def circuit circuit_factory: Circuit
-    circuit_factory.from_fsm is: is, os: os, qs: qs, ps: ps
+    circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
   end
 
   attr_reader :kiss

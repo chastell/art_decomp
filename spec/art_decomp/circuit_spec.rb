@@ -7,7 +7,7 @@ module ArtDecomp describe Circuit do
       os       = [Put[:'0' => B[1], :'1' => B[0]]]
       qs       = [Put[s1: B[0], s2: B[1], s3: B[2]]]
       ps       = [Put[s1: B[1], s2: B[2], s3: B[0]]]
-      circuit  = Circuit.from_fsm is: is, os: os, ps: ps, qs: qs
+      circuit  = Circuit.from_fsm Puts.new is: is, os: os, ps: ps, qs: qs
       function = circuit.functions.first
 
       circuit.functions.size.must_equal 1

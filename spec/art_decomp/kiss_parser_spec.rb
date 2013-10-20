@@ -32,7 +32,7 @@ module ArtDecomp describe KISSParser do
       ps = [Put[s1: B[0,2], s2: B[0,1], s3: B[0]]]
 
       cf = fake :circuit, as: :class
-      mock(cf).from_fsm(is: is, qs: qs, os: os, ps: ps) { circuit }
+      mock(cf).from_fsm(Puts.new is: is, qs: qs, os: os, ps: ps) { circuit }
 
       KISSParser.new(kiss).circuit(circuit_factory: cf).must_equal circuit
     end
