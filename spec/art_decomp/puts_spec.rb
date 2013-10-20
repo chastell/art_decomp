@@ -5,6 +5,13 @@ module ArtDecomp describe Puts do
   let(:os)   { [stub(:put), stub(:put)]             }
   let(:puts) { Puts.new is: is, os: os              }
 
+  describe '#==' do
+    it 'compares two Puts with regards to value' do
+      puts.must_equal Puts.new is: is, os: os
+      puts.wont_equal Puts.new is: os, os: is
+    end
+  end
+
   describe '#ss' do
     it 'allows accessing given Put sets' do
       puts.is.must_equal is

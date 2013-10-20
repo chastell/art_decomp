@@ -3,6 +3,10 @@ module ArtDecomp class Puts
     @ss = ss
   end
 
+  def == other
+    ss == other.ss
+  end
+
   def method_missing name
     ss.fetch(name) { super }
   end
@@ -12,5 +16,5 @@ module ArtDecomp class Puts
   end
 
   attr_accessor :ss
-  private       :ss
+  protected     :ss
 end end
