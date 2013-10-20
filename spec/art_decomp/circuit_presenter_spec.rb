@@ -9,12 +9,6 @@ module ArtDecomp describe CircuitPresenter do
     end
   end
 
-  describe '#puts' do
-    it 'returns the types of Put groups it responds to' do
-      CircuitPresenter.new(Circuit.new).puts.must_equal [:is, :os, :ps, :qs]
-    end
-  end
-
   describe '#vhdl' do
     let(:circuit) { KISSParser.new(File.read 'spec/fixtures/mc.kiss').circuit }
     let(:circuit_presenter) { CircuitPresenter.new circuit }
