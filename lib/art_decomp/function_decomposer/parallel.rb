@@ -8,7 +8,8 @@ module ArtDecomp class FunctionDecomposer; class Parallel
   def decompose function
     Enumerator.new do |yielder|
       merged  = merge function
-      circuit = Circuit.new functions: merged, is: function.is, os: function.os
+      circuit = Circuit.new functions: merged,
+        puts: Puts.new(is: function.is, os: function.os)
       merged.each { |fun| add_wires fun, circuit }
       yielder << circuit unless merged == [function]
     end
@@ -21,14 +22,14 @@ module ArtDecomp class FunctionDecomposer; class Parallel
 
   def add_is_wires fun, circuit
     fun.is.each.with_index do |put, fi|
-      ci = circuit.is.index put
+      ci = circuit.puts.is.index put
       circuit.wires << Wire[Pin[circuit, :is, ci], Pin[fun, :is, fi]]
     end
   end
 
   def add_os_wires fun, circuit
     fun.os.each.with_index do |put, fo|
-      co = circuit.os.index put
+      co = circuit.puts.os.index put
       circuit.wires << Wire[Pin[fun, :os, fo], Pin[circuit, :os, co]]
     end
   end

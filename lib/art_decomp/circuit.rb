@@ -1,12 +1,12 @@
 module ArtDecomp class Circuit
   attr_accessor :functions, :recoders, :wires
-  attr_reader   :is, :os, :ps, :qs
+  attr_reader   :puts
 
   def self.from_fsm puts
     fun = Function.new puts.is + puts.qs, puts.os + puts.ps
-    iss, oss = puts.is.size, puts.os.size
-    new(is: puts.is, os: puts.os, ps: puts.ps, qs: puts.qs).tap do |circ|
-      circ.functions = [fun]
+    iss = puts.is.size
+    oss = puts.os.size
+    new(functions: [fun], puts: puts).tap do |circ|
       circ.wires =
         (0...iss).map { |n| Wire[Pin[circ, :is, n], Pin[fun, :is, n]] } +
         [Wire[Pin[circ, :qs, 0], Pin[fun, :is, iss]]] +
@@ -15,16 +15,14 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize(functions: [], is: [], os: [], ps: [], qs: [], recoders: [],
-                 wires: [])
-    @functions, @recoders, @wires = functions, recoders, wires
-    @is, @os, @ps, @qs = is, os, ps, qs
+  def initialize(functions: [], puts: Puts.new(is: [], os: [], ps: [], qs: []),
+                 recoders: [], wires: [])
+    @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
   end
 
   def == other
-    functions == other.functions and is == other.is and os == other.os and
-      ps == other.ps and qs == other.qs and recoders == other.recoders and
-      wires == other.wires
+    functions == other.functions and puts == other.puts and
+      recoders == other.recoders and wires == other.wires
   end
 
   def adm_size(circuit_sizer: CircuitSizer.new(self))
@@ -32,7 +30,7 @@ module ArtDecomp class Circuit
   end
 
   def binwidths group
-    send(group).map(&:binwidth)
+    puts.send(group).map(&:binwidth)
   end
 
   def function_archs

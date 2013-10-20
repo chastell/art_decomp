@@ -27,9 +27,10 @@ module ArtDecomp describe Circuit do
 
   describe '.new' do
     it 'initialises the Circuit with minimal fuss' do
-      [:functions, :is, :os, :ps, :qs, :recoders, :wires].each do |attr|
+      [:functions, :recoders, :wires].each do |attr|
         Circuit.new.send(attr).must_equal []
       end
+      Circuit.new.puts.must_equal Puts.new is: [], os: [], ps: [], qs: []
     end
   end
 
@@ -40,26 +41,21 @@ module ArtDecomp describe Circuit do
       functions = [fake(:function), fake(:function)]
       recoders  = [fake(:function), fake(:function)]
       wires     = [fake(:wire), fake(:wire)]
-      circuit   = Circuit.new functions: functions, is: is, os: os, ps: ps,
-        qs: qs, recoders: recoders, wires: wires
+      puts      = Puts.new is: is, os: os, ps: ps, qs: qs
+      circuit   = Circuit.new functions: functions, puts: puts,
+        recoders: recoders, wires: wires
 
       assert Circuit.new == Circuit.new
-      assert circuit == Circuit.new(functions: functions, is: is, os: os,
-        ps: ps, qs: qs, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions.reverse, is: is,
-        os: os, ps: ps, qs: qs, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is.reverse,
-        os: os, ps: ps, qs: qs, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is,
-        os: os.reverse, ps: ps, qs: qs, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is, os: os,
-        ps: ps.reverse, qs: qs, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is, os: os,
-        ps: ps, qs: qs.reverse, recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is, os: os,
-        ps: ps, qs: qs, recoders: recoders.reverse, wires: wires)
-      refute circuit == Circuit.new(functions: functions, is: is, os: os,
-        ps: ps, qs: qs, recoders: recoders, wires: wires.reverse)
+      assert circuit == Circuit.new(functions: functions, puts: puts,
+        recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions.reverse, puts: puts,
+        recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, puts: Puts.new({}),
+        recoders: recoders, wires: wires)
+      refute circuit == Circuit.new(functions: functions, puts: puts,
+        recoders: recoders.reverse, wires: wires)
+      refute circuit == Circuit.new(functions: functions, puts: puts,
+        recoders: recoders, wires: wires.reverse)
     end
   end
 
@@ -72,7 +68,7 @@ module ArtDecomp describe Circuit do
 
   describe '#binwidths' do
     it 'returns binary widths of the given Put group' do
-      circuit = Circuit.new(
+      circuit = Circuit.new puts: Puts.new(
         is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
         qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
       )
@@ -97,14 +93,6 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#is, #os, #ps, #qs' do
-    it 'gets the puts' do
-      [:is, :os, :ps, :qs].each do |ss|
-        Circuit.new(ss => puts = fake(:array)).send(ss).must_equal puts
-      end
-    end
-  end
-
   describe '#largest_function' do
     it 'returns the largest Function (input- and output-wise)' do
       f23 = fake :function, arch: Arch[2,3]
@@ -125,6 +113,12 @@ module ArtDecomp describe Circuit do
     it 'returns the smallest possible size of the Circuit' do
       stub(cs = fake(:circuit_sizer)).min_size { 7 }
       Circuit.new.min_size(circuit_sizer: cs).must_equal 7
+    end
+  end
+
+  describe '#puts' do
+    it 'gets the puts' do
+      Circuit.new(puts: puts = fake(:puts)).puts.must_equal puts
     end
   end
 
