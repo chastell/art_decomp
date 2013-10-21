@@ -61,7 +61,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
 
   def wirings_label_for object
     case
-    when object.kind_of?(Circuit)   then 'fsm'
+    when object == self             then 'fsm'
     when functions.include?(object) then "f#{functions.index object}"
     when recoders.include?(object)  then "r#{recoders.index  object}"
     end

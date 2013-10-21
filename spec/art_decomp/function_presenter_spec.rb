@@ -21,7 +21,8 @@ module ArtDecomp describe FunctionPresenter do
     ]
   end
 
-  let(:function_presenter) { FunctionPresenter.new Function.new(is, os) }
+  let(:function)           { Function.new Puts.new is: is, os: os }
+  let(:function_presenter) { FunctionPresenter.new function       }
 
   describe '#binwidths' do
     it 'returns binary widths of the given Puts group' do

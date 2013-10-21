@@ -3,9 +3,9 @@ module ArtDecomp class Circuit
   attr_reader   :puts
 
   def self.from_fsm puts
-    fun = Function.new puts.is + puts.qs, puts.os + puts.ps
     iss = puts.is.size
     oss = puts.os.size
+    fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
     new(functions: [fun], puts: puts).tap do |circ|
       circ.wires =
         (0...iss).map { |n| Wire[Pin[circ, :is, n], Pin[fun, :is, n]] } +

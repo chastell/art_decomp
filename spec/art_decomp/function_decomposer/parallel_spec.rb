@@ -19,16 +19,16 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
       buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
       nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
-      fun  = Function.new [a, b, c], [anb, buc, nbuc]
-      f1   = Function.new [a, b], [anb]
-      f2   = Function.new [b, c], [buc]
-      f3   = Function.new [b, c], [nbuc]
-      f23  = Function.new [b, c], [buc, nbuc]
+      fun  = Function.new Puts.new is: [a, b, c], os: [anb, buc, nbuc]
+      f1   = Function.new Puts.new is: [a, b], os: [anb]
+      f2   = Function.new Puts.new is: [b, c], os: [buc]
+      f3   = Function.new Puts.new is: [b, c], os: [nbuc]
+      f23  = Function.new Puts.new is: [b, c], os: [buc, nbuc]
       fs   = fake :function_simplifier
       fm   = fake :function_merger
-      stub(fs).simplify(Function.new([a,b,c], [anb]))  { f1 }
-      stub(fs).simplify(Function.new([a,b,c], [buc]))  { f2 }
-      stub(fs).simplify(Function.new([a,b,c], [nbuc])) { f3 }
+      stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [anb]))  { f1 }
+      stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [buc]))  { f2 }
+      stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [nbuc])) { f3 }
       stub(fm).merge([f1, f2, f3]) { [f1, f23] }
       puts = Puts.new is: [a, b, c], os: [anb, buc, nbuc]
       circuit = Circuit.new functions: [f1, f23], puts: puts
@@ -48,7 +48,7 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
     end
 
     it 'does not yield if it can’t decompose' do
-      fun  = fake :function, is: [fake(:put)], os: [fake(:put)]
+      fun  = fake :function, puts: Puts.new(is: [fake(:put)], os: [fake(:put)])
       fs   = fake :function_simplifier
       fm   = fake :function_merger, merge: [fun]
       fdp  = FunctionDecomposer::Parallel.new function_merger: fm,

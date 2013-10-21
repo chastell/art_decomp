@@ -1,12 +1,12 @@
 module ArtDecomp class Function
-  attr_reader :is, :os
+  attr_reader :puts
 
-  def initialize is = [], os = []
-    @is, @os = is, os
+  def initialize puts = Puts.new(is: [], os: [])
+    @puts = puts
   end
 
   def == other
-    is == other.is and os == other.os
+    puts == other.puts
   end
 
   def arch
@@ -18,6 +18,6 @@ module ArtDecomp class Function
   end
 
   def binwidths group
-    send(group).map(&:binwidth)
+    puts.send(group).map(&:binwidth)
   end
 end end

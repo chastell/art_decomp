@@ -11,8 +11,8 @@ module ArtDecomp describe Circuit do
       function = circuit.functions.first
 
       circuit.functions.size.must_equal 1
-      function.is.must_equal is + qs
-      function.os.must_equal os + ps
+      function.puts.is.must_equal is + qs
+      function.puts.os.must_equal os + ps
 
       circuit.recoders.must_be :empty?
 
