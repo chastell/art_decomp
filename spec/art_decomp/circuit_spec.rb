@@ -30,7 +30,7 @@ module ArtDecomp describe Circuit do
       [:functions, :recoders, :wires].each do |attr|
         Circuit.new.send(attr).must_equal []
       end
-      Circuit.new.puts.must_equal Puts.new is: [], os: [], ps: [], qs: []
+      Circuit.new.puts.must_equal Puts.new
     end
   end
 
@@ -50,7 +50,7 @@ module ArtDecomp describe Circuit do
         recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions.reverse, puts: puts,
         recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, puts: Puts.new({}),
+      refute circuit == Circuit.new(functions: functions, puts: Puts.new,
         recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions, puts: puts,
         recoders: recoders.reverse, wires: wires)

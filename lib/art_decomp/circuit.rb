@@ -15,8 +15,7 @@ module ArtDecomp class Circuit
     end
   end
 
-  def initialize(functions: [], puts: Puts.new(is: [], os: [], ps: [], qs: []),
-                 recoders: [], wires: [])
+  def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
     @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
   end
 

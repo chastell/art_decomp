@@ -1,7 +1,7 @@
 module ArtDecomp class Function
   attr_reader :puts
 
-  def initialize puts = Puts.new(is: [], os: [])
+  def initialize puts = Puts.new
     @puts = puts
   end
 
