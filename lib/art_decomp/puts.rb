@@ -1,20 +1,11 @@
 module ArtDecomp class Puts
-  def initialize ss
-    @ss = ss
+  attr_reader :is, :os, :ps, :qs
+
+  def initialize is: [], os: [], ps: [], qs: []
+    @is, @os, @ps, @qs = is, os, ps,qs
   end
 
   def == other
-    ss == other.ss
+    [is, os, ps, qs] == [other.is, other.os, other.ps, other.qs]
   end
-
-  def method_missing name
-    ss.fetch(name) { super }
-  end
-
-  def respond_to? name
-    ss.key? name or super
-  end
-
-  attr_accessor :ss
-  protected     :ss
 end end
