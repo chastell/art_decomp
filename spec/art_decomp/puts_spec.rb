@@ -14,6 +14,17 @@ module ArtDecomp describe Puts do
     end
   end
 
+  describe '#binwidths' do
+    it 'returns binary widths of the given Put group' do
+      puts = Puts.new(
+        is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
+        qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
+      )
+      puts.binwidths(:is).must_equal [1, 2]
+      puts.binwidths(:qs).must_equal [1, 2]
+    end
+  end
+
   describe '#is, #os, #qs, #ps' do
     it 'allows accessing given Put sets' do
       puts.is.must_equal is

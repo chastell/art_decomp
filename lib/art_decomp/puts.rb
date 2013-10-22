@@ -8,4 +8,8 @@ module ArtDecomp class Puts
   def == other
     [is, os, ps, qs] == [other.is, other.os, other.ps, other.qs]
   end
+
+  def binwidths group
+    send(group).map(&:binwidth)
+  end
 end end
