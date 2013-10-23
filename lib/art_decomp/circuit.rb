@@ -1,4 +1,6 @@
 module ArtDecomp class Circuit
+  extend Forwardable
+
   attr_accessor :functions, :recoders, :wires
   attr_reader   :puts
 
@@ -28,9 +30,7 @@ module ArtDecomp class Circuit
     @adm_size ||= circuit_sizer.adm_size
   end
 
-  def binwidths group
-    puts.send(group).map(&:binwidth)
-  end
+  def_delegator :puts, :binwidths
 
   def function_archs
     functions.map(&:arch)
