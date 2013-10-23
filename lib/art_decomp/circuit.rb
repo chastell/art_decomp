@@ -30,7 +30,7 @@ module ArtDecomp class Circuit
     @adm_size ||= circuit_sizer.adm_size
   end
 
-  def_delegator :puts, :binwidths
+  def_delegators :puts, :binwidths, :is, :os, :ps, :qs
 
   def function_archs
     functions.map(&:arch)

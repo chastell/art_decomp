@@ -93,6 +93,15 @@ module ArtDecomp describe Circuit do
     end
   end
 
+  describe '#is, #os, #ps, #qs' do
+    it 'returns the Circuit’s Put groups' do
+      %i[is os ps qs].each do |type|
+        ss = [stub(:put)]
+        Circuit.new(puts: Puts.new(type => ss)).send(type).must_equal ss
+      end
+    end
+  end
+
   describe '#largest_function' do
     it 'returns the largest Function (input- and output-wise)' do
       f23 = fake :function, arch: Arch[2,3]
