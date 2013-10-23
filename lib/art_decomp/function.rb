@@ -1,4 +1,6 @@
 module ArtDecomp class Function
+  extend Forwardable
+
   attr_reader :puts
 
   def initialize puts = Puts.new
@@ -17,7 +19,5 @@ module ArtDecomp class Function
     binwidths(:is).reduce 0, :+
   end
 
-  def binwidths group
-    puts.send(group).map(&:binwidth)
-  end
+  def_delegator :puts, :binwidths
 end end

@@ -1,4 +1,5 @@
 require 'delegate'
+require 'forwardable'
 
 require_relative 'art_decomp/arch'
 require_relative 'art_decomp/b'
