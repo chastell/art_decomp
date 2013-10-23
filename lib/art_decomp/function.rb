@@ -15,5 +15,5 @@ module ArtDecomp class Function
     Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
   end
 
-  def_delegator :puts, :binwidths
+  def_delegators :puts, :binwidths, :is, :os
 end end

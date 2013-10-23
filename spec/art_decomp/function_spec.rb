@@ -32,6 +32,18 @@ module ArtDecomp describe Function do
     end
   end
 
+  describe '#is' do
+    it 'returns the Function’s inputs' do
+      function.is.must_equal is
+    end
+  end
+
+  describe '#os' do
+    it 'returns the Function’s outputs' do
+      function.os.must_equal os
+    end
+  end
+
   describe '#puts' do
     it 'returns the Puts' do
       function.puts.must_equal Puts.new is: is, os: os
