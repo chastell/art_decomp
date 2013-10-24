@@ -1,8 +1,8 @@
 module ArtDecomp class FunctionSimplifier
   def simplify function
-    os   = function.puts.os
+    os   = function.os
     seps = os.map(&:seps).reduce :|
-    is   = function.puts.is.sort_by { |i| (i.seps & seps).size }.reverse
+    is   = function.is.sort_by { |i| (i.seps & seps).size }.reverse
     Function.new Puts.new is: take_required(is, seps), os: os
   end
 

@@ -48,7 +48,9 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
     end
 
     it 'does not yield if it can’t decompose' do
-      fun  = fake :function, puts: Puts.new(is: [fake(:put)], os: [fake(:put)])
+      is   = [fake(:put)]
+      os   = [fake(:put)]
+      fun  = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
       fs   = fake :function_simplifier
       fm   = fake :function_merger, merge: [fun]
       fdp  = FunctionDecomposer::Parallel.new function_merger: fm,

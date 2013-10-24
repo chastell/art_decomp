@@ -1,6 +1,6 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def rows
-    columns_from(function.puts.is).zip columns_from function.puts.os
+    columns_from(function.is).zip columns_from function.os
   end
 
   private
