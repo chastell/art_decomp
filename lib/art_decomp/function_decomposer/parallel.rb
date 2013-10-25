@@ -9,7 +9,7 @@ module ArtDecomp class FunctionDecomposer; class Parallel
     Enumerator.new do |yielder|
       merged  = merge function
       circuit = Circuit.new functions: merged, puts: function.puts
-      merged.each { |fun| add_wires fun, circuit }
+      merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
       yielder << circuit unless merged == [function]
     end
   end
@@ -19,29 +19,20 @@ module ArtDecomp class FunctionDecomposer; class Parallel
 
   private
 
-  def add_is_wires fun, circuit
-    fun.is.each.with_index do |put, fi|
-      ci = circuit.is.index put
-      circuit.wires << Wire[Pin[circuit, :is, ci], Pin[fun, :is, fi]]
-    end
-  end
-
-  def add_os_wires fun, circuit
-    fun.os.each.with_index do |put, fo|
-      co = circuit.os.index put
-      circuit.wires << Wire[Pin[fun, :os, fo], Pin[circuit, :os, co]]
-    end
-  end
-
-  def add_wires fun, circuit
-    add_is_wires fun, circuit
-    add_os_wires fun, circuit
-  end
-
   def merge function
     is     = function.is
     split  = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
     simple = split.map { |fun| function_simplifier.simplify fun }
     function_merger.merge simple
+  end
+
+  def wires_for function, circuit
+    is_wires = function.is.map.with_index do |put, fi|
+      Wire[Pin[circuit, :is, circuit.is.index(put)], Pin[function, :is, fi]]
+    end
+    os_wires = function.os.map.with_index do |put, fo|
+      Wire[Pin[function, :os, fo], Pin[circuit, :os, circuit.os.index(put)]]
+    end
+    is_wires + os_wires
   end
 end end end
