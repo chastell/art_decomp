@@ -1,6 +1,6 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def rows
-    columns_from(function.is).zip columns_from function.os
+    columns_from(is).zip columns_from os
   end
 
   private
@@ -8,8 +8,6 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   def columns_from puts
     puts.map { |put| PutPresenter.new(put).bin_column }.transpose.map(&:join)
   end
-
-  alias_method :function, :__getobj__
 
   class PutPresenter < SimpleDelegator
     DontCare = :-
