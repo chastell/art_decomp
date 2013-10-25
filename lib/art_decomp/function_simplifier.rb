@@ -1,8 +1,11 @@
-module ArtDecomp class FunctionSimplifier
-  def simplify function
-    os   = function.os
+module ArtDecomp class FunctionSimplifier < SimpleDelegator
+  def self.simplify function
+    new(function).simplify
+  end
+
+  def simplify
     seps = os.map(&:seps).reduce :|
-    is   = function.is.sort_by { |i| (i.seps & seps).size }.reverse
+    is   = self.is.sort_by { |i| (i.seps & seps).size }.reverse
     Function.new Puts.new is: take_required(is, seps), os: os
   end
 

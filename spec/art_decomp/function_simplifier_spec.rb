@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 module ArtDecomp describe FunctionSimplifier do
-  describe '#simplify' do
+  describe '.simplify' do
     it 'returns the simplest implementation of a Function' do
       #   | a b c | anb buc
       # --+-------+--------
@@ -20,7 +20,7 @@ module ArtDecomp describe FunctionSimplifier do
       buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
       fanb = Function.new Puts.new is: [a, b, c], os: [anb]
       fbuc = Function.new Puts.new is: [a, b, c], os: [buc]
-      fs   = FunctionSimplifier.new
+      fs   = FunctionSimplifier
       fs.simplify(fanb).must_equal Function.new(Puts.new is: [a,b], os: [anb])
       fs.simplify(fbuc).must_equal Function.new(Puts.new is: [c,b], os: [buc])
     end
