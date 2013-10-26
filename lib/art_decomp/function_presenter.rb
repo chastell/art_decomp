@@ -1,13 +1,11 @@
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def rows
-    columns_from(is).zip columns_from os
+    is_cols = PutGroupPresenter.new(is).bin_columns
+    os_cols = PutGroupPresenter.new(os).bin_columns
+    is_cols.zip os_cols
   end
 
   private
-
-  def columns_from puts
-    puts.map { |put| PutPresenter.new(put).bin_column }.transpose.map(&:join)
-  end
 
   class PutPresenter < SimpleDelegator
     DontCare = :-
@@ -27,6 +25,12 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
 
     def mapping_for code
       codes.sort.index(code).to_s(2).rjust binwidth, '0'
+    end
+  end
+
+  class PutGroupPresenter < SimpleDelegator
+    def bin_columns
+      map { |put| PutPresenter.new(put).bin_column }.transpose.map(&:join)
     end
   end
 end end
