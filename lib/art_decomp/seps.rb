@@ -1,4 +1,6 @@
 module ArtDecomp class Seps
+  extend Forwardable
+
   def self.[] *blocks
     new blocks: blocks
   end
@@ -25,9 +27,7 @@ module ArtDecomp class Seps
     Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
-  def empty?
-    matrix.empty?
-  end
+  delegate empty?: :matrix
 
   def inspect
     bits = matrix.map { |r| (0...r.to_s(2).size).select { |bit| r[bit] == 1 } }
