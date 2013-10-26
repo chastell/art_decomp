@@ -77,10 +77,9 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#functions, #functions=' do
-    it 'gets/sets the functions' do
+  describe '#functions' do
+    it 'gets the functions' do
       Circuit.new(functions: funs = fake(:array)).functions.must_equal funs
-      Circuit.new.tap { |c| c.functions = funs }.functions.must_equal funs
     end
   end
 

@@ -48,7 +48,7 @@ module ArtDecomp describe CircuitPresenter do
       r_coded = [Put[a: B[0,2], b: B[1,3]], Put[a: B[0,1], b: B[2,3]]]
       r0 = Function.new Puts.new is: r_state, os: r_coded
       r1 = Function.new Puts.new is: r_coded, os: r_state
-      circuit.functions = [f0, f1]
+      circuit.functions.replace [f0, f1]
       circuit.recoders  = [r0, r1]
       circuit.wires     = [
         Wire[Pin[circuit, :is, 0], Pin[f0, :is, 0]],
