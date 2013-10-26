@@ -1,4 +1,6 @@
 module ArtDecomp class Put
+  extend Forwardable
+
   def self.[] blanket = {}
     new blanket: blanket
   end
@@ -15,9 +17,7 @@ module ArtDecomp class Put
     size.zero? ? 0 : Math.log2(size).ceil
   end
 
-  def blocks
-    blanket.values
-  end
+  def_delegator :blanket, :values, :blocks
 
   def codes &block
     block_given? ? blanket.select(&block).keys : blanket.keys
@@ -35,9 +35,7 @@ module ArtDecomp class Put
     @seps ||= Seps[*blanket.values]
   end
 
-  def size
-    blanket.size
-  end
+  delegate size: :blanket
 
   attr_reader :blanket
   protected   :blanket
