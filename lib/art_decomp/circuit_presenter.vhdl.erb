@@ -24,8 +24,8 @@ architecture behaviour of <%= name %> is
 % end
 
 begin
-% wirings.each do |result, source|
-  <%= result %> <= <%= source %>;
+% wirings.each do |source, destination|
+  <%= destination %> <= <%= source %>;
 % end
 
   process(reset, clock) begin

@@ -36,26 +36,26 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
     '0' * fsm_qs_binwidth
   end
 
-  def wiring_for dst, src, n
-    dst_lab = wirings_label_for dst.object
+  def wiring_for src, dst, n
     src_lab = wirings_label_for src.object
-    dst_bin = dst.object.binwidths(dst.group)[0...dst.index].reduce(0, :+) + n
+    dst_lab = wirings_label_for dst.object
     src_bin = src.object.binwidths(src.group)[0...src.index].reduce(0, :+) + n
+    dst_bin = dst.object.binwidths(dst.group)[0...dst.index].reduce(0, :+) + n
     [
-      "#{dst_lab}_#{dst.group}(#{dst_bin})",
       "#{src_lab}_#{src.group}(#{src_bin})",
+      "#{dst_lab}_#{dst.group}(#{dst_bin})",
     ]
   end
 
   def wirings
     Hash[wires.flat_map do |wire|
-      wirings_for wire.dst, wire.src
+      wirings_for wire.src, wire.dst
     end]
   end
 
-  def wirings_for dst, src
+  def wirings_for src, dst
     Array.new dst.object.binwidths(dst.group)[dst.index] do |n|
-      wiring_for dst, src, n
+      wiring_for src, dst, n
     end
   end
 
