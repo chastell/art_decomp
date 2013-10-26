@@ -1,4 +1,4 @@
-module ArtDecomp class FunctionDecomposer; class Parallel
+module ArtDecomp class FunctionDecomposer; class Parallel < SimpleDelegator
   def self.decompose function, merger: FunctionMerger.new,
                      simplifier: FunctionSimplifier
     new(function, merger: merger, simplifier: simplifier).decompositions
@@ -6,15 +6,14 @@ module ArtDecomp class FunctionDecomposer; class Parallel
 
   def initialize function, merger: FunctionMerger.new,
                  simplifier: FunctionSimplifier
-    @function   = function
+    super function
     @merger     = merger
     @simplifier = simplifier
   end
 
   def decompositions
     Enumerator.new do |yielder|
-      is      = function.is
-      split   = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
+      split   = os.map { |o| Function.new Puts.new is: is, os: [o] }
       simple  = split.map { |fun| simplifier.simplify fun }
       merged  = merger.merge simple
       circuit = Circuit.new functions: merged, puts: function.puts
@@ -23,10 +22,12 @@ module ArtDecomp class FunctionDecomposer; class Parallel
     end
   end
 
-  attr_reader :function, :merger, :simplifier
-  private     :function, :merger, :simplifier
+  attr_reader :merger, :simplifier
+  private     :merger, :simplifier
 
   private
+
+  alias_method :function, :__getobj__
 
   def wires_for function, circuit
     is_wires = function.is.map.with_index do |put, fi|
