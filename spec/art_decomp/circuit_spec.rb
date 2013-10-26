@@ -130,10 +130,9 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#recoders, #recoders=' do
-    it 'gets/sets the Recorders' do
+  describe '#recoders' do
+    it 'gets the Recorders' do
       Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
-      Circuit.new.tap { |c| c.recoders = recs }.recoders.must_equal recs
     end
   end
 

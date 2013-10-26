@@ -1,8 +1,8 @@
 module ArtDecomp class Circuit
   extend Forwardable
 
-  attr_accessor :recoders, :wires
-  attr_reader   :functions, :puts
+  attr_accessor :wires
+  attr_reader   :functions, :puts, :recoders
 
   def self.from_fsm puts
     iss = puts.is.size
