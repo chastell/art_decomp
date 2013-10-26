@@ -1,11 +1,18 @@
 module ArtDecomp class FunctionDecomposer; class Parallel
-  def initialize(function_merger: FunctionMerger.new,
-                 function_simplifier: FunctionSimplifier)
+  def self.decompose function, function_merger: FunctionMerger.new,
+                     function_simplifier: FunctionSimplifier
+    new(function, function_merger: function_merger,
+      function_simplifier: function_simplifier).decompositions
+  end
+
+  def initialize function, function_merger: FunctionMerger.new,
+                 function_simplifier: FunctionSimplifier
+    @function            = function
     @function_merger     = function_merger
     @function_simplifier = function_simplifier
   end
 
-  def decompose function
+  def decompositions
     Enumerator.new do |yielder|
       is      = function.is
       split   = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
@@ -17,8 +24,8 @@ module ArtDecomp class FunctionDecomposer; class Parallel
     end
   end
 
-  attr_reader :function_merger, :function_simplifier
-  private     :function_merger, :function_simplifier
+  attr_reader :function, :function_merger, :function_simplifier
+  private     :function, :function_merger, :function_simplifier
 
   private
 
