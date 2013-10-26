@@ -3,19 +3,17 @@ module ArtDecomp class Seps
     new blocks: blocks
   end
 
-  def initialize(blocks: [], matrix: nil)
-    @matrix = normalise(matrix || matrix_from(blocks))
+  def initialize(blocks: [], matrix: matrix_from(blocks))
+    @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    new = smaller.zip(larger).map { |a, b| a & b }
-    Seps.new matrix: new
+    Seps.new matrix: smaller.zip(larger).map { |a, b| a & b }
   end
 
   def - other
-    new = matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
-    Seps.new matrix: new
+    Seps.new matrix: matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
   end
 
   def == other
@@ -54,9 +52,5 @@ module ArtDecomp class Seps
     (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
     end
-  end
-
-  def normalise matrix
-    matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 end end
