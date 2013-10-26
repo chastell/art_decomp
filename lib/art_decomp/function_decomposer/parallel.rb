@@ -1,31 +1,30 @@
 module ArtDecomp class FunctionDecomposer; class Parallel
-  def self.decompose function, function_merger: FunctionMerger.new,
-                     function_simplifier: FunctionSimplifier
-    new(function, function_merger: function_merger,
-      function_simplifier: function_simplifier).decompositions
+  def self.decompose function, merger: FunctionMerger.new,
+                     simplifier: FunctionSimplifier
+    new(function, merger: merger, simplifier: simplifier).decompositions
   end
 
-  def initialize function, function_merger: FunctionMerger.new,
-                 function_simplifier: FunctionSimplifier
-    @function            = function
-    @function_merger     = function_merger
-    @function_simplifier = function_simplifier
+  def initialize function, merger: FunctionMerger.new,
+                 simplifier: FunctionSimplifier
+    @function   = function
+    @merger     = merger
+    @simplifier = simplifier
   end
 
   def decompositions
     Enumerator.new do |yielder|
       is      = function.is
       split   = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
-      simple  = split.map { |fun| function_simplifier.simplify fun }
-      merged  = function_merger.merge simple
+      simple  = split.map { |fun| simplifier.simplify fun }
+      merged  = merger.merge simple
       circuit = Circuit.new functions: merged, puts: function.puts
       merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
       yielder << circuit unless merged == [function]
     end
   end
 
-  attr_reader :function, :function_merger, :function_simplifier
-  private     :function, :function_merger, :function_simplifier
+  attr_reader :function, :merger, :simplifier
+  private     :function, :merger, :simplifier
 
   private
 
