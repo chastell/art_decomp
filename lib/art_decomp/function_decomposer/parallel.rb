@@ -7,7 +7,10 @@ module ArtDecomp class FunctionDecomposer; class Parallel
 
   def decompose function
     Enumerator.new do |yielder|
-      merged  = merge function
+      is      = function.is
+      split   = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
+      simple  = split.map { |fun| function_simplifier.simplify fun }
+      merged  = function_merger.merge simple
       circuit = Circuit.new functions: merged, puts: function.puts
       merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
       yielder << circuit unless merged == [function]
@@ -18,13 +21,6 @@ module ArtDecomp class FunctionDecomposer; class Parallel
   private     :function_merger, :function_simplifier
 
   private
-
-  def merge function
-    is     = function.is
-    split  = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
-    simple = split.map { |fun| function_simplifier.simplify fun }
-    function_merger.merge simple
-  end
 
   def wires_for function, circuit
     is_wires = function.is.map.with_index do |put, fi|
