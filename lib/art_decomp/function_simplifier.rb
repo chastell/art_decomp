@@ -1,18 +1,17 @@
 module ArtDecomp class FunctionSimplifier < SimpleDelegator
   def self.simplify function
-    new(function).simplify
+    new(function).simplified
   end
 
-  def simplify
+  def simplified
     seps = os.map(&:seps).reduce :|
-    is   = self.is.sort_by { |i| (i.seps & seps).size }.reverse
-    Function.new Puts.new is: take_required(is, seps), os: os
+    Function.new Puts.new is: is_required_for(seps), os: os
   end
 
   private
 
-  def take_required is, seps
-    is.take_while do |i|
+  def is_required_for seps
+    is.sort_by { |i| (i.seps & seps).size }.reverse.take_while do |i|
       empty = seps.empty?
       seps -= i.seps
       not empty
