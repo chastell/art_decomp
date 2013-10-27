@@ -21,6 +21,7 @@ module ArtDecomp describe FunctionMerger do
     let(:f1)   { Function.new Puts.new is: [a, b], os: [anb]       }
     let(:f2)   { Function.new Puts.new is: [b, c], os: [buc]       }
     let(:f3)   { Function.new Puts.new is: [b, c], os: [nbuc]      }
+    let(:f4)   { Function.new Puts.new is: [c, b], os: [nbuc]      }
     let(:f23)  { Function.new Puts.new is: [b, c], os: [buc, nbuc] }
 
     it 'merges passed Functions according to their inputs' do
@@ -29,6 +30,10 @@ module ArtDecomp describe FunctionMerger do
 
     it 'optimises the merged functions' do
       FunctionMerger.new.merge([f1, f2, f3, f2]).must_equal [f1, f23]
+    end
+
+    it 'doesn’t discriminate by input order' do
+      FunctionMerger.new.merge([f1, f2, f4]).must_equal [f1, f23]
     end
   end
 end end
