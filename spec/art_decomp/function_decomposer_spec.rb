@@ -6,7 +6,7 @@ module ArtDecomp describe FunctionDecomposer do
       function = fake :function
       p1, p2   = fake(:circuit), fake(:circuit)
       s1, s2   = fake(:circuit), fake(:circuit)
-      parallel = fake FunctionDecomposer::Parallel, as: :class
+      parallel = fake FunctionDecomposer::Parallel
       serial   = fake FunctionDecomposer::Serial
       stub(parallel).decompose(function) { [p1, p2].to_enum }
       stub(serial).decompose(function)   { [s1, s2].to_enum }

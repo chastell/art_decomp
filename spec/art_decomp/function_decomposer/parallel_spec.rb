@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 module ArtDecomp describe FunctionDecomposer::Parallel do
-  describe '.decompose' do
+  describe '#decompose' do
     it 'yields decomposed Circuits' do
       #   | a b c | anb buc nbuc
       # --+-------+-------------
@@ -41,20 +41,18 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
           Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
           Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
       ]
-      decs = FunctionDecomposer::Parallel.decompose fun, merger: fm,
-        simplifier: fs
-      decs.to_a.must_equal [circuit]
+      fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
+      fdp.decompose(fun).to_a.must_equal [circuit]
     end
 
     it 'does not yield if it can’t decompose' do
-      is   = [fake(:put)]
-      os   = [fake(:put)]
-      fun  = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
-      fs   = fake :function_simplifier, as: :class
-      fm   = fake :function_merger, merge: [fun]
-      decs = FunctionDecomposer::Parallel.decompose fun, merger: fm,
-        simplifier: fs
-      decs.to_a.must_be_empty
+      is  = [fake(:put)]
+      os  = [fake(:put)]
+      fun = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
+      fs  = fake :function_simplifier, as: :class
+      fm  = fake :function_merger, merge: [fun]
+      fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
+      fdp.decompose(fun).to_a.must_be_empty
     end
   end
 end end
