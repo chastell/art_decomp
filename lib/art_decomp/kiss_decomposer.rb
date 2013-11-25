@@ -1,7 +1,8 @@
 require 'optparse'
-require 'ostruct'
 
 module ArtDecomp class KISSDecomposer
+  Settings = Struct.new(*%i[kiss_path vhdl_path])
+
   def initialize args
     @args = args
   end
@@ -22,7 +23,7 @@ module ArtDecomp class KISSDecomposer
   private
 
   def settings
-    @settings ||= OpenStruct.new.tap do |settings|
+    @settings ||= Settings.new.tap do |settings|
       OptionParser.new do |opts|
         opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
       end.parse! args
