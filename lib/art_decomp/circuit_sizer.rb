@@ -4,10 +4,7 @@ module ArtDecomp class CircuitSizer
   end
 
   def adm_size
-    max, min = archs.partition(&:fits?)
-    max_quarters = max.map(&:max_quarters)
-    min_quarters = min.map(&:min_quarters)
-    ((max_quarters + min_quarters).reduce(0, :+) / 4.0).ceil
+    ((max_for_fitting + min_for_larger).reduce(0, :+) / 4.0).ceil
   end
 
   def max_size
@@ -22,6 +19,14 @@ module ArtDecomp class CircuitSizer
   private     :archs
 
   private
+
+  def max_for_fitting
+    archs.select(&:fits?).map(&:max_quarters)
+  end
+
+  def min_for_larger
+    archs.reject(&:fits?).map(&:min_quarters)
+  end
 
   class ArchSizer < SimpleDelegator
     def fits?
