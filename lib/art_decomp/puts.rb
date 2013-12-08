@@ -2,7 +2,7 @@ module ArtDecomp class Puts
   attr_reader :is, :os, :ps, :qs
 
   def initialize(is: [], os: [], ps: [], qs: [])
-    @is, @os, @ps, @qs = is, os, ps,qs
+    @is, @os, @ps, @qs = is, os, ps, qs
   end
 
   def == other
