@@ -4,7 +4,7 @@ module ArtDecomp class KISSDecomposer
   Settings = Struct.new(*%i[kiss_path vhdl_path])
 
   def initialize args
-    @args = args
+    @settings = settings_from args
   end
 
   def decompose(circuit_presenter: CircuitPresenter,
@@ -17,13 +17,13 @@ module ArtDecomp class KISSDecomposer
     end
   end
 
-  attr_reader :args
-  private     :args
+  attr_reader :settings
+  private     :settings
 
   private
 
-  def settings
-    @settings ||= Settings.new.tap do |settings|
+  def settings_from args
+    Settings.new.tap do |settings|
       OptionParser.new do |opts|
         opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
       end.parse! args
