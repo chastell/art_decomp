@@ -1,8 +1,6 @@
 require 'optparse'
 
 module ArtDecomp class KISSDecomposer
-  Settings = Struct.new(*%i[kiss_path vhdl_path])
-
   def initialize args
     @settings = settings_from args
   end
@@ -23,7 +21,7 @@ module ArtDecomp class KISSDecomposer
   private
 
   def settings_from args
-    Settings.new.tap do |settings|
+    Struct.new(:kiss_path, :vhdl_path).new.tap do |settings|
       OptionParser.new do |opts|
         opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
       end.parse! args
