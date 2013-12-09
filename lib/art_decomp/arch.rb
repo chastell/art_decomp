@@ -5,7 +5,7 @@ module ArtDecomp
     end
 
     def inspect
-      "ArtDecomp::Arch[#{i},#{o}]"
+      "#{self.class}[#{i},#{o}]"
     end
   end
 end
