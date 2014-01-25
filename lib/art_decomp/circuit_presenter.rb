@@ -6,9 +6,13 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def vhdl name
+    @name    = name
     template = File.read 'lib/art_decomp/circuit_presenter.vhdl.erb'
     ERB.new(template, nil, '%').result binding
   end
+
+  attr_reader :name
+  private     :name
 
   private
 
