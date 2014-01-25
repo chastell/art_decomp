@@ -37,8 +37,8 @@ begin
 % functions.each.with_index do |fun, i|
   f<%= i %>: process(f<%= i %>_is) begin
     f<%= i %>_os <= (others => '-');
-% fun.rows.each.with_index do |(input, output), r|
-    <%= r.zero? ? 'if' : 'elsif' %> std_match(f<%= i %>_is, "<%= input %>") then f<%= i %>_os <= "<%= output %>";
+% fun.rows.each.with_index do |(input, output), rownum|
+    <%= rownum.zero? ? 'if' : 'elsif' %> std_match(f<%= i %>_is, "<%= input %>") then f<%= i %>_os <= "<%= output %>";
 % end
     end if;
   end process;
