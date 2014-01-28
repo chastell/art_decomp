@@ -10,9 +10,6 @@ AndOr:
 ConstantName:
   Enabled: false
 
-DefWithoutParentheses:
-  Enabled: false
-
 Documentation:
   Enabled: false
 
@@ -22,22 +19,22 @@ EndAlignment:
 IndentationWidth:
   Enabled: false
 
+MethodDefParentheses:
+  Enabled: false
+
 Not:
   Enabled: false
 
-ParameterLists:
-  Enabled: false
-
-ReduceArguments:
-  Enabled: false
-
-SignalException:
+SingleLineBlockParams:
   Enabled: false
 
 SpaceAfterComma:
   Enabled: false
 
 SpaceAroundOperators:
+  Enabled: false
+
+TrailingComma:
   Enabled: false
 
 UselessComparison:
