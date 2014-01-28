@@ -1,5 +1,5 @@
 module ArtDecomp class FunctionDecomposer; class Parallel
-  def initialize(merger: FunctionMerger.new, simplifier: FunctionSimplifier)
+  def initialize merger: FunctionMerger.new, simplifier: FunctionSimplifier
     @merger     = merger
     @simplifier = simplifier
   end

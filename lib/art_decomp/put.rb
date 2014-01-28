@@ -5,7 +5,7 @@ module ArtDecomp class Put
     new blanket: blanket
   end
 
-  def initialize(blanket: {})
+  def initialize blanket: {}
     @blanket = blanket
   end
 

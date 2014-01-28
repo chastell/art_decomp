@@ -5,7 +5,7 @@ module ArtDecomp class Seps
     new blocks: blocks
   end
 
-  def initialize(blocks: [], matrix: matrix_from(blocks))
+  def initialize blocks: [], matrix: matrix_from(blocks)
     @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 
