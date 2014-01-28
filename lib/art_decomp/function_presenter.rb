@@ -19,7 +19,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
       case row_codes.size
       when size then DontCare.to_s * binwidth
       when 1    then mapping_for row_codes.first
-      else      raise 'trying to map multiple (but not all) codes'
+      else      fail 'trying to map multiple (but not all) codes'
       end
     end
 
