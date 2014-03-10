@@ -8,8 +8,6 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
   private
 
   class PutPresenter < SimpleDelegator
-    DontCare = :-
-
     def bin_column
       Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
     end
@@ -17,7 +15,7 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
     def entry_for row
       row_codes = codes { |code, block| (block & B[row]).nonzero? }.sort
       case row_codes.size
-      when size then DontCare.to_s * binwidth
+      when size then '-' * binwidth
       when 1    then mapping_for row_codes.first
       else      fail 'trying to map multiple (but not all) codes'
       end
