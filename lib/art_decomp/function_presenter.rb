@@ -13,11 +13,11 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
     end
 
     def entry_for row
-      row_codes = codes { |code, block| (block & B[row]).nonzero? }.sort
+      row_codes = codes { |_, block| (block & B[row]).nonzero? }.sort
       case row_codes.size
       when size then '-' * binwidth
       when 1    then mapping_for row_codes.first
-      else      fail 'trying to map multiple (but not all) codes'
+      else fail 'trying to map multiple (but not all) codes'
       end
     end
 
