@@ -33,13 +33,13 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       puts = Puts.new is: [a, b, c], os: [anb, buc, nbuc]
       circuit = Circuit.new functions: [f1, f23], puts: puts
       circuit.wires = [
-          Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],
-          Wire[Pin[f1, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[f23, :is, 0]],
-          Wire[Pin[circuit, :is, 2], Pin[f23, :is, 1]],
-          Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
-          Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
+        Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
+        Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],
+        Wire[Pin[f1, :os, 0], Pin[circuit, :os, 0]],
+        Wire[Pin[circuit, :is, 1], Pin[f23, :is, 0]],
+        Wire[Pin[circuit, :is, 2], Pin[f23, :is, 1]],
+        Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
+        Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
       ]
       fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
       fdp.decompose(fun).to_a.must_equal [circuit]
