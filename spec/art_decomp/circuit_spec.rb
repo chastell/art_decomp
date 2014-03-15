@@ -43,19 +43,19 @@ module ArtDecomp describe Circuit do
       wires     = [fake(:wire), fake(:wire)]
       puts      = Puts.new is: is, os: os, ps: ps, qs: qs
       circuit   = Circuit.new functions: functions, puts: puts,
-        recoders: recoders, wires: wires
+                              recoders: recoders, wires: wires
 
       assert Circuit.new == Circuit.new
       assert circuit == Circuit.new(functions: functions, puts: puts,
-        recoders: recoders, wires: wires)
+                                    recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions.reverse, puts: puts,
-        recoders: recoders, wires: wires)
+                                    recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions, puts: Puts.new,
-        recoders: recoders, wires: wires)
+                                    recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions, puts: puts,
-        recoders: recoders.reverse, wires: wires)
+                                    recoders: recoders.reverse, wires: wires)
       refute circuit == Circuit.new(functions: functions, puts: puts,
-        recoders: recoders, wires: wires.reverse)
+                                    recoders: recoders, wires: wires.reverse)
     end
   end
 
