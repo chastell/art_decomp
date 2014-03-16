@@ -15,5 +15,5 @@ module ArtDecomp class Function
     Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
   end
 
-  delegate %i[binwidths is os] => :puts
+  delegate %i(binwidths is os) => :puts
 end end

@@ -94,7 +94,7 @@ module ArtDecomp describe Circuit do
 
   describe '#is, #os, #ps, #qs' do
     it 'returns the Circuit’s Put groups' do
-      %i[is os ps qs].each do |type|
+      %i(is os ps qs).each do |type|
         ss = [stub(:put)]
         Circuit.new(puts: Puts.new(type => ss)).send(type).must_equal ss
       end
