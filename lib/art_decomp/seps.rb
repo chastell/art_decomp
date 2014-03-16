@@ -45,10 +45,10 @@ module ArtDecomp class Seps
   private
 
   def matrix_from blocks
-    all    = blocks.reduce 0, :|
-    size   = Math.log2(all + 1).ceil
-    ones   = (1 << size) - 1
-    blocks = blocks + [ones ^ all]
+    all  = blocks.reduce 0, :|
+    size = Math.log2(all + 1).ceil
+    ones = (1 << size) - 1
+    blocks += [ones ^ all]
     (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
     end
