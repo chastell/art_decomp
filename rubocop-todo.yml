@@ -14,7 +14,3 @@ SpaceAfterComma:
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
 TrailingComma:
   Enabled: false
-
-# Offense count: 1
-UselessComparison:
-  Enabled: false

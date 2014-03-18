@@ -34,7 +34,7 @@ module ArtDecomp describe Circuit do
     end
   end
 
-  describe '#<=>' do
+  describe '#==' do
     it 'compares Circuits by value' do
       is, os    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
       ps, qs    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
@@ -45,7 +45,7 @@ module ArtDecomp describe Circuit do
       circuit   = Circuit.new functions: functions, puts: puts,
                               recoders: recoders, wires: wires
 
-      assert Circuit.new == Circuit.new
+      assert Circuit.new == Circuit.new # rubocop:disable UselessComparison
       assert circuit == Circuit.new(functions: functions, puts: puts,
                                     recoders: recoders, wires: wires)
       refute circuit == Circuit.new(functions: functions.reverse, puts: puts,
