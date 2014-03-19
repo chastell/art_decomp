@@ -16,12 +16,13 @@ module ArtDecomp describe Circuit do
 
       circuit.recoders.must_be :empty?
 
-      circuit.wires.must_equal([
+      wires = [
         Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
         Wire[Pin[circuit, :qs, 0], Pin[function, :is, 1]],
         Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
         Wire[Pin[function, :os, 1], Pin[circuit, :ps, 0]],
-      ])
+      ]
+      circuit.wires.must_equal wires
     end
   end
 
@@ -36,26 +37,21 @@ module ArtDecomp describe Circuit do
 
   describe '#==' do
     it 'compares Circuits by value' do
-      is, os    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
-      ps, qs    = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
-      functions = [fake(:function), fake(:function)]
-      recoders  = [fake(:function), fake(:function)]
-      wires     = [fake(:wire), fake(:wire)]
-      puts      = Puts.new is: is, os: os, ps: ps, qs: qs
-      circuit   = Circuit.new functions: functions, puts: puts,
-                              recoders: recoders, wires: wires
+      is, os  = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+      ps, qs  = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+      funs    = [fake(:function), fake(:function)]
+      recs    = [fake(:function), fake(:function)]
+      wires   = [fake(:wire), fake(:wire)]
+      puts    = Puts.new is: is, os: os, ps: ps, qs: qs
+      params  = { functions: funs, puts: puts, recoders: recs, wires: wires }
+      circuit = Circuit.new params
 
       assert Circuit.new == Circuit.new # rubocop:disable UselessComparison
-      assert circuit == Circuit.new(functions: functions, puts: puts,
-                                    recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions.reverse, puts: puts,
-                                    recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, puts: Puts.new,
-                                    recoders: recoders, wires: wires)
-      refute circuit == Circuit.new(functions: functions, puts: puts,
-                                    recoders: recoders.reverse, wires: wires)
-      refute circuit == Circuit.new(functions: functions, puts: puts,
-                                    recoders: recoders, wires: wires.reverse)
+      assert circuit == Circuit.new(params)
+      refute circuit == Circuit.new(params.merge functions: funs.reverse)
+      refute circuit == Circuit.new(params.merge puts: Puts.new)
+      refute circuit == Circuit.new(params.merge recoders: recs.reverse)
+      refute circuit == Circuit.new(params.merge wires: wires.reverse)
     end
   end
 

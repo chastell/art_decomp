@@ -9,8 +9,3 @@
 # Cop supports --auto-correct.
 SpaceAfterComma:
   Enabled: false
-
-# Offense count: 6
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-TrailingComma:
-  Enabled: false
