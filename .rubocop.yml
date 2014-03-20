@@ -1,5 +1,3 @@
-inherit_from: rubocop-todo.yml
-
 AccessModifierIndentation:
   Enabled: false
 
@@ -22,6 +20,9 @@ Not:
   Enabled: false
 
 SingleLineBlockParams:
+  Enabled: false
+
+SpaceAfterComma:
   Enabled: false
 
 TrailingComma:
