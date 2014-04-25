@@ -5,8 +5,6 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator
     is_cols.zip os_cols
   end
 
-  private
-
   class PutPresenter < SimpleDelegator
     def bin_column
       Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
