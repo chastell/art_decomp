@@ -22,6 +22,9 @@ Not:
 SingleLineBlockParams:
   Enabled: false
 
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
 SpaceAfterComma:
   Enabled: false
 
