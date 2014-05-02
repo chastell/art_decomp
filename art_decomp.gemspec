@@ -3,6 +3,7 @@ Gem::Specification.new do |gem|
   gem.version  = '0.0.0'
   gem.summary  = 'art décomp: a symbolic decomposer'
   gem.homepage = 'http://github.com/chastell/art_decomp'
+  gem.license  = 'AGPL-3.0'
   gem.author   = 'Piotr Szotkowski'
   gem.email    = 'p.szotkowski@tele.pw.edu.pl'
 
