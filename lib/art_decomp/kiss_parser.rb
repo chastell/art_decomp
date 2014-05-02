@@ -18,7 +18,7 @@ module ArtDecomp class KISSParser
 
   def col_groups
     cols = kiss.lines.grep(/^[^.]/).map(&:split).transpose
-    Hash[%i(is qs ps os).zip cols]
+    %i(is qs ps os).zip(cols).to_h
   end
 
   def is
