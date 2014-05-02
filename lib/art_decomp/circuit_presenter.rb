@@ -52,9 +52,7 @@ module ArtDecomp class CircuitPresenter < SimpleDelegator
   end
 
   def wirings
-    Hash[wires.flat_map do |wire|
-      wirings_for wire.src, wire.dst
-    end]
+    wires.flat_map { |wire| wirings_for wire.src, wire.dst }.to_h
   end
 
   def wirings_for src, dst
