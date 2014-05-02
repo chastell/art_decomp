@@ -38,12 +38,12 @@ module ArtDecomp class KISSParser
   end
 
   def putify col, dc: '-', codes: %w(0 1)
-    Put[Hash[codes.map do |code|
+    Put[codes.map do |code|
       [
         code.to_sym,
         B[*col.each_index.select { |i| col[i] == code or col[i] == dc }],
       ]
-    end]]
+    end.to_h]
   end
 
   def qs
