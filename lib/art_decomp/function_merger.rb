@@ -1,3 +1,7 @@
+require 'set'
+require_relative 'function'
+require_relative 'puts'
+
 module ArtDecomp class FunctionMerger
   def merge functions
     functions.group_by { |fun| fun.is.to_set }.map do |is, funs|

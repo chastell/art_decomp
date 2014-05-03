@@ -1,3 +1,6 @@
+require_relative 'circuit_solder'
+require_relative 'function_decomposer'
+
 module ArtDecomp class CircuitDecomposer
   def decompose circuit, function_decomposer: FunctionDecomposer.new,
                 circuit_solder: CircuitSolder.new

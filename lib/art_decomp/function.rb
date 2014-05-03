@@ -1,3 +1,7 @@
+require 'forwardable'
+require_relative 'arch'
+require_relative 'puts'
+
 module ArtDecomp class Function
   extend Forwardable
 

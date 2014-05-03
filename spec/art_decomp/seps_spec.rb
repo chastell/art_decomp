@@ -1,4 +1,6 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp describe Seps do
   let(:sep_01)          { Seps.new matrix: [B[1], B[0]]                     }

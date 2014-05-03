@@ -1,3 +1,7 @@
+require_relative 'circuit'
+require_relative 'put'
+require_relative 'puts'
+
 module ArtDecomp class KISSParser
   def self.circuit_for kiss, kiss_parser: new(kiss)
     kiss_parser.circuit

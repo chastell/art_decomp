@@ -1,3 +1,6 @@
+require 'delegate'
+require_relative 'b'
+
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def rows
     is_cols = PutGroupPresenter.new(is).bin_columns

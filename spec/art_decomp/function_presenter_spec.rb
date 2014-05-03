@@ -1,4 +1,9 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/function'
+require_relative '../../lib/art_decomp/function_presenter'
+require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp describe FunctionPresenter do
   let(:is) do

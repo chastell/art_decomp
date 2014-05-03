@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/arch'
 
 module ArtDecomp describe Arch do
   describe '#<=>' do

@@ -1,3 +1,10 @@
+require 'forwardable'
+require_relative 'circuit_sizer'
+require_relative 'function'
+require_relative 'pin'
+require_relative 'puts'
+require_relative 'wire'
+
 module ArtDecomp class Circuit
   extend Forwardable
 

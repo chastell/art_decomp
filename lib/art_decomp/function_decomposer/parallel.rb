@@ -1,3 +1,11 @@
+require_relative '../circuit'
+require_relative '../function'
+require_relative '../function_merger'
+require_relative '../function_simplifier'
+require_relative '../pin'
+require_relative '../puts'
+require_relative '../wire'
+
 module ArtDecomp class FunctionDecomposer; class Parallel
   def initialize merger: FunctionMerger.new, simplifier: FunctionSimplifier
     @merger     = merger

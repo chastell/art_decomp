@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp describe Wire do
   describe '#inspect' do

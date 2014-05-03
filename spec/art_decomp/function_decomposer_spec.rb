@@ -1,4 +1,7 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/function_decomposer'
+require_relative '../../lib/art_decomp/function_decomposer/parallel'
+require_relative '../../lib/art_decomp/function_decomposer/serial'
 
 module ArtDecomp describe FunctionDecomposer do
   describe '#decompose' do

@@ -1,4 +1,12 @@
 require_relative '../../spec_helper'
+require_relative '../../../lib/art_decomp/b'
+require_relative '../../../lib/art_decomp/circuit'
+require_relative '../../../lib/art_decomp/function'
+require_relative '../../../lib/art_decomp/function_decomposer/parallel'
+require_relative '../../../lib/art_decomp/pin'
+require_relative '../../../lib/art_decomp/put'
+require_relative '../../../lib/art_decomp/puts'
+require_relative '../../../lib/art_decomp/wire'
 
 module ArtDecomp describe FunctionDecomposer::Parallel do
   describe '#decompose' do

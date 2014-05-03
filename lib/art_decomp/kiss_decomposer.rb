@@ -1,4 +1,7 @@
 require 'optparse'
+require_relative 'circuit_presenter'
+require_relative 'decomposer'
+require_relative 'kiss_parser'
 
 module ArtDecomp class KISSDecomposer
   def initialize args

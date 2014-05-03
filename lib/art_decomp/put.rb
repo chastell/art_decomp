@@ -1,3 +1,6 @@
+require 'forwardable'
+require_relative 'seps'
+
 module ArtDecomp class Put
   extend Forwardable
 

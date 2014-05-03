@@ -1,4 +1,11 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/circuit_presenter'
+require_relative '../../lib/art_decomp/function'
+require_relative '../../lib/art_decomp/kiss_parser'
+require_relative '../../lib/art_decomp/pin'
+require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp describe CircuitPresenter do
   describe '.vhdl_for' do

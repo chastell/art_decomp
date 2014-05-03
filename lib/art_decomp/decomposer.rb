@@ -1,3 +1,5 @@
+require_relative 'circuit_decomposer'
+
 module ArtDecomp class Decomposer
   def decompose_circuit circuit, circuit_decomposer: CircuitDecomposer.new
     queue = [circuit]

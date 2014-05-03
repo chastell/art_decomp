@@ -1,4 +1,8 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/kiss_parser'
+require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp describe KISSParser do
   fake :circuit

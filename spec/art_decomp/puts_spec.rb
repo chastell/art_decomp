@@ -1,4 +1,6 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp describe Puts do
   let(:is)   { [stub(:put), stub(:put), stub(:put), stub(:put)] }

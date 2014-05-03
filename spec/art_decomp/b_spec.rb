@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/b'
 
 module ArtDecomp describe B do
   describe '.[]' do

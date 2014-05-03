@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/pin'
 
 module ArtDecomp describe Pin do
   describe '#inspect' do

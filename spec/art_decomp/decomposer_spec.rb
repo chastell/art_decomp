@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require_relative '../../lib/art_decomp/decomposer'
 
 module ArtDecomp describe Decomposer do
   describe '#decompose_circuit' do

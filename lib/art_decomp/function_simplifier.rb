@@ -1,3 +1,7 @@
+require 'delegate'
+require_relative 'function'
+require_relative 'puts'
+
 module ArtDecomp class FunctionSimplifier < SimpleDelegator
   def self.simplify function
     new(function).simplified
