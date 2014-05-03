@@ -21,16 +21,18 @@ module ArtDecomp class Circuit
     @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
   end
 
-  def == other
-    functions == other.functions and puts == other.puts and
-      recoders == other.recoders and wires == other.wires
-  end
-
   def adm_size circuit_sizer: CircuitSizer.new(self)
     @adm_size ||= circuit_sizer.adm_size
   end
 
   delegate %i(binwidths is os ps qs) => :puts
+
+  def eql? other
+    functions == other.functions and puts == other.puts and
+      recoders == other.recoders and wires == other.wires
+  end
+
+  alias_method :==, :eql?
 
   def function_archs
     functions.map(&:arch)
