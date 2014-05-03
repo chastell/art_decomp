@@ -18,16 +18,18 @@ module ArtDecomp class Seps
     Seps.new matrix: matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
   end
 
-  def == other
-    matrix == other.matrix
-  end
-
   def | other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
     Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
   delegate empty?: :matrix
+
+  def eql? other
+    matrix == other.matrix
+  end
+
+  alias_method :==, :eql?
 
   def inspect
     bits = matrix.map { |r| (0...r.to_s(2).size).select { |bit| r[bit] == 1 } }
