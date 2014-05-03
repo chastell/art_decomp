@@ -6,6 +6,8 @@ module ArtDecomp class PutPresenter < SimpleDelegator
     Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
   end
 
+  private
+
   def entry_for row
     row_codes = codes { |_, block| (block & B[row]).nonzero? }.sort
     case row_codes.size
