@@ -5,11 +5,13 @@ module ArtDecomp class Puts
     @is, @os, @ps, @qs = is, os, ps, qs
   end
 
-  def == other
-    [is, os, ps, qs] == [other.is, other.os, other.ps, other.qs]
-  end
-
   def binwidths group
     send(group).map(&:binwidth)
   end
+
+  def eql? other
+    [is, os, ps, qs] == [other.is, other.os, other.ps, other.qs]
+  end
+
+  alias_method :==, :eql?
 end end
