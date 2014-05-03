@@ -9,10 +9,6 @@ module ArtDecomp class Put
     @blanket = blanket
   end
 
-  def == other
-    blanket == other.blanket
-  end
-
   def binwidth
     size.zero? ? 0 : Math.log2(size).ceil
   end
@@ -22,6 +18,12 @@ module ArtDecomp class Put
   def codes &block
     block_given? ? blanket.select(&block).keys : blanket.keys
   end
+
+  def eql? other
+    blanket == other.blanket
+  end
+
+  alias_method :==, :eql?
 
   def inspect
     blocks = blanket.map do |key, block|
