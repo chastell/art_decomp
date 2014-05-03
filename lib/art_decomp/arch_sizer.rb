@@ -1,7 +1,7 @@
 require 'delegate'
-require_relative '../arch'
+require_relative 'arch'
 
-module ArtDecomp class CircuitSizer; class ArchSizer < SimpleDelegator
+module ArtDecomp class ArchSizer < SimpleDelegator
   def fits?
     i <= 8
   end
@@ -25,4 +25,4 @@ module ArtDecomp class CircuitSizer; class ArchSizer < SimpleDelegator
     else [(i / 5.0).ceil, (o / 2.0).ceil].max
     end
   end
-end end end
+end end

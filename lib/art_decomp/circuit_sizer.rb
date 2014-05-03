@@ -1,4 +1,4 @@
-require_relative 'circuit_sizer/arch_sizer'
+require_relative 'arch_sizer'
 
 module ArtDecomp class CircuitSizer
   def initialize circuit
