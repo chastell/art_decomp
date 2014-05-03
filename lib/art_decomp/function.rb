@@ -7,13 +7,15 @@ module ArtDecomp class Function
     @puts = puts
   end
 
-  def == other
-    puts == other.puts
-  end
-
   def arch
     Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
   end
+
+  def eql? other
+    puts == other.puts
+  end
+
+  alias_method :==, :eql?
 
   delegate %i(binwidths is os) => :puts
 end end
