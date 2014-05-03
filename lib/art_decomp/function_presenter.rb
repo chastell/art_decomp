@@ -1,5 +1,5 @@
 require 'delegate'
-require_relative 'function_presenter/put_group_presenter'
+require_relative 'put_group_presenter'
 
 module ArtDecomp class FunctionPresenter < SimpleDelegator
   def rows

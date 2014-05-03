@@ -1,7 +1,7 @@
 require 'delegate'
-require_relative '../b'
+require_relative 'b'
 
-module ArtDecomp class FunctionPresenter < SimpleDelegator; class PutPresenter < SimpleDelegator
+module ArtDecomp class PutPresenter < SimpleDelegator
   def bin_column
     Array.new(blocks.max.to_s(2).size) { |row| entry_for row }
   end
@@ -18,4 +18,4 @@ module ArtDecomp class FunctionPresenter < SimpleDelegator; class PutPresenter <
   def mapping_for code
     codes.sort.index(code).to_s(2).rjust binwidth, '0'
   end
-end end end
+end end

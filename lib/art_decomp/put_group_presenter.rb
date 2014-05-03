@@ -1,8 +1,8 @@
 require 'delegate'
 require_relative 'put_presenter'
 
-module ArtDecomp class FunctionPresenter < SimpleDelegator; class PutGroupPresenter < SimpleDelegator
+module ArtDecomp class PutGroupPresenter < SimpleDelegator
   def bin_columns
     map { |put| PutPresenter.new(put).bin_column }.transpose.map(&:join)
   end
-end end end
+end end
