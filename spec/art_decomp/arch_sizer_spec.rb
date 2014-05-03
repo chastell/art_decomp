@@ -29,4 +29,19 @@ module ArtDecomp describe ArchSizer do
       ArchSizer.new(Arch[14,7]).max_quarters.must_equal 1939
     end
   end
+
+  describe '#min_quarters' do
+    it 'returns the maximum number of quarters of a slice' do
+      ArchSizer.new(Arch[0,0]).min_quarters.must_equal  0
+      ArchSizer.new(Arch[0,1]).min_quarters.must_equal  0
+      ArchSizer.new(Arch[1,0]).min_quarters.must_equal  0
+      ArchSizer.new(Arch[1,1]).min_quarters.must_equal  1
+      ArchSizer.new(Arch[5,2]).min_quarters.must_equal  1
+      ArchSizer.new(Arch[5,3]).min_quarters.must_equal  2
+      ArchSizer.new(Arch[7,0]).min_quarters.must_equal  0
+      ArchSizer.new(Arch[20,8]).min_quarters.must_equal 4
+      ArchSizer.new(Arch[21,8]).min_quarters.must_equal 5
+      ArchSizer.new(Arch[20,9]).min_quarters.must_equal 5
+    end
+  end
 end end
