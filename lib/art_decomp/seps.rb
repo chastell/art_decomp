@@ -3,10 +3,6 @@ require 'forwardable'
 module ArtDecomp class Seps
   extend Forwardable
 
-  def self.[] *blocks
-    new blocks: blocks
-  end
-
   def initialize blocks: [], matrix: matrix_from(blocks)
     @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end

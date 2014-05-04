@@ -59,7 +59,7 @@ module ArtDecomp describe Put do
 
   describe '#seps' do
     it 'returns the Put’s Seps' do
-      put.seps.must_equal Seps[B[0,1], B[1,2]]
+      put.seps.must_equal Seps.new blocks: [B[0,1], B[1,2]]
     end
   end
 
