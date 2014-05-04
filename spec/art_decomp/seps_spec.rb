@@ -3,44 +3,42 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp describe Seps do
-  let(:sep_01)          { Seps.new matrix: [B[1], B[0]]                     }
-  let(:sep_01_02)       { Seps.new matrix: [B[1,2], B[0], B[0]]             }
-  let(:sep_01_02_03_13) { Seps.new matrix: [B[1,2,3], B[0,3], B[0], B[0,1]] }
-  let(:sep_01_02_12)    { Seps.new matrix: [B[1,2], B[0,2], B[0,1]]         }
-  let(:sep_01_12)       { Seps.new matrix: [B[1], B[0,2], B[1]]             }
-  let(:sep_03_13)       { Seps.new matrix: [B[3], B[3], B[], B[0,1]]        }
-  let(:sep_12)          { Seps.new matrix: [B[], B[2], B[1]]                }
+  let(:sep_01)          { Seps.new [B[1], B[0]]                     }
+  let(:sep_01_02)       { Seps.new [B[1,2], B[0], B[0]]             }
+  let(:sep_01_02_03_13) { Seps.new [B[1,2,3], B[0,3], B[0], B[0,1]] }
+  let(:sep_01_02_12)    { Seps.new [B[1,2], B[0,2], B[0,1]]         }
+  let(:sep_01_12)       { Seps.new [B[1], B[0,2], B[1]]             }
+  let(:sep_03_13)       { Seps.new [B[3], B[3], B[], B[0,1]]        }
+  let(:sep_12)          { Seps.new [B[], B[2], B[1]]                }
 
   describe '.from_blocks' do
     it 'builds a proper matrix' do
-      Seps.from_blocks([]).must_equal Seps.new matrix: []
-      Seps.from_blocks([B[0]]).must_equal Seps.new matrix: []
-      Seps.from_blocks([B[0,1]]).must_equal Seps.new matrix: []
-      Seps.from_blocks([B[0], B[1]]).must_equal Seps.new matrix: [B[1], B[0]]
-      Seps.from_blocks([B[0], B[1], B[2,3], B[4]]).must_equal Seps.new matrix:
+      Seps.from_blocks([]).must_equal Seps.new []
+      Seps.from_blocks([B[0]]).must_equal Seps.new []
+      Seps.from_blocks([B[0,1]]).must_equal Seps.new []
+      Seps.from_blocks([B[0], B[1]]).must_equal Seps.new [B[1], B[0]]
+      Seps.from_blocks([B[0], B[1], B[2,3], B[4]]).must_equal Seps.new \
         [B[4,3,2,1], B[4,3,2,0], B[4,1,0], B[4,1,0], B[3,2,1,0]]
-      Seps.from_blocks([B[1], B[4]]).must_equal Seps.new matrix:
-        [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
-      Seps.from_blocks([B[0,2,3], B[1], B[4]]).must_equal Seps.new matrix:
-        [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
-      Seps.from_blocks([B[0,1,2,3], B[0,2,3,4]]).must_equal Seps.new matrix:
-        [B[], B[4], B[], B[], B[1]]
-      Seps.from_blocks([B[0], B[1], B[2], B[3], B[4]])
-        .must_equal Seps.new matrix:
+      Seps.from_blocks([B[1], B[4]])
+        .must_equal Seps.new [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
+      Seps.from_blocks([B[0,2,3], B[1], B[4]])
+        .must_equal Seps.new [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
+      Seps.from_blocks([B[0,1,2,3], B[0,2,3,4]])
+        .must_equal Seps.new [B[], B[4], B[], B[], B[1]]
+      Seps.from_blocks([B[0], B[1], B[2], B[3], B[4]]).must_equal Seps.new \
         [B[4,3,2,1], B[4,3,2,0], B[4,3,1,0], B[4,2,1,0], B[3,2,1,0]]
-      Seps.from_blocks([B[0,1,2], B[1,2,3,4]]).must_equal Seps.new matrix:
-        [B[4,3], B[], B[], B[0], B[0]]
+      Seps.from_blocks([B[0,1,2], B[1,2,3,4]])
+        .must_equal Seps.new [B[4,3], B[], B[], B[0], B[0]]
     end
   end
 
   describe '.new' do
     it 'can take a matrix to start from' do
-      Seps.new(matrix: [B[2], B[], B[0]])
-        .must_equal Seps.from_blocks([B[0,1], B[1,2]])
+      Seps.new([B[2], B[], B[0]]).must_equal Seps.from_blocks([B[0,1], B[1,2]])
     end
 
     it 'normalises the matrix' do
-      Seps.from_blocks([B[0,1,2]]).must_equal Seps.new matrix: []
+      Seps.from_blocks([B[0,1,2]]).must_equal Seps.new []
     end
   end
 
@@ -89,9 +87,9 @@ module ArtDecomp describe Seps do
 
   describe '#inspect' do
     it 'returns self-initialising representation' do
-      Seps.from_blocks([]).inspect.must_equal 'ArtDecomp::Seps.new matrix: []'
-      Seps.new(matrix: [B[2], B[], B[0]]).inspect
-        .must_equal 'ArtDecomp::Seps.new matrix: [B[2], B[], B[0]]'
+      Seps.from_blocks([]).inspect.must_equal 'ArtDecomp::Seps.new []'
+      Seps.new([B[2], B[], B[0]]).inspect
+        .must_equal 'ArtDecomp::Seps.new [B[2], B[], B[0]]'
     end
   end
 
@@ -103,7 +101,7 @@ module ArtDecomp describe Seps do
       Seps.from_blocks([B[0,2,3], B[1], B[4]]).size.must_equal 7
       Seps.from_blocks([B[0,1,2,3], B[0,2,3,4]]).size.must_equal 1
       Seps.from_blocks([B[0], B[1], B[2], B[3], B[4]]).size.must_equal 10
-      Seps.new(matrix: [B[1,2,3], B[0,2,3], B[0,1], B[0,1]]).size.must_equal 5
+      Seps.new([B[1,2,3], B[0,2,3], B[0,1], B[0,1]]).size.must_equal 5
     end
   end
 end end

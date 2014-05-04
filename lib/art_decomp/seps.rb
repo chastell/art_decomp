@@ -11,25 +11,25 @@ module ArtDecomp class Seps
     matrix = (0...size).map do |bit|
       ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
     end
-    new matrix: matrix
+    new matrix
   end
 
-  def initialize matrix: []
+  def initialize matrix = []
     @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    Seps.new matrix: smaller.zip(larger).map { |a, b| a & b }
+    Seps.new smaller.zip(larger).map { |a, b| a & b }
   end
 
   def - other
-    Seps.new matrix: matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
+    Seps.new matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
   end
 
   def | other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    Seps.new matrix: larger.zip(smaller).map { |a, b| b ? a | b : a }
+    Seps.new larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
   delegate empty?: :matrix
@@ -43,7 +43,7 @@ module ArtDecomp class Seps
   def inspect
     bits = matrix.map { |r| (0...r.to_s(2).size).select { |bit| r[bit] == 1 } }
     blocks = bits.map { |r| "B[#{r.join ','}]" }
-    "#{self.class}.new matrix: [#{blocks.join ', '}]"
+    "#{self.class}.new [#{blocks.join ', '}]"
   end
 
   def size
