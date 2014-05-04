@@ -14,8 +14,12 @@ module ArtDecomp class Seps
     new matrix
   end
 
+  def self.normalise matrix
+    matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
+  end
+
   def initialize matrix = []
-    @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
+    @matrix = self.class.normalise matrix
   end
 
   def & other
