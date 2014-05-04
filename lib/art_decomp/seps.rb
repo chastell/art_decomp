@@ -3,7 +3,18 @@ require 'forwardable'
 module ArtDecomp class Seps
   extend Forwardable
 
-  def initialize blocks: [], matrix: matrix_from(blocks)
+  def self.from_blocks blocks
+    all  = blocks.reduce 0, :|
+    size = Math.log2(all + 1).ceil
+    ones = (1 << size) - 1
+    blocks += [ones ^ all]
+    matrix = (0...size).map do |bit|
+      ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
+    end
+    new matrix: matrix
+  end
+
+  def initialize matrix: []
     @matrix = matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
   end
 
@@ -41,16 +52,4 @@ module ArtDecomp class Seps
 
   attr_reader :matrix
   protected   :matrix
-
-  private
-
-  def matrix_from blocks
-    all  = blocks.reduce 0, :|
-    size = Math.log2(all + 1).ceil
-    ones = (1 << size) - 1
-    blocks += [ones ^ all]
-    (0...size).map do |bit|
-      ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
-    end
-  end
 end end

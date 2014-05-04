@@ -37,7 +37,7 @@ module ArtDecomp class Put
   end
 
   def seps
-    @seps ||= Seps.new blocks: blanket.values
+    @seps ||= Seps.from_blocks blanket.values
   end
 
   delegate size: :blanket
