@@ -1,10 +1,12 @@
 DuplicateMethodCall:
   exclude:
+    - ArtDecomp::ArchSizer#min_quarters
     - ArtDecomp::Circuit#self.from_fsm
     - ArtDecomp::CircuitPresenter#wiring_for
     - ArtDecomp::CircuitSizer::ArchSizer#min_quarters
     - ArtDecomp::FunctionDecomposer#decompose
     - ArtDecomp::FunctionSimplifier#is_required_for
+    - ArtDecomp::FunctionSimplifier#required_is
     - ArtDecomp::KISSDecomposer#decompose
     - ArtDecomp::KISSParser#putify
 
@@ -18,7 +20,12 @@ NestedIterators:
 
 TooManyStatements:
   exclude:
-    - ArtDecomp::Seps#matrix_from
+    - ArtDecomp::ArchSizer#max_quarters
+    - ArtDecomp::Circuit#self.from_fsm
+    - ArtDecomp::Decomposer#decompose_circuit
+    - ArtDecomp::FunctionDecomposer::Parallel#decompose
+    - ArtDecomp::Seps#inspect
+    - ArtDecomp::Seps#self.from_blocks
 
 UncommunicativeModuleName:
   exclude:
