@@ -13,22 +13,56 @@ module ArtDecomp describe Seps do
 
   describe '.from_blocks' do
     it 'builds a proper matrix' do
-      Seps.from_blocks([]).must_equal Seps.new []
-      Seps.from_blocks([B[0]]).must_equal Seps.new []
-      Seps.from_blocks([B[0,1]]).must_equal Seps.new []
-      Seps.from_blocks([B[0], B[1]]).must_equal Seps.new [B[1], B[0]]
-      Seps.from_blocks([B[0], B[1], B[2,3], B[4]]).must_equal Seps.new \
-        [B[4,3,2,1], B[4,3,2,0], B[4,1,0], B[4,1,0], B[3,2,1,0]]
-      Seps.from_blocks([B[1], B[4]])
-        .must_equal Seps.new [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
-      Seps.from_blocks([B[0,2,3], B[1], B[4]])
-        .must_equal Seps.new [B[4,1], B[4,3,2,0], B[4,1], B[4,1], B[3,2,1,0]]
-      Seps.from_blocks([B[0,1,2,3], B[0,2,3,4]])
-        .must_equal Seps.new [B[], B[4], B[], B[], B[1]]
-      Seps.from_blocks([B[0], B[1], B[2], B[3], B[4]]).must_equal Seps.new \
-        [B[4,3,2,1], B[4,3,2,0], B[4,3,1,0], B[4,2,1,0], B[3,2,1,0]]
-      Seps.from_blocks([B[0,1,2], B[1,2,3,4]])
-        .must_equal Seps.new [B[4,3], B[], B[], B[0], B[0]]
+      {
+        []           => [],
+        [B[0]]       => [],
+        [B[0,1]]     => [],
+        [B[0], B[1]] => [0b10, 0b01],
+        [B[0], B[1], B[2,3], B[4]] => [
+          0b11110,
+          0b11101,
+          0b10011,
+          0b10011,
+          0b01111,
+        ],
+        [B[1], B[4]] => [
+          0b10010,
+          0b11101,
+          0b10010,
+          0b10010,
+          0b01111,
+        ],
+        [B[0,2,3], B[1], B[4]] => [
+          0b10010,
+          0b11101,
+          0b10010,
+          0b10010,
+          0b01111,
+        ],
+        [B[0,1,2,3], B[0,2,3,4]] => [
+          0b00000,
+          0b10000,
+          0b00000,
+          0b00000,
+          0b00010,
+        ],
+        [B[0], B[1], B[2], B[3], B[4]] => [
+          0b11110,
+          0b11101,
+          0b11011,
+          0b10111,
+          0b01111,
+        ],
+        [B[0,1,2], B[1,2,3,4]] => [
+          0b11000,
+          0b00000,
+          0b00000,
+          0b00001,
+          0b00001,
+        ],
+      }.each do |blocks, matrix|
+        Seps.from_blocks(blocks).must_equal Seps.new matrix
+      end
     end
   end
 
