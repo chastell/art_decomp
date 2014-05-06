@@ -24,16 +24,16 @@ module ArtDecomp class Seps
 
   def & other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    Seps.new smaller.zip(larger).map { |a, b| a & b }
+    self.class.new smaller.zip(larger).map { |a, b| a & b }
   end
 
   def - other
-    Seps.new matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
+    self.class.new matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
   end
 
   def | other
     smaller, larger = [matrix, other.matrix].sort_by(&:size)
-    Seps.new larger.zip(smaller).map { |a, b| b ? a | b : a }
+    self.class.new larger.zip(smaller).map { |a, b| b ? a | b : a }
   end
 
   delegate empty?: :matrix
