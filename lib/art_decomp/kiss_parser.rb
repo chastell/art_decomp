@@ -26,11 +26,11 @@ module ArtDecomp class KISSParser
   end
 
   def is
-    pluck_columns(col_groups[:is]).map { |col| putify col }
+    pluck_columns(col_groups[:is]).map { |col| Put.from_column col }
   end
 
   def os
-    pluck_columns(col_groups[:os]).map { |col| putify col }
+    pluck_columns(col_groups[:os]).map { |col| Put.from_column col }
   end
 
   def pluck_columns col_group
@@ -38,20 +38,11 @@ module ArtDecomp class KISSParser
   end
 
   def ps
-    [putify(col_groups[:ps], dc: '*', codes: states)]
-  end
-
-  def putify col, dc: '-', codes: %w(0 1)
-    Put[codes.map do |code|
-      [
-        code.to_sym,
-        B[*col.each_index.select { |i| col[i] == code or col[i] == dc }],
-      ]
-    end.to_h]
+    [Put.from_column(col_groups[:ps], dc: '*', codes: states)]
   end
 
   def qs
-    [putify(col_groups[:qs], dc: '*', codes: states)]
+    [Put.from_column(col_groups[:qs], dc: '*', codes: states)]
   end
 
   def states
