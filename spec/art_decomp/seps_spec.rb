@@ -76,6 +76,14 @@ module ArtDecomp describe Seps do
     end
   end
 
+  describe '.normalise' do
+    it 'normalises the matrix' do
+      Seps.normalise([0b000, 0b000, 0b000]).must_equal []
+      Seps.normalise([0b010, 0b001, 0b000]).must_equal [0b10, 0b01]
+      Seps.normalise([0b000, 0b100, 0b000]).must_equal [0b000, 0b100, 0b000]
+    end
+  end
+
   describe '#&' do
     it 'returns the conjunction of the Seps' do
       (sep_01_02 & sep_01_12).must_equal sep_01
