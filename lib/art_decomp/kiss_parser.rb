@@ -38,11 +38,11 @@ module ArtDecomp class KISSParser
   end
 
   def ps
-    [Put.from_column(col_groups[:ps], dc: '*', codes: states)]
+    [Put.from_column(col_groups[:ps], dont_care: '*', codes: states)]
   end
 
   def qs
-    [Put.from_column(col_groups[:qs], dc: '*', codes: states)]
+    [Put.from_column(col_groups[:qs], dont_care: '*', codes: states)]
   end
 
   def states
