@@ -8,10 +8,10 @@ module ArtDecomp class Put
     new blanket: blanket
   end
 
-  def self.from_column column, dont_care: '-', codes: %w(0 1)
+  def self.from_column column, dont_care: :-, codes: %i(0 1)
     blanket = codes.map do |code|
       [
-        code.to_sym,
+        code,
         B[*column.each_index.select do |i|
           column[i] == code or column[i] == dont_care
         end],

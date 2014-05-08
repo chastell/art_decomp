@@ -26,26 +26,28 @@ module ArtDecomp class KISSParser
   end
 
   def is
-    pluck_columns(col_groups[:is]).map { |col| Put.from_column col }
+    pluck_columns(col_groups[:is]).map { |column| Put.from_column column }
   end
 
   def os
-    pluck_columns(col_groups[:os]).map { |col| Put.from_column col }
+    pluck_columns(col_groups[:os]).map { |column| Put.from_column column }
   end
 
   def pluck_columns col_group
-    col_group.map { |str| str.split '' }.transpose
+    col_group.map { |string| string.split('').map(&:to_sym) }.transpose
   end
 
   def ps
-    [Put.from_column(col_groups[:ps], dont_care: '*', codes: states)]
+    column = col_groups[:ps].map(&:to_sym)
+    [Put.from_column(column, dont_care: :*, codes: states)]
   end
 
   def qs
-    [Put.from_column(col_groups[:qs], dont_care: '*', codes: states)]
+    column = col_groups[:qs].map(&:to_sym)
+    [Put.from_column(column, dont_care: :*, codes: states)]
   end
 
   def states
-    (col_groups[:qs] + col_groups[:ps]).uniq - ['*']
+    (col_groups[:qs].map(&:to_sym) + col_groups[:ps].map(&:to_sym)).uniq - [:*]
   end
 end end
