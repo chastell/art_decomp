@@ -9,6 +9,7 @@ DuplicateMethodCall:
     - ArtDecomp::FunctionSimplifier#required_is
     - ArtDecomp::KISSDecomposer#decompose
     - ArtDecomp::KISSParser#putify
+    - ArtDecomp::Put#self.from_column
 
 IrresponsibleModule:
   enabled: false
