@@ -5,7 +5,7 @@ require_relative 'kiss_parser'
 
 module ArtDecomp class KISSDecomposer
   def initialize args
-    @settings = settings_from args
+    @settings = Settings.new args
   end
 
   def decompose circuit_presenter: CircuitPresenter,
@@ -21,14 +21,12 @@ module ArtDecomp class KISSDecomposer
   attr_reader :settings
   private     :settings
 
-  private
-
-  def settings_from args
-    Struct.new(:kiss_path, :vhdl_path).new.tap do |settings|
+  Settings = Struct.new :kiss_path, :vhdl_path do
+    def initialize args
       OptionParser.new do |opts|
-        opts.on('--dir DIR', String) { |dir| settings.vhdl_path = dir }
+        opts.on('--dir DIR', String) { |dir| self.vhdl_path = dir }
       end.parse! args
-      settings.kiss_path = args.first
+      self.kiss_path = args.first
     end
   end
 end end
