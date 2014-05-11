@@ -23,7 +23,7 @@ TooManyStatements:
   exclude:
     - ArtDecomp::ArchSizer#max_quarters
     - ArtDecomp::Circuit#self.from_fsm
-    - ArtDecomp::Decomposer#decompose_circuit
+    - ArtDecomp::Decomposer#self.decompose_circuit
     - ArtDecomp::FunctionDecomposer::Parallel#decompose
     - ArtDecomp::Seps#inspect
     - ArtDecomp::Seps#self.from_blocks
