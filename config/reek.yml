@@ -4,7 +4,7 @@ DuplicateMethodCall:
     - ArtDecomp::Circuit#self.from_fsm
     - ArtDecomp::CircuitPresenter#wiring_for
     - ArtDecomp::CircuitSizer::ArchSizer#min_quarters
-    - ArtDecomp::FunctionDecomposer#decompose
+    - ArtDecomp::FunctionDecomposer#self.decompose
     - ArtDecomp::FunctionSimplifier#is_required_for
     - ArtDecomp::FunctionSimplifier#required_is
     - ArtDecomp::KISSDecomposer#decompose

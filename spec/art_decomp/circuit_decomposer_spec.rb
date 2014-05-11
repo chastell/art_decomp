@@ -6,7 +6,8 @@ module ArtDecomp describe CircuitDecomposer do
     it 'yields subsequent decomposed Circuits' do
       circuit = fake :circuit, largest_function: fun = fake(:function)
       c1, c2  = fake(:circuit), fake(:circuit)
-      mock(fd = fake(:function_decomposer)).decompose(fun) { [c1, c2] }
+      fd      = fake :function_decomposer, as: :class
+      mock(fd).decompose(fun) { [c1, c2] }
       d1, d2  = fake(:circuit), fake(:circuit)
       solder  = fake :circuit_solder
       mock(solder).replace(circuit, fun, c1) { d1 }

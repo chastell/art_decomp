@@ -2,7 +2,7 @@ require_relative 'circuit_solder'
 require_relative 'function_decomposer'
 
 module ArtDecomp module CircuitDecomposer
-  def self.decompose circuit, function_decomposer: FunctionDecomposer.new,
+  def self.decompose circuit, function_decomposer: FunctionDecomposer,
                      circuit_solder: CircuitSolder.new
     function = circuit.largest_function
     Enumerator.new do |yielder|

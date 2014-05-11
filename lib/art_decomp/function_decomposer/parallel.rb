@@ -6,7 +6,7 @@ require_relative '../pin'
 require_relative '../puts'
 require_relative '../wire'
 
-module ArtDecomp class FunctionDecomposer; class Parallel
+module ArtDecomp module FunctionDecomposer; class Parallel
   def initialize merger: FunctionMerger.new, simplifier: FunctionSimplifier
     @merger     = merger
     @simplifier = simplifier
