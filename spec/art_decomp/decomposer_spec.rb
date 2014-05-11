@@ -11,7 +11,7 @@ module ArtDecomp describe Decomposer do
       c12  = fake :circuit, adm_size: 8
       c121 = fake :circuit, adm_size: 13
       c13  = fake :circuit, adm_size: 11
-      cd   = fake :circuit_decomposer
+      cd   = fake :circuit_decomposer, as: :class
       stub(cd).decompose(c1)   { [c11, c12, c13] }
       stub(cd).decompose(c11)  { [c111, c112]    }
       stub(cd).decompose(c111) { []              }
