@@ -33,7 +33,7 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       f3   = Function.new Puts.new is: [b, c], os: [nbuc]
       f23  = Function.new Puts.new is: [b, c], os: [buc, nbuc]
       fs   = fake :function_simplifier, as: :class
-      fm   = fake :function_merger
+      fm   = fake :function_merger, as: :class
       stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [anb]))  { f1 }
       stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [buc]))  { f2 }
       stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [nbuc])) { f3 }
@@ -58,7 +58,7 @@ module ArtDecomp describe FunctionDecomposer::Parallel do
       os  = [fake(:put)]
       fun = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
       fs  = fake :function_simplifier, as: :class
-      fm  = fake :function_merger, merge: [fun]
+      fm  = fake :function_merger, as: :class, merge: [fun]
       fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
       fdp.decompose(fun).to_a.must_be_empty
     end

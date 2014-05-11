@@ -6,7 +6,7 @@ require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp describe FunctionMerger do
-  describe '#merge' do
+  describe '.merge' do
     #   | a b c | anb buc nbuc
     # --+-------+-------------
     # 0 | 0 0 0 |  0   0   1
@@ -30,15 +30,15 @@ module ArtDecomp describe FunctionMerger do
     let(:f23)  { Function.new Puts.new is: [b, c], os: [buc, nbuc] }
 
     it 'merges passed Functions according to their inputs' do
-      FunctionMerger.new.merge([f1, f2, f3]).must_equal [f1, f23]
+      FunctionMerger.merge([f1, f2, f3]).must_equal [f1, f23]
     end
 
     it 'optimises the merged functions' do
-      FunctionMerger.new.merge([f1, f2, f3, f2]).must_equal [f1, f23]
+      FunctionMerger.merge([f1, f2, f3, f2]).must_equal [f1, f23]
     end
 
     it 'doesn’t discriminate by input order' do
-      FunctionMerger.new.merge([f1, f2, f4]).must_equal [f1, f23]
+      FunctionMerger.merge([f1, f2, f4]).must_equal [f1, f23]
     end
   end
 end end
