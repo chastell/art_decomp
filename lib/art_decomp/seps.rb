@@ -39,7 +39,7 @@ module ArtDecomp class Seps
   delegate empty?: :matrix
 
   def eql? other
-    matrix == other.matrix
+    matrix.eql? other.matrix
   end
 
   alias_method :==, :eql?

@@ -35,8 +35,8 @@ module ArtDecomp class Circuit
   delegate %i(binwidths is os ps qs) => :puts
 
   def eql? other
-    functions == other.functions and puts == other.puts and
-      recoders == other.recoders and wires == other.wires
+    functions.eql? other.functions and puts.eql? other.puts and
+      recoders.eql? other.recoders and wires.eql? other.wires
   end
 
   alias_method :==, :eql?

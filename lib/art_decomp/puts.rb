@@ -10,7 +10,7 @@ module ArtDecomp class Puts
   end
 
   def eql? other
-    [is, os, ps, qs] == [other.is, other.os, other.ps, other.qs]
+    [is, os, ps, qs].eql? [other.is, other.os, other.ps, other.qs]
   end
 
   alias_method :==, :eql?

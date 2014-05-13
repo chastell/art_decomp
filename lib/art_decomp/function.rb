@@ -16,7 +16,7 @@ module ArtDecomp class Function
   end
 
   def eql? other
-    puts == other.puts
+    puts.eql? other.puts
   end
 
   alias_method :==, :eql?

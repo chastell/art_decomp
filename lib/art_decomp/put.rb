@@ -30,7 +30,7 @@ module ArtDecomp class Put
   end
 
   def eql? other
-    blanket == other.blanket
+    blanket.eql? other.blanket
   end
 
   alias_method :==, :eql?
