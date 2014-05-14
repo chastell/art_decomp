@@ -3,13 +3,13 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp describe Seps do
-  let(:sep_01)          { Seps.new [B[1], B[0]]                     }
-  let(:sep_01_02)       { Seps.new [B[1,2], B[0], B[0]]             }
-  let(:sep_01_02_03_13) { Seps.new [B[1,2,3], B[0,3], B[0], B[0,1]] }
-  let(:sep_01_02_12)    { Seps.new [B[1,2], B[0,2], B[0,1]]         }
-  let(:sep_01_12)       { Seps.new [B[1], B[0,2], B[1]]             }
-  let(:sep_03_13)       { Seps.new [B[3], B[3], B[], B[0,1]]        }
-  let(:sep_12)          { Seps.new [B[], B[2], B[1]]                }
+  let(:sep_01)          { Seps.from_blocks [B[0], B[1]]             }
+  let(:sep_01_02)       { Seps.from_blocks [B[0], B[1,2]]           }
+  let(:sep_01_02_03_13) { Seps.from_blocks [B[0], B[1,2], B[2,3]]   }
+  let(:sep_01_02_12)    { Seps.from_blocks [B[0], B[1], B[2]]       }
+  let(:sep_01_12)       { Seps.from_blocks [B[0,2], B[1], B[2]]     }
+  let(:sep_03_13)       { Seps.from_blocks [B[0,1,2], B[2,3]]       }
+  let(:sep_12)          { Seps.from_blocks [B[0,1], B[0,2]]         }
 
   describe '.from_blocks' do
     it 'builds a proper matrix' do
@@ -128,7 +128,7 @@ module ArtDecomp describe Seps do
   end
 
   describe '#inspect' do
-    it 'returns self-initialising representation' do
+    it 'returns a self-initialising representation' do
       Seps.from_blocks([]).inspect.must_equal 'ArtDecomp::Seps.new []'
       Seps.new([B[2], B[], B[0]]).inspect
         .must_equal 'ArtDecomp::Seps.new [B[2], B[], B[0]]'
