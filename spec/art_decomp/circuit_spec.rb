@@ -11,26 +11,22 @@ module ArtDecomp
   describe Circuit do
     describe '.from_fsm' do
       it 'creates a Circuit representing the FSM' do
-        is       = [Put[:'0' => B[0], :'1' => B[1]]]
-        os       = [Put[:'0' => B[1], :'1' => B[0]]]
-        qs       = [Put[s1: B[0], s2: B[1], s3: B[2]]]
-        ps       = [Put[s1: B[1], s2: B[2], s3: B[0]]]
+        is = [Put[:'0' => B[0], :'1' => B[1]]]
+        os = [Put[:'0' => B[1], :'1' => B[0]]]
+        qs = [Put[s1: B[0], s2: B[1], s3: B[2]]]
+        ps = [Put[s1: B[1], s2: B[2], s3: B[0]]]
         circuit  = Circuit.from_fsm Puts.new is: is, os: os, ps: ps, qs: qs
         function = circuit.functions.first
-
-        circuit.functions.size.must_equal 1
+        circuit.functions.must_equal [function]
         function.is.must_equal is + qs
         function.os.must_equal os + ps
-
         circuit.recoders.must_be :empty?
-
-        wires = [
+        circuit.wires.must_equal [
           Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
           Wire[Pin[circuit, :qs, 0], Pin[function, :is, 1]],
           Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
           Wire[Pin[function, :os, 1], Pin[circuit, :ps, 0]],
         ]
-        circuit.wires.must_equal wires
       end
     end
 
