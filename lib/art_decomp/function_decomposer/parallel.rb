@@ -9,6 +9,11 @@ require_relative '../wire'
 module ArtDecomp
   module FunctionDecomposer
     class Parallel
+      def self.decompose(function, merger: FunctionMerger,
+                                   simplifier: FunctionSimplifier)
+        new(merger: merger, simplifier: simplifier).decompose(function)
+      end
+
       def initialize(merger: FunctionMerger, simplifier: FunctionSimplifier)
         @merger     = merger
         @simplifier = simplifier

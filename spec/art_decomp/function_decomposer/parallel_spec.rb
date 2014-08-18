@@ -10,7 +10,7 @@ require_relative '../../../lib/art_decomp/wire'
 
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
-    describe '#decompose' do
+    describe '.decompose' do
       it 'yields decomposed Circuits' do
         #   | a b c | anb buc nbuc
         # --+-------+-------------
@@ -50,8 +50,8 @@ module ArtDecomp
           Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
           Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
         ]
-        fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
-        fdp.decompose(fun).to_a.must_equal [circuit]
+        FunctionDecomposer::Parallel.decompose(fun, merger: fm, simplifier: fs)
+          .to_a.must_equal [circuit]
       end
 
       it 'does not yield if it can’t decompose' do
@@ -60,8 +60,8 @@ module ArtDecomp
         fun = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
         fs  = fake :function_simplifier, as: :class
         fm  = fake :function_merger, as: :class, merge: [fun]
-        fdp = FunctionDecomposer::Parallel.new merger: fm, simplifier: fs
-        fdp.decompose(fun).to_a.must_be_empty
+        FunctionDecomposer::Parallel.decompose(fun, merger: fm, simplifier: fs)
+          .to_a.must_be_empty
       end
     end
   end
