@@ -41,7 +41,7 @@ module ArtDecomp
         stub(fm).merge([f1, f2, f3]) { [f1, f23] }
         puts = Puts.new is: [a, b, c], os: [anb, buc, nbuc]
         circuit = Circuit.new functions: [f1, f23], puts: puts
-        circuit.wires = [
+        circuit.wires.replace [
           Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],
           Wire[Pin[f1, :os, 0], Pin[circuit, :os, 0]],

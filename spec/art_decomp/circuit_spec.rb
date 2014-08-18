@@ -140,10 +140,9 @@ module ArtDecomp
       end
     end
 
-    describe '#wires, #wires=' do
-      it 'gets/sets the wires' do
+    describe '#wires' do
+      it 'gets the wires' do
         Circuit.new(wires: wires = fake(:array)).wires.must_equal wires
-        Circuit.new.tap { |c| c.wires = wires }.wires.must_equal wires
       end
     end
   end

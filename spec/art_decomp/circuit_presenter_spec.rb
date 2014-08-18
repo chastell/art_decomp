@@ -61,7 +61,7 @@ module ArtDecomp
         r1 = Function.new Puts.new is: r_coded, os: r_state
         circuit.functions.replace [f0, f1]
         circuit.recoders.replace  [r0, r1]
-        circuit.wires     = [
+        circuit.wires.replace [
           Wire[Pin[circuit, :is, 0], Pin[f0, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[f0, :is, 1]],
           Wire[Pin[r0, :os, 1], Pin[f0, :is, 2]],
