@@ -1,9 +1,17 @@
 require_relative 'circuit_decomposer'
 
 module ArtDecomp
-  module Decomposer
+  class Decomposer
     def self.decompose_circuit(circuit, circuit_decomposer: CircuitDecomposer)
-      queue = [circuit]
+      new(circuit, circuit_decomposer: circuit_decomposer).decompositions
+    end
+
+    def initialize(circuit, circuit_decomposer:)
+      @circuit_decomposer = circuit_decomposer
+      @queue              = [circuit]
+    end
+
+    def decompositions
       Enumerator.new do |yielder|
         until queue.empty?
           smallest = queue.shift
@@ -13,5 +21,8 @@ module ArtDecomp
         end
       end
     end
+
+    attr_reader :circuit_decomposer, :queue
+    private     :circuit_decomposer, :queue
   end
 end
