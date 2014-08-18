@@ -14,8 +14,7 @@ module ArtDecomp
       when i == 6           then o
       when i == 7           then o * 2
       when i == 8           then o * 4
-      else
-        o * (1 + 4 * self.class.new(Arch[i - 2, 1]).max_quarters)
+      else o * (1 + 4 * self.class.new(Arch[i - 2, 1]).max_quarters)
       end
     end
 
