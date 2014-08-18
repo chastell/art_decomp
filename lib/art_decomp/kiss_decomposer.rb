@@ -5,12 +5,12 @@ require_relative 'kiss_parser'
 
 module ArtDecomp
   class KISSDecomposer
-    def initialize args
+    def initialize(args)
       @settings = Settings.new args
     end
 
-    def decompose circuit_presenter: CircuitPresenter,
-                  decomposer: Decomposer, kiss_parser: KISSParser
+    def decompose(circuit_presenter: CircuitPresenter,
+                  decomposer: Decomposer, kiss_parser: KISSParser)
       circuit = kiss_parser.circuit_for File.read settings.kiss_path
       decomposer.decompose_circuit(circuit).each.with_index do |dc, i|
         name = "#{File.basename settings.kiss_path, '.kiss'}_#{i}"
@@ -23,7 +23,7 @@ module ArtDecomp
     private     :settings
 
     Settings = Struct.new :kiss_path, :vhdl_path do
-      def initialize args
+      def initialize(args)
         OptionParser.new do |opts|
           opts.on('--dir DIR', String) { |dir| self.vhdl_path = dir }
         end.parse! args

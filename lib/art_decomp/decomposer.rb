@@ -2,7 +2,7 @@ require_relative 'circuit_decomposer'
 
 module ArtDecomp
   module Decomposer
-    def self.decompose_circuit circuit, circuit_decomposer: CircuitDecomposer
+    def self.decompose_circuit(circuit, circuit_decomposer: CircuitDecomposer)
       queue = [circuit]
       Enumerator.new do |yielder|
         until queue.empty?

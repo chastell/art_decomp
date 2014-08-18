@@ -5,18 +5,18 @@ module ArtDecomp
   class Put
     extend Forwardable
 
-    def self.[] blanket = {}
+    def self.[](blanket = {})
       new blanket: blanket
     end
 
-    def self.from_column col, codes: %i(0 1), dont_care: :-
+    def self.from_column(col, codes: %i(0 1), dont_care: :-)
       blocks = codes.map do |code|
         B[*col.each_index.select { |i| col[i] == code or col[i] == dont_care }]
       end
       new blanket: codes.zip(blocks).to_h
     end
 
-    def initialize blanket: {}
+    def initialize(blanket: {})
       @blanket = blanket
     end
 
@@ -26,11 +26,11 @@ module ArtDecomp
 
     def_delegator :blanket, :values, :blocks
 
-    def codes &block
+    def codes(&block)
       block_given? ? blanket.select(&block).keys : blanket.keys
     end
 
-    def eql? other
+    def eql?(other)
       blanket.eql? other.blanket
     end
 

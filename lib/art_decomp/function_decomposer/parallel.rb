@@ -9,12 +9,12 @@ require_relative '../wire'
 module ArtDecomp
   module FunctionDecomposer
     class Parallel
-      def initialize merger: FunctionMerger, simplifier: FunctionSimplifier
+      def initialize(merger: FunctionMerger, simplifier: FunctionSimplifier)
         @merger     = merger
         @simplifier = simplifier
       end
 
-      def decompose function
+      def decompose(function)
         Enumerator.new do |yielder|
           is     = function.is
           split  = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
@@ -31,7 +31,7 @@ module ArtDecomp
 
       private
 
-      def wires_for function, circuit
+      def wires_for(function, circuit)
         is_wires = function.is.map.with_index do |put, fi|
           Wire[Pin[circuit, :is, circuit.is.index(put)], Pin[function, :is, fi]]
         end

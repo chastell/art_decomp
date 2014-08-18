@@ -8,7 +8,7 @@ module ArtDecomp
 
     attr_reader :puts
 
-    def initialize puts = Puts.new
+    def initialize(puts = Puts.new)
       @puts = puts
     end
 
@@ -16,7 +16,7 @@ module ArtDecomp
       Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
     end
 
-    def eql? other
+    def eql?(other)
       puts.eql? other.puts
     end
 

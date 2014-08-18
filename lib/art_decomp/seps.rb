@@ -4,7 +4,7 @@ module ArtDecomp
   class Seps
     extend Forwardable
 
-    def self.from_blocks blocks
+    def self.from_blocks(blocks)
       all  = blocks.reduce 0, :|
       size = Math.log2(all + 1).ceil
       ones = (1 << size) - 1
@@ -15,31 +15,31 @@ module ArtDecomp
       new matrix
     end
 
-    def self.normalise matrix
+    def self.normalise(matrix)
       matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
     end
 
-    def initialize matrix = []
+    def initialize(matrix = [])
       @matrix = self.class.normalise matrix
     end
 
-    def & other
+    def &(other)
       smaller, larger = [matrix, other.matrix].sort_by(&:size)
       self.class.new smaller.zip(larger).map { |a, b| a & b }
     end
 
-    def - other
+    def -(other)
       self.class.new matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a }
     end
 
-    def | other
+    def |(other)
       smaller, larger = [matrix, other.matrix].sort_by(&:size)
       self.class.new larger.zip(smaller).map { |a, b| b ? a | b : a }
     end
 
     delegate empty?: :matrix
 
-    def eql? other
+    def eql?(other)
       matrix.eql? other.matrix
     end
 

@@ -4,11 +4,11 @@ require_relative 'function_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
-    def self.vhdl_for circuit, name, circuit_presenter: new(circuit)
+    def self.vhdl_for(circuit, name, circuit_presenter: new(circuit))
       circuit_presenter.vhdl name
     end
 
-    def vhdl name
+    def vhdl(name)
       @name    = name
       template = File.read 'lib/art_decomp/circuit_presenter.vhdl.erb'
       ERB.new(template, nil, '%').result binding
@@ -43,7 +43,7 @@ module ArtDecomp
       '0' * fsm_qs_binwidth
     end
 
-    def wiring_for src, dst, n
+    def wiring_for(src, dst, n)
       src_lab = wirings_label_for src.object
       dst_lab = wirings_label_for dst.object
       src_bin = src.object.binwidths(src.group)[0...src.index].reduce(0, :+) + n
@@ -58,13 +58,13 @@ module ArtDecomp
       wires.flat_map { |wire| wirings_for wire.src, wire.dst }.to_h
     end
 
-    def wirings_for src, dst
+    def wirings_for(src, dst)
       Array.new dst.object.binwidths(dst.group)[dst.index] do |n|
         wiring_for src, dst, n
       end
     end
 
-    def wirings_label_for object
+    def wirings_label_for(object)
       case
       when object == self             then 'fsm'
       when functions.include?(object) then "f#{functions.index object}"

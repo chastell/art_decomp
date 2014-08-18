@@ -12,7 +12,7 @@ module ArtDecomp
     attr_accessor :wires
     attr_reader   :functions, :puts, :recoders
 
-    def self.from_fsm puts
+    def self.from_fsm(puts)
       iss = puts.is.size
       oss = puts.os.size
       fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
@@ -25,17 +25,17 @@ module ArtDecomp
       end
     end
 
-    def initialize functions: [], puts: Puts.new, recoders: [], wires: []
+    def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
       @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
     end
 
-    def adm_size circuit_sizer: CircuitSizer.new(self)
+    def adm_size(circuit_sizer: CircuitSizer.new(self))
       @adm_size ||= circuit_sizer.adm_size
     end
 
     delegate %i(binwidths is os ps qs) => :puts
 
-    def eql? other
+    def eql?(other)
       functions.eql? other.functions and puts.eql? other.puts and
         recoders.eql? other.recoders and wires.eql? other.wires
     end
@@ -50,11 +50,11 @@ module ArtDecomp
       functions.max_by(&:arch)
     end
 
-    def max_size circuit_sizer: CircuitSizer.new(self)
+    def max_size(circuit_sizer: CircuitSizer.new(self))
       @max_size ||= circuit_sizer.max_size
     end
 
-    def min_size circuit_sizer: CircuitSizer.new(self)
+    def min_size(circuit_sizer: CircuitSizer.new(self))
       @min_size ||= circuit_sizer.min_size
     end
   end

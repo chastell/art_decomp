@@ -4,7 +4,7 @@ require_relative 'puts'
 
 module ArtDecomp
   class FunctionSimplifier < SimpleDelegator
-    def self.simplify function
+    def self.simplify(function)
       new(function).simplified
     end
 
@@ -15,7 +15,7 @@ module ArtDecomp
 
     private
 
-    def required_is seps
+    def required_is(seps)
       is.sort_by { |i| (i.seps & seps).size }.reverse.take_while do |i|
         empty = seps.empty?
         seps -= i.seps

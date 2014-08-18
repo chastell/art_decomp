@@ -4,15 +4,15 @@ require_relative 'puts'
 
 module ArtDecomp
   class KISSParser
-    def self.circuit_for kiss, kiss_parser: new(kiss)
+    def self.circuit_for(kiss, kiss_parser: new(kiss))
       kiss_parser.circuit
     end
 
-    def initialize kiss
+    def initialize(kiss)
       @kiss = kiss
     end
 
-    def circuit circuit_factory: Circuit
+    def circuit(circuit_factory: Circuit)
       circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
     end
 
@@ -34,7 +34,7 @@ module ArtDecomp
       pluck_columns(col_groups[:os]).map { |column| Put.from_column column }
     end
 
-    def pluck_columns col_group
+    def pluck_columns(col_group)
       col_group.map { |string| string.split('').map(&:to_sym) }.transpose
     end
 

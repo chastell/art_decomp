@@ -9,7 +9,7 @@ module ArtDecomp
 
     private
 
-    def entry_for row
+    def entry_for(row)
       row_codes = codes { |_, block| (block & B[row]).nonzero? }.sort
       case row_codes.size
       when size then '-' * binwidth
@@ -18,7 +18,7 @@ module ArtDecomp
       end
     end
 
-    def mapping_for code
+    def mapping_for(code)
       codes.sort.index(code).to_s(2).rjust binwidth, '0'
     end
   end
