@@ -50,25 +50,25 @@ module ArtDecomp
     end
 
     def rewire_to(function)
-      @wires = rewire_ins_to(function)  + rewire_qss_to(function) +
-               rewire_outs_to(function) + rewire_oss_to(function)
+      @wires = rewire_in_wires(function)  + rewire_qs_wires(function) +
+               rewire_out_wires(function) + rewire_ps_wires(function)
     end
 
     private
 
-    def rewire_ins_to(fun)
+    def rewire_in_wires(fun)
       (0...puts.is.size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
     end
 
-    def rewire_oss_to(fun)
-      [Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]]
-    end
-
-    def rewire_outs_to(fun)
+    def rewire_out_wires(fun)
       (0...puts.os.size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
     end
 
-    def rewire_qss_to(fun)
+    def rewire_ps_wires(fun)
+      [Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]]
+    end
+
+    def rewire_qs_wires(fun)
       [Wire[Pin[self, :qs, 0], Pin[fun, :is, puts.is.size]]]
     end
   end
