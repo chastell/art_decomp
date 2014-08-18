@@ -14,7 +14,7 @@ module ArtDecomp
 
     def self.from_fsm(puts)
       fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
-      new(functions: [fun], puts: puts).tap(&:rewire)
+      new(functions: [fun], puts: puts).tap { |circ| circ.rewire_to fun }
     end
 
     def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
@@ -50,28 +50,27 @@ module ArtDecomp
       @min_size ||= circuit_sizer.min_size
     end
 
-    def rewire
-      @wires = rewire_ins + rewire_qss + rewire_outs + rewire_oss
+    def rewire_to(function)
+      @wires = rewire_ins_to(function)  + rewire_qss_to(function) +
+               rewire_outs_to(function) + rewire_oss_to(function)
     end
 
     private
 
-    def rewire_ins
-      fun = functions.first
+    def rewire_ins_to(fun)
       (0...puts.is.size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
     end
 
-    def rewire_oss
-      [Wire[Pin[functions.first, :os, puts.os.size], Pin[self, :ps, 0]]]
+    def rewire_oss_to(fun)
+      [Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]]
     end
 
-    def rewire_outs
-      fun = functions.first
+    def rewire_outs_to(fun)
       (0...puts.os.size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
     end
 
-    def rewire_qss
-      [Wire[Pin[self, :qs, 0], Pin[functions.first, :is, puts.is.size]]]
+    def rewire_qss_to(fun)
+      [Wire[Pin[self, :qs, 0], Pin[fun, :is, puts.is.size]]]
     end
   end
 end
