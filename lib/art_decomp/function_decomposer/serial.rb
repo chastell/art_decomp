@@ -1,7 +1,7 @@
 module ArtDecomp
   module FunctionDecomposer
     class Serial
-      def decompose(_function)
+      def decompose(function)
       end
     end
   end
