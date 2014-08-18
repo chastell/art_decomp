@@ -11,7 +11,7 @@ module ArtDecomp
         p1, p2   = fake(:circuit), fake(:circuit)
         s1, s2   = fake(:circuit), fake(:circuit)
         parallel = fake FunctionDecomposer::Parallel, as: :class
-        serial   = fake FunctionDecomposer::Serial
+        serial   = fake FunctionDecomposer::Serial,   as: :class
         stub(parallel).decompose(function) { [p1, p2].to_enum }
         stub(serial).decompose(function)   { [s1, s2].to_enum }
         decs = FunctionDecomposer.decompose function, parallel: parallel,

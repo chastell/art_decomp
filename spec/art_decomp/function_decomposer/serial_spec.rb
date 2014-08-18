@@ -3,7 +3,7 @@ require_relative '../../../lib/art_decomp/function_decomposer/serial'
 
 module ArtDecomp
   describe FunctionDecomposer::Serial do
-    describe '#decompose' do
+    describe '.decompose' do
       it 'returns decomposed Circuits'
     end
   end
