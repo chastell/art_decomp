@@ -14,13 +14,11 @@ module ArtDecomp
 
     def self.from_fsm(puts)
       fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
-      new(functions: [fun], puts: puts, rewire: true)
+      new(functions: [fun], puts: puts).tap(&:rewire)
     end
 
-    def initialize(functions: [], puts: Puts.new, recoders: [], rewire: false,
-                   wires: [])
+    def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
       @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
-      rewire! if rewire
     end
 
     def adm_size(circuit_sizer: CircuitSizer.new(self))
@@ -52,9 +50,7 @@ module ArtDecomp
       @min_size ||= circuit_sizer.min_size
     end
 
-    private
-
-    def rewire!
+    def rewire
       is_size = puts.is.size
       os_size = puts.os.size
       fun  = functions.first
