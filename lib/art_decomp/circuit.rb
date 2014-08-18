@@ -51,13 +51,27 @@ module ArtDecomp
     end
 
     def rewire
-      is_size = puts.is.size
-      os_size = puts.os.size
-      fun  = functions.first
-      ins  = (0...is_size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
-      outs = (0...os_size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
-      @wires = ins  + [Wire[Pin[self, :qs, 0], Pin[fun, :is, is_size]]] +
-               outs + [Wire[Pin[fun, :os, os_size], Pin[self, :ps, 0]]]
+      @wires = rewire_ins + rewire_qss + rewire_outs + rewire_oss
+    end
+
+    private
+
+    def rewire_ins
+      fun = functions.first
+      (0...puts.is.size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
+    end
+
+    def rewire_oss
+      [Wire[Pin[functions.first, :os, puts.os.size], Pin[self, :ps, 0]]]
+    end
+
+    def rewire_outs
+      fun = functions.first
+      (0...puts.os.size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
+    end
+
+    def rewire_qss
+      [Wire[Pin[self, :qs, 0], Pin[functions.first, :is, puts.is.size]]]
     end
   end
 end
