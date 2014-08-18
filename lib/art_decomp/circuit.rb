@@ -13,20 +13,14 @@ module ArtDecomp
     attr_reader   :functions, :puts, :recoders
 
     def self.from_fsm(puts)
-      iss = puts.is.size
-      oss = puts.os.size
       fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
-      new(functions: [fun], puts: puts).tap do |circ|
-        circ.wires =
-          (0...iss).map { |n| Wire[Pin[circ, :is, n], Pin[fun, :is, n]] } +
-          [Wire[Pin[circ, :qs, 0], Pin[fun, :is, iss]]] +
-          (0...oss).map { |n| Wire[Pin[fun, :os, n], Pin[circ, :os, n]] } +
-          [Wire[Pin[fun, :os, oss], Pin[circ, :ps, 0]]]
-      end
+      new(functions: [fun], puts: puts, rewire: true)
     end
 
-    def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
+    def initialize(functions: [], puts: Puts.new, recoders: [], rewire: false,
+                   wires: [])
       @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
+      rewire! if rewire
     end
 
     def adm_size(circuit_sizer: CircuitSizer.new(self))
@@ -56,6 +50,18 @@ module ArtDecomp
 
     def min_size(circuit_sizer: CircuitSizer.new(self))
       @min_size ||= circuit_sizer.min_size
+    end
+
+    private
+
+    def rewire!
+      is_size = puts.is.size
+      os_size = puts.os.size
+      fun  = functions.first
+      ins  = (0...is_size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
+      outs = (0...os_size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
+      @wires = ins  + [Wire[Pin[self, :qs, 0], Pin[fun, :is, is_size]]] +
+               outs + [Wire[Pin[fun, :os, os_size], Pin[self, :ps, 0]]]
     end
   end
 end
