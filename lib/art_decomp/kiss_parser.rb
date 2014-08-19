@@ -4,20 +4,21 @@ require_relative 'puts'
 
 module ArtDecomp
   class KISSParser
-    def self.circuit_for(kiss, kiss_parser: new(kiss))
-      kiss_parser.circuit
+    def self.circuit_for(kiss, circuit_factory: Circuit)
+      new(kiss, circuit_factory: circuit_factory).circuit
     end
 
-    def initialize(kiss)
-      @kiss = kiss
+    def initialize(kiss, circuit_factory:)
+      @circuit_factory = circuit_factory
+      @kiss            = kiss
     end
 
-    def circuit(circuit_factory: Circuit)
+    def circuit
       circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
     end
 
-    attr_reader :kiss
-    private     :kiss
+    attr_reader :circuit_factory, :kiss
+    private     :circuit_factory, :kiss
 
     private
 

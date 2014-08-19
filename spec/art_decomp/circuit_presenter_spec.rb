@@ -19,8 +19,9 @@ module ArtDecomp
 
     describe '#vhdl' do
       let :circuit do
-        KISSParser.new(File.read 'spec/fixtures/mc.kiss').circuit
+        KISSParser.circuit_for File.read 'spec/fixtures/mc.kiss'
       end
+
       let(:circuit_presenter) { CircuitPresenter.new circuit }
 
       it 'returns VHDL for the given Circuit' do

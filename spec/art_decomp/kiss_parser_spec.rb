@@ -9,13 +9,6 @@ module ArtDecomp
     fake :circuit
 
     describe '.circuit_for' do
-      it 'parses the KISS and returns a Circuit' do
-        kp = fake KISSParser, circuit: circuit
-        KISSParser.circuit_for('KISS', kiss_parser: kp).must_equal circuit
-      end
-    end
-
-    describe '#circuit' do
       it 'returns a Circuit represented by the KISS source' do
         kiss = <<-end.dedent
           .some comments
@@ -39,7 +32,8 @@ module ArtDecomp
         cf = fake :circuit, as: :class
         mock(cf).from_fsm(Puts.new is: is, qs: qs, os: os, ps: ps) { circuit }
 
-        KISSParser.new(kiss).circuit(circuit_factory: cf).must_equal circuit
+        parsed = KISSParser.circuit_for kiss, circuit_factory: cf
+        parsed.must_equal circuit
       end
     end
   end
