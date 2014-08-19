@@ -20,7 +20,6 @@ NestedIterators:
 TooManyStatements:
   exclude:
     - ArtDecomp::ArchSizer#max_quarters
-    - ArtDecomp::FunctionDecomposer::Parallel#decompose
     - ArtDecomp::Seps#inspect
     - ArtDecomp::Seps#self.from_blocks
 
