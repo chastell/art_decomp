@@ -22,9 +22,11 @@ module ArtDecomp
 
       def decompositions
         Enumerator.new do |yielder|
-          circuit = Circuit.new functions: merged, puts: function.puts
-          merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
-          yielder << circuit unless merged == [function]
+          unless merged == [function]
+            circuit = Circuit.new functions: merged, puts: function.puts
+            merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
+            yielder << circuit
+          end
         end
       end
 
