@@ -22,10 +22,6 @@ module ArtDecomp
 
       def decompositions
         Enumerator.new do |yielder|
-          is     = function.is
-          split  = function.os.map { |o| Function.new Puts.new is: is, os: [o] }
-          simple = split.map { |fun| simplifier.simplify fun }
-          merged = merger.merge simple
           circuit = Circuit.new functions: merged, puts: function.puts
           merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
           yielder << circuit unless merged == [function]
@@ -36,6 +32,16 @@ module ArtDecomp
       private     :function, :merger, :simplifier
 
       private
+
+      def merged
+        @merged ||= begin
+          split = function.os.map do |o|
+            Function.new Puts.new is: function.is, os: [o]
+          end
+          simple = split.map { |fun| simplifier.simplify fun }
+          merger.merge simple
+        end
+      end
 
       def wires_for(function, circuit)
         is_wires = function.is.map.with_index do |put, fi|
