@@ -5,21 +5,20 @@ require_relative 'puts'
 module ArtDecomp
   class KISSParser
     def self.circuit_for(kiss, circuit_factory: Circuit)
-      new(kiss, circuit_factory: circuit_factory).circuit
+      new(kiss).circuit circuit_factory: circuit_factory
     end
 
-    def initialize(kiss, circuit_factory:)
-      cols             = kiss.lines.grep(/^[^.]/).map(&:split).transpose
-      @col_groups      = %i(is qs ps os).zip(cols).to_h
-      @circuit_factory = circuit_factory
+    def initialize(kiss)
+      cols        = kiss.lines.grep(/^[^.]/).map(&:split).transpose
+      @col_groups = %i(is qs ps os).zip(cols).to_h
     end
 
-    def circuit
+    def circuit(circuit_factory:)
       circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
     end
 
-    attr_reader :circuit_factory, :col_groups
-    private     :circuit_factory, :col_groups
+    attr_reader :col_groups
+    private     :col_groups
 
     private
 
