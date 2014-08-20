@@ -9,23 +9,19 @@ module ArtDecomp
     end
 
     def initialize(kiss, circuit_factory:)
+      cols             = kiss.lines.grep(/^[^.]/).map(&:split).transpose
+      @col_groups      = %i(is qs ps os).zip(cols).to_h
       @circuit_factory = circuit_factory
-      @kiss            = kiss
     end
 
     def circuit
       circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
     end
 
-    attr_reader :circuit_factory, :kiss
-    private     :circuit_factory, :kiss
+    attr_reader :circuit_factory, :col_groups
+    private     :circuit_factory, :col_groups
 
     private
-
-    def col_groups
-      cols = kiss.lines.grep(/^[^.]/).map(&:split).transpose
-      %i(is qs ps os).zip(cols).to_h
-    end
 
     def is
       pluck_columns(col_groups[:is]).map { |column| Put.from_column column }
