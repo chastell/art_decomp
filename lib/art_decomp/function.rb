@@ -1,3 +1,4 @@
+require 'equalizer'
 require 'forwardable'
 require_relative 'arch'
 require_relative 'puts'
@@ -5,6 +6,8 @@ require_relative 'puts'
 module ArtDecomp
   class Function
     extend Forwardable
+
+    include Equalizer.new :puts
 
     attr_reader :puts
 
@@ -15,12 +18,6 @@ module ArtDecomp
     def arch
       Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
     end
-
-    def eql?(other)
-      puts.eql? other.puts
-    end
-
-    alias_method :==, :eql?
 
     delegate %i(binwidths is os) => :puts
   end
