@@ -16,11 +16,16 @@ module ArtDecomp
     private
 
     def required_is(seps)
-      is.sort_by { |i| (i.seps & seps).size }.reverse.take_while do |i|
-        empty = seps.empty?
-        seps -= i.seps
+      remaining = seps
+      sorted_is(seps).take_while do |i|
+        empty = remaining.empty?
+        remaining -= i.seps
         not empty
       end
+    end
+
+    def sorted_is(seps)
+      is.sort_by { |i| (i.seps & seps).size }.reverse
     end
   end
 end
