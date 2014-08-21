@@ -11,6 +11,8 @@ Gem::Specification.new do |gem|
   gem.executables = gem.files.grep(/^bin\//).map { |path| File.basename path }
   gem.test_files  = gem.files.grep(/^spec\/.*\.rb$/)
 
+  gem.add_dependency 'equalizer', '~> 0.0.9'
+
   gem.add_development_dependency 'bogus',    '~> 0.1.3'
   gem.add_development_dependency 'minitest', '~> 5.0'
   gem.add_development_dependency 'rake',     '~> 10.1'

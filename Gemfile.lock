@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     art_decomp (0.0.0)
+      equalizer (~> 0.0.9)
 
 GEM
   remote: https://rubygems.org/
@@ -12,6 +13,7 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     dependor (1.0.1)
+    equalizer (0.0.9)
     ffi (1.9.3)
     listen (2.7.9)
       celluloid (>= 0.15.2)
