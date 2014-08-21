@@ -23,20 +23,21 @@ module ArtDecomp
     private
 
     def is
-      pluck_columns(col_groups[:is]).map { |column| Put.from_column column }
+      put_cols_from_group :is
     end
 
     def os
-      pluck_columns(col_groups[:os]).map { |column| Put.from_column column }
-    end
-
-    def pluck_columns(col_group)
-      col_group.map { |string| string.split('').map(&:to_sym) }.transpose
+      put_cols_from_group :os
     end
 
     def ps
       column = col_groups[:ps].map(&:to_sym)
       [Put.from_column(column, dont_care: :*, codes: states)]
+    end
+
+    def put_cols_from_group(name)
+      rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
+      rows.transpose.map { |column| Put.from_column column }
     end
 
     def qs
