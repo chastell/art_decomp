@@ -31,8 +31,7 @@ module ArtDecomp
     end
 
     def ps
-      column = col_groups[:ps].map(&:to_sym)
-      [Put.from_column(column, dont_care: :*, codes: states)]
+      state_cols_from_group :ps
     end
 
     def put_cols_from_group(name)
@@ -41,7 +40,11 @@ module ArtDecomp
     end
 
     def qs
-      column = col_groups[:qs].map(&:to_sym)
+      state_cols_from_group :qs
+    end
+
+    def state_cols_from_group(name)
+      column = col_groups[name].map(&:to_sym)
       [Put.from_column(column, dont_care: :*, codes: states)]
     end
 
