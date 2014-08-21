@@ -1,8 +1,11 @@
+require 'equalizer'
 require 'forwardable'
 
 module ArtDecomp
   class Seps
     extend Forwardable
+
+    include Equalizer.new :matrix
 
     def self.from_blocks(blocks)
       all  = blocks.reduce 0, :|
@@ -38,12 +41,6 @@ module ArtDecomp
     end
 
     delegate empty?: :matrix
-
-    def eql?(other)
-      matrix.eql? other.matrix
-    end
-
-    alias_method :==, :eql?
 
     def inspect
       bits = matrix.map do |row|
