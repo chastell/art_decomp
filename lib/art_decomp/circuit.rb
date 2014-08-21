@@ -1,3 +1,4 @@
+require 'equalizer'
 require 'forwardable'
 require_relative 'circuit_sizer'
 require_relative 'function'
@@ -8,6 +9,8 @@ require_relative 'wire'
 module ArtDecomp
   class Circuit
     extend Forwardable
+
+    include Equalizer.new :functions, :puts, :recoders, :wires
 
     attr_reader :functions, :puts, :recoders, :wires
 
@@ -25,13 +28,6 @@ module ArtDecomp
     end
 
     delegate %i(binwidths is os ps qs) => :puts
-
-    def eql?(other)
-      functions.eql? other.functions and puts.eql? other.puts and
-        recoders.eql? other.recoders and wires.eql? other.wires
-    end
-
-    alias_method :==, :eql?
 
     def function_archs
       functions.map(&:arch)
