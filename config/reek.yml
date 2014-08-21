@@ -34,6 +34,4 @@ UncommunicativeParameterName:
 UncommunicativeVariableName:
   exclude:
     - ArtDecomp::CircuitPresenter#wirings_for
-    - ArtDecomp::FunctionSimplifier#simplify
-    - ArtDecomp::FunctionSimplifier#take_required
     - ArtDecomp::Seps#|
