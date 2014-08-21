@@ -1,9 +1,12 @@
+require 'equalizer'
 require 'forwardable'
 require_relative 'seps'
 
 module ArtDecomp
   class Put
     extend Forwardable
+
+    include Equalizer.new :blanket
 
     def self.[](blanket = {})
       new blanket: blanket
@@ -29,12 +32,6 @@ module ArtDecomp
     def codes(&block)
       block_given? ? blanket.select(&block).keys : blanket.keys
     end
-
-    def eql?(other)
-      blanket.eql? other.blanket
-    end
-
-    alias_method :==, :eql?
 
     def inspect
       blocks = blanket.map do |key, block|
