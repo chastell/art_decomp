@@ -1,5 +1,9 @@
+require 'equalizer'
+
 module ArtDecomp
   class Puts
+    include Equalizer.new :is, :os, :ps, :qs
+
     attr_reader :is, :os, :ps, :qs
 
     def initialize(is: [], os: [], ps: [], qs: [])
@@ -9,11 +13,5 @@ module ArtDecomp
     def binwidths(group)
       send(group).map(&:binwidth)
     end
-
-    def eql?(other)
-      [is, os, ps, qs].eql? [other.is, other.os, other.ps, other.qs]
-    end
-
-    alias_method :==, :eql?
   end
 end
