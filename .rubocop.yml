@@ -7,6 +7,10 @@ Documentation:
 Not:
   Enabled: false
 
+PredicateName:
+  Exclude:
+    - lib/art_decomp/circuit.rb
+
 SingleLineBlockParams:
   Enabled: false
 
