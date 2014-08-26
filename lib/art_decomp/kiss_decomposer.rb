@@ -1,7 +1,7 @@
-require 'optparse'
 require_relative 'circuit_presenter'
 require_relative 'decomposer'
 require_relative 'kiss_parser'
+require_relative 'settings'
 
 module ArtDecomp
   class KISSDecomposer
@@ -21,14 +21,5 @@ module ArtDecomp
 
     attr_reader :settings
     private     :settings
-
-    Settings = Struct.new :kiss_path, :vhdl_path do
-      def initialize(args)
-        OptionParser.new do |opts|
-          opts.on('--dir DIR', String) { |dir| self.vhdl_path = dir }
-        end.parse! args
-        self.kiss_path = args.first
-      end
-    end
   end
 end
