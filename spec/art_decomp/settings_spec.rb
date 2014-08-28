@@ -13,7 +13,7 @@ module ArtDecomp
     describe '#vhdl_path' do
       it 'is parsed from --dir' do
         Dir.mktmpdir do |vhdl_path|
-          Settings.new(%W(--dir #{vhdl_path})).vhdl_path.must_equal vhdl_path
+          Settings.new(%W(--dir=#{vhdl_path})).vhdl_path.must_equal vhdl_path
         end
       end
     end
