@@ -1,4 +1,3 @@
-require 'tmpdir'
 require_relative '../spec_helper'
 require_relative '../../lib/art_decomp/settings'
 
@@ -12,15 +11,11 @@ module ArtDecomp
 
     describe '#vhdl_path' do
       it 'is parsed from --dir' do
-        Dir.mktmpdir do |vhdl_path|
-          Settings.new(%W(--dir=#{vhdl_path})).vhdl_path.must_equal vhdl_path
-        end
+        Settings.new(%w(--dir=baz/qux)).vhdl_path.must_equal 'baz/qux'
       end
 
       it 'is parsed from -d' do
-        Dir.mktmpdir do |vhdl_path|
-          Settings.new(%W(-d #{vhdl_path})).vhdl_path.must_equal vhdl_path
-        end
+        Settings.new(%w(-d baz/qux)).vhdl_path.must_equal 'baz/qux'
       end
     end
   end
