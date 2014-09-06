@@ -1,5 +1,5 @@
 module ArtDecomp
-  Wire = Struct.new :src, :dst do
+  Wire = Struct.new(:src, :dst) do
     def inspect
       "#{self.class}[#{src}, #{dst}]"
     end

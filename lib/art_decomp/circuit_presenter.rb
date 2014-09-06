@@ -59,7 +59,7 @@ module ArtDecomp
     end
 
     def wirings_for(src, dst)
-      Array.new dst.object.binwidths(dst.group)[dst.index] do |n|
+      Array.new(dst.object.binwidths(dst.group)[dst.index]) do |n|
         wiring_for src, dst, n
       end
     end

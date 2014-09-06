@@ -18,7 +18,7 @@ module ArtDecomp
     end
 
     describe '#vhdl' do
-      let :circuit do
+      let(:circuit) do
         KISSParser.circuit_for File.read 'spec/fixtures/mc.kiss'
       end
 
