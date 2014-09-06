@@ -8,12 +8,12 @@ module ArtDecomp
     let(:os)   { [stub(:put), stub(:put), stub(:put)]             }
     let(:ps)   { [stub(:put), stub(:put)]                         }
     let(:qs)   { [stub(:put)]                                     }
-    let(:puts) { Puts.new is: is, os: os, ps: ps, qs: qs          }
+    let(:puts) { Puts.new(is: is, os: os, ps: ps, qs: qs)         }
 
     describe '#==' do
       it 'compares two Puts with regards to value' do
-        puts.must_equal Puts.new is: is, os: os, ps: ps, qs: qs
-        puts.wont_equal Puts.new is: os, os: is, ps: ps, qs: qs
+        puts.must_equal Puts.new(is: is, os: os, ps: ps, qs: qs)
+        puts.wont_equal Puts.new(is: os, os: is, ps: ps, qs: qs)
       end
     end
 

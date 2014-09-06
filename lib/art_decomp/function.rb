@@ -7,7 +7,7 @@ module ArtDecomp
   class Function
     extend Forwardable
 
-    include Equalizer.new :puts
+    include Equalizer.new(:puts)
 
     attr_reader :puts
 

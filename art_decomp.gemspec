@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
   gem.summary  = 'art décomp: a symbolic decomposer'
   gem.version  = '0.0.0'
 
-  gem.files       = `git ls-files -z`.split "\0"
-  gem.executables = gem.files.grep(/^bin\//).map { |path| File.basename path }
+  gem.files       = `git ls-files -z`.split("\0")
+  gem.executables = gem.files.grep(/^bin\//).map { |path| File.basename(path) }
   gem.test_files  = gem.files.grep(/^spec\/.*\.rb$/)
 
   gem.add_dependency 'equalizer', '~> 0.0.9'

@@ -2,7 +2,7 @@ require 'equalizer'
 
 module ArtDecomp
   class Puts
-    include Equalizer.new :is, :os, :ps, :qs
+    include Equalizer.new(:is, :os, :ps, :qs)
 
     attr_reader :is, :os, :ps, :qs
 

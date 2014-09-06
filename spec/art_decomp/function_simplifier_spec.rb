@@ -24,11 +24,13 @@ module ArtDecomp
         c    = Put[:'0' => B[0,2,4,6], :'1' => B[1,3,5,7]]
         anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
         buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
-        fanb = Function.new Puts.new is: [a, b, c], os: [anb]
-        fbuc = Function.new Puts.new is: [a, b, c], os: [buc]
+        fanb = Function.new(Puts.new(is: [a, b, c], os: [anb]))
+        fbuc = Function.new(Puts.new(is: [a, b, c], os: [buc]))
         fs   = FunctionSimplifier
-        fs.simplify(fanb).must_equal Function.new(Puts.new is: [a,b], os: [anb])
-        fs.simplify(fbuc).must_equal Function.new(Puts.new is: [c,b], os: [buc])
+        fab_anb = Function.new(Puts.new(is: [a,b], os: [anb]))
+        fab_buc = Function.new(Puts.new(is: [c,b], os: [buc]))
+        fs.simplify(fanb).must_equal fab_anb
+        fs.simplify(fbuc).must_equal fab_buc
       end
     end
   end

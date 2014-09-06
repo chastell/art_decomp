@@ -15,7 +15,7 @@ module ArtDecomp
         os = [Put[:'0' => B[1], :'1' => B[0]]]
         qs = [Put[s1: B[0], s2: B[1], s3: B[2]]]
         ps = [Put[s1: B[1], s2: B[2], s3: B[0]]]
-        circuit  = Circuit.from_fsm Puts.new is: is, os: os, ps: ps, qs: qs
+        circuit  = Circuit.from_fsm(Puts.new(is: is, os: os, ps: ps, qs: qs))
         function = circuit.functions.first
         circuit.functions.must_equal [function]
         function.is.must_equal is + qs
@@ -46,16 +46,16 @@ module ArtDecomp
         funs    = [fake(:function), fake(:function)]
         recs    = [fake(:function), fake(:function)]
         wires   = [fake(:wire), fake(:wire)]
-        puts    = Puts.new is: is, os: os, ps: ps, qs: qs
+        puts    = Puts.new(is: is, os: os, ps: ps, qs: qs)
         params  = { functions: funs, puts: puts, recoders: recs, wires: wires }
-        circuit = Circuit.new params
+        circuit = Circuit.new(params)
 
         assert Circuit.new == Circuit.new # rubocop:disable UselessComparison
         assert circuit == Circuit.new(params)
-        refute circuit == Circuit.new(params.merge functions: funs.reverse)
-        refute circuit == Circuit.new(params.merge puts: Puts.new)
-        refute circuit == Circuit.new(params.merge recoders: recs.reverse)
-        refute circuit == Circuit.new(params.merge wires: wires.reverse)
+        refute circuit == Circuit.new(params.merge(functions: funs.reverse))
+        refute circuit == Circuit.new(params.merge(puts: Puts.new))
+        refute circuit == Circuit.new(params.merge(recoders: recs.reverse))
+        refute circuit == Circuit.new(params.merge(wires: wires.reverse))
       end
     end
 
@@ -70,7 +70,7 @@ module ArtDecomp
       it 'returns binary widths of the given Put group' do
         is = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
         qs = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
-        circuit = Circuit.new puts: Puts.new(is: is, qs: qs)
+        circuit = Circuit.new(puts: Puts.new(is: is, qs: qs))
         circuit.binwidths(:is).must_equal [1, 2]
         circuit.binwidths(:qs).must_equal [1, 2]
       end
@@ -84,8 +84,8 @@ module ArtDecomp
 
     describe '#function_archs' do
       it 'returns the Archs of its Functions' do
-        f1 = fake :function, arch: Arch[2,1]
-        f2 = fake :function, arch: Arch[4,3]
+        f1 = fake(:function, arch: Arch[2,1])
+        f2 = fake(:function, arch: Arch[4,3])
         Circuit.new(functions: [f1, f2]).function_archs
           .must_equal [Arch[2,1], Arch[4,3]]
       end
@@ -102,9 +102,9 @@ module ArtDecomp
 
     describe '#largest_function' do
       it 'returns the largest Function (input- and output-wise)' do
-        f23 = fake :function, arch: Arch[2,3]
-        f32 = fake :function, arch: Arch[3,2]
-        f33 = fake :function, arch: Arch[3,3]
+        f23 = fake(:function, arch: Arch[2,3])
+        f32 = fake(:function, arch: Arch[3,2])
+        f33 = fake(:function, arch: Arch[3,3])
         Circuit.new(functions: [f23, f32, f33]).largest_function.must_equal f33
       end
     end

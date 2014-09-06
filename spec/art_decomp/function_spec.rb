@@ -15,12 +15,12 @@ module ArtDecomp
       [Put[:'0' => B[1], :'1' => B[0]], Put[s1: B[1], s2: B[2], s3: B[0]]]
     end
 
-    let(:function) { Function.new Puts.new is: is, os: os }
+    let(:function) { Function.new(Puts.new(is: is, os: os)) }
 
     describe '#==' do
       it 'compares two Functions by value' do
-        assert function == Function.new(Puts.new is: is, os: os)
-        refute function == Function.new(Puts.new is: os, os: is)
+        assert function == Function.new(Puts.new(is: is, os: os))
+        refute function == Function.new(Puts.new(is: os, os: is))
       end
     end
 
@@ -52,7 +52,7 @@ module ArtDecomp
 
     describe '#puts' do
       it 'returns the Puts' do
-        function.puts.must_equal Puts.new is: is, os: os
+        function.puts.must_equal Puts.new(is: is, os: os)
       end
     end
   end

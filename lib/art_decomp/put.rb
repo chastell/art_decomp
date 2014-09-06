@@ -6,17 +6,17 @@ module ArtDecomp
   class Put
     extend Forwardable
 
-    include Equalizer.new :blanket
+    include Equalizer.new(:blanket)
 
     def self.[](blanket = {})
-      new blanket: blanket
+      new(blanket: blanket)
     end
 
     def self.from_column(col, codes: %i(0 1), dont_care: :-)
       blocks = codes.map do |code|
         B[*col.each_index.select { |i| col[i] == code or col[i] == dont_care }]
       end
-      new blanket: codes.zip(blocks).to_h
+      new(blanket: codes.zip(blocks).to_h)
     end
 
     def initialize(blanket: {})
@@ -42,7 +42,7 @@ module ArtDecomp
     end
 
     def seps
-      @seps ||= Seps.from_blocks blanket.values
+      @seps ||= Seps.from_blocks(blanket.values)
     end
 
     delegate size: :blanket

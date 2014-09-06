@@ -23,8 +23,8 @@ module ArtDecomp
           Put[:'0' => B[0,1,2,3,4,5,6,7], :'1' => B[8,9]],
           Put[HG: B[0,1,9], HY: B[2,3], FG: B[4,5], FY: B[6,7,8]],
         ]
-        function           = Function.new Puts.new is: is, os: os
-        function_presenter = FunctionPresenter.new function
+        function           = Function.new(Puts.new(is: is, os: os))
+        function_presenter = FunctionPresenter.new(function)
         function_presenter.rows.must_equal [
           %w(0--10 0001010),
           %w(-0-10 0001010),

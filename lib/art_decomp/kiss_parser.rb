@@ -5,7 +5,7 @@ require_relative 'puts'
 module ArtDecomp
   class KISSParser
     def self.circuit_for(kiss, circuit_factory: Circuit)
-      new(kiss).circuit circuit_factory: circuit_factory
+      new(kiss).circuit(circuit_factory: circuit_factory)
     end
 
     def initialize(kiss)
@@ -14,7 +14,7 @@ module ArtDecomp
     end
 
     def circuit(circuit_factory:)
-      circuit_factory.from_fsm Puts.new is: is, os: os, qs: qs, ps: ps
+      circuit_factory.from_fsm(Puts.new is: is, os: os, qs: qs, ps: ps)
     end
 
     attr_reader :col_groups
@@ -23,24 +23,24 @@ module ArtDecomp
     private
 
     def is
-      put_cols_from_group :is
+      put_cols_from_group(:is)
     end
 
     def os
-      put_cols_from_group :os
+      put_cols_from_group(:os)
     end
 
     def ps
-      state_cols_from_group :ps
+      state_cols_from_group(:ps)
     end
 
     def put_cols_from_group(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
-      rows.transpose.map { |column| Put.from_column column }
+      rows.transpose.map { |column| Put.from_column(column) }
     end
 
     def qs
-      state_cols_from_group :qs
+      state_cols_from_group(:qs)
     end
 
     def state_cols_from_group(name)

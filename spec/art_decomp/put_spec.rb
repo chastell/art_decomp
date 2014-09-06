@@ -9,7 +9,7 @@ module ArtDecomp
 
     describe '.[]' do
       it 'creates a new Put with the given blanket' do
-        put.must_equal Put.new blanket: { a: B[0,1], b: B[1,2] }
+        put.must_equal Put.new(blanket: { a: B[0,1], b: B[1,2] })
         Put[].must_equal Put.new
       end
     end
@@ -73,7 +73,7 @@ module ArtDecomp
 
     describe '#seps' do
       it 'returns the Put’s Seps' do
-        put.seps.must_equal Seps.from_blocks [B[0,1], B[1,2]]
+        put.seps.must_equal Seps.from_blocks([B[0,1], B[1,2]])
       end
     end
 

@@ -28,19 +28,22 @@ module ArtDecomp
         anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
         buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
         nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
-        fun  = Function.new Puts.new is: [a, b, c], os: [anb, buc, nbuc]
-        f1   = Function.new Puts.new is: [a, b], os: [anb]
-        f2   = Function.new Puts.new is: [b, c], os: [buc]
-        f3   = Function.new Puts.new is: [b, c], os: [nbuc]
-        f23  = Function.new Puts.new is: [b, c], os: [buc, nbuc]
-        fs   = fake :function_simplifier, as: :class
-        fm   = fake :function_merger, as: :class
-        stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [anb]))  { f1 }
-        stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [buc]))  { f2 }
-        stub(fs).simplify(Function.new(Puts.new is: [a,b,c], os: [nbuc])) { f3 }
+        fun  = Function.new(Puts.new(is: [a, b, c], os: [anb, buc, nbuc]))
+        f1   = Function.new(Puts.new(is: [a, b], os: [anb]))
+        f2   = Function.new(Puts.new(is: [b, c], os: [buc]))
+        f3   = Function.new(Puts.new(is: [b, c], os: [nbuc]))
+        f23  = Function.new(Puts.new(is: [b, c], os: [buc, nbuc]))
+        fs   = fake(:function_simplifier, as: :class)
+        fm   = fake(:function_merger, as: :class)
+        fabc2anb  = Function.new(Puts.new(is: [a,b,c], os: [anb]))
+        fabc2buc  = Function.new(Puts.new(is: [a,b,c], os: [buc]))
+        fabc2nbuc = Function.new(Puts.new(is: [a,b,c], os: [nbuc]))
+        stub(fs).simplify(fabc2anb)  { f1 }
+        stub(fs).simplify(fabc2buc)  { f2 }
+        stub(fs).simplify(fabc2nbuc) { f3 }
         stub(fm).merge([f1, f2, f3]) { [f1, f23] }
-        puts = Puts.new is: [a, b, c], os: [anb, buc, nbuc]
-        circuit = Circuit.new functions: [f1, f23], puts: puts
+        puts = Puts.new(is: [a, b, c], os: [anb, buc, nbuc])
+        circuit = Circuit.new(functions: [f1, f23], puts: puts)
         circuit.wires.replace [
           Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],
@@ -57,9 +60,9 @@ module ArtDecomp
       it 'does not yield if it can’t decompose' do
         is  = [fake(:put)]
         os  = [fake(:put)]
-        fun = fake :function, is: is, os: os, puts: Puts.new(is: is, os: os)
-        fs  = fake :function_simplifier, as: :class
-        fm  = fake :function_merger, as: :class, merge: [fun]
+        fun = fake(:function, is: is, os: os, puts: Puts.new(is: is, os: os))
+        fs  = fake(:function_simplifier, as: :class)
+        fm  = fake(:function_merger, as: :class, merge: [fun])
         FunctionDecomposer::Parallel.decompose(fun, merger: fm, simplifier: fs)
           .to_a.must_be_empty
       end

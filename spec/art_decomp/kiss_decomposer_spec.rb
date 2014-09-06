@@ -10,11 +10,11 @@ module ArtDecomp
         Dir.mktmpdir do |vhdl_path|
           File.stub(:read, 'some KISS') do
             c1, c2 = fake(:circuit), fake(:circuit)
-            decomp = fake :decomposer, as: :class, decompose_circuit: [c1, c2]
-            cp     = fake :circuit_presenter, as: :class
+            decomp = fake(:decomposer, as: :class, decompose_circuit: [c1, c2])
+            cp     = fake(:circuit_presenter, as: :class)
             stub(cp).vhdl_for(c1, 'mc_0') { 'VHDL for mc_0' }
             stub(cp).vhdl_for(c2, 'mc_1') { 'VHDL for mc_1' }
-            parser = fake KISSParser, as: :class, circuit_for: fake(:circuit)
+            parser = fake(KISSParser, as: :class, circuit_for: fake(:circuit))
             args   = %W(--dir=#{vhdl_path} foo/bar/mc.kiss)
             KISSDecomposer.new(args).decompose circuit_presenter: cp,
                                                decomposer: decomp,

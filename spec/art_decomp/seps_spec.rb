@@ -4,13 +4,13 @@ require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
   describe Seps do
-    let(:sep_01)          { Seps.from_blocks [B[0], B[1]]             }
-    let(:sep_01_02)       { Seps.from_blocks [B[0], B[1,2]]           }
-    let(:sep_01_02_03_13) { Seps.from_blocks [B[0], B[1,2], B[2,3]]   }
-    let(:sep_01_02_12)    { Seps.from_blocks [B[0], B[1], B[2]]       }
-    let(:sep_01_12)       { Seps.from_blocks [B[0,2], B[1], B[2]]     }
-    let(:sep_03_13)       { Seps.from_blocks [B[0,1,2], B[2,3]]       }
-    let(:sep_12)          { Seps.from_blocks [B[0,1], B[0,2]]         }
+    let(:sep_01)          { Seps.from_blocks([B[0], B[1]])             }
+    let(:sep_01_02)       { Seps.from_blocks([B[0], B[1,2]])           }
+    let(:sep_01_02_03_13) { Seps.from_blocks([B[0], B[1,2], B[2,3]])   }
+    let(:sep_01_02_12)    { Seps.from_blocks([B[0], B[1], B[2]])       }
+    let(:sep_01_12)       { Seps.from_blocks([B[0,2], B[1], B[2]])     }
+    let(:sep_03_13)       { Seps.from_blocks([B[0,1,2], B[2,3]])       }
+    let(:sep_12)          { Seps.from_blocks([B[0,1], B[0,2]])         }
 
     describe '.from_blocks' do
       it 'builds a proper matrix' do
@@ -62,7 +62,7 @@ module ArtDecomp
             0b00001,
           ],
         }.each do |blocks, matrix|
-          Seps.from_blocks(blocks).must_equal Seps.new matrix
+          Seps.from_blocks(blocks).must_equal Seps.new(matrix)
         end
       end
     end
@@ -74,7 +74,7 @@ module ArtDecomp
       end
 
       it 'normalises the matrix' do
-        Seps.from_blocks([B[0,1,2]]).must_equal Seps.new []
+        Seps.from_blocks([B[0,1,2]]).must_equal Seps.new([])
       end
     end
 

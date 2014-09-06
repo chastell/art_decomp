@@ -10,12 +10,12 @@ module ArtDecomp
   class Circuit
     extend Forwardable
 
-    include Equalizer.new :functions, :puts, :recoders, :wires
+    include Equalizer.new(:functions, :puts, :recoders, :wires)
 
     attr_reader :functions, :puts, :recoders, :wires
 
     def self.from_fsm(puts)
-      fun = Function.new Puts.new is: puts.is + puts.qs, os: puts.os + puts.ps
+      fun = Function.new(Puts.new(is: puts.is + puts.qs, os: puts.os + puts.ps))
       new(functions: [fun], puts: puts).tap { |circ| circ.wire_to fun }
     end
 
