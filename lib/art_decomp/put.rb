@@ -27,7 +27,9 @@ module ArtDecomp
       size.zero? ? 0 : Math.log2(size).ceil
     end
 
-    def_delegator :blanket, :values, :blocks
+    def blocks
+      blanket.values
+    end
 
     def codes(&block)
       block_given? ? blanket.select(&block).keys : blanket.keys
