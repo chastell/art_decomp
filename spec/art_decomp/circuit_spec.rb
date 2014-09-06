@@ -68,10 +68,9 @@ module ArtDecomp
 
     describe '#binwidths' do
       it 'returns binary widths of the given Put group' do
-        circuit = Circuit.new puts: Puts.new(
-          is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-          qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-        )
+        is = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
+        qs = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
+        circuit = Circuit.new puts: Puts.new(is: is, qs: qs)
         circuit.binwidths(:is).must_equal [1, 2]
         circuit.binwidths(:qs).must_equal [1, 2]
       end
