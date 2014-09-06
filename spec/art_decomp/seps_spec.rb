@@ -131,9 +131,9 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns a self-initialising representation' do
-        Seps.from_blocks([]).inspect.must_equal 'ArtDecomp::Seps.new []'
+        Seps.from_blocks([]).inspect.must_equal 'ArtDecomp::Seps.new([])'
         Seps.new([B[2], B[], B[0]]).inspect
-          .must_equal 'ArtDecomp::Seps.new [B[2], B[], B[0]]'
+          .must_equal 'ArtDecomp::Seps.new([B[2], B[], B[0]])'
       end
     end
 

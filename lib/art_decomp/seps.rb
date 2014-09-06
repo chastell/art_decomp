@@ -47,7 +47,7 @@ module ArtDecomp
         (0...row.to_s(2).size).select { |bit| row[bit] == 1 }
       end
       blocks = bits.map { |r| "B[#{r.join(',')}]" }
-      "#{self.class}.new [#{blocks.join(', ')}]"
+      "#{self.class}.new([#{blocks.join(', ')}])"
     end
 
     def size
