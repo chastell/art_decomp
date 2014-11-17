@@ -10,22 +10,12 @@ require_relative '../../lib/art_decomp/wire'
 module ArtDecomp
   describe CircuitPresenter do
     describe '.vhdl_for' do
-      it 'returns VHDL for the given Circuit' do
-        stub(cp = fake(:circuit_presenter)).vhdl('name') { 'VHDL' }
-        CircuitPresenter.vhdl_for(fake(:circuit), 'name', circuit_presenter: cp)
-          .must_equal 'VHDL'
-      end
-    end
-
-    describe '#vhdl' do
       let(:circuit) do
         KISSParser.circuit_for(File.read('spec/fixtures/mc.kiss'))
       end
 
-      let(:circuit_presenter) { CircuitPresenter.new(circuit) }
-
       it 'returns VHDL for the given Circuit' do
-        circuit_presenter.vhdl('mc')
+        CircuitPresenter.vhdl_for(circuit, 'mc')
           .must_equal File.read('spec/fixtures/mc.vhdl')
       end
 
@@ -79,7 +69,7 @@ module ArtDecomp
         ]
 
         vhdl = File.read('spec/fixtures/mc.decomposed.vhdl')
-        circuit_presenter.vhdl('mc').must_equal vhdl
+        CircuitPresenter.vhdl_for(circuit, 'mc').must_equal vhdl
       end
     end
   end

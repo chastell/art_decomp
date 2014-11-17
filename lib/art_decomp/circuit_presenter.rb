@@ -4,8 +4,8 @@ require_relative 'function_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
-    def self.vhdl_for(circuit, name, circuit_presenter: new(circuit))
-      circuit_presenter.vhdl(name)
+    def self.vhdl_for(circuit, name)
+      new(circuit).vhdl(name)
     end
 
     def vhdl(name)
