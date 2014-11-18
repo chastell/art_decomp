@@ -15,7 +15,7 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given Circuit' do
-        CircuitPresenter.vhdl_for(circuit, 'mc')
+        CircuitPresenter.vhdl_for(circuit, name: 'mc')
           .must_equal File.read('spec/fixtures/mc.vhdl')
       end
 
@@ -69,7 +69,7 @@ module ArtDecomp
         ]
 
         vhdl = File.read('spec/fixtures/mc.decomposed.vhdl')
-        CircuitPresenter.vhdl_for(circuit, 'mc').must_equal vhdl
+        CircuitPresenter.vhdl_for(circuit, name: 'mc').must_equal vhdl
       end
     end
   end

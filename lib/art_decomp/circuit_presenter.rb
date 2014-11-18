@@ -4,11 +4,11 @@ require_relative 'function_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
-    def self.vhdl_for(circuit, name)
-      new(circuit).vhdl(name)
+    def self.vhdl_for(circuit, name:)
+      new(circuit).vhdl(name: name)
     end
 
-    def vhdl(name)
+    def vhdl(name:)
       @name    = name
       template = File.read('lib/art_decomp/circuit_presenter.vhdl.erb')
       ERB.new(template, nil, '%').result(binding)
