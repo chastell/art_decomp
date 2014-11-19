@@ -4,8 +4,8 @@ require_relative 'puts'
 
 module ArtDecomp
   class KISSParser
-    def self.circuit_for(kiss, circuit_factory: Circuit)
-      new(kiss).circuit(circuit_factory: circuit_factory)
+    def self.circuit_for(kiss)
+      new(kiss).circuit
     end
 
     def initialize(kiss)
@@ -13,8 +13,8 @@ module ArtDecomp
       @col_groups = %i(is qs ps os).zip(cols).to_h
     end
 
-    def circuit(circuit_factory:)
-      circuit_factory.from_fsm(Puts.new is: is, os: os, qs: qs, ps: ps)
+    def circuit
+      Circuit.from_fsm(Puts.new(is: is, os: os, qs: qs, ps: ps))
     end
 
     attr_reader :col_groups
