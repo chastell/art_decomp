@@ -10,7 +10,7 @@ module ArtDecomp
         Dir.mktmpdir do |vhdl_path|
           File.stub(:read, 'some KISS') do
             c1, c2 = fake(:circuit), fake(:circuit)
-            decomp = fake(:decomposer, as: :class, decompose_circuit: [c1, c2])
+            decomp = fake(:decomposer, as: :class, decompositions: [c1, c2])
             cp     = fake(:circuit_presenter, as: :class)
             stub(cp).vhdl_for(c1, name: 'mc_0') { 'VHDL for mc_0' }
             stub(cp).vhdl_for(c2, name: 'mc_1') { 'VHDL for mc_1' }

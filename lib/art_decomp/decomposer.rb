@@ -2,7 +2,7 @@ require_relative 'circuit_decomposer'
 
 module ArtDecomp
   class Decomposer
-    def self.decompose_circuit(circuit, circuit_decomposer: CircuitDecomposer)
+    def self.decompositions(circuit, circuit_decomposer: CircuitDecomposer)
       new(circuit, circuit_decomposer: circuit_decomposer).decompositions
     end
 
