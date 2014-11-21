@@ -28,20 +28,10 @@ module ArtDecomp
         anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
         buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
         nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
-
-        ab_anb      = Function.new(Puts.new(is: [a,b],   os: [anb]))
-        abc_all     = Function.new(Puts.new(is: [a,b,c], os: [anb, buc, nbuc]))
-        abc_anb     = Function.new(Puts.new(is: [a,b,c], os: [anb]))
-        abc_buc     = Function.new(Puts.new(is: [a,b,c], os: [buc]))
-        abc_nbuc    = Function.new(Puts.new(is: [a,b,c], os: [nbuc]))
-        cb_buc      = Function.new(Puts.new(is: [c,b],   os: [buc]))
-        cb_buc_nbuc = Function.new(Puts.new(is: [c,b],   os: [buc, nbuc]))
-        cb_nbuc     = Function.new(Puts.new(is: [c,b],   os: [nbuc]))
-        fs = fake(:function_simplifier, as: :class)
-        stub(fs).simplify(abc_anb)  { ab_anb }
-        stub(fs).simplify(abc_buc)  { cb_buc }
-        stub(fs).simplify(abc_nbuc) { cb_nbuc }
         puts = Puts.new(is: [a, b, c], os: [anb, buc, nbuc])
+        fun  = Function.new(puts)
+        ab_anb      = Function.new(Puts.new(is: [a,b], os: [anb]))
+        cb_buc_nbuc = Function.new(Puts.new(is: [c,b], os: [buc, nbuc]))
         circuit = Circuit.new(functions: [ab_anb, cb_buc_nbuc], puts: puts)
         circuit.wires.replace [
           Wire[Pin[circuit, :is, 0], Pin[ab_anb, :is, 0]],
@@ -52,8 +42,7 @@ module ArtDecomp
           Wire[Pin[cb_buc_nbuc, :os, 0], Pin[circuit, :os, 1]],
           Wire[Pin[cb_buc_nbuc, :os, 1], Pin[circuit, :os, 2]],
         ]
-        FunctionDecomposer::Parallel.decompose(abc_all, simplifier: fs)
-          .to_a.must_equal [circuit]
+        FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]
       end
 
       it 'does not yield if it can’t decompose' do
