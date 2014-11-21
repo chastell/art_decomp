@@ -28,30 +28,31 @@ module ArtDecomp
         anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
         buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
         nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
-        fun  = Function.new(Puts.new(is: [a, b, c], os: [anb, buc, nbuc]))
-        f1   = Function.new(Puts.new(is: [a, b], os: [anb]))
-        f2   = Function.new(Puts.new(is: [b, c], os: [buc]))
-        f3   = Function.new(Puts.new(is: [b, c], os: [nbuc]))
-        f23  = Function.new(Puts.new(is: [b, c], os: [buc, nbuc]))
-        fs   = fake(:function_simplifier, as: :class)
-        fabc2anb  = Function.new(Puts.new(is: [a,b,c], os: [anb]))
-        fabc2buc  = Function.new(Puts.new(is: [a,b,c], os: [buc]))
-        fabc2nbuc = Function.new(Puts.new(is: [a,b,c], os: [nbuc]))
-        stub(fs).simplify(fabc2anb)  { f1 }
-        stub(fs).simplify(fabc2buc)  { f2 }
-        stub(fs).simplify(fabc2nbuc) { f3 }
+
+        ab_anb      = Function.new(Puts.new(is: [a,b],   os: [anb]))
+        abc_all     = Function.new(Puts.new(is: [a,b,c], os: [anb, buc, nbuc]))
+        abc_anb     = Function.new(Puts.new(is: [a,b,c], os: [anb]))
+        abc_buc     = Function.new(Puts.new(is: [a,b,c], os: [buc]))
+        abc_nbuc    = Function.new(Puts.new(is: [a,b,c], os: [nbuc]))
+        cb_buc      = Function.new(Puts.new(is: [c,b],   os: [buc]))
+        cb_buc_nbuc = Function.new(Puts.new(is: [c,b],   os: [buc, nbuc]))
+        cb_nbuc     = Function.new(Puts.new(is: [c,b],   os: [nbuc]))
+        fs = fake(:function_simplifier, as: :class)
+        stub(fs).simplify(abc_anb)  { ab_anb }
+        stub(fs).simplify(abc_buc)  { cb_buc }
+        stub(fs).simplify(abc_nbuc) { cb_nbuc }
         puts = Puts.new(is: [a, b, c], os: [anb, buc, nbuc])
-        circuit = Circuit.new(functions: [f1, f23], puts: puts)
+        circuit = Circuit.new(functions: [ab_anb, cb_buc_nbuc], puts: puts)
         circuit.wires.replace [
-          Wire[Pin[circuit, :is, 0], Pin[f1, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[f1, :is, 1]],
-          Wire[Pin[f1, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[f23, :is, 0]],
-          Wire[Pin[circuit, :is, 2], Pin[f23, :is, 1]],
-          Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
-          Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
+          Wire[Pin[circuit, :is, 0], Pin[ab_anb, :is, 0]],
+          Wire[Pin[circuit, :is, 1], Pin[ab_anb, :is, 1]],
+          Wire[Pin[ab_anb, :os, 0], Pin[circuit, :os, 0]],
+          Wire[Pin[circuit, :is, 2], Pin[cb_buc_nbuc, :is, 0]],
+          Wire[Pin[circuit, :is, 1], Pin[cb_buc_nbuc, :is, 1]],
+          Wire[Pin[cb_buc_nbuc, :os, 0], Pin[circuit, :os, 1]],
+          Wire[Pin[cb_buc_nbuc, :os, 1], Pin[circuit, :os, 2]],
         ]
-        FunctionDecomposer::Parallel.decompose(fun, simplifier: fs)
+        FunctionDecomposer::Parallel.decompose(abc_all, simplifier: fs)
           .to_a.must_equal [circuit]
       end
 
