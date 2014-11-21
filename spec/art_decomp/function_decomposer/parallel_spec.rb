@@ -34,14 +34,12 @@ module ArtDecomp
         f3   = Function.new(Puts.new(is: [b, c], os: [nbuc]))
         f23  = Function.new(Puts.new(is: [b, c], os: [buc, nbuc]))
         fs   = fake(:function_simplifier, as: :class)
-        fm   = fake(:function_merger, as: :class)
         fabc2anb  = Function.new(Puts.new(is: [a,b,c], os: [anb]))
         fabc2buc  = Function.new(Puts.new(is: [a,b,c], os: [buc]))
         fabc2nbuc = Function.new(Puts.new(is: [a,b,c], os: [nbuc]))
         stub(fs).simplify(fabc2anb)  { f1 }
         stub(fs).simplify(fabc2buc)  { f2 }
         stub(fs).simplify(fabc2nbuc) { f3 }
-        stub(fm).merge([f1, f2, f3]) { [f1, f23] }
         puts = Puts.new(is: [a, b, c], os: [anb, buc, nbuc])
         circuit = Circuit.new(functions: [f1, f23], puts: puts)
         circuit.wires.replace [
@@ -53,7 +51,7 @@ module ArtDecomp
           Wire[Pin[f23, :os, 0], Pin[circuit, :os, 1]],
           Wire[Pin[f23, :os, 1], Pin[circuit, :os, 2]],
         ]
-        FunctionDecomposer::Parallel.decompose(fun, merger: fm, simplifier: fs)
+        FunctionDecomposer::Parallel.decompose(fun, simplifier: fs)
           .to_a.must_equal [circuit]
       end
 
