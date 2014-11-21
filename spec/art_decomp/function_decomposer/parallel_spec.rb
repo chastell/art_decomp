@@ -11,17 +11,18 @@ require_relative '../../../lib/art_decomp/wire'
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
     describe '.decompose' do
+      #   | a b c | anb buc nbuc
+      # --+-------+-------------
+      # 0 | 0 0 0 |  0   0   1
+      # 1 | 0 0 1 |  0   1   0
+      # 2 | 0 1 0 |  0   1   0
+      # 3 | 0 1 1 |  0   1   0
+      # 4 | 1 0 0 |  0   0   1
+      # 5 | 1 0 1 |  0   1   0
+      # 6 | 1 1 0 |  1   1   0
+      # 7 | 1 1 1 |  1   1   0
+
       it 'yields decomposed Circuits' do
-        #   | a b c | anb buc nbuc
-        # --+-------+-------------
-        # 0 | 0 0 0 |  0   0   1
-        # 1 | 0 0 1 |  0   1   0
-        # 2 | 0 1 0 |  0   1   0
-        # 3 | 0 1 1 |  0   1   0
-        # 4 | 1 0 0 |  0   0   1
-        # 5 | 1 0 1 |  0   1   0
-        # 6 | 1 1 0 |  1   1   0
-        # 7 | 1 1 1 |  1   1   0
         a    = Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]]
         b    = Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]]
         c    = Put[:'0' => B[0,2,4,6], :'1' => B[1,3,5,7]]
@@ -46,13 +47,11 @@ module ArtDecomp
       end
 
       it 'does not yield if it can’t decompose' do
-        is  = [fake(:put)]
-        os  = [fake(:put)]
-        fun = fake(:function, is: is, os: os, puts: Puts.new(is: is, os: os))
-        fs  = fake(:function_simplifier, as: :class)
-        fm  = fake(:function_merger, as: :class, merge: [fun])
-        FunctionDecomposer::Parallel.decompose(fun, merger: fm, simplifier: fs)
-          .to_a.must_be_empty
+        a   = Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]]
+        b   = Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]]
+        anb = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
+        fun = Function.new(Puts.new(is: [a, b], os: [anb]))
+        FunctionDecomposer::Parallel.decompose(fun).to_a.must_be_empty
       end
     end
   end
