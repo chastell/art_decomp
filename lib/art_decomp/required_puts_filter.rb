@@ -1,6 +1,6 @@
 class RequiredPutsFilter
   def self.required(puts:, required_seps:)
-    new(puts: puts, required_seps: required_seps).required_puts
+    puts & new(puts: puts, required_seps: required_seps).required_puts
   end
 
   def initialize(puts:, required_seps:)

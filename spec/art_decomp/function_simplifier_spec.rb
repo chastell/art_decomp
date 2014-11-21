@@ -27,9 +27,9 @@ module ArtDecomp
         ab_anb  = Function.new(Puts.new(is: [a,b],   os: [anb]))
         abc_anb = Function.new(Puts.new(is: [a,b,c], os: [anb]))
         abc_buc = Function.new(Puts.new(is: [a,b,c], os: [buc]))
-        cb_buc  = Function.new(Puts.new(is: [c,b],   os: [buc]))
+        bc_buc  = Function.new(Puts.new(is: [b,c],   os: [buc]))
         FunctionSimplifier.simplify(abc_anb).must_equal ab_anb
-        FunctionSimplifier.simplify(abc_buc).must_equal cb_buc
+        FunctionSimplifier.simplify(abc_buc).must_equal bc_buc
       end
     end
   end

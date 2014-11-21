@@ -31,16 +31,16 @@ module ArtDecomp
         puts = Puts.new(is: [a, b, c], os: [anb, buc, nbuc])
         fun  = Function.new(puts)
         ab_anb      = Function.new(Puts.new(is: [a,b], os: [anb]))
-        cb_buc_nbuc = Function.new(Puts.new(is: [c,b], os: [buc, nbuc]))
-        circuit = Circuit.new(functions: [ab_anb, cb_buc_nbuc], puts: puts)
+        bc_buc_nbuc = Function.new(Puts.new(is: [b,c], os: [buc, nbuc]))
+        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc], puts: puts)
         circuit.wires.replace [
           Wire[Pin[circuit, :is, 0], Pin[ab_anb, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[ab_anb, :is, 1]],
           Wire[Pin[ab_anb, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[circuit, :is, 2], Pin[cb_buc_nbuc, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[cb_buc_nbuc, :is, 1]],
-          Wire[Pin[cb_buc_nbuc, :os, 0], Pin[circuit, :os, 1]],
-          Wire[Pin[cb_buc_nbuc, :os, 1], Pin[circuit, :os, 2]],
+          Wire[Pin[circuit, :is, 1], Pin[bc_buc_nbuc, :is, 0]],
+          Wire[Pin[circuit, :is, 2], Pin[bc_buc_nbuc, :is, 1]],
+          Wire[Pin[bc_buc_nbuc, :os, 0], Pin[circuit, :os, 1]],
+          Wire[Pin[bc_buc_nbuc, :os, 1], Pin[circuit, :os, 2]],
         ]
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]
       end

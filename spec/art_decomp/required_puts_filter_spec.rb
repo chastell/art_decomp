@@ -25,7 +25,7 @@ module ArtDecomp
         one = Put[:'0' => B[0,1,2,3,4,5,6,7]]
         rpf = RequiredPutsFilter
         rpf.required(puts: [a, b, c], required_seps: anb.seps).must_equal [a, b]
-        rpf.required(puts: [a, b, c], required_seps: buc.seps).must_equal [c, b]
+        rpf.required(puts: [a, b, c], required_seps: buc.seps).must_equal [b, c]
         rpf.required(puts: [a, b, c], required_seps: one.seps).must_be_empty
       end
     end
