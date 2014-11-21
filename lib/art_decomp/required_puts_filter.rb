@@ -1,15 +1,15 @@
 class RequiredPutsFilter
-  def self.required(puts:, seps:)
-    new(puts: puts, seps: seps).required_puts
+  def self.required(puts:, required_seps:)
+    new(puts: puts, required_seps: required_seps).required_puts
   end
 
-  def initialize(puts:, seps:)
-    @seps        = seps
-    @sorted_puts = puts.sort_by { |put| (put.seps & seps).size }.reverse
+  def initialize(puts:, required_seps:)
+    @required_seps = required_seps
+    @sorted_puts = puts.sort_by { |p| (p.seps & required_seps).size }.reverse
   end
 
   def required_puts
-    remaining = seps
+    remaining = required_seps
     sorted_puts.take_while do |put|
       empty = remaining.empty?
       remaining -= put.seps
@@ -17,6 +17,6 @@ class RequiredPutsFilter
     end
   end
 
-  attr_reader :seps, :sorted_puts
-  private     :seps, :sorted_puts
+  attr_reader :required_seps, :sorted_puts
+  private     :required_seps, :sorted_puts
 end

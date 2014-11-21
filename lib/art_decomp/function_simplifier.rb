@@ -11,7 +11,8 @@ module ArtDecomp
 
     def simplified
       os_seps = os.map(&:seps).reduce(:|)
-      required_is = RequiredPutsFilter.required(puts: is, seps: os_seps)
+      required_is = RequiredPutsFilter.required(puts: is,
+                                                required_seps: os_seps)
       Function.new(Puts.new(is: required_is, os: os))
     end
   end
