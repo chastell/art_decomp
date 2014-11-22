@@ -9,15 +9,12 @@ require_relative '../wire'
 module ArtDecomp
   module FunctionDecomposer
     class Parallel
-      def self.decompose(function, merger: FunctionMerger,
-                                   simplifier: FunctionSimplifier)
-        new(function, merger: merger, simplifier: simplifier).decompositions
+      def self.decompose(function)
+        new(function).decompositions
       end
 
-      def initialize(function, merger:, simplifier:)
-        @function   = function
-        @merger     = merger
-        @simplifier = simplifier
+      def initialize(function)
+        @function = function
       end
 
       def decompositions
@@ -30,8 +27,8 @@ module ArtDecomp
         end
       end
 
-      attr_reader :function, :merger, :simplifier
-      private     :function, :merger, :simplifier
+      attr_reader :function
+      private     :function
 
       private
 
@@ -40,8 +37,8 @@ module ArtDecomp
           split = function.os.map do |o|
             Function.new(Puts.new(is: function.is, os: [o]))
           end
-          simple = split.map { |fun| simplifier.simplify(fun) }
-          merger.merge simple
+          simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
+          FunctionMerger.merge simple
         end
       end
 
