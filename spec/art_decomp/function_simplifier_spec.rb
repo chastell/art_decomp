@@ -30,6 +30,7 @@ module ArtDecomp
         bc_buc  = Function.new(Puts.new(is: [b,c],   os: [buc]))
         FunctionSimplifier.simplify(abc_anb).must_equal ab_anb
         FunctionSimplifier.simplify(abc_buc).must_equal bc_buc
+        FunctionSimplifier.simplify(ab_anb).must_equal ab_anb
       end
     end
   end
