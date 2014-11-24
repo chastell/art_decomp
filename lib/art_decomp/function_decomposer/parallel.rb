@@ -1,3 +1,4 @@
+require 'forwardable'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
@@ -8,37 +9,30 @@ require_relative '../wire'
 
 module ArtDecomp
   module FunctionDecomposer
-    class Parallel
+    class Parallel < SimpleDelegator
       def self.decompose(function)
         new(function).decompositions
-      end
-
-      def initialize(function)
-        @function = function
       end
 
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            circuit = Circuit.new(functions: merged, puts: function.puts)
+            circuit = Circuit.new(functions: merged, puts: puts)
             merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
             yielder << circuit
           end
         end
       end
 
-      attr_reader :function
-      private     :function
-
       private
+
+      alias_method :function, :__getobj__
 
       def merged
         @merged ||= begin
-          split = function.os.map do |o|
-            Function.new(Puts.new(is: function.is, os: [o]))
-          end
+          split  = os.map { |o| Function.new(Puts.new(is: is, os: [o])) }
           simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
-          FunctionMerger.merge simple
+          FunctionMerger.merge(simple)
         end
       end
 
