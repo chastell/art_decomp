@@ -19,6 +19,8 @@ module ArtDecomp
 
     private
 
+    alias_method :circuit, :__getobj__
+
     def functions
       @functions ||= super.map { |function| FunctionPresenter.new(function) }
     end
@@ -66,7 +68,7 @@ module ArtDecomp
 
     def wirings_label_for(object)
       case
-      when object == __getobj__       then 'fsm'
+      when object == circuit          then 'fsm'
       when functions.include?(object) then "f#{functions.index(object)}"
       when recoders.include?(object)  then "r#{recoders.index(object)}"
       end
