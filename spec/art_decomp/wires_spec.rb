@@ -24,6 +24,12 @@ module ArtDecomp
       end
     end
 
+    describe '.new' do
+      it 'defaults to empty Wires' do
+        Wires.new.must_equal Wires.new([])
+      end
+    end
+
     describe '#==' do
       it 'compares two Wires with regard to contents' do
         wires.must_equal Wires.new([

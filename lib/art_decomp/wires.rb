@@ -8,7 +8,7 @@ module ArtDecomp
       new hash.map { |source, target| Wire[Pin[*source], Pin[*target]] }
     end
 
-    def initialize(wires)
+    def initialize(wires = [])
       @wires = wires
     end
 
