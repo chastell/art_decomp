@@ -1,7 +1,9 @@
 require 'equalizer'
+require 'forwardable'
 
 module ArtDecomp
   class Wires
+    extend  Forwardable
     include Equalizer.new(:wires)
 
     def self.from_hash(hash)
@@ -11,6 +13,8 @@ module ArtDecomp
     def initialize(wires = [])
       @wires = wires
     end
+
+    delegate flat_map: :wires
 
     attr_reader :wires
     private     :wires

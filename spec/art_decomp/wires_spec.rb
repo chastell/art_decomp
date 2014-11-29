@@ -42,5 +42,11 @@ module ArtDecomp
         ])
       end
     end
+
+    describe '#flat_map' do
+      it 'allows mapping its contents' do
+        wires.flat_map(&:dst).map(&:index).must_equal [1, 0]
+      end
+    end
   end
 end
