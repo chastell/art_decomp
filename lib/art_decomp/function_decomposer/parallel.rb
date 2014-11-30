@@ -36,14 +36,20 @@ module ArtDecomp
         end
       end
 
-      def wires_for(function, circuit)
-        is_wires = function.is.map.with_index do |put, fi|
+      def is_wires_for(function, circuit)
+        function.is.map.with_index do |put, fi|
           Wire[Pin[circuit, :is, circuit.is.index(put)], Pin[function, :is, fi]]
         end
-        os_wires = function.os.map.with_index do |put, fo|
+      end
+
+      def os_wires_for(function, circuit)
+        function.os.map.with_index do |put, fo|
           Wire[Pin[function, :os, fo], Pin[circuit, :os, circuit.os.index(put)]]
         end
-        is_wires + os_wires
+      end
+
+      def wires_for(function, circuit)
+        is_wires_for(function, circuit) + os_wires_for(function, circuit)
       end
     end
   end
