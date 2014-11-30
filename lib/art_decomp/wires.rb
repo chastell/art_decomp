@@ -14,7 +14,7 @@ module ArtDecomp
       @wires = wires
     end
 
-    delegate %i(flat_map replace) => :wires
+    delegate %i(concat flat_map replace) => :wires
 
     attr_reader :wires
     private     :wires
