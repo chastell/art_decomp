@@ -21,21 +21,21 @@ module ArtDecomp
         function.is.must_equal is + qs
         function.os.must_equal os + ps
         circuit.recoders.must_be :empty?
-        circuit.wires.must_equal [
+        circuit.wires.must_equal Wires.new([
           Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
           Wire[Pin[circuit, :qs, 0], Pin[function, :is, 1]],
           Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
           Wire[Pin[function, :os, 1], Pin[circuit, :ps, 0]],
-        ]
+        ])
       end
     end
 
     describe '.new' do
       it 'initialises the Circuit with minimal fuss' do
-        [:functions, :recoders, :wires].each do |attr|
-          Circuit.new.send(attr).must_equal []
-        end
+        Circuit.new.functions.must_equal []
         Circuit.new.puts.must_equal Puts.new
+        Circuit.new.recoders.must_equal []
+        Circuit.new.wires.must_equal Wires.new
       end
     end
 
@@ -143,14 +143,14 @@ module ArtDecomp
         circuit  = Circuit.new(functions: [function],
                                puts: Puts.new(is: is, os: os, ps: ps, qs: qs))
         circuit.wire_to function
-        circuit.wires.must_equal [
+        circuit.wires.must_equal Wires.new([
           Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
           Wire[Pin[circuit, :is, 1], Pin[function, :is, 1]],
           Wire[Pin[circuit, :qs, 0], Pin[function, :is, 2]],
           Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
           Wire[Pin[function, :os, 1], Pin[circuit, :os, 1]],
           Wire[Pin[function, :os, 2], Pin[circuit, :ps, 0]],
-        ]
+        ])
       end
     end
 

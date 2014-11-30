@@ -19,7 +19,8 @@ module ArtDecomp
       new(functions: [fun], puts: puts).tap { |circ| circ.wire_to fun }
     end
 
-    def initialize(functions: [], puts: Puts.new, recoders: [], wires: [])
+    def initialize(functions: [], puts: Puts.new, recoders: [],
+                   wires: Wires.new)
       @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
     end
 
@@ -46,8 +47,8 @@ module ArtDecomp
     end
 
     def wire_to(function)
-      @wires = is_wires(function) + qs_wires(function) +
-               os_wires(function) + ps_wires(function)
+      @wires = Wires.new(is_wires(function) + qs_wires(function) +
+               os_wires(function) + ps_wires(function))
     end
 
     private
