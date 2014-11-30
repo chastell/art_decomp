@@ -18,7 +18,7 @@ GEM
     equalizer (0.0.9)
     ffi (1.9.6)
     hitimes (1.2.2)
-    listen (2.8.2)
+    listen (2.8.3)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
