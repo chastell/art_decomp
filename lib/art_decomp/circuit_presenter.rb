@@ -1,7 +1,7 @@
 require 'delegate'
 require 'erb'
 require_relative 'function_presenter'
-require_relative 'wire_presenter'
+require_relative 'wires_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
@@ -47,9 +47,7 @@ module ArtDecomp
     end
 
     def wirings
-      wires.flat_map do |wire|
-        WirePresenter.new(wire, circuit: circuit).wirings
-      end.to_h
+      WiresPresenter.new(wires, circuit: circuit).wirings
     end
   end
 end
