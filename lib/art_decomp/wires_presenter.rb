@@ -8,8 +8,10 @@ module ArtDecomp
       @circuit = circuit
     end
 
-    def wirings
-      flat_map { |wire| WirePresenter.new(wire, circuit: circuit).wirings }.to_h
+    def each(&block)
+      flat_map do |wire|
+        WirePresenter.new(wire, circuit: circuit).wirings
+      end.to_h.each(&block)
     end
 
     attr_reader :circuit

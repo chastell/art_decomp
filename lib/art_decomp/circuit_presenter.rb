@@ -47,7 +47,7 @@ module ArtDecomp
     end
 
     def wirings
-      WiresPresenter.new(wires, circuit: circuit).wirings
+      WiresPresenter.new(wires, circuit: circuit)
     end
   end
 end
