@@ -46,8 +46,8 @@ module ArtDecomp
       '0' * fsm_qs_binwidth
     end
 
-    def wirings
-      WiresPresenter.new(wires, circuit: circuit)
+    def wires
+      @wires ||= WiresPresenter.new(super, circuit: circuit)
     end
   end
 end
