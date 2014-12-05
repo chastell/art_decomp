@@ -1,7 +1,7 @@
 require 'delegate'
 require 'erb'
 require_relative 'function_presenter'
-require_relative 'wires_presenter'
+require_relative 'wire_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
@@ -13,14 +13,6 @@ module ArtDecomp
       @name    = name
       template = File.read('lib/art_decomp/circuit_presenter.vhdl.erb')
       ERB.new(template, nil, '%').result(binding)
-    end
-
-    def wirings_label_for(object)
-      case
-      when object == circuit          then 'fsm'
-      when functions.include?(object) then "f#{functions.index(object)}"
-      when recoders.include?(object)  then "r#{recoders.index(object)}"
-      end
     end
 
     attr_reader :name
@@ -55,7 +47,22 @@ module ArtDecomp
     end
 
     def wires
-      @wires ||= WiresPresenter.new(super, circuit_presenter: self)
+      super.flat_map do |wire|
+        WirePresenter.new(wire).labels.map do |src_label, dst_label|
+          [
+            "#{wirings_label_for(wire.src.object)}_#{src_label}",
+            "#{wirings_label_for(wire.dst.object)}_#{dst_label}",
+          ]
+        end
+      end
+    end
+
+    def wirings_label_for(object)
+      case
+      when object == circuit          then 'fsm'
+      when functions.include?(object) then "f#{functions.index(object)}"
+      when recoders.include?(object)  then "r#{recoders.index(object)}"
+      end
     end
   end
 end
