@@ -10,7 +10,7 @@ module ArtDecomp
 
     def wiring_for(n)
       bin = object.binwidths(group)[0...index].reduce(0, :+) + n
-      [object, "#{group}(#{bin})"]
+      "#{group}(#{bin})"
     end
   end
 end
