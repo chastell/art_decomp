@@ -15,10 +15,10 @@ module ArtDecomp
       flat_map do |wire|
         src = PinPresenter.new(wire.src)
         dst = PinPresenter.new(wire.dst)
-        src.wirings.zip(dst.wirings).map do |src_lab, dst_lab|
+        src.labels.zip(dst.labels).map do |src_label, dst_label|
           [
-            "#{wirings_label_for(src.object)}_#{src_lab}",
-            "#{wirings_label_for(dst.object)}_#{dst_lab}",
+            "#{wirings_label_for(src.object)}_#{src_label}",
+            "#{wirings_label_for(dst.object)}_#{dst_label}",
           ]
         end
       end.each(&block)
