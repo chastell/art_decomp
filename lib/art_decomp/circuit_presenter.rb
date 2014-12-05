@@ -1,7 +1,7 @@
 require 'delegate'
 require 'erb'
 require_relative 'function_presenter'
-require_relative 'wire_presenter'
+require_relative 'wires_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
@@ -47,13 +47,12 @@ module ArtDecomp
     end
 
     def wires
-      super.flat_map do |wire|
-        WirePresenter.new(wire).labels.map do |src_label, dst_label|
-          [
-            "#{wirings_label_for(wire.src.object)}_#{src_label}",
-            "#{wirings_label_for(wire.dst.object)}_#{dst_label}",
-          ]
-        end
+      labels = WiresPresenter.new(super).labels
+      labels.map do |(src_obj, src_lab), (dst_obj, dst_lab)|
+        [
+          "#{wirings_label_for(src_obj)}_#{src_lab}",
+          "#{wirings_label_for(dst_obj)}_#{dst_lab}",
+        ]
       end
     end
 
