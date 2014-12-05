@@ -2,7 +2,6 @@ DuplicateMethodCall:
   exclude:
     - ArtDecomp::ArchSizer#min_quarters
     - ArtDecomp::Circuit#self.from_fsm
-    - ArtDecomp::CircuitPresenter#wiring_for
     - ArtDecomp::CircuitSizer::ArchSizer#min_quarters
     - ArtDecomp::FunctionDecomposer#self.decompose
     - ArtDecomp::FunctionSimplifier#is_required_for
@@ -29,10 +28,8 @@ UncommunicativeModuleName:
 
 UncommunicativeParameterName:
   exclude:
-    - ArtDecomp::CircuitPresenter#wiring_for
     - ArtDecomp::PinPresenter#label_for
 
 UncommunicativeVariableName:
   exclude:
-    - ArtDecomp::CircuitPresenter#wirings_for
     - ArtDecomp::Seps#|
