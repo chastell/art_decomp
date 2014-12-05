@@ -24,13 +24,11 @@ module ArtDecomp
     delegate %i(functions recoders) => :circuit
 
     def wiring_for(n)
-      src_lab = wirings_label_for(src.object)
-      dst_lab = wirings_label_for(dst.object)
       src_bin = src.object.binwidths(src.group)[0...src.index].reduce(0, :+) + n
       dst_bin = dst.object.binwidths(dst.group)[0...dst.index].reduce(0, :+) + n
       [
-        "#{src_lab}_#{src.group}(#{src_bin})",
-        "#{dst_lab}_#{dst.group}(#{dst_bin})",
+        "#{wirings_label_for(src.object)}_#{src.group}(#{src_bin})",
+        "#{wirings_label_for(dst.object)}_#{dst.group}(#{dst_bin})",
       ]
     end
 
