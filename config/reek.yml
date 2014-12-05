@@ -30,6 +30,7 @@ UncommunicativeModuleName:
 UncommunicativeParameterName:
   exclude:
     - ArtDecomp::CircuitPresenter#wiring_for
+    - ArtDecomp::PinPresenter#label_for
 
 UncommunicativeVariableName:
   exclude:
