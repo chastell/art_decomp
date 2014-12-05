@@ -1,6 +1,6 @@
 require 'delegate'
 require 'forwardable'
-require_relative 'wire_presenter'
+require_relative 'pin_presenter'
 
 module ArtDecomp
   class WiresPresenter < SimpleDelegator
@@ -13,8 +13,9 @@ module ArtDecomp
 
     def each(&block)
       flat_map do |wire|
-        wirings = WirePresenter.new(wire).wirings
-        wirings.map do |(src_obj, src_lab), (dst_obj, dst_lab)|
+        src = PinPresenter.new(wire.src).wirings
+        dst = PinPresenter.new(wire.dst).wirings
+        src.zip(dst).map do |(src_obj, src_lab), (dst_obj, dst_lab)|
           [
             "#{wirings_label_for(src_obj)}_#{src_lab}",
             "#{wirings_label_for(dst_obj)}_#{dst_lab}",
