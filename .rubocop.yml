@@ -1,6 +1,7 @@
 AbcSize:
   Exclude:
     - lib/art_decomp/arch_sizer.rb
+    - lib/art_decomp/seps.rb
 
 AndOr:
   Enabled: false
