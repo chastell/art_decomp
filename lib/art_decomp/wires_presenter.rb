@@ -10,7 +10,11 @@ module ArtDecomp
 
     def each(&block)
       flat_map do |wire|
-        WirePresenter.new(wire, circuit_presenter: circuit_presenter).wirings
+        WirePresenter.new(wire).labels.map do |src_label, dst_label|
+          src_obj_label = circuit_presenter.wirings_label_for(wire.src.object)
+          dst_obj_label = circuit_presenter.wirings_label_for(wire.dst.object)
+          ["#{src_obj_label}_#{src_label}", "#{dst_obj_label}_#{dst_label}"]
+        end
       end.each(&block)
     end
 
