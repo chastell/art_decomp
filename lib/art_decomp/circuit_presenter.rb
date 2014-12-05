@@ -47,7 +47,7 @@ module ArtDecomp
     end
 
     def wires
-      @wires ||= WiresPresenter.new(super, circuit: circuit)
+      @wires ||= WiresPresenter.new(super, circuit_presenter: self)
     end
   end
 end

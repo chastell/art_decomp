@@ -6,9 +6,9 @@ module ArtDecomp
   class WiresPresenter < SimpleDelegator
     extend Forwardable
 
-    def initialize(wires, circuit:)
+    def initialize(wires, circuit_presenter:)
       super wires
-      @circuit = circuit
+      @circuit_presenter = circuit_presenter
     end
 
     def each(&block)
@@ -24,16 +24,16 @@ module ArtDecomp
       end.each(&block)
     end
 
-    attr_reader :circuit
-    private     :circuit
+    attr_reader :circuit_presenter
+    private     :circuit_presenter
 
     private
 
-    delegate %i(functions recoders) => :circuit
+    delegate %i(functions recoders) => :circuit_presenter
 
     def wirings_label_for(object)
       case
-      when object == circuit          then 'fsm'
+      when object == circuit_presenter.circuit then 'fsm'
       when functions.include?(object) then "f#{functions.index(object)}"
       when recoders.include?(object)  then "r#{recoders.index(object)}"
       end
