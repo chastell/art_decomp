@@ -21,7 +21,7 @@ module ArtDecomp
             "#{wirings_label_for(dst_obj)}_#{dst_lab}",
           ]
         end
-      end.to_h.each(&block)
+      end.each(&block)
     end
 
     attr_reader :circuit
