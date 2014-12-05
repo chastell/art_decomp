@@ -15,6 +15,14 @@ module ArtDecomp
       ERB.new(template, nil, '%').result(binding)
     end
 
+    def wirings_label_for(object)
+      case
+      when object == circuit          then 'fsm'
+      when functions.include?(object) then "f#{functions.index(object)}"
+      when recoders.include?(object)  then "r#{recoders.index(object)}"
+      end
+    end
+
     attr_reader :name
     private     :name
 
