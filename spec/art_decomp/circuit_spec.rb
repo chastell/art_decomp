@@ -60,6 +60,28 @@ module ArtDecomp
       end
     end
 
+    describe '#add_wires' do
+      it 'adds the passed Wires to the Circuit' do
+        is, os = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+        ps, qs = [fake(:put)], [fake(:put)]
+        function = Function.new(Puts.new(is: is + qs, os: os + ps))
+        circuit  = Circuit.new(functions: [function],
+                               puts: Puts.new(is: is, os: os, ps: ps, qs: qs))
+        circuit.wire_to function
+        circuit.add_wires Wires.from_array([[[circuit, :is, 0],
+                                             [circuit, :os, 0]]])
+        circuit.wires.must_equal Wires.new([
+          Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
+          Wire[Pin[circuit, :is, 1], Pin[function, :is, 1]],
+          Wire[Pin[circuit, :qs, 0], Pin[function, :is, 2]],
+          Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
+          Wire[Pin[function, :os, 1], Pin[circuit, :os, 1]],
+          Wire[Pin[function, :os, 2], Pin[circuit, :ps, 0]],
+          Wire[Pin[circuit, :is, 0], Pin[circuit, :os, 0]],
+        ])
+      end
+    end
+
     describe '#adm_size' do
       it 'returns the admissible heuristic size of the Circuit' do
         stub(cs = fake(:circuit_sizer)).adm_size { 7 }

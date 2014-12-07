@@ -23,6 +23,10 @@ module ArtDecomp
       @functions, @puts, @recoders, @wires = functions, puts, recoders, wires
     end
 
+    def add_wires(wires)
+      @wires += wires
+    end
+
     def adm_size(circuit_sizer: CircuitSizer.new(self))
       @adm_size ||= circuit_sizer.adm_size
     end
