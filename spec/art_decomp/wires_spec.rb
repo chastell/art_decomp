@@ -28,6 +28,14 @@ module ArtDecomp
       end
     end
 
+    describe '#+' do
+      it 'sums the two Wires objects' do
+        wires_a = Wires.from_array([[[fun_a, :os, 0], [fun_b, :is, 1]]])
+        wires_b = Wires.from_array([[[fun_a, :os, 1], [fun_b, :is, 0]]])
+        (wires_a + wires_b).must_equal wires
+      end
+    end
+
     describe '#==' do
       it 'compares two Wires with regard to contents' do
         wires.must_equal Wires.new([
