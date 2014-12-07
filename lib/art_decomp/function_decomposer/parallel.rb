@@ -3,9 +3,7 @@ require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
 require_relative '../function_simplifier'
-require_relative '../pin'
 require_relative '../puts'
-require_relative '../wire'
 require_relative '../wires'
 
 module ArtDecomp
@@ -38,14 +36,14 @@ module ArtDecomp
       end
 
       def is_wires_for(function, circuit)
-        Wires.new(function.is.map.with_index do |put, fi|
-          Wire[Pin[circuit, :is, circuit.is.index(put)], Pin[function, :is, fi]]
+        Wires.from_array(function.is.map.with_index do |put, fi|
+          [[circuit, :is, circuit.is.index(put)], [function, :is, fi]]
         end)
       end
 
       def os_wires_for(function, circuit)
-        Wires.new(function.os.map.with_index do |put, fo|
-          Wire[Pin[function, :os, fo], Pin[circuit, :os, circuit.os.index(put)]]
+        Wires.from_array(function.os.map.with_index do |put, fo|
+          [[function, :os, fo], [circuit, :os, circuit.os.index(put)]]
         end)
       end
 
