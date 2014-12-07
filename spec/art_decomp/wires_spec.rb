@@ -15,12 +15,10 @@ module ArtDecomp
       ])
     end
 
-    describe '.from_hash' do
-      it 'constructs the Wires from a minimal Hash' do
-        Wires.from_hash(
-          [fun_a, :os, 0] => [fun_b, :is, 1],
-          [fun_a, :os, 1] => [fun_b, :is, 0],
-        ).must_equal wires
+    describe '.from_array' do
+      it 'constructs the Wires from a minimal Array' do
+        Wires.from_array([[[fun_a, :os, 0], [fun_b, :is, 1]],
+                          [[fun_a, :os, 1], [fun_b, :is, 0]]]).must_equal wires
       end
     end
 

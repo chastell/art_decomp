@@ -8,8 +8,8 @@ module ArtDecomp
     extend  Forwardable
     include Equalizer.new(:wires)
 
-    def self.from_hash(hash)
-      new hash.map { |source, target| Wire[Pin[*source], Pin[*target]] }
+    def self.from_array(array)
+      new array.map { |source, target| Wire[Pin[*source], Pin[*target]] }
     end
 
     def initialize(wires = [])
