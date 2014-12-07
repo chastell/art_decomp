@@ -46,7 +46,7 @@ module ArtDecomp
         ps, qs  = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
         funs    = [fake(:function), fake(:function)]
         recs    = [fake(:function), fake(:function)]
-        wires   = [fake(:wire), fake(:wire)]
+        wires   = Wires.new([fake(:wire), fake(:wire)])
         puts    = Puts.new(is: is, os: os, ps: ps, qs: qs)
         params  = { functions: funs, puts: puts, recoders: recs, wires: wires }
         circuit = Circuit.new(params)
@@ -56,7 +56,7 @@ module ArtDecomp
         refute circuit == Circuit.new(params.merge(functions: funs.reverse))
         refute circuit == Circuit.new(params.merge(puts: Puts.new))
         refute circuit == Circuit.new(params.merge(recoders: recs.reverse))
-        refute circuit == Circuit.new(params.merge(wires: wires.reverse))
+        refute circuit == Circuit.new(params.merge(wires: Wires.new))
       end
     end
 
