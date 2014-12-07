@@ -1,5 +1,6 @@
 require_relative '../spec_helper'
 require_relative '../../lib/art_decomp/b'
+require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
