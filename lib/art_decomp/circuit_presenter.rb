@@ -48,10 +48,10 @@ module ArtDecomp
 
     def wires
       labels = WiresPresenter.new(super).labels
-      labels.map do |(src_obj, src_lab), (dst_obj, dst_lab)|
+      labels.map do |(src_object, src_label), (dst_object, dst_label)|
         [
-          "#{wirings_label_for(src_obj)}_#{src_lab}",
-          "#{wirings_label_for(dst_obj)}_#{dst_lab}",
+          "#{wirings_label_for(src_object)}_#{src_label}",
+          "#{wirings_label_for(dst_object)}_#{dst_label}",
         ]
       end
     end
