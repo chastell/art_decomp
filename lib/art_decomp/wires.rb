@@ -20,7 +20,7 @@ module ArtDecomp
       Wires.new(wires + other.wires)
     end
 
-    delegate %i(concat flat_map replace) => :wires
+    delegate %i(flat_map replace) => :wires
 
     attr_reader :wires
     protected   :wires

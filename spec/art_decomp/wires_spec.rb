@@ -49,17 +49,6 @@ module ArtDecomp
       end
     end
 
-    describe '#concat' do
-      it 'adds to the Wire collection' do
-        wires.concat [Wire[Pin[fun_b, :os, 0], Pin[fun_a, :is, 1]]]
-        wires.must_equal Wires.new([
-          Wire[Pin[fun_a, :os, 0], Pin[fun_b, :is, 1]],
-          Wire[Pin[fun_a, :os, 1], Pin[fun_b, :is, 0]],
-          Wire[Pin[fun_b, :os, 0], Pin[fun_a, :is, 1]],
-        ])
-      end
-    end
-
     describe '#flat_map' do
       it 'allows mapping its contents' do
         wires.flat_map(&:dst).map(&:index).must_equal [1, 0]
