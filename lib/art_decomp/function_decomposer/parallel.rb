@@ -17,7 +17,7 @@ module ArtDecomp
         Enumerator.new do |yielder|
           unless merged == [function]
             circuit = Circuit.new(functions: merged, puts: puts)
-            merged.each { |fun| circuit.add_wires wires_for(fun, circuit) }
+            merged.each { |f| circuit.add_wires Wirer.new(circuit, f).wires }
             yielder << circuit
           end
         end
@@ -35,20 +35,31 @@ module ArtDecomp
         end
       end
 
-      def is_wires_for(function, circuit)
-        Wires.from_array(function.is.map.with_index do |put, fi|
-          [[circuit, :is, circuit.is.index(put)], [function, :is, fi]]
-        end)
-      end
+      class Wirer
+        def initialize(circuit, function)
+          @circuit, @function = circuit, function
+        end
 
-      def os_wires_for(function, circuit)
-        Wires.from_array(function.os.map.with_index do |put, fo|
-          [[function, :os, fo], [circuit, :os, circuit.os.index(put)]]
-        end)
-      end
+        def wires
+          is_wires + os_wires
+        end
 
-      def wires_for(function, circuit)
-        is_wires_for(function, circuit) + os_wires_for(function, circuit)
+        attr_reader :circuit, :function
+        private     :circuit, :function
+
+        private
+
+        def is_wires
+          Wires.from_array(function.is.map.with_index do |put, fi|
+            [[circuit, :is, circuit.is.index(put)], [function, :is, fi]]
+          end)
+        end
+
+        def os_wires
+          Wires.from_array(function.os.map.with_index do |put, fo|
+            [[function, :os, fo], [circuit, :os, circuit.os.index(put)]]
+          end)
+        end
       end
     end
   end
