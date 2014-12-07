@@ -47,26 +47,30 @@ module ArtDecomp
     end
 
     def wire_to(function)
-      @wires = Wires.new(is_wires(function) + qs_wires(function) +
-               os_wires(function) + ps_wires(function))
+      @wires = is_wires(function) + qs_wires(function) +
+               os_wires(function) + ps_wires(function)
     end
 
     private
 
     def is_wires(fun)
-      (0...puts.is.size).map { |n| Wire[Pin[self, :is, n], Pin[fun, :is, n]] }
+      Wires.new((0...puts.is.size).map do |n|
+        Wire[Pin[self, :is, n], Pin[fun, :is, n]]
+      end)
     end
 
     def os_wires(fun)
-      (0...puts.os.size).map { |n| Wire[Pin[fun, :os, n], Pin[self, :os, n]] }
+      Wires.new((0...puts.os.size).map do |n|
+        Wire[Pin[fun, :os, n], Pin[self, :os, n]]
+      end)
     end
 
     def ps_wires(fun)
-      [Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]]
+      Wires.new([Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]])
     end
 
     def qs_wires(fun)
-      [Wire[Pin[self, :qs, 0], Pin[fun, :is, puts.is.size]]]
+      Wires.new([Wire[Pin[self, :qs, 0], Pin[fun, :is, puts.is.size]]])
     end
   end
 end
