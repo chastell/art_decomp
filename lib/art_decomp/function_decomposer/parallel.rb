@@ -6,6 +6,7 @@ require_relative '../function_simplifier'
 require_relative '../pin'
 require_relative '../puts'
 require_relative '../wire'
+require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
@@ -18,7 +19,7 @@ module ArtDecomp
         Enumerator.new do |yielder|
           unless merged == [function]
             circuit = Circuit.new(functions: merged, puts: puts)
-            merged.each { |fun| circuit.wires.concat wires_for(fun, circuit) }
+            merged.each { |fun| circuit.add_wires wires_for(fun, circuit) }
             yielder << circuit
           end
         end
@@ -37,15 +38,15 @@ module ArtDecomp
       end
 
       def is_wires_for(function, circuit)
-        function.is.map.with_index do |put, fi|
+        Wires.new(function.is.map.with_index do |put, fi|
           Wire[Pin[circuit, :is, circuit.is.index(put)], Pin[function, :is, fi]]
-        end
+        end)
       end
 
       def os_wires_for(function, circuit)
-        function.os.map.with_index do |put, fo|
+        Wires.new(function.os.map.with_index do |put, fo|
           Wire[Pin[function, :os, fo], Pin[circuit, :os, circuit.os.index(put)]]
-        end
+        end)
       end
 
       def wires_for(function, circuit)
