@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/put'
-require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
   describe KISSParser do
@@ -27,7 +27,7 @@ module ArtDecomp
         qs = [Put[s1: B[0,1], s2: B[],    s3: B[2]]]
         ps = [Put[s1: B[0,2], s2: B[0,1], s3: B[0]]]
 
-        circuit = Circuit.from_fsm(Puts.new(is: is, qs: qs, os: os, ps: ps))
+        circuit = Circuit.from_fsm(PutsSet.new(is: is, qs: qs, os: os, ps: ps))
         KISSParser.circuit_for(kiss).must_equal circuit
       end
     end

@@ -3,7 +3,7 @@ require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
 require_relative '../function_simplifier'
-require_relative '../puts'
+require_relative '../puts_set'
 require_relative '../wires'
 
 module ArtDecomp
@@ -16,7 +16,7 @@ module ArtDecomp
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            circuit = Circuit.new(functions: merged, puts: puts)
+            circuit = Circuit.new(functions: merged, puts_set: puts_set)
             merged.each { |f| circuit.add_wires Wirer.new(circuit, f).wires }
             yielder << circuit
           end
@@ -29,7 +29,7 @@ module ArtDecomp
 
       def merged
         @merged ||= begin
-          split  = os.map { |o| Function.new(Puts.new(is: is, os: [o])) }
+          split  = os.map { |o| Function.new(PutsSet.new(is: is, os: [o])) }
           simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
           FunctionMerger.merge(simple)
         end

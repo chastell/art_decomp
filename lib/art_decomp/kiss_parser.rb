@@ -1,6 +1,6 @@
 require_relative 'circuit'
 require_relative 'put'
-require_relative 'puts'
+require_relative 'puts_set'
 
 module ArtDecomp
   class KISSParser
@@ -14,7 +14,7 @@ module ArtDecomp
     end
 
     def circuit
-      Circuit.from_fsm(Puts.new(is: is, os: os, qs: qs, ps: ps))
+      Circuit.from_fsm(PutsSet.new(is: is, os: os, qs: qs, ps: ps))
     end
 
     attr_reader :col_groups

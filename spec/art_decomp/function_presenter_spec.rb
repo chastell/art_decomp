@@ -3,7 +3,7 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/function_presenter'
 require_relative '../../lib/art_decomp/put'
-require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
   describe FunctionPresenter do
@@ -23,7 +23,7 @@ module ArtDecomp
           Put[:'0' => B[0,1,2,3,4,5,6,7], :'1' => B[8,9]],
           Put[HG: B[0,1,9], HY: B[2,3], FG: B[4,5], FY: B[6,7,8]],
         ]
-        function           = Function.new(Puts.new(is: is, os: os))
+        function = Function.new(PutsSet.new(is: is, os: os))
         function_presenter = FunctionPresenter.new(function)
         function_presenter.rows.must_equal [
           %w(0--10 0001010),
