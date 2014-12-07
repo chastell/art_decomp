@@ -1,5 +1,7 @@
 require 'equalizer'
 require 'forwardable'
+require_relative 'pin'
+require_relative 'wire'
 
 module ArtDecomp
   class Wires
