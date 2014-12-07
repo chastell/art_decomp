@@ -6,6 +6,7 @@ require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/wire'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Circuit do
