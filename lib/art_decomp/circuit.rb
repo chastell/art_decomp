@@ -2,9 +2,8 @@ require 'equalizer'
 require 'forwardable'
 require_relative 'circuit_sizer'
 require_relative 'function'
-require_relative 'pin'
 require_relative 'puts'
-require_relative 'wire'
+require_relative 'wires'
 
 module ArtDecomp
   class Circuit
@@ -54,23 +53,21 @@ module ArtDecomp
     private
 
     def is_wires(fun)
-      Wires.new((0...puts.is.size).map do |n|
-        Wire[Pin[self, :is, n], Pin[fun, :is, n]]
-      end)
+      array = (0...puts.is.size).map { |n| [[self, :is, n], [fun, :is, n]] }
+      Wires.from_array(array)
     end
 
     def os_wires(fun)
-      Wires.new((0...puts.os.size).map do |n|
-        Wire[Pin[fun, :os, n], Pin[self, :os, n]]
-      end)
+      array = (0...puts.os.size).map { |n| [[fun, :os, n], [self, :os, n]] }
+      Wires.from_array(array)
     end
 
     def ps_wires(fun)
-      Wires.new([Wire[Pin[fun, :os, puts.os.size], Pin[self, :ps, 0]]])
+      Wires.from_array([[[fun, :os, puts.os.size], [self, :ps, 0]]])
     end
 
     def qs_wires(fun)
-      Wires.new([Wire[Pin[self, :qs, 0], Pin[fun, :is, puts.is.size]]])
+      Wires.from_array([[[self, :qs, 0], [fun, :is, puts.is.size]]])
     end
   end
 end
