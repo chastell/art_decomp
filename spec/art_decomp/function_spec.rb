@@ -4,7 +4,6 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
   describe Function do
@@ -18,12 +17,12 @@ module ArtDecomp
                 Put[s1: B[1], s2: B[2], s3: B[0]]])
     end
 
-    let(:function) { Function.new(PutsSet.new(is: is, os: os)) }
+    let(:function) { Function.new(is: is, os: os) }
 
     describe '#==' do
       it 'compares two Functions by value' do
-        assert function == Function.new(PutsSet.new(is: is, os: os))
-        refute function == Function.new(PutsSet.new(is: os, os: is))
+        assert function == Function.new(is: is, os: os)
+        refute function == Function.new(is: os, os: is)
       end
     end
 
@@ -50,12 +49,6 @@ module ArtDecomp
     describe '#os' do
       it 'returns the Function’s outputs' do
         function.os.must_equal os
-      end
-    end
-
-    describe '#puts_set' do
-      it 'returns the PutsSet' do
-        function.puts_set.must_equal PutsSet.new(is: is, os: os)
       end
     end
   end

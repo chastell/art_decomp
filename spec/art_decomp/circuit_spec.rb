@@ -5,7 +5,6 @@ require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/puts_set'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
@@ -17,7 +16,7 @@ module ArtDecomp
         os = Puts.new([Put[:'0' => B[1], :'1' => B[0]]])
         qs = Puts.new([Put[s1: B[0], s2: B[1], s3: B[2]]])
         ps = Puts.new([Put[s1: B[1], s2: B[2], s3: B[0]]])
-        circuit  = Circuit.from_fsm(PutsSet.new(is: is, os: os, ps: ps, qs: qs))
+        circuit  = Circuit.from_fsm(is: is, os: os, ps: ps, qs: qs)
         function = circuit.functions.first
         circuit.functions.must_equal [function]
         function.is.must_equal is + qs
@@ -35,7 +34,10 @@ module ArtDecomp
     describe '.new' do
       it 'initialises the Circuit with minimal fuss' do
         Circuit.new.functions.must_equal []
-        Circuit.new.puts_set.must_equal PutsSet.new
+        Circuit.new.is.must_equal Puts.new
+        Circuit.new.os.must_equal Puts.new
+        Circuit.new.ps.must_equal Puts.new
+        Circuit.new.qs.must_equal Puts.new
         Circuit.new.recoders.must_equal []
         Circuit.new.wires.must_equal Wires.new
       end
@@ -50,15 +52,17 @@ module ArtDecomp
         funs     = [fake(:function), fake(:function)]
         recs     = [fake(:function), fake(:function)]
         wires    = Wires.new([fake(:wire), fake(:wire)])
-        puts_set = PutsSet.new(is: is, os: os, ps: ps, qs: qs)
-        params   = { functions: funs, puts_set: puts_set, recoders: recs,
-                     wires: wires }
+        params   = { functions: funs, is: is, os: os, ps: ps, qs: qs,
+                     recoders: recs, wires: wires }
         circuit  = Circuit.new(params)
 
         assert Circuit.new == Circuit.new # rubocop:disable UselessComparison
         assert circuit == Circuit.new(params)
         refute circuit == Circuit.new(params.merge(functions: funs.reverse))
-        refute circuit == Circuit.new(params.merge(puts_set: PutsSet.new))
+        refute circuit == Circuit.new(params.merge(is: Puts.new))
+        refute circuit == Circuit.new(params.merge(os: Puts.new))
+        refute circuit == Circuit.new(params.merge(ps: Puts.new))
+        refute circuit == Circuit.new(params.merge(qs: Puts.new))
         refute circuit == Circuit.new(params.merge(recoders: recs.reverse))
         refute circuit == Circuit.new(params.merge(wires: Wires.new))
       end
@@ -70,9 +74,9 @@ module ArtDecomp
         os       = Puts.new([fake(:put), fake(:put)])
         ps       = Puts.new([fake(:put)])
         qs       = Puts.new([fake(:put)])
-        function = Function.new(PutsSet.new(is: is + qs, os: os + ps))
-        puts_set = PutsSet.new(is: is, os: os, ps: ps, qs: qs)
-        circuit  = Circuit.new(functions: [function], puts_set: puts_set)
+        function = Function.new(is: is + qs, os: os + ps)
+        circuit  = Circuit.new(functions: [function],
+                               is: is, os: os, ps: ps, qs: qs)
         circuit.wire_to function
         circuit.add_wires Wires.from_array([[[circuit, :is, 0],
                                              [circuit, :os, 0]]])
@@ -101,7 +105,7 @@ module ArtDecomp
                        Put[a: B[0], b: B[1], c: B[2]]])
         qs = Puts.new([Put[a: B[0,1], b: B[1,2]],
                        Put[a: B[0], b: B[1], c: B[2]]])
-        circuit = Circuit.new(puts_set: PutsSet.new(is: is, qs: qs))
+        circuit = Circuit.new(is: is, qs: qs)
         circuit.binwidths(:is).must_equal [1, 2]
         circuit.binwidths(:qs).must_equal [1, 2]
       end
@@ -126,8 +130,7 @@ module ArtDecomp
       it 'returns the Circuit’s Put groups' do
         %i(is os ps qs).each do |type|
           puts = Puts.new([stub(:put)])
-          puts_set = PutsSet.new(type => puts)
-          Circuit.new(puts_set: puts_set).send(type).must_equal puts
+          Circuit.new(type => puts).send(type).must_equal puts
         end
       end
     end
@@ -155,13 +158,6 @@ module ArtDecomp
       end
     end
 
-    describe '#puts_set' do
-      it 'gets the PutsSet' do
-        puts_set = fake(:puts_set)
-        Circuit.new(puts_set: puts_set).puts_set.must_equal puts_set
-      end
-    end
-
     describe '#recoders' do
       it 'gets the Recorders' do
         Circuit.new(recoders: recs = fake(:array)).recoders.must_equal recs
@@ -174,9 +170,9 @@ module ArtDecomp
         os = Puts.new([fake(:put), fake(:put)])
         ps = Puts.new([fake(:put)])
         qs = Puts.new([fake(:put)])
-        function = Function.new(PutsSet.new(is: is + qs, os: os + ps))
-        puts_set = PutsSet.new(is: is, os: os, ps: ps, qs: qs)
-        circuit  = Circuit.new(functions: [function], puts_set: puts_set)
+        function = Function.new(is: is + qs, os: os + ps)
+        circuit  = Circuit.new(functions: [function],
+                               is: is, os: os, ps: ps, qs: qs)
         circuit.wire_to function
         circuit.wires.must_equal Wires.new([
           Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],

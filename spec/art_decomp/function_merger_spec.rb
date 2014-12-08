@@ -4,7 +4,6 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/function_merger'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
   describe FunctionMerger do
@@ -26,21 +25,11 @@ module ArtDecomp
       let(:buc)  { Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]] }
       let(:nbuc) { Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]] }
 
-      let(:f1) do
-        Function.new(PutsSet.new(is: Puts.new([a,b]), os: Puts.new([anb])))
-      end
-      let(:f2) do
-        Function.new(PutsSet.new(is: Puts.new([b,c]), os: Puts.new([buc])))
-      end
-      let(:f3) do
-        Function.new(PutsSet.new(is: Puts.new([b,c]), os: Puts.new([nbuc])))
-      end
-      let(:f4) do
-        Function.new(PutsSet.new(is: Puts.new([c,b]), os: Puts.new([nbuc])))
-      end
-      let(:f23) do
-        Function.new(PutsSet.new(is: Puts.new([b,c]), os: Puts.new([buc,nbuc])))
-      end
+      let(:f1)  { Function.new(is: Puts.new([a,b]), os: Puts.new([anb]))      }
+      let(:f2)  { Function.new(is: Puts.new([b,c]), os: Puts.new([buc]))      }
+      let(:f3)  { Function.new(is: Puts.new([b,c]), os: Puts.new([nbuc]))     }
+      let(:f4)  { Function.new(is: Puts.new([c,b]), os: Puts.new([nbuc]))     }
+      let(:f23) { Function.new(is: Puts.new([b,c]), os: Puts.new([buc,nbuc])) }
 
       it 'merges passed Functions according to their inputs' do
         FunctionMerger.merge([f1, f2, f3]).must_equal [f1, f23]

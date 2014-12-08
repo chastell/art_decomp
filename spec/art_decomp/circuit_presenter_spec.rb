@@ -6,7 +6,6 @@ require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/puts_set'
 require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp
@@ -46,13 +45,13 @@ module ArtDecomp
           Put[:'0' => B[0,2,4,6,8,10], :'1' => B[1,3,5,7,9,11]],
           Put[:'0' => B[0,1,2,3,5,7,9,11], :'1' => B[4,6,8,10]],
         ])
-        f0 = Function.new(PutsSet.new(is: f0is, os: f0os))
-        f1 = Function.new(PutsSet.new(is: f1is, os: f1os))
+        f0 = Function.new(is: f0is, os: f0os)
+        f1 = Function.new(is: f1is, os: f1os)
         r_state = Puts.new([Put[FG: B[0], FY: B[1], HG: B[2], HY: B[3]]])
         r_coded = Puts.new([Put[a: B[0,2], b: B[1,3]],
                             Put[a: B[0,1], b: B[2,3]]])
-        r0 = Function.new(PutsSet.new(is: r_state, os: r_coded))
-        r1 = Function.new(PutsSet.new(is: r_coded, os: r_state))
+        r0 = Function.new(is: r_state, os: r_coded)
+        r1 = Function.new(is: r_coded, os: r_state)
         circuit.functions.replace [f0, f1]
         circuit.recoders.replace  [r0, r1]
         circuit.wires.replace [
