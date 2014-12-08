@@ -15,12 +15,12 @@ architecture behaviour of <%= name %> is
   signal fsm_qs, fsm_ps: std_logic_vector(0 to <%= fsm_qs_binwidth - 1 %>);
 
 % functions.each.with_index do |fun, i|
-  signal f<%= i %>_is: std_logic_vector(0 to <%= fun.binwidths(:is).reduce(:+) - 1 %>);
-  signal f<%= i %>_os: std_logic_vector(0 to <%= fun.binwidths(:os).reduce(:+) - 1 %>);
+  signal f<%= i %>_is: std_logic_vector(0 to <%= fun.is.binwidths.reduce(:+) - 1 %>);
+  signal f<%= i %>_os: std_logic_vector(0 to <%= fun.os.binwidths.reduce(:+) - 1 %>);
 % end
 % recoders.each.with_index do |rec, i|
-  signal r<%= i %>_is: std_logic_vector(0 to <%= rec.binwidths(:is).reduce(:+) - 1 %>);
-  signal r<%= i %>_os: std_logic_vector(0 to <%= rec.binwidths(:os).reduce(:+) - 1 %>);
+  signal r<%= i %>_is: std_logic_vector(0 to <%= rec.is.binwidths.reduce(:+) - 1 %>);
+  signal r<%= i %>_os: std_logic_vector(0 to <%= rec.os.binwidths.reduce(:+) - 1 %>);
 % end
 
 begin

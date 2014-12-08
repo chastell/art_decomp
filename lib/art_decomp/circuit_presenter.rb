@@ -27,15 +27,15 @@ module ArtDecomp
     end
 
     def fsm_is_binwidth
-      binwidths(:is).reduce(0, :+)
+      is.binwidths.reduce(0, :+)
     end
 
     def fsm_os_binwidth
-      binwidths(:os).reduce(0, :+)
+      os.binwidths.reduce(0, :+)
     end
 
     def fsm_qs_binwidth
-      binwidths(:qs).reduce(0, :+)
+      qs.binwidths.reduce(0, :+)
     end
 
     def recoders

@@ -19,6 +19,10 @@ module ArtDecomp
       Puts.new(puts + other.puts)
     end
 
+    def binwidths
+      puts.map(&:binwidth)
+    end
+
     def each(&block)
       puts.each(&block)
     end

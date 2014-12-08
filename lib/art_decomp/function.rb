@@ -12,7 +12,7 @@ module ArtDecomp
     end
 
     def arch
-      Arch[binwidths(:is).reduce(0, :+), binwidths(:os).reduce(0, :+)]
+      Arch[is.binwidths.reduce(0, :+), os.binwidths.reduce(0, :+)]
     end
 
     def binwidths(group)
