@@ -12,6 +12,10 @@ Documentation:
 Not:
   Enabled: false
 
+ParameterLists:
+  Exclude:
+    - lib/art_decomp/circuit.rb
+
 PredicateName:
   Exclude:
     - lib/art_decomp/circuit.rb
