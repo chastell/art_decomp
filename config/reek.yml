@@ -13,8 +13,17 @@ DuplicateMethodCall:
 IrresponsibleModule:
   enabled: false
 
+LongParameterList:
+  exclude:
+    - ArtDecomp::Circuit#initialize
+    - ArtDecomp::Circuit#self.from_fsm
+
 NestedIterators:
   max_allowed_nesting: 2
+
+TooManyInstanceVariables:
+  exclude:
+    - ArtDecomp::Circuit
 
 TooManyStatements:
   exclude:
