@@ -1,5 +1,6 @@
 require_relative 'circuit'
 require_relative 'put'
+require_relative 'puts'
 require_relative 'puts_set'
 
 module ArtDecomp
@@ -36,7 +37,7 @@ module ArtDecomp
 
     def put_cols_from_group(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
-      rows.transpose.map { |column| Put.from_column(column) }
+      Puts.new(rows.transpose.map { |column| Put.from_column(column) })
     end
 
     def qs
@@ -45,7 +46,7 @@ module ArtDecomp
 
     def state_cols_from_group(name)
       column = col_groups[name].map(&:to_sym)
-      [Put.from_column(column, dont_care: :*, codes: states)]
+      Puts.new([Put.from_column(column, dont_care: :*, codes: states)])
     end
 
     def states

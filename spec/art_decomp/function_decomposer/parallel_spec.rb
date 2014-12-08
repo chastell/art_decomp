@@ -5,6 +5,7 @@ require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/parallel'
 require_relative '../../../lib/art_decomp/pin'
 require_relative '../../../lib/art_decomp/put'
+require_relative '../../../lib/art_decomp/puts'
 require_relative '../../../lib/art_decomp/puts_set'
 require_relative '../../../lib/art_decomp/wire'
 
@@ -29,9 +30,12 @@ module ArtDecomp
         anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
         buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
         nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
-        ab_anb      = Function.new(PutsSet.new(is: [a,b], os: [anb]))
-        bc_buc_nbuc = Function.new(PutsSet.new(is: [b,c], os: [buc, nbuc]))
-        puts_set = PutsSet.new(is: [a, b, c], os: [anb, buc, nbuc])
+        ab_anb      = Function.new(PutsSet.new(is: Puts.new([a,b]),
+                                               os: Puts.new([anb])))
+        bc_buc_nbuc = Function.new(PutsSet.new(is: Puts.new([b,c]),
+                                               os: Puts.new([buc, nbuc])))
+        puts_set = PutsSet.new(is: Puts.new([a, b, c]),
+                               os: Puts.new([anb, buc, nbuc]))
         circuit  = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
                                puts_set: puts_set)
         circuit.wires.replace [
@@ -51,7 +55,8 @@ module ArtDecomp
         a   = Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]]
         b   = Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]]
         anb = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
-        fun = Function.new(PutsSet.new(is: [a, b], os: [anb]))
+        fun = Function.new(PutsSet.new(is: Puts.new([a, b]),
+                                       os: Puts.new([anb])))
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_be_empty
       end
     end

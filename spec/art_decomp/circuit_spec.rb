@@ -4,6 +4,7 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/puts_set'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
@@ -12,10 +13,10 @@ module ArtDecomp
   describe Circuit do
     describe '.from_fsm' do
       it 'creates a Circuit representing the FSM' do
-        is = [Put[:'0' => B[0], :'1' => B[1]]]
-        os = [Put[:'0' => B[1], :'1' => B[0]]]
-        qs = [Put[s1: B[0], s2: B[1], s3: B[2]]]
-        ps = [Put[s1: B[1], s2: B[2], s3: B[0]]]
+        is = Puts.new([Put[:'0' => B[0], :'1' => B[1]]])
+        os = Puts.new([Put[:'0' => B[1], :'1' => B[0]]])
+        qs = Puts.new([Put[s1: B[0], s2: B[1], s3: B[2]]])
+        ps = Puts.new([Put[s1: B[1], s2: B[2], s3: B[0]]])
         circuit  = Circuit.from_fsm(PutsSet.new(is: is, os: os, ps: ps, qs: qs))
         function = circuit.functions.first
         circuit.functions.must_equal [function]
@@ -42,8 +43,10 @@ module ArtDecomp
 
     describe '#==' do
       it 'compares Circuits by value' do
-        is, os   = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
-        ps, qs   = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
+        is       = Puts.new([fake(:put), fake(:put)])
+        os       = Puts.new([fake(:put), fake(:put)])
+        ps       = Puts.new([fake(:put), fake(:put)])
+        qs       = Puts.new([fake(:put), fake(:put)])
         funs     = [fake(:function), fake(:function)]
         recs     = [fake(:function), fake(:function)]
         wires    = Wires.new([fake(:wire), fake(:wire)])
@@ -63,8 +66,10 @@ module ArtDecomp
 
     describe '#add_wires' do
       it 'adds the passed Wires to the Circuit' do
-        is, os   = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
-        ps, qs   = [fake(:put)], [fake(:put)]
+        is       = Puts.new([fake(:put), fake(:put)])
+        os       = Puts.new([fake(:put), fake(:put)])
+        ps       = Puts.new([fake(:put)])
+        qs       = Puts.new([fake(:put)])
         function = Function.new(PutsSet.new(is: is + qs, os: os + ps))
         puts_set = PutsSet.new(is: is, os: os, ps: ps, qs: qs)
         circuit  = Circuit.new(functions: [function], puts_set: puts_set)
@@ -92,8 +97,10 @@ module ArtDecomp
 
     describe '#binwidths' do
       it 'returns binary widths of the given Put group' do
-        is = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
-        qs = [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]]
+        is = Puts.new([Put[a: B[0,1], b: B[1,2]],
+                       Put[a: B[0], b: B[1], c: B[2]]])
+        qs = Puts.new([Put[a: B[0,1], b: B[1,2]],
+                       Put[a: B[0], b: B[1], c: B[2]]])
         circuit = Circuit.new(puts_set: PutsSet.new(is: is, qs: qs))
         circuit.binwidths(:is).must_equal [1, 2]
         circuit.binwidths(:qs).must_equal [1, 2]
@@ -118,7 +125,7 @@ module ArtDecomp
     describe '#is, #os, #ps, #qs' do
       it 'returns the Circuit’s Put groups' do
         %i(is os ps qs).each do |type|
-          puts = [stub(:put)]
+          puts = Puts.new([stub(:put)])
           puts_set = PutsSet.new(type => puts)
           Circuit.new(puts_set: puts_set).send(type).must_equal puts
         end
@@ -163,8 +170,10 @@ module ArtDecomp
 
     describe '#wire_to' do
       it 'wires the Circuit to the given Function' do
-        is, os = [fake(:put), fake(:put)], [fake(:put), fake(:put)]
-        ps, qs = [fake(:put)], [fake(:put)]
+        is = Puts.new([fake(:put), fake(:put)])
+        os = Puts.new([fake(:put), fake(:put)])
+        ps = Puts.new([fake(:put)])
+        qs = Puts.new([fake(:put)])
         function = Function.new(PutsSet.new(is: is + qs, os: os + ps))
         puts_set = PutsSet.new(is: is, os: os, ps: ps, qs: qs)
         circuit  = Circuit.new(functions: [function], puts_set: puts_set)

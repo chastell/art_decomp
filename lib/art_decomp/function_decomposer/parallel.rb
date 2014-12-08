@@ -3,6 +3,7 @@ require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
 require_relative '../function_simplifier'
+require_relative '../puts'
 require_relative '../puts_set'
 require_relative '../wires'
 
@@ -29,7 +30,9 @@ module ArtDecomp
 
       def merged
         @merged ||= begin
-          split  = os.map { |o| Function.new(PutsSet.new(is: is, os: [o])) }
+          split = os.map do |o|
+            Function.new(PutsSet.new(is: is, os: Puts.new([o])))
+          end
           simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
           FunctionMerger.merge(simple)
         end

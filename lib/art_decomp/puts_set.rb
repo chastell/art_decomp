@@ -1,4 +1,5 @@
 require 'equalizer'
+require_relative 'puts'
 
 module ArtDecomp
   class PutsSet
@@ -6,7 +7,7 @@ module ArtDecomp
 
     attr_reader :is, :os, :ps, :qs
 
-    def initialize(is: [], os: [], ps: [], qs: [])
+    def initialize(is: Puts.new, os: Puts.new, ps: Puts.new, qs: Puts.new)
       @is, @os, @ps, @qs = is, os, ps, qs
     end
 

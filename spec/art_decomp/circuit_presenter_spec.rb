@@ -5,6 +5,8 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/puts_set'
 require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp
@@ -20,22 +22,22 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
-        f0is = [
+        f0is = Puts.new([
           Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]],
           Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]],
           Put[a: B[0,2,4,6], b: B[1,3,5,7]],
-        ]
-        f0os = [
+        ])
+        f0os = Puts.new([
           Put[a: B[1,3,4,5], b: B[0,2,6,7]],
           Put[a: B[0,2,4,6], b: B[1,3,5,7]],
-        ]
-        f1is = [
+        ])
+        f1is = Puts.new([
           Put[:'0' => B[0,1,2,3,4,5,6,7], :'1' => B[0,1,2,3,8,9,10,11]],
           Put[a: B[0,1,4,5,8,9], b: B[2,3,6,7,10,11]],
           Put[a: B[0,2,4,6,8,10], b: B[1,3,5,7,9,11]],
           Put[a: B[0,1,2,3], b: B[4,5,6,7,8,9,10,11]],
-        ]
-        f1os = [
+        ])
+        f1os = Puts.new([
           Put[a: B[0,1,8,9,10,11], b: B[2,3,4,5,6,7]],
           Put[a: B[0,2,4,6,9,11], b: B[1,3,5,7,8,10]],
           Put[:'0' => B[0,1,4,5,6,7], :'1' => B[2,3,8,9,10,11]],
@@ -43,11 +45,12 @@ module ArtDecomp
           Put[:'0' => B[0,1,2,3,4,6,8,10], :'1' => B[5,7,9,11]],
           Put[:'0' => B[0,2,4,6,8,10], :'1' => B[1,3,5,7,9,11]],
           Put[:'0' => B[0,1,2,3,5,7,9,11], :'1' => B[4,6,8,10]],
-        ]
+        ])
         f0 = Function.new(PutsSet.new(is: f0is, os: f0os))
         f1 = Function.new(PutsSet.new(is: f1is, os: f1os))
-        r_state = [Put[FG: B[0], FY: B[1], HG: B[2], HY: B[3]]]
-        r_coded = [Put[a: B[0,2], b: B[1,3]], Put[a: B[0,1], b: B[2,3]]]
+        r_state = Puts.new([Put[FG: B[0], FY: B[1], HG: B[2], HY: B[3]]])
+        r_coded = Puts.new([Put[a: B[0,2], b: B[1,3]],
+                            Put[a: B[0,1], b: B[2,3]]])
         r0 = Function.new(PutsSet.new(is: r_state, os: r_coded))
         r1 = Function.new(PutsSet.new(is: r_coded, os: r_state))
         circuit.functions.replace [f0, f1]

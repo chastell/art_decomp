@@ -1,3 +1,4 @@
+require_relative 'puts'
 
 module ArtDecomp
   class RequiredPutsFilter
@@ -12,11 +13,11 @@ module ArtDecomp
 
     def required_puts
       remaining = required_seps
-      sorted_puts.take_while do |put|
+      Puts.new(sorted_puts.take_while do |put|
         empty = remaining.empty?
         remaining -= put.seps
         not empty
-      end
+      end)
     end
 
     attr_reader :required_seps, :sorted_puts

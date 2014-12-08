@@ -1,14 +1,15 @@
 require_relative '../spec_helper'
 require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/puts_set'
 
 module ArtDecomp
   describe PutsSet do
-    let(:is) { [stub(:put), stub(:put), stub(:put), stub(:put)] }
-    let(:os) { [stub(:put), stub(:put), stub(:put)]             }
-    let(:ps) { [stub(:put), stub(:put)]                         }
-    let(:qs) { [stub(:put)]                                     }
+    let(:is) { Puts.new([stub(:put), stub(:put), stub(:put), stub(:put)]) }
+    let(:os) { Puts.new([stub(:put), stub(:put), stub(:put)])             }
+    let(:ps) { Puts.new([stub(:put), stub(:put)])                         }
+    let(:qs) { Puts.new([stub(:put)])                                     }
 
     let(:puts_set) { PutsSet.new(is: is, os: os, ps: ps, qs: qs) }
 
@@ -22,8 +23,10 @@ module ArtDecomp
     describe '#binwidths' do
       it 'returns binary widths of the given Put group' do
         puts_set = PutsSet.new(
-          is: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
-          qs: [Put[a: B[0,1], b: B[1,2]], Put[a: B[0], b: B[1], c: B[2]]],
+          is: Puts.new([Put[a: B[0,1], b: B[1,2]],
+                        Put[a: B[0], b: B[1], c: B[2]]]),
+          qs: Puts.new([Put[a: B[0,1], b: B[1,2]],
+                        Put[a: B[0], b: B[1], c: B[2]]]),
         )
         puts_set.binwidths(:is).must_equal [1, 2]
         puts_set.binwidths(:qs).must_equal [1, 2]
