@@ -31,10 +31,6 @@ module ArtDecomp
       @adm_size ||= circuit_sizer.adm_size
     end
 
-    def binwidths(group)
-      send(group).map(&:binwidth)
-    end
-
     def function_archs
       functions.map(&:arch)
     end

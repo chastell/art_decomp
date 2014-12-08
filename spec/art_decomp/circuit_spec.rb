@@ -99,18 +99,6 @@ module ArtDecomp
       end
     end
 
-    describe '#binwidths' do
-      it 'returns binary widths of the given Put group' do
-        is = Puts.new([Put[a: B[0,1], b: B[1,2]],
-                       Put[a: B[0], b: B[1], c: B[2]]])
-        qs = Puts.new([Put[a: B[0,1], b: B[1,2]],
-                       Put[a: B[0], b: B[1], c: B[2]]])
-        circuit = Circuit.new(is: is, qs: qs)
-        circuit.binwidths(:is).must_equal [1, 2]
-        circuit.binwidths(:qs).must_equal [1, 2]
-      end
-    end
-
     describe '#functions' do
       it 'gets the functions' do
         Circuit.new(functions: funs = fake(:array)).functions.must_equal funs

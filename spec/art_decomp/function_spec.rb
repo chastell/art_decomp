@@ -33,13 +33,6 @@ module ArtDecomp
       end
     end
 
-    describe '#binwidths' do
-      it 'returns binary widths of the given Puts group' do
-        function.binwidths(:is).must_equal [1, 2]
-        function.binwidths(:os).must_equal [1, 2]
-      end
-    end
-
     describe '#is' do
       it 'returns the Function’s inputs' do
         function.is.must_equal is

@@ -14,9 +14,5 @@ module ArtDecomp
     def arch
       Arch[is.binwidths.reduce(0, :+), os.binwidths.reduce(0, :+)]
     end
-
-    def binwidths(group)
-      send(group).map(&:binwidth)
-    end
   end
 end
