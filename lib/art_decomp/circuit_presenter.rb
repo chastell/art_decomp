@@ -26,24 +26,12 @@ module ArtDecomp
       @functions ||= super.map { |function| FunctionPresenter.new(function) }
     end
 
-    def fsm_is_binwidth
-      is.binwidth
-    end
-
-    def fsm_os_binwidth
-      os.binwidth
-    end
-
-    def fsm_qs_binwidth
-      qs.binwidth
-    end
-
     def recoders
       @recoders ||= super.map { |recoder| FunctionPresenter.new(recoder) }
     end
 
     def reset_bits
-      '0' * fsm_qs_binwidth
+      '0' * qs.binwidth
     end
 
     def wires

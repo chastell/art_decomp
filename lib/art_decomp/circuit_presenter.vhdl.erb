@@ -6,13 +6,13 @@ entity <%= name %> is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        fsm_is: in  std_logic_vector(0 to <%= fsm_is_binwidth - 1 %>);
-        fsm_os: out std_logic_vector(0 to <%= fsm_os_binwidth - 1 %>)
+        fsm_is: in  std_logic_vector(0 to <%= is.binwidth - 1 %>);
+        fsm_os: out std_logic_vector(0 to <%= os.binwidth - 1 %>)
       );
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
-  signal fsm_qs, fsm_ps: std_logic_vector(0 to <%= fsm_qs_binwidth - 1 %>);
+  signal fsm_qs, fsm_ps: std_logic_vector(0 to <%= qs.binwidth - 1 %>);
 
 % functions.each.with_index do |fun, i|
   signal f<%= i %>_is: std_logic_vector(0 to <%= fun.is.binwidth - 1 %>);
