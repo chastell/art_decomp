@@ -30,10 +30,6 @@ module ArtDecomp
       @recoders ||= super.map { |recoder| FunctionPresenter.new(recoder) }
     end
 
-    def reset_bits
-      '0' * qs.binwidth
-    end
-
     def wires
       labels = WiresPresenter.new(super).labels
       labels.map do |(src_object, src_label), (dst_object, dst_label)|

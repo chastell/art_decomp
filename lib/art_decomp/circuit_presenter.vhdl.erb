@@ -29,7 +29,7 @@ begin
 % end
 
   process(reset, clock) begin
-    if reset = '1' then fsm_qs <= "<%= reset_bits %>";
+    if reset = '1' then fsm_qs <= "<%= '0' * qs.binwidth %>";
     elsif rising_edge(clock) then fsm_qs <= fsm_ps;
     end if;
   end process;
