@@ -35,8 +35,8 @@ module ArtDecomp
       puts.empty?
     end
 
-    def index(index)
-      puts.index(index)
+    def index(put)
+      puts.index(put)
     end
 
     def size
