@@ -24,11 +24,7 @@ module ArtDecomp
     end
 
     def binwidth
-      binwidths.reduce(0, :+)
-    end
-
-    def binwidths
-      puts.map(&:binwidth)
+      map(&:binwidth).reduce(0, :+)
     end
 
     def each(&block)
