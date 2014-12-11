@@ -19,6 +19,10 @@ module ArtDecomp
       Puts.new(puts + other.puts)
     end
 
+    def [](index)
+      puts[index]
+    end
+
     def binwidth
       binwidths.reduce(0, :+)
     end
