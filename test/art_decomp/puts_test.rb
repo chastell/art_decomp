@@ -26,5 +26,12 @@ module ArtDecomp
         (Puts.new([a0b1]) + Puts.new([a1b0])).must_equal Puts.new([a0b1, a1b0])
       end
     end
+
+    describe '#[]' do
+      it 'returns the Put at the given index' do
+        Puts.new([a0b1, a1b0])[0].must_equal a0b1
+        Puts.new([a0b1, a1b0])[1].must_equal a1b0
+      end
+    end
   end
 end
