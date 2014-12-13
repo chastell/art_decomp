@@ -62,5 +62,12 @@ module ArtDecomp
         Puts.new([a0b1, a1b0]).index(a1b0).must_equal 1
       end
     end
+
+    describe '#size' do
+      it 'returns the number of Puts' do
+        Puts.new.size.must_equal 0
+        Puts.new([a0b1, a1b0]).size.must_equal 2
+      end
+    end
   end
 end
