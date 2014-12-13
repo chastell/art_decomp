@@ -48,5 +48,12 @@ module ArtDecomp
           .must_equal [a0b1, a1b0]
       end
     end
+
+    describe '#empty?' do
+      it 'is a predicate whether the Puts are empty' do
+        assert Puts.new.empty?
+        refute Puts.new([a0b1]).empty?
+      end
+    end
   end
 end
