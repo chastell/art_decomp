@@ -1,37 +1,37 @@
-AbcSize:
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Metrics/AbcSize:
   Exclude:
     - lib/art_decomp/arch_sizer.rb
     - lib/art_decomp/seps.rb
 
-AndOr:
-  Enabled: false
-
-Documentation:
-  Enabled: false
-
-Not:
-  Enabled: false
-
-ParameterLists:
+Metrics/ParameterLists:
   Exclude:
     - lib/art_decomp/circuit.rb
 
-PredicateName:
+Style/AndOr:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/Not:
+  Enabled: false
+
+Style/PredicateName:
   Exclude:
     - lib/art_decomp/circuit.rb
     - lib/art_decomp/function_decomposer/parallel.rb
 
-SingleLineBlockParams:
+Style/SingleLineBlockParams:
   Enabled: false
 
-SingleSpaceBeforeFirstArg:
+Style/SingleSpaceBeforeFirstArg:
   Enabled: false
 
-SpaceAfterComma:
+Style/SpaceAfterComma:
   Enabled: false
 
-TrailingComma:
+Style/TrailingComma:
   EnforcedStyleForMultiline: comma
-
-UnusedMethodArgument:
-  Enabled: false
