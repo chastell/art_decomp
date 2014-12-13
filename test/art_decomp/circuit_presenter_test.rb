@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../test_helper'
 require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/circuit_presenter'
 require_relative '../../lib/art_decomp/function'
@@ -12,12 +12,12 @@ module ArtDecomp
   describe CircuitPresenter do
     describe '.vhdl_for' do
       let(:circuit) do
-        KISSParser.circuit_for(File.read('spec/fixtures/mc.kiss'))
+        KISSParser.circuit_for(File.read('test/fixtures/mc.kiss'))
       end
 
       it 'returns VHDL for the given Circuit' do
         CircuitPresenter.vhdl_for(circuit, name: 'mc')
-          .must_equal File.read('spec/fixtures/mc.vhdl')
+          .must_equal File.read('test/fixtures/mc.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
@@ -70,7 +70,7 @@ module ArtDecomp
           Wire[Pin[f1, :os, 6], Pin[circuit, :os, 4]],
         ]
 
-        vhdl = File.read('spec/fixtures/mc.decomposed.vhdl')
+        vhdl = File.read('test/fixtures/mc.decomposed.vhdl')
         CircuitPresenter.vhdl_for(circuit, name: 'mc').must_equal vhdl
       end
     end

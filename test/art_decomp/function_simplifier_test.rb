@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../test_helper'
 require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/function_simplifier'
