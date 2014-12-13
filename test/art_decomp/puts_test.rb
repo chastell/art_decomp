@@ -55,5 +55,12 @@ module ArtDecomp
         refute Puts.new([a0b1]).empty?
       end
     end
+
+    describe '#index' do
+      it 'returns the index of the given Put' do
+        Puts.new([a0b1, a1b0]).index(a0b1).must_equal 0
+        Puts.new([a0b1, a1b0]).index(a1b0).must_equal 1
+      end
+    end
   end
 end
