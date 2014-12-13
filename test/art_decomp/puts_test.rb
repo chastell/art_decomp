@@ -41,5 +41,12 @@ module ArtDecomp
         Puts.new([a1b0, Put[a: B[0], b: B[1], c: B[2]]]).binwidth.must_equal 3
       end
     end
+
+    describe '#each' do
+      it 'yields subsequent Puts' do
+        Puts.new([a0b1, a1b0]).each.with_object([]) { |put, ary| ary << put }
+          .must_equal [a0b1, a1b0]
+      end
+    end
   end
 end
