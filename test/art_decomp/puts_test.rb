@@ -33,5 +33,13 @@ module ArtDecomp
         Puts.new([a0b1, a1b0])[1].must_equal a1b0
       end
     end
+
+    describe '#binwidth' do
+      it 'returns the binwidth of all the Puts combined' do
+        Puts.new.binwidth.must_equal 0
+        Puts.new([a0b1]).binwidth.must_equal 1
+        Puts.new([a1b0, Put[a: B[0], b: B[1], c: B[2]]]).binwidth.must_equal 3
+      end
+    end
   end
 end
