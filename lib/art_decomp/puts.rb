@@ -1,7 +1,9 @@
 require 'equalizer'
+require 'forwardable'
 
 module ArtDecomp
   class Puts
+    extend  Forwardable
     include Enumerable
     include Equalizer.new(:puts)
 
@@ -19,28 +21,10 @@ module ArtDecomp
       Puts.new(puts + other.puts)
     end
 
-    def [](index)
-      puts[index]
-    end
+    delegate %i([] each empty? index size) => :puts
 
     def binwidth
       map(&:binwidth).reduce(0, :+)
-    end
-
-    def each(&block)
-      puts.each(&block)
-    end
-
-    def empty?
-      puts.empty?
-    end
-
-    def index(put)
-      puts.index(put)
-    end
-
-    def size
-      puts.size
     end
   end
 end
