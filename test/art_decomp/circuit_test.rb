@@ -2,10 +2,8 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/arch'
 require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/circuit'
-require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
@@ -22,11 +20,11 @@ module ArtDecomp
         function.is.must_equal is + qs
         function.os.must_equal os + ps
         circuit.recoders.must_be :empty?
-        circuit.wires.must_equal Wires.new([
-          Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
-          Wire[Pin[circuit, :qs, 0], Pin[function, :is, 1]],
-          Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[function, :os, 1], Pin[circuit, :ps, 0]],
+        circuit.wires.must_equal Wires.from_array([
+          [[circuit,  :is, 0], [function, :is, 0]],
+          [[circuit,  :qs, 0], [function, :is, 1]],
+          [[function, :os, 0], [circuit,  :os, 0]],
+          [[function, :os, 1], [circuit,  :ps, 0]],
         ])
       end
     end
@@ -80,14 +78,14 @@ module ArtDecomp
         circuit.wire_to function
         circuit.add_wires Wires.from_array([[[circuit, :is, 0],
                                              [circuit, :os, 0]]])
-        circuit.wires.must_equal Wires.new([
-          Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[function, :is, 1]],
-          Wire[Pin[circuit, :qs, 0], Pin[function, :is, 2]],
-          Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[function, :os, 1], Pin[circuit, :os, 1]],
-          Wire[Pin[function, :os, 2], Pin[circuit, :ps, 0]],
-          Wire[Pin[circuit, :is, 0], Pin[circuit, :os, 0]],
+        circuit.wires.must_equal Wires.from_array([
+          [[circuit,  :is, 0], [function, :is, 0]],
+          [[circuit,  :is, 1], [function, :is, 1]],
+          [[circuit,  :qs, 0], [function, :is, 2]],
+          [[function, :os, 0], [circuit,  :os, 0]],
+          [[function, :os, 1], [circuit,  :os, 1]],
+          [[function, :os, 2], [circuit,  :ps, 0]],
+          [[circuit,  :is, 0], [circuit,  :os, 0]],
         ])
       end
     end
@@ -162,13 +160,13 @@ module ArtDecomp
         circuit  = Circuit.new(functions: [function],
                                is: is, os: os, ps: ps, qs: qs)
         circuit.wire_to function
-        circuit.wires.must_equal Wires.new([
-          Wire[Pin[circuit, :is, 0], Pin[function, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[function, :is, 1]],
-          Wire[Pin[circuit, :qs, 0], Pin[function, :is, 2]],
-          Wire[Pin[function, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[function, :os, 1], Pin[circuit, :os, 1]],
-          Wire[Pin[function, :os, 2], Pin[circuit, :ps, 0]],
+        circuit.wires.must_equal Wires.from_array([
+          [[circuit,  :is, 0], [function, :is, 0]],
+          [[circuit,  :is, 1], [function, :is, 1]],
+          [[circuit,  :qs, 0], [function, :is, 2]],
+          [[function, :os, 0], [circuit,  :os, 0]],
+          [[function, :os, 1], [circuit,  :os, 1]],
+          [[function, :os, 2], [circuit,  :ps, 0]],
         ])
       end
     end

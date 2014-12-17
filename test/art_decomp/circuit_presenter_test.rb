@@ -3,10 +3,8 @@ require_relative '../../lib/art_decomp/b'
 require_relative '../../lib/art_decomp/circuit_presenter'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
-require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp
   describe CircuitPresenter do
@@ -54,21 +52,21 @@ module ArtDecomp
         r1 = Function.new(is: r_coded, os: r_state)
         circuit.functions.replace [f0, f1]
         circuit.recoders.replace  [r0, r1]
-        circuit.wires.replace [
-          Wire[Pin[circuit, :is, 0], Pin[f0, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[f0, :is, 1]],
-          Wire[Pin[r0, :os, 1], Pin[f0, :is, 2]],
-          Wire[Pin[circuit, :is, 2], Pin[f1, :is, 0]],
-          Wire[Pin[f0, :os, 0], Pin[f1, :is, 1]],
-          Wire[Pin[f0, :os, 1], Pin[f1, :is, 2]],
-          Wire[Pin[r0, :os, 0], Pin[f1, :is, 3]],
-          Wire[Pin[r1, :os, 0], Pin[circuit, :ps, 0]],
-          Wire[Pin[f1, :os, 2], Pin[circuit, :os, 0]],
-          Wire[Pin[f1, :os, 3], Pin[circuit, :os, 1]],
-          Wire[Pin[f1, :os, 4], Pin[circuit, :os, 2]],
-          Wire[Pin[f1, :os, 5], Pin[circuit, :os, 3]],
-          Wire[Pin[f1, :os, 6], Pin[circuit, :os, 4]],
-        ]
+        circuit.instance_variable_set :@wires, Wires.from_array([
+          [[circuit, :is, 0], [f0,      :is, 0]],
+          [[circuit, :is, 1], [f0,      :is, 1]],
+          [[r0,      :os, 1], [f0,      :is, 2]],
+          [[circuit, :is, 2], [f1,      :is, 0]],
+          [[f0,      :os, 0], [f1,      :is, 1]],
+          [[f0,      :os, 1], [f1,      :is, 2]],
+          [[r0,      :os, 0], [f1,      :is, 3]],
+          [[r1,      :os, 0], [circuit, :ps, 0]],
+          [[f1,      :os, 2], [circuit, :os, 0]],
+          [[f1,      :os, 3], [circuit, :os, 1]],
+          [[f1,      :os, 4], [circuit, :os, 2]],
+          [[f1,      :os, 5], [circuit, :os, 3]],
+          [[f1,      :os, 6], [circuit, :os, 4]],
+        ])
 
         vhdl = File.read('test/fixtures/mc.decomposed.vhdl')
         CircuitPresenter.vhdl_for(circuit, name: 'mc').must_equal vhdl

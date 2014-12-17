@@ -3,10 +3,8 @@ require_relative '../../../lib/art_decomp/b'
 require_relative '../../../lib/art_decomp/circuit'
 require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/parallel'
-require_relative '../../../lib/art_decomp/pin'
 require_relative '../../../lib/art_decomp/put'
 require_relative '../../../lib/art_decomp/puts'
-require_relative '../../../lib/art_decomp/wire'
 
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
@@ -35,15 +33,15 @@ module ArtDecomp
         circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
                               is: Puts.new([a, b, c]),
                               os: Puts.new([anb, buc, nbuc]))
-        circuit.wires.replace [
-          Wire[Pin[circuit, :is, 0], Pin[ab_anb, :is, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[ab_anb, :is, 1]],
-          Wire[Pin[ab_anb, :os, 0], Pin[circuit, :os, 0]],
-          Wire[Pin[circuit, :is, 1], Pin[bc_buc_nbuc, :is, 0]],
-          Wire[Pin[circuit, :is, 2], Pin[bc_buc_nbuc, :is, 1]],
-          Wire[Pin[bc_buc_nbuc, :os, 0], Pin[circuit, :os, 1]],
-          Wire[Pin[bc_buc_nbuc, :os, 1], Pin[circuit, :os, 2]],
-        ]
+        circuit.instance_variable_set :@wires, Wires.from_array([
+          [[circuit,     :is, 0], [ab_anb,      :is, 0]],
+          [[circuit,     :is, 1], [ab_anb,      :is, 1]],
+          [[ab_anb,      :os, 0], [circuit,     :os, 0]],
+          [[circuit,     :is, 1], [bc_buc_nbuc, :is, 0]],
+          [[circuit,     :is, 2], [bc_buc_nbuc, :is, 1]],
+          [[bc_buc_nbuc, :os, 0], [circuit,     :os, 1]],
+          [[bc_buc_nbuc, :os, 1], [circuit,     :os, 2]],
+        ])
         fun = Function.new(is: Puts.new([a,b,c]), os: Puts.new([anb,buc,nbuc]))
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]
       end
