@@ -54,13 +54,5 @@ module ArtDecomp
         wires.flat_map(&:dst).map(&:index).must_equal [1, 0]
       end
     end
-
-    describe '#replace' do
-      it 'replaces the Wire collection' do
-        new_wires = [Wire[Pin[fun_b, :os, 0], Pin[fun_a, :is, 1]]]
-        wires.replace(new_wires)
-        wires.must_equal Wires.new(new_wires)
-      end
-    end
   end
 end
