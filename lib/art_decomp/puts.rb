@@ -26,5 +26,9 @@ module ArtDecomp
     def binwidth
       map(&:binwidth).reduce(0, :+)
     end
+
+    def uniq
+      self.class.new(puts.uniq)
+    end
   end
 end

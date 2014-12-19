@@ -71,5 +71,11 @@ module ArtDecomp
         puts.size.must_equal     2
       end
     end
+
+    describe '#uniq' do
+      it 'returns a Puts with only unique members' do
+        Puts.new([a0b1, a1b0, a0b1]).uniq.must_equal puts
+      end
+    end
   end
 end
