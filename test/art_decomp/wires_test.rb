@@ -1,6 +1,5 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/function'
-require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
@@ -10,8 +9,8 @@ module ArtDecomp
     let(:fun_b) { fake(:function) }
     let(:wires) do
       Wires.new([
-        Wire[Pin[fun_a, :os, 0], Pin[fun_b, :is, 1]],
-        Wire[Pin[fun_a, :os, 1], Pin[fun_b, :is, 0]],
+        Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 1]),
+        Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 0]),
       ])
     end
 
@@ -39,12 +38,12 @@ module ArtDecomp
     describe '#==' do
       it 'compares two Wires with regard to contents' do
         wires.must_equal Wires.new([
-          Wire[Pin[fun_a, :os, 0], Pin[fun_b, :is, 1]],
-          Wire[Pin[fun_a, :os, 1], Pin[fun_b, :is, 0]],
+          Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 1]),
+          Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 0]),
         ])
         wires.wont_equal Wires.new([
-          Wire[Pin[fun_a, :os, 0], Pin[fun_b, :is, 0]],
-          Wire[Pin[fun_a, :os, 1], Pin[fun_b, :is, 1]],
+          Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 0]),
+          Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 1]),
         ])
       end
     end

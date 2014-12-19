@@ -1,6 +1,5 @@
 require 'equalizer'
 require 'forwardable'
-require_relative 'pin'
 require_relative 'wire'
 
 module ArtDecomp
@@ -9,7 +8,7 @@ module ArtDecomp
     include Equalizer.new(:wires)
 
     def self.from_array(array)
-      new array.map { |source, target| Wire[Pin[*source], Pin[*target]] }
+      new array.map { |source, target| Wire.from_arrays(source, target) }
     end
 
     def initialize(wires = [])
