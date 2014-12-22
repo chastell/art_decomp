@@ -7,8 +7,6 @@ module ArtDecomp
     include Enumerable
     include Equalizer.new(:puts)
 
-    attr_reader :puts
-
     def initialize(puts = [])
       @puts = puts
     end
@@ -30,5 +28,8 @@ module ArtDecomp
     def uniq
       self.class.new(puts.uniq)
     end
+
+    attr_reader :puts
+    protected   :puts
   end
 end
