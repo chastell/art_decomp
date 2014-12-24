@@ -5,6 +5,7 @@ require_relative 'wire'
 module ArtDecomp
   class Wires
     extend  Forwardable
+    include Enumerable
     include Equalizer.new(:wires)
 
     def self.from_array(array)
@@ -19,7 +20,7 @@ module ArtDecomp
       Wires.new(wires + other.wires)
     end
 
-    delegate %i(flat_map) => :wires
+    delegate %i(each) => :wires
 
     attr_reader :wires
     protected   :wires
