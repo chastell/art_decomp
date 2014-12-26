@@ -112,6 +112,16 @@ module ArtDecomp
       end
     end
 
+    describe '#inpsect' do
+      it 'returns a readable representation' do
+        f1 = fake(:function, arch: Arch[2,1])
+        f2 = fake(:function, arch: Arch[4,3])
+        Circuit.new(functions: [f1, f2]).inspect
+          .must_equal 'ArtDecomp::Circuit([ArtDecomp::Arch[2,1], ' \
+                      'ArtDecomp::Arch[4,3]])'
+      end
+    end
+
     describe '#is, #os, #ps, #qs' do
       it 'returns the Circuit’s Put groups' do
         %i(is os ps qs).each do |type|

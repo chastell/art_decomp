@@ -35,6 +35,10 @@ module ArtDecomp
       functions.map(&:arch)
     end
 
+    def inspect
+      "#{self.class}(#{function_archs})"
+    end
+
     def largest_function
       functions.max_by(&:arch)
     end
