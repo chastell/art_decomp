@@ -33,6 +33,12 @@ module ArtDecomp
       end
     end
 
+    describe '#inspect' do
+      it 'returns a readable representation' do
+        function.inspect.must_equal 'ArtDecomp::Function(ArtDecomp::Arch[3,3])'
+      end
+    end
+
     describe '#is' do
       it 'returns the Function’s inputs' do
         function.is.must_equal is

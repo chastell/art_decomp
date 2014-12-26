@@ -14,5 +14,9 @@ module ArtDecomp
     def arch
       Arch[is.binwidth, os.binwidth]
     end
+
+    def inspect
+      "#{self.class}(#{arch.inspect})"
+    end
   end
 end
