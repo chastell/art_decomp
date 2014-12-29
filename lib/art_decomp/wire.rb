@@ -7,7 +7,7 @@ module ArtDecomp
     end
 
     def inspect
-      "#{self.class}[#{source}, #{destination}]"
+      "#{self.class}[#{source.inspect}, #{destination.inspect}]"
     end
   end
 end
