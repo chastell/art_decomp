@@ -1,5 +1,6 @@
 require 'equalizer'
 require 'forwardable'
+require_relative 'b'
 require_relative 'seps'
 
 module ArtDecomp

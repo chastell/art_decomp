@@ -3,6 +3,7 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/wires'
 require_relative '../../lib/art_decomp/wires_presenter'
 require_relative '../../lib/art_decomp/put'
+require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe WiresPresenter do

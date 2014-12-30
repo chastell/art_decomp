@@ -1,6 +1,7 @@
 require 'equalizer'
 require_relative 'circuit_sizer'
 require_relative 'function'
+require_relative 'puts'
 require_relative 'wires'
 
 module ArtDecomp
