@@ -57,6 +57,12 @@ module ArtDecomp
                os_wires(function) + ps_wires(function)
     end
 
+    def with(functions: @functions, is: @is, os: @os, ps: @ps, qs: @qs,
+             recoders: @recoders, wires: @wires)
+      self.class.new(functions: functions, is: is, os: os, ps: ps, qs: qs,
+                     recoders: recoders, wires: wires)
+    end
+
     private
 
     def is_wires(fun)
