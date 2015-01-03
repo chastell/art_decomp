@@ -187,16 +187,14 @@ module ArtDecomp
       end
     end
 
-    describe '#with' do
-      it 'returns a Circuit with (only) the given part(s) replaced' do
-        is = fake(:puts)
+    describe '#with_wires' do
+      it 'returns a new Circuit with the given Wires' do
         old_wires = fake(:wires)
         new_wires = fake(:wires)
-        old_circuit = Circuit.new(is: is, wires: old_wires)
-        new_circuit = old_circuit.with(wires: new_wires)
+        old_circuit = Circuit.new(wires: old_wires)
+        new_circuit = old_circuit.with_wires(new_wires)
         new_circuit.wires.must_equal new_wires
         old_circuit.wires.must_equal old_wires
-        new_circuit.is.must_equal is
       end
     end
   end
