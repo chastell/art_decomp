@@ -18,8 +18,7 @@ module ArtDecomp
       (archs.map(&:min_quarters).reduce(0, :+) / 4.0).ceil
     end
 
-    attr_reader :archs
-    private     :archs
+    private_attr_reader :archs
 
     private
 

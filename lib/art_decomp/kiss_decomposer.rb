@@ -19,7 +19,6 @@ module ArtDecomp
       end
     end
 
-    attr_reader :settings
-    private     :settings
+    private_attr_reader :settings
   end
 end

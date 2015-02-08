@@ -54,7 +54,6 @@ module ArtDecomp
       matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
     end
 
-    attr_reader :matrix
-    protected   :matrix
+    protected_attr_reader :matrix
   end
 end

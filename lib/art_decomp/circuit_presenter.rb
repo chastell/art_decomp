@@ -15,8 +15,7 @@ module ArtDecomp
       ERB.new(template, nil, '%').result(binding)
     end
 
-    attr_reader :name
-    private     :name
+    private_attr_reader :name
 
     private
 

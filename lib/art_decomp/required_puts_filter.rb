@@ -20,7 +20,6 @@ module ArtDecomp
       end)
     end
 
-    attr_reader :required_seps, :sorted_puts
-    private     :required_seps, :sorted_puts
+    private_attr_reader :required_seps, :sorted_puts
   end
 end

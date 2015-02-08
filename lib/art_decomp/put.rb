@@ -50,7 +50,6 @@ module ArtDecomp
 
     delegate size: :blanket
 
-    attr_reader :blanket
-    private     :blanket
+    private_attr_reader :blanket
   end
 end

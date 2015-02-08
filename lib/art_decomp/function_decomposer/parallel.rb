@@ -46,8 +46,7 @@ module ArtDecomp
           is_wires + os_wires
         end
 
-        attr_reader :circuit, :function
-        private     :circuit, :function
+        private_attr_reader :circuit, :function
 
         private
 

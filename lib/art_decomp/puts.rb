@@ -29,7 +29,6 @@ module ArtDecomp
       self.class.new(puts.uniq)
     end
 
-    attr_reader :puts
-    protected   :puts
+    protected_attr_reader :puts
   end
 end

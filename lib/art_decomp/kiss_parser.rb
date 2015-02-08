@@ -17,8 +17,7 @@ module ArtDecomp
       Circuit.from_fsm(is: is, os: os, qs: qs, ps: ps)
     end
 
-    attr_reader :col_groups
-    private     :col_groups
+    private_attr_reader :col_groups
 
     private
 

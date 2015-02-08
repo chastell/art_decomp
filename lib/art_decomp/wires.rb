@@ -22,7 +22,6 @@ module ArtDecomp
 
     delegate %i(each) => :wires
 
-    attr_reader :wires
-    protected   :wires
+    protected_attr_reader :wires
   end
 end
