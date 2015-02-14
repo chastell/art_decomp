@@ -1,12 +1,7 @@
 DuplicateMethodCall:
   exclude:
     - ArtDecomp::ArchSizer#min_quarters
-    - ArtDecomp::Circuit#self.from_fsm
     - ArtDecomp::FunctionDecomposer#self.decompose
-    - ArtDecomp::FunctionSimplifier#is_required_for
-    - ArtDecomp::FunctionSimplifier#required_is
-    - ArtDecomp::KISSDecomposer#decompose
-    - ArtDecomp::KISSParser#putify
     - ArtDecomp::Put#self.from_column
 
 IrresponsibleModule:
@@ -16,7 +11,6 @@ LongParameterList:
   exclude:
     - ArtDecomp::Circuit#initialize
     - ArtDecomp::Circuit#self.from_fsm
-    - ArtDecomp::Circuit#with
 
 NestedIterators:
   max_allowed_nesting: 2
