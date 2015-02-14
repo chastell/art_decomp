@@ -35,4 +35,15 @@ UncommunicativeParameterName:
 
 UncommunicativeVariableName:
   exclude:
+    - ArtDecomp::Circuit#is_wires
+    - ArtDecomp::Circuit#os_wires
+    - ArtDecomp::FunctionDecomposer::Parallel#decompositions
+    - ArtDecomp::FunctionDecomposer::Parallel#merged
+    - ArtDecomp::KISSDecomposer#decompose
+    - ArtDecomp::PinPresenter#labels
+    - ArtDecomp::Put#self.from_column
+    - ArtDecomp::RequiredPutsFilter#initialize
+    - ArtDecomp::Seps#&
+    - ArtDecomp::Seps#-
+    - ArtDecomp::Seps#inspect
     - ArtDecomp::Seps#|
