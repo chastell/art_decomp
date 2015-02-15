@@ -29,27 +29,48 @@ module ArtDecomp
     end
 
     def wire_labels
-      WiresPresenter.new(wires).labels(circuit)
+      WiresPresenter.new(wires, circuit: circuit).labels
     end
 
     class WiresPresenter < SimpleDelegator
-      def labels(circuit)
-        flat_map { |wire| WirePresenter.new(wire).labels(circuit) }
+      def initialize(wires, circuit:)
+        super wires
+        @circuit = circuit
       end
 
+      def labels
+        flat_map { |wire| WirePresenter.new(wire, circuit: circuit).labels }
+      end
+
+      private_attr_reader :circuit
+
       class WirePresenter < SimpleDelegator
-        def labels(circuit)
-          src_labels = PinPresenter.new(source).labels(circuit)
-          dst_labels = PinPresenter.new(destination).labels(circuit)
+        def initialize(wire, circuit:)
+          super wire
+          @circuit = circuit
+        end
+
+        def labels
+          src_labels = PinPresenter.new(source, circuit: circuit).labels
+          dst_labels = PinPresenter.new(destination, circuit: circuit).labels
           src_labels.zip(dst_labels)
         end
 
+        private_attr_reader :circuit
+
         class PinPresenter < SimpleDelegator
-          def labels(circuit)
+          def initialize(pin, circuit:)
+            super pin
+            @circuit = circuit
+          end
+
+          def labels
             Array.new(object.send(group)[index].binwidth) do |n|
-              "#{prefix(circuit)}_#{label(n)}"
+              "#{prefix}_#{label(n)}"
             end
           end
+
+          private_attr_reader :circuit
 
           private
 
@@ -58,7 +79,7 @@ module ArtDecomp
             "#{group}(#{bin + n})"
           end
 
-          def prefix(circuit)
+          def prefix
             functions, recoders = circuit.functions, circuit.recoders
             case
             when object == circuit          then 'fsm'
