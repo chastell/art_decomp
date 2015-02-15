@@ -28,8 +28,8 @@ module ArtDecomp
       @recoders ||= super.map { |recoder| FunctionPresenter.new(recoder) }
     end
 
-    def wires
-      WiresPresenter.new(super).labels(circuit)
+    def wire_labels
+      WiresPresenter.new(wires).labels(circuit)
     end
 
     class WiresPresenter < SimpleDelegator

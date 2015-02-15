@@ -24,8 +24,8 @@ architecture behaviour of <%= name %> is
 % end
 
 begin
-% wires.each do |source, destination|
-  <%= destination %> <= <%= source %>;
+% wire_labels.each do |src_label, dst_label|
+  <%= dst_label %> <= <%= src_label %>;
 % end
 
   process(reset, clock) begin
