@@ -69,7 +69,7 @@ module ArtDecomp
 
           def labels
             Array.new(object.send(group)[index].binwidth) do |n|
-              "#{prefix}_#{label(n)}"
+              "#{prefix}_#{suffix(n)}"
             end
           end
 
@@ -79,17 +79,17 @@ module ArtDecomp
 
           delegate %i(functions recoders) => :circuit
 
-          def label(n)
-            bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+)
-            "#{group}(#{bin + n})"
-          end
-
           def prefix
             case
             when object == circuit          then 'fsm'
             when functions.include?(object) then "f#{functions.index(object)}"
             when recoders.include?(object)  then "r#{recoders.index(object)}"
             end
+          end
+
+          def suffix(n)
+            offset = object.send(group)[0...index].map(&:binwidth).reduce(0, :+)
+            "#{group}(#{offset + n})"
           end
         end
       end

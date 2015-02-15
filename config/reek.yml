@@ -31,7 +31,7 @@ UncommunicativeModuleName:
 
 UncommunicativeParameterName:
   exclude:
-    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#label
+    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#suffix
 
 UncommunicativeVariableName:
   exclude:
