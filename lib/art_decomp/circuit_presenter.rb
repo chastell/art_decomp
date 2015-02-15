@@ -29,13 +29,7 @@ module ArtDecomp
     end
 
     def wires
-      labels = WiresPresenter.new(super).labels(circuit)
-      labels.map do |(src_prefix, src_label), (dst_prefix, dst_label)|
-        [
-          "#{src_prefix}_#{src_label}",
-          "#{dst_prefix}_#{dst_label}",
-        ]
-      end
+      WiresPresenter.new(super).labels(circuit)
     end
 
     class WiresPresenter < SimpleDelegator
@@ -53,7 +47,7 @@ module ArtDecomp
         class PinPresenter < SimpleDelegator
           def labels(circuit)
             Array.new(object.send(group)[index].binwidth) do |n|
-              [prefix(circuit), label(n)]
+              "#{prefix(circuit)}_#{label(n)}"
             end
           end
 
