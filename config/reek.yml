@@ -31,16 +31,16 @@ UncommunicativeModuleName:
 
 UncommunicativeParameterName:
   exclude:
-    - ArtDecomp::PinPresenter#label
+    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#label
 
 UncommunicativeVariableName:
   exclude:
     - ArtDecomp::Circuit#is_wires
     - ArtDecomp::Circuit#os_wires
+    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#labels
     - ArtDecomp::FunctionDecomposer::Parallel#decompositions
     - ArtDecomp::FunctionDecomposer::Parallel#merged
     - ArtDecomp::KISSDecomposer#decompose
-    - ArtDecomp::PinPresenter#labels
     - ArtDecomp::Put#self.from_column
     - ArtDecomp::RequiredPutsFilter#initialize
     - ArtDecomp::Seps#&
