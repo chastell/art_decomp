@@ -65,21 +65,21 @@ module ArtDecomp
     private
 
     def is_wires(fun)
-      array = (0...is.size).map { |n| [[self, :is, n], [fun, :is, n]] }
+      array = (0...is.size).map { |n| [[:circuit, :is, n], [fun, :is, n]] }
       Wires.from_array(array)
     end
 
     def os_wires(fun)
-      array = (0...os.size).map { |n| [[fun, :os, n], [self, :os, n]] }
+      array = (0...os.size).map { |n| [[fun, :os, n], [:circuit, :os, n]] }
       Wires.from_array(array)
     end
 
     def ps_wires(fun)
-      Wires.from_array([[[fun, :os, os.size], [self, :ps, 0]]])
+      Wires.from_array([[[fun, :os, os.size], [:circuit, :ps, 0]]])
     end
 
     def qs_wires(fun)
-      Wires.from_array([[[self, :qs, 0], [fun, :is, is.size]]])
+      Wires.from_array([[[:circuit, :qs, 0], [fun, :is, is.size]]])
     end
   end
 end
