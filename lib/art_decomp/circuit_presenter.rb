@@ -29,39 +29,31 @@ module ArtDecomp
     end
 
     def wires
-      labels = WiresPresenter.new(super).labels
-      labels.map do |(src_object, src_label), (dst_object, dst_label)|
+      labels = WiresPresenter.new(super).labels(circuit)
+      labels.map do |(src_prefix, src_label), (dst_prefix, dst_label)|
         [
-          "#{wirings_label_for(src_object)}_#{src_label}",
-          "#{wirings_label_for(dst_object)}_#{dst_label}",
+          "#{src_prefix}_#{src_label}",
+          "#{dst_prefix}_#{dst_label}",
         ]
       end
     end
 
-    def wirings_label_for(object)
-      case
-      when object == circuit          then 'fsm'
-      when functions.include?(object) then "f#{functions.index(object)}"
-      when recoders.include?(object)  then "r#{recoders.index(object)}"
-      end
-    end
-
     class WiresPresenter < SimpleDelegator
-      def labels
-        flat_map { |wire| WirePresenter.new(wire).labels }
+      def labels(circuit)
+        flat_map { |wire| WirePresenter.new(wire).labels(circuit) }
       end
 
       class WirePresenter < SimpleDelegator
-        def labels
-          src_labels = PinPresenter.new(source).labels
-          dst_labels = PinPresenter.new(destination).labels
+        def labels(circuit)
+          src_labels = PinPresenter.new(source).labels(circuit)
+          dst_labels = PinPresenter.new(destination).labels(circuit)
           src_labels.zip(dst_labels)
         end
 
         class PinPresenter < SimpleDelegator
-          def labels
+          def labels(circuit)
             Array.new(object.send(group)[index].binwidth) do |n|
-              [object, label(n)]
+              [prefix(circuit), label(n)]
             end
           end
 
@@ -70,6 +62,15 @@ module ArtDecomp
           def label(n)
             bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+)
             "#{group}(#{bin + n})"
+          end
+
+          def prefix(circuit)
+            functions, recoders = circuit.functions, circuit.recoders
+            case
+            when object == circuit          then 'fsm'
+            when functions.include?(object) then "f#{functions.index(object)}"
+            when recoders.include?(object)  then "r#{recoders.index(object)}"
+            end
           end
         end
       end
