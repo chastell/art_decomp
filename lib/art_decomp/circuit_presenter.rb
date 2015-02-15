@@ -1,7 +1,6 @@
 require 'delegate'
 require 'erb'
 require_relative 'function_presenter'
-require_relative 'wires_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
@@ -44,6 +43,33 @@ module ArtDecomp
       when object == circuit          then 'fsm'
       when functions.include?(object) then "f#{functions.index(object)}"
       when recoders.include?(object)  then "r#{recoders.index(object)}"
+      end
+    end
+
+    class WiresPresenter < SimpleDelegator
+      def labels
+        flat_map { |wire| WirePresenter.new(wire).labels }
+      end
+    end
+
+    class WirePresenter < SimpleDelegator
+      def labels
+        src_labels = PinPresenter.new(source).labels
+        dst_labels = PinPresenter.new(destination).labels
+        src_labels.zip(dst_labels)
+      end
+    end
+
+    class PinPresenter < SimpleDelegator
+      def labels
+        Array.new(object.send(group)[index].binwidth) { |n| [object, label(n)] }
+      end
+
+      private
+
+      def label(n)
+        bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+) + n
+        "#{group}(#{bin})"
       end
     end
   end
