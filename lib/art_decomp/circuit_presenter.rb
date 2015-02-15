@@ -1,5 +1,6 @@
 require 'delegate'
 require 'erb'
+require 'forwardable'
 require_relative 'function_presenter'
 
 module ArtDecomp
@@ -59,6 +60,8 @@ module ArtDecomp
         private_attr_reader :circuit
 
         class PinPresenter < SimpleDelegator
+          extend Forwardable
+
           def initialize(pin, circuit:)
             super pin
             @circuit = circuit
@@ -74,13 +77,14 @@ module ArtDecomp
 
           private
 
+          delegate %i(functions recoders) => :circuit
+
           def label(n)
             bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+)
             "#{group}(#{bin + n})"
           end
 
           def prefix
-            functions, recoders = circuit.functions, circuit.recoders
             case
             when object == circuit          then 'fsm'
             when functions.include?(object) then "f#{functions.index(object)}"
