@@ -50,26 +50,28 @@ module ArtDecomp
       def labels
         flat_map { |wire| WirePresenter.new(wire).labels }
       end
-    end
 
-    class WirePresenter < SimpleDelegator
-      def labels
-        src_labels = PinPresenter.new(source).labels
-        dst_labels = PinPresenter.new(destination).labels
-        src_labels.zip(dst_labels)
-      end
-    end
+      class WirePresenter < SimpleDelegator
+        def labels
+          src_labels = PinPresenter.new(source).labels
+          dst_labels = PinPresenter.new(destination).labels
+          src_labels.zip(dst_labels)
+        end
 
-    class PinPresenter < SimpleDelegator
-      def labels
-        Array.new(object.send(group)[index].binwidth) { |n| [object, label(n)] }
-      end
+        class PinPresenter < SimpleDelegator
+          def labels
+            Array.new(object.send(group)[index].binwidth) do |n|
+              [object, label(n)]
+            end
+          end
 
-      private
+          private
 
-      def label(n)
-        bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+) + n
-        "#{group}(#{bin})"
+          def label(n)
+            bin = object.send(group)[0...index].map(&:binwidth).reduce(0, :+)
+            "#{group}(#{bin + n})"
+          end
+        end
       end
     end
   end
