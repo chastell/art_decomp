@@ -30,10 +30,7 @@ module ArtDecomp
         ab_anb      = Function.new(is: Puts.new([a,b]), os: Puts.new([anb]))
         bc_buc_nbuc = Function.new(is: Puts.new([b,c]),
                                    os: Puts.new([buc, nbuc]))
-        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
-                              is: Puts.new([a, b, c]),
-                              os: Puts.new([anb, buc, nbuc]))
-        circuit.instance_variable_set :@wires, Wires.from_array([
+        wires = Wires.from_array([
           [[:circuit,    :is, 0], [ab_anb,      :is, 0]],
           [[:circuit,    :is, 1], [ab_anb,      :is, 1]],
           [[ab_anb,      :os, 0], [:circuit,    :os, 0]],
@@ -42,6 +39,10 @@ module ArtDecomp
           [[bc_buc_nbuc, :os, 0], [:circuit,    :os, 1]],
           [[bc_buc_nbuc, :os, 1], [:circuit,    :os, 2]],
         ])
+        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
+                              is: Puts.new([a, b, c]),
+                              os: Puts.new([anb, buc, nbuc]),
+                              wires: wires)
         fun = Function.new(is: Puts.new([a,b,c]), os: Puts.new([anb,buc,nbuc]))
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]
       end
