@@ -4,6 +4,7 @@ Lint/UnusedMethodArgument:
 Metrics/AbcSize:
   Exclude:
     - lib/art_decomp/arch_sizer.rb
+    - lib/art_decomp/function_decomposer/parallel.rb
     - lib/art_decomp/seps.rb
 
 Metrics/ParameterLists:

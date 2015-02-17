@@ -16,9 +16,9 @@ module ArtDecomp
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            circuit = Circuit.new(functions: merged, is: is, os: os)
-            merged.each { |f| circuit.add_wires Wirer.new(circuit, f).wires }
-            yielder << circuit
+            wires = merged.map { |f| Wirer.new(f, is, os).wires }.reduce(:+)
+            circ  = Circuit.new(functions: merged, is: is, os: os, wires: wires)
+            yielder << circ
           end
         end
       end
@@ -38,27 +38,27 @@ module ArtDecomp
       end
 
       class Wirer
-        def initialize(circuit, function)
-          @circuit, @function = circuit, function
+        def initialize(function, is, os)
+          @function, @is, @os = function, is, os
         end
 
         def wires
           is_wires + os_wires
         end
 
-        private_attr_reader :circuit, :function
+        private_attr_reader :function, :is, :os
 
         private
 
         def is_wires
           Wires.from_array(function.is.map.with_index do |put, fi|
-            [[:circuit, :is, circuit.is.index(put)], [function, :is, fi]]
+            [[:circuit, :is, is.index(put)], [function, :is, fi]]
           end)
         end
 
         def os_wires
           Wires.from_array(function.os.map.with_index do |put, fo|
-            [[function, :os, fo], [:circuit, :os, circuit.os.index(put)]]
+            [[function, :os, fo], [:circuit, :os, os.index(put)]]
           end)
         end
       end
