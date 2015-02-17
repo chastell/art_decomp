@@ -65,16 +65,15 @@ module ArtDecomp
           def initialize(pin, circuit:)
             super pin
             @circuit = circuit
+            target   = object == :circuit ? circuit : object
+            @pins    = target.send(group)
           end
 
           def labels
-            target = object == :circuit ? circuit : object
-            Array.new(target.send(group)[index].binwidth) do |n|
-              "#{prefix}_#{suffix(n)}"
-            end
+            Array.new(pins[index].binwidth) { |n| "#{prefix}_#{suffix(n)}" }
           end
 
-          private_attr_reader :circuit
+          private_attr_reader :circuit, :pins
 
           private
 
@@ -89,8 +88,7 @@ module ArtDecomp
           end
 
           def suffix(n)
-            target = object == :circuit ? circuit : object
-            offset = target.send(group)[0...index].map(&:binwidth).reduce(0, :+)
+            offset = pins[0...index].map(&:binwidth).reduce(0, :+)
             "#{group}(#{offset + n})"
           end
         end
