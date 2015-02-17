@@ -12,9 +12,34 @@ module ArtDecomp
 
     def self.from_fsm(is:, os:, ps:, qs:)
       function = Function.new(is: is + qs, os: os + ps)
-      circuit  = new(functions: [function], is: is, os: os, ps: ps, qs: qs)
-      circuit.tap { |circ| circ.wire_to function }
+      wires = wires_for(function, is: is, os: os)
+      new(functions: [function], is: is, os: os, ps: ps, qs: qs, wires: wires)
     end
+
+    def self.is_wires(fun, is:)
+      array = (0...is.size).map { |n| [[:circuit, :is, n], [fun, :is, n]] }
+      Wires.from_array(array)
+    end
+
+    def self.os_wires(fun, os:)
+      array = (0...os.size).map { |n| [[fun, :os, n], [:circuit, :os, n]] }
+      Wires.from_array(array)
+    end
+
+    def self.ps_wires(fun, os:)
+      Wires.from_array([[[fun, :os, os.size], [:circuit, :ps, 0]]])
+    end
+
+    def self.qs_wires(fun, is:)
+      Wires.from_array([[[:circuit, :qs, 0], [fun, :is, is.size]]])
+    end
+
+    def self.wires_for(function, is:, os:)
+      is_wires(function, is: is) + qs_wires(function, is: is) +
+        os_wires(function, os: os) + ps_wires(function, os: os)
+    end
+
+    private_class_method :is_wires, :os_wires, :ps_wires, :qs_wires, :wires_for
 
     def initialize(functions: [], is: Puts.new, os: Puts.new, ps: Puts.new,
                    qs: Puts.new, recoders: [], wires: Wires.new)

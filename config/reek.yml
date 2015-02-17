@@ -37,6 +37,8 @@ UncommunicativeVariableName:
   exclude:
     - ArtDecomp::Circuit#is_wires
     - ArtDecomp::Circuit#os_wires
+    - ArtDecomp::Circuit#self.is_wires
+    - ArtDecomp::Circuit#self.os_wires
     - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#labels
     - ArtDecomp::FunctionDecomposer::Parallel#decompositions
     - ArtDecomp::FunctionDecomposer::Parallel#merged
