@@ -136,27 +136,6 @@ module ArtDecomp
       end
     end
 
-    describe '#wire_to' do
-      it 'wires the Circuit to the given Function' do
-        is = Puts.new([fake(:put), fake(:put)])
-        os = Puts.new([fake(:put), fake(:put)])
-        ps = Puts.new([fake(:put)])
-        qs = Puts.new([fake(:put)])
-        function = Function.new(is: is + qs, os: os + ps)
-        circuit  = Circuit.new(functions: [function],
-                               is: is, os: os, ps: ps, qs: qs)
-        circuit.wire_to function
-        circuit.wires.must_equal Wires.from_array([
-          [[:circuit, :is, 0], [function, :is, 0]],
-          [[:circuit, :is, 1], [function, :is, 1]],
-          [[:circuit, :qs, 0], [function, :is, 2]],
-          [[function, :os, 0], [:circuit, :os, 0]],
-          [[function, :os, 1], [:circuit, :os, 1]],
-          [[function, :os, 2], [:circuit, :ps, 0]],
-        ])
-      end
-    end
-
     describe '#wires' do
       it 'gets the wires' do
         Circuit.new(wires: wires = fake(:array)).wires.must_equal wires

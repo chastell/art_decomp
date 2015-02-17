@@ -73,34 +73,9 @@ module ArtDecomp
       @min_size ||= circuit_sizer.min_size
     end
 
-    def wire_to(function)
-      @wires = is_wires(function) + qs_wires(function) +
-               os_wires(function) + ps_wires(function)
-    end
-
     def with_wires(new_wires)
       self.class.new(functions: functions, is: is, os: os, ps: ps, qs: qs,
                      recoders: recoders, wires: new_wires)
-    end
-
-    private
-
-    def is_wires(fun)
-      array = (0...is.size).map { |n| [[:circuit, :is, n], [fun, :is, n]] }
-      Wires.from_array(array)
-    end
-
-    def os_wires(fun)
-      array = (0...os.size).map { |n| [[fun, :os, n], [:circuit, :os, n]] }
-      Wires.from_array(array)
-    end
-
-    def ps_wires(fun)
-      Wires.from_array([[[fun, :os, os.size], [:circuit, :ps, 0]]])
-    end
-
-    def qs_wires(fun)
-      Wires.from_array([[[:circuit, :qs, 0], [fun, :is, is.size]]])
     end
   end
 end
