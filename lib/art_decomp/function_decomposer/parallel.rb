@@ -52,13 +52,13 @@ module ArtDecomp
 
         def is_wires
           Wires.from_array(function.is.map.with_index do |put, fi|
-            [[circuit, :is, circuit.is.index(put)], [function, :is, fi]]
+            [[:circuit, :is, circuit.is.index(put)], [function, :is, fi]]
           end)
         end
 
         def os_wires
           Wires.from_array(function.os.map.with_index do |put, fo|
-            [[function, :os, fo], [circuit, :os, circuit.os.index(put)]]
+            [[function, :os, fo], [:circuit, :os, circuit.os.index(put)]]
           end)
         end
       end
