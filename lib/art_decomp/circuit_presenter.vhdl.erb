@@ -12,7 +12,7 @@ entity <%= name %> is
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
-  signal fsm_qs, fsm_ps: std_logic_vector(0 to <%= qs.binwidth - 1 %>);
+  signal fsm_states, fsm_next_states: std_logic_vector(0 to <%= states.binwidth - 1 %>);
 
 % functions.each.with_index do |fun, i|
   signal f<%= i %>_is: std_logic_vector(0 to <%= fun.is.binwidth - 1 %>);
@@ -29,8 +29,8 @@ begin
 % end
 
   process(reset, clock) begin
-    if reset = '1' then fsm_qs <= "<%= '0' * qs.binwidth %>";
-    elsif rising_edge(clock) then fsm_qs <= fsm_ps;
+    if reset = '1' then fsm_states <= "<%= '0' * states.binwidth %>";
+    elsif rising_edge(clock) then fsm_states <= fsm_next_states;
     end if;
   end process;
 

@@ -12,7 +12,7 @@ entity mc is
 end mc;
 
 architecture behaviour of mc is
-  signal fsm_qs, fsm_ps: std_logic_vector(0 to 1);
+  signal fsm_states, fsm_next_states: std_logic_vector(0 to 1);
 
   signal f0_is: std_logic_vector(0 to 2);
   signal f0_os: std_logic_vector(0 to 1);
@@ -31,8 +31,8 @@ begin
   f1_is(1) <= f0_os(0);
   f1_is(2) <= f0_os(1);
   f1_is(3) <= r0_os(0);
-  fsm_ps(0) <= r1_os(0);
-  fsm_ps(1) <= r1_os(1);
+  fsm_next_states(0) <= r1_os(0);
+  fsm_next_states(1) <= r1_os(1);
   fsm_os(0) <= f1_os(2);
   fsm_os(1) <= f1_os(3);
   fsm_os(2) <= f1_os(4);
@@ -40,8 +40,8 @@ begin
   fsm_os(4) <= f1_os(6);
 
   process(reset, clock) begin
-    if reset = '1' then fsm_qs <= "00";
-    elsif rising_edge(clock) then fsm_qs <= fsm_ps;
+    if reset = '1' then fsm_states <= "00";
+    elsif rising_edge(clock) then fsm_states <= fsm_next_states;
     end if;
   end process;
 

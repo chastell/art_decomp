@@ -24,10 +24,11 @@ module ArtDecomp
           Put[:'0' => B[0,1,2], :'1' => B[0,1,2]],
           Put[:'0' => B[0,1,2], :'1' => B[0,1]],
         ])
-        qs = Puts.new([Put[s1: B[0,1], s2: B[],    s3: B[2]]])
-        ps = Puts.new([Put[s1: B[0,2], s2: B[0,1], s3: B[0]]])
+        states      = Puts.new([Put[s1: B[0,1], s2: B[],    s3: B[2]]])
+        next_states = Puts.new([Put[s1: B[0,2], s2: B[0,1], s3: B[0]]])
 
-        circuit = Circuit.from_fsm(is: is, qs: qs, os: os, ps: ps)
+        circuit = Circuit.from_fsm(is: is, os: os, states: states,
+                                   next_states: next_states)
         KISSParser.circuit_for(kiss).must_equal circuit
       end
     end
