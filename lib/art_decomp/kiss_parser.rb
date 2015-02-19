@@ -42,14 +42,14 @@ module ArtDecomp
       state_cols_from_group(:qs)
     end
 
-    def state_cols_from_group(name)
-      column = col_groups[name].map(&:to_sym)
-      Puts.new([Put.from_column(column, dont_care: :*, codes: states)])
-    end
-
-    def states
+    def state_codes
       symbols = col_groups[:qs].map(&:to_sym) + col_groups[:ps].map(&:to_sym)
       symbols.uniq - [:*]
+    end
+
+    def state_cols_from_group(name)
+      column = col_groups[name].map(&:to_sym)
+      Puts.new([Put.from_column(column, dont_care: :*, codes: state_codes)])
     end
   end
 end
