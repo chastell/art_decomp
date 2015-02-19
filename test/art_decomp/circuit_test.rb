@@ -141,16 +141,5 @@ module ArtDecomp
         Circuit.new(wires: wires = fake(:array)).wires.must_equal wires
       end
     end
-
-    describe '#with_wires' do
-      it 'returns a new Circuit with the given Wires' do
-        old_wires = fake(:wires)
-        new_wires = fake(:wires)
-        old_circuit = Circuit.new(wires: old_wires)
-        new_circuit = old_circuit.with_wires(new_wires)
-        new_circuit.wires.must_equal new_wires
-        old_circuit.wires.must_equal old_wires
-      end
-    end
   end
 end

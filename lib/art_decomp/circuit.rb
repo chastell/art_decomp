@@ -72,10 +72,5 @@ module ArtDecomp
     def min_size(circuit_sizer: CircuitSizer.new(self))
       @min_size ||= circuit_sizer.min_size
     end
-
-    def with_wires(new_wires)
-      self.class.new(functions: functions, is: is, os: os, ps: ps, qs: qs,
-                     recoders: recoders, wires: new_wires)
-    end
   end
 end
