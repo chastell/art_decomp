@@ -9,15 +9,16 @@ module ArtDecomp
     let(:fun_b) { fake(:function) }
     let(:wires) do
       Wires.new([
-        Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 1]),
-        Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 0]),
+        Wire.from_arrays([fun_a, :outs, 0], [fun_b, :ins, 1]),
+        Wire.from_arrays([fun_a, :outs, 1], [fun_b, :ins, 0]),
       ])
     end
 
     describe '.from_array' do
       it 'constructs the Wires from a minimal Array' do
-        Wires.from_array([[[fun_a, :os, 0], [fun_b, :is, 1]],
-                          [[fun_a, :os, 1], [fun_b, :is, 0]]]).must_equal wires
+        from_array = Wires.from_array([[[fun_a, :outs, 0], [fun_b, :ins, 1]],
+                                       [[fun_a, :outs, 1], [fun_b, :ins, 0]]])
+        from_array.must_equal wires
       end
     end
 
@@ -29,8 +30,8 @@ module ArtDecomp
 
     describe '#+' do
       it 'sums the two Wires objects' do
-        wires_a = Wires.from_array([[[fun_a, :os, 0], [fun_b, :is, 1]]])
-        wires_b = Wires.from_array([[[fun_a, :os, 1], [fun_b, :is, 0]]])
+        wires_a = Wires.from_array([[[fun_a, :outs, 0], [fun_b, :ins, 1]]])
+        wires_b = Wires.from_array([[[fun_a, :outs, 1], [fun_b, :ins, 0]]])
         (wires_a + wires_b).must_equal wires
       end
     end
@@ -38,12 +39,12 @@ module ArtDecomp
     describe '#==' do
       it 'compares two Wires with regard to contents' do
         wires.must_equal Wires.new([
-          Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 1]),
-          Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 0]),
+          Wire.from_arrays([fun_a, :outs, 0], [fun_b, :ins, 1]),
+          Wire.from_arrays([fun_a, :outs, 1], [fun_b, :ins, 0]),
         ])
         wires.wont_equal Wires.new([
-          Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 0]),
-          Wire.from_arrays([fun_a, :os, 1], [fun_b, :is, 1]),
+          Wire.from_arrays([fun_a, :outs, 0], [fun_b, :ins, 0]),
+          Wire.from_arrays([fun_a, :outs, 1], [fun_b, :ins, 1]),
         ])
       end
     end

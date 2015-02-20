@@ -20,11 +20,6 @@ Style/Documentation:
 Style/Not:
   Enabled: false
 
-Style/PredicateName:
-  Exclude:
-    - lib/art_decomp/circuit.rb
-    - lib/art_decomp/function_decomposer/parallel.rb
-
 Style/SingleLineBlockParams:
   Enabled: false
 

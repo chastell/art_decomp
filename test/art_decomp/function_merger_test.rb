@@ -25,11 +25,13 @@ module ArtDecomp
       let(:buc)  { Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]] }
       let(:nbuc) { Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]] }
 
-      let(:f1)  { Function.new(is: Puts.new([a,b]), os: Puts.new([anb]))      }
-      let(:f2)  { Function.new(is: Puts.new([b,c]), os: Puts.new([buc]))      }
-      let(:f3)  { Function.new(is: Puts.new([b,c]), os: Puts.new([nbuc]))     }
-      let(:f4)  { Function.new(is: Puts.new([c,b]), os: Puts.new([nbuc]))     }
-      let(:f23) { Function.new(is: Puts.new([b,c]), os: Puts.new([buc,nbuc])) }
+      let(:f1) { Function.new(ins: Puts.new([a,b]), outs: Puts.new([anb]))  }
+      let(:f2) { Function.new(ins: Puts.new([b,c]), outs: Puts.new([buc]))  }
+      let(:f3) { Function.new(ins: Puts.new([b,c]), outs: Puts.new([nbuc])) }
+      let(:f4) { Function.new(ins: Puts.new([c,b]), outs: Puts.new([nbuc])) }
+      let(:f23) do
+        Function.new(ins: Puts.new([b,c]), outs: Puts.new([buc,nbuc]))
+      end
 
       it 'merges passed Functions according to their inputs' do
         FunctionMerger.merge([f1, f2, f3]).must_equal [f1, f23]

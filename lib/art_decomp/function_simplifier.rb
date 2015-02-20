@@ -9,10 +9,10 @@ module ArtDecomp
     end
 
     def simplified
-      os_seps = os.map(&:seps).reduce(:|)
-      required_is = RequiredPutsFilter.required(puts: is,
-                                                required_seps: os_seps)
-      Function.new(is: required_is, os: os)
+      outs_seps    = outs.map(&:seps).reduce(:|)
+      required_ins = RequiredPutsFilter.required(puts: ins,
+                                                 required_seps: outs_seps)
+      Function.new(ins: required_ins, outs: outs)
     end
   end
 end

@@ -10,23 +10,24 @@ module ArtDecomp
 
     def initialize(kiss)
       cols        = kiss.lines.grep(/^[^.]/).map(&:split).transpose
-      @col_groups = %i(is states next_states os).zip(cols).to_h
+      @col_groups = %i(ins states next_states outs).zip(cols).to_h
     end
 
     def circuit
-      Circuit.from_fsm(is: is, os: os, states: states, next_states: next_states)
+      Circuit.from_fsm(ins: ins, outs: outs, states: states,
+                       next_states: next_states)
     end
 
     private_attr_reader :col_groups
 
     private
 
-    def is
-      put_cols_from_group(:is)
+    def ins
+      put_cols_from_group(:ins)
     end
 
-    def os
-      put_cols_from_group(:os)
+    def outs
+      put_cols_from_group(:outs)
     end
 
     def next_states

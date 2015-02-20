@@ -8,11 +8,11 @@ module ArtDecomp
   describe Pin do
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        is = Puts.new([Put[a: 0, b: 1, c: 2]])
-        function = Function.new(is: is)
-        Pin[function, :is, 0].inspect
+        ins = Puts.new([Put[a: 0, b: 1, c: 2]])
+        function = Function.new(ins: ins)
+        Pin[function, :ins, 0].inspect
           .must_equal 'ArtDecomp::Pin' \
-                      '[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :is, 0]'
+                      '[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :ins, 0]'
       end
     end
   end

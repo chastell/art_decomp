@@ -26,19 +26,19 @@ module ArtDecomp
       let(:buc) { Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]] }
 
       it 'returns the simplest implementation of a Function' do
-        ab_anb  = Function.new(is: Puts.new([a,b]),   os: Puts.new([anb]))
-        abc_anb = Function.new(is: Puts.new([a,b,c]), os: Puts.new([anb]))
+        ab_anb  = Function.new(ins: Puts.new([a,b]),   outs: Puts.new([anb]))
+        abc_anb = Function.new(ins: Puts.new([a,b,c]), outs: Puts.new([anb]))
         FunctionSimplifier.simplify(abc_anb).must_equal ab_anb
       end
 
       it 'maintains put order' do
-        abc_buc = Function.new(is: Puts.new([a,b,c]), os: Puts.new([buc]))
-        bc_buc  = Function.new(is: Puts.new([b,c]),   os: Puts.new([buc]))
+        abc_buc = Function.new(ins: Puts.new([a,b,c]), outs: Puts.new([buc]))
+        bc_buc  = Function.new(ins: Puts.new([b,c]),   outs: Puts.new([buc]))
         FunctionSimplifier.simplify(abc_buc).must_equal bc_buc
       end
 
       it 'does not modify Functions that are the simplest already' do
-        ab_anb = Function.new(is: Puts.new([a,b]), os: Puts.new([anb]))
+        ab_anb = Function.new(ins: Puts.new([a,b]), outs: Puts.new([anb]))
         FunctionSimplifier.simplify(ab_anb).must_equal ab_anb
       end
     end

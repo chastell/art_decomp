@@ -6,22 +6,24 @@ require_relative 'wires'
 
 module ArtDecomp
   class Circuit
-    include Equalizer.new(:functions, :is, :os, :states, :next_states,
+    include Equalizer.new(:functions, :ins, :outs, :states, :next_states,
                           :recoders, :wires)
 
-    attr_reader :functions, :is, :os, :states, :next_states, :recoders, :wires
+    attr_reader :functions, :ins, :outs, :states, :next_states, :recoders,
+                :wires
 
-    def self.from_fsm(is:, os:, states:, next_states:)
-      function = Function.new(is: is + states, os: os + next_states)
-      wires = Wirer.new(function, is: is, os: os).wires
-      new(functions: [function], is: is, os: os, states: states,
+    def self.from_fsm(ins:, outs:, states:, next_states:)
+      function = Function.new(ins: ins + states, outs: outs + next_states)
+      wires = Wirer.new(function, ins: ins, outs: outs).wires
+      new(functions: [function], ins: ins, outs: outs, states: states,
           next_states: next_states, wires: wires)
     end
 
-    def initialize(functions: [], is: Puts.new, os: Puts.new, states: Puts.new,
-                   next_states: Puts.new, recoders: [], wires: Wires.new)
+    def initialize(functions: [], ins: Puts.new, outs: Puts.new,
+                   states: Puts.new, next_states: Puts.new, recoders: [],
+                   wires: Wires.new)
       @functions            = functions
-      @is, @os              = is, os
+      @ins, @outs              = ins, outs
       @states, @next_states = states, next_states
       @recoders             = recoders
       @wires                = wires
@@ -52,37 +54,37 @@ module ArtDecomp
     end
 
     class Wirer
-      def initialize(function, is:, os:)
-        @function, @is, @os = function, is, os
+      def initialize(function, ins:, outs:)
+        @function, @ins, @outs = function, ins, outs
       end
 
       def wires
-        is_wires + states_wires + os_wires + next_states_wires
+        ins_wires + states_wires + outs_wires + next_states_wires
       end
 
-      private_attr_reader :function, :is, :os
+      private_attr_reader :function, :ins, :outs
 
       private
 
-      def is_wires
-        Wires.from_array((0...is.size).map do |n|
-          [[:circuit, :is, n], [function, :is, n]]
+      def ins_wires
+        Wires.from_array((0...ins.size).map do |n|
+          [[:circuit, :ins, n], [function, :ins, n]]
         end)
       end
 
       def next_states_wires
-        Wires.from_array([[[function, :os, os.size],
+        Wires.from_array([[[function, :outs, outs.size],
                            [:circuit, :next_states, 0]]])
       end
 
-      def os_wires
-        Wires.from_array((0...os.size).map do |n|
-          [[function, :os, n], [:circuit, :os, n]]
+      def outs_wires
+        Wires.from_array((0...outs.size).map do |n|
+          [[function, :outs, n], [:circuit, :outs, n]]
         end)
       end
 
       def states_wires
-        Wires.from_array([[[:circuit, :states, 0], [function, :is, is.size]]])
+        Wires.from_array([[[:circuit, :states, 0], [function, :ins, ins.size]]])
       end
     end
   end

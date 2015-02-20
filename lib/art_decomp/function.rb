@@ -4,16 +4,16 @@ require_relative 'puts'
 
 module ArtDecomp
   class Function
-    include Equalizer.new(:is, :os)
+    include Equalizer.new(:ins, :outs)
 
-    attr_reader :is, :os
+    attr_reader :ins, :outs
 
-    def initialize(is: Puts.new, os: Puts.new)
-      @is, @os = is, os
+    def initialize(ins: Puts.new, outs: Puts.new)
+      @ins, @outs = ins, outs
     end
 
     def arch
-      Arch[is.binwidth, os.binwidth]
+      Arch[ins.binwidth, outs.binwidth]
     end
 
     def inspect

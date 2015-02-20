@@ -4,9 +4,9 @@ require_relative 'puts_presenter'
 module ArtDecomp
   class FunctionPresenter < SimpleDelegator
     def rows
-      is_cols = PutsPresenter.new(is).bin_columns
-      os_cols = PutsPresenter.new(os).bin_columns
-      is_cols.zip(os_cols)
+      ins_cols  = PutsPresenter.new(ins).bin_columns
+      outs_cols = PutsPresenter.new(outs).bin_columns
+      ins_cols.zip(outs_cols)
     end
   end
 end

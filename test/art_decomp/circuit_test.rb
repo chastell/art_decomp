@@ -10,22 +10,22 @@ module ArtDecomp
   describe Circuit do
     describe '.from_fsm' do
       it 'creates a Circuit representing the FSM' do
-        is = Puts.new([Put[:'0' => B[0], :'1' => B[1]]])
-        os = Puts.new([Put[:'0' => B[1], :'1' => B[0]]])
+        ins  = Puts.new([Put[:'0' => B[0], :'1' => B[1]]])
+        outs = Puts.new([Put[:'0' => B[1], :'1' => B[0]]])
         states      = Puts.new([Put[s1: B[0], s2: B[1], s3: B[2]]])
         next_states = Puts.new([Put[s1: B[1], s2: B[2], s3: B[0]]])
-        circuit  = Circuit.from_fsm(is: is, os: os, states: states,
+        circuit  = Circuit.from_fsm(ins: ins, outs: outs, states: states,
                                     next_states: next_states)
         function = circuit.functions.first
         circuit.functions.must_equal [function]
-        function.is.must_equal is + states
-        function.os.must_equal os + next_states
+        function.ins.must_equal ins + states
+        function.outs.must_equal outs + next_states
         circuit.recoders.must_be :empty?
         circuit.wires.must_equal Wires.from_array([
-          [[:circuit, :is,     0], [function, :is,          0]],
-          [[:circuit, :states, 0], [function, :is,          1]],
-          [[function, :os,     0], [:circuit, :os,          0]],
-          [[function, :os,     1], [:circuit, :next_states, 0]],
+          [[:circuit, :ins,    0], [function, :ins,         0]],
+          [[:circuit, :states, 0], [function, :ins,         1]],
+          [[function, :outs,   0], [:circuit, :outs,        0]],
+          [[function, :outs,   1], [:circuit, :next_states, 0]],
         ])
       end
     end
@@ -33,8 +33,8 @@ module ArtDecomp
     describe '.new' do
       it 'initialises the Circuit with minimal fuss' do
         Circuit.new.functions.must_equal []
-        Circuit.new.is.must_equal Puts.new
-        Circuit.new.os.must_equal Puts.new
+        Circuit.new.ins.must_equal Puts.new
+        Circuit.new.outs.must_equal Puts.new
         Circuit.new.next_states.must_equal Puts.new
         Circuit.new.states.must_equal Puts.new
         Circuit.new.recoders.must_equal []
@@ -44,22 +44,22 @@ module ArtDecomp
 
     describe '#==' do
       it 'compares Circuits by value' do
-        is          = Puts.new([fake(:put), fake(:put)])
-        os          = Puts.new([fake(:put), fake(:put)])
+        ins         = Puts.new([fake(:put), fake(:put)])
+        outs        = Puts.new([fake(:put), fake(:put)])
         next_states = Puts.new([fake(:put), fake(:put)])
         states      = Puts.new([fake(:put), fake(:put)])
         funs        = [fake(:function), fake(:function)]
         recs        = [fake(:function), fake(:function)]
         wires       = Wires.new([fake(:wire), fake(:wire)])
-        params      = { functions: funs, is: is, os: os, states: states,
+        params      = { functions: funs, ins: ins, outs: outs, states: states,
                         next_states: next_states, recoders: recs, wires: wires }
         circuit     = Circuit.new(params)
 
         assert Circuit.new == Circuit.new # rubocop:disable UselessComparison
         assert circuit == Circuit.new(params)
         refute circuit == Circuit.new(params.merge(functions: funs.reverse))
-        refute circuit == Circuit.new(params.merge(is: Puts.new))
-        refute circuit == Circuit.new(params.merge(os: Puts.new))
+        refute circuit == Circuit.new(params.merge(ins: Puts.new))
+        refute circuit == Circuit.new(params.merge(outs: Puts.new))
         refute circuit == Circuit.new(params.merge(next_states: Puts.new))
         refute circuit == Circuit.new(params.merge(states: Puts.new))
         refute circuit == Circuit.new(params.merge(recoders: recs.reverse))
@@ -99,9 +99,9 @@ module ArtDecomp
       end
     end
 
-    describe '#is, #os, #states, #next_states' do
+    describe '#ins, #outs, #states, #next_states' do
       it 'returns the Circuit’s Put groups' do
-        %i(is os states next_states).each do |type|
+        %i(ins outs states next_states).each do |type|
           puts = Puts.new([stub(:put)])
           Circuit.new(type => puts).send(type).must_equal puts
         end

@@ -43,29 +43,29 @@ module ArtDecomp
           Put[:'0' => B[0,2,4,6,8,10], :'1' => B[1,3,5,7,9,11]],
           Put[:'0' => B[0,1,2,3,5,7,9,11], :'1' => B[4,6,8,10]],
         ])
-        f0 = Function.new(is: f0is, os: f0os)
-        f1 = Function.new(is: f1is, os: f1os)
+        f0 = Function.new(ins: f0is, outs: f0os)
+        f1 = Function.new(ins: f1is, outs: f1os)
         r_state = Puts.new([Put[FG: B[0], FY: B[1], HG: B[2], HY: B[3]]])
         r_coded = Puts.new([Put[a: B[0,2], b: B[1,3]],
                             Put[a: B[0,1], b: B[2,3]]])
-        r0 = Function.new(is: r_state, os: r_coded)
-        r1 = Function.new(is: r_coded, os: r_state)
+        r0 = Function.new(ins: r_state, outs: r_coded)
+        r1 = Function.new(ins: r_coded, outs: r_state)
         circuit.functions.replace [f0, f1]
         circuit.recoders.replace  [r0, r1]
         circuit.instance_variable_set :@wires, Wires.from_array([
-          [[:circuit, :is, 0], [f0,       :is,          0]],
-          [[:circuit, :is, 1], [f0,       :is,          1]],
-          [[r0,       :os, 1], [f0,       :is,          2]],
-          [[:circuit, :is, 2], [f1,       :is,          0]],
-          [[f0,       :os, 0], [f1,       :is,          1]],
-          [[f0,       :os, 1], [f1,       :is,          2]],
-          [[r0,       :os, 0], [f1,       :is,          3]],
-          [[r1,       :os, 0], [:circuit, :next_states, 0]],
-          [[f1,       :os, 2], [:circuit, :os,          0]],
-          [[f1,       :os, 3], [:circuit, :os,          1]],
-          [[f1,       :os, 4], [:circuit, :os,          2]],
-          [[f1,       :os, 5], [:circuit, :os,          3]],
-          [[f1,       :os, 6], [:circuit, :os,          4]],
+          [[:circuit, :ins,  0], [f0,       :ins,         0]],
+          [[:circuit, :ins,  1], [f0,       :ins,         1]],
+          [[r0,       :outs, 1], [f0,       :ins,         2]],
+          [[:circuit, :ins,  2], [f1,       :ins,         0]],
+          [[f0,       :outs, 0], [f1,       :ins,         1]],
+          [[f0,       :outs, 1], [f1,       :ins,         2]],
+          [[r0,       :outs, 0], [f1,       :ins,         3]],
+          [[r1,       :outs, 0], [:circuit, :next_states, 0]],
+          [[f1,       :outs, 2], [:circuit, :outs,        0]],
+          [[f1,       :outs, 3], [:circuit, :outs,        1]],
+          [[f1,       :outs, 4], [:circuit, :outs,        2]],
+          [[f1,       :outs, 5], [:circuit, :outs,        3]],
+          [[f1,       :outs, 6], [:circuit, :outs,        4]],
         ])
 
         vhdl = File.read('test/fixtures/mc.decomposed.vhdl')

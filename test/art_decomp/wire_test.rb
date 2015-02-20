@@ -7,22 +7,22 @@ require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp
   describe Wire do
-    let(:fun_a) { Function.new(os: Puts.new([Put[a: 1, b: 0]]))       }
-    let(:fun_b) { Function.new(is: Puts.new([Put[a: 0, b: 1, c: 2]])) }
-    let(:wire)  { Wire[Pin[fun_a, :os, 0], Pin[fun_b, :is, 1]]        }
+    let(:fun_a) { Function.new(outs: Puts.new([Put[a: 1, b: 0]]))      }
+    let(:fun_b) { Function.new(ins: Puts.new([Put[a: 0, b: 1, c: 2]])) }
+    let(:wire)  { Wire[Pin[fun_a, :outs, 0], Pin[fun_b, :ins, 1]]      }
 
     describe '.from_arrays' do
       it 'constructs the Wire from a minimal Array' do
-        Wire.from_arrays([fun_a, :os, 0], [fun_b, :is, 1]).must_equal wire
+        Wire.from_arrays([fun_a, :outs, 0], [fun_b, :ins, 1]).must_equal wire
       end
     end
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        wire.inspect.must_equal 'ArtDecomp::Wire['                            \
-          'ArtDecomp::Pin[ArtDecomp::Function(ArtDecomp::Arch[0,1]), :os, 0]' \
-          ', '                                                                \
-          'ArtDecomp::Pin[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :is, 1]' \
+        wire.inspect.must_equal 'ArtDecomp::Wire['                             \
+          'ArtDecomp::Pin[ArtDecomp::Function(ArtDecomp::Arch[0,1]), :outs, 0]'\
+          ', '                                                                 \
+          'ArtDecomp::Pin[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :ins, 1]' \
           ']'
       end
     end

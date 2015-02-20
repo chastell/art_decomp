@@ -9,13 +9,13 @@ module ArtDecomp
   describe FunctionPresenter do
     describe '#rows' do
       it 'returns binary-encoded row representation of the Function' do
-        is = Puts.new([
+        ins = Puts.new([
           Put[:'0' => B[0,1,3,4,6,7,8,9], :'1' => B[1,2,3,4,5,7,8,9]],
           Put[:'0' => B[0,1,3,4,5,6,8,9], :'1' => B[0,2,3,4,6,7,8,9]],
           Put[:'0' => B[0,1,2,3,5,6,7,8], :'1' => B[0,1,2,4,5,6,7,9]],
           Put[HG: B[0,1,2], HY: B[3,4], FG: B[5,6,7], FY: B[8,9]],
         ])
-        os = Puts.new([
+        outs = Puts.new([
           Put[:'0' => B[0,1,3,5,8], :'1' => B[2,4,6,7,9]],
           Put[:'0' => B[0,1,2,3,4], :'1' => B[5,6,7,8,9]],
           Put[:'0' => B[0,1,2,5,6,7,8,9], :'1' => B[3,4]],
@@ -23,7 +23,7 @@ module ArtDecomp
           Put[:'0' => B[0,1,2,3,4,5,6,7], :'1' => B[8,9]],
           Put[HG: B[0,1,9], HY: B[2,3], FG: B[4,5], FY: B[6,7,8]],
         ])
-        function = Function.new(is: is, os: os)
+        function = Function.new(ins: ins, outs: outs)
         function_presenter = FunctionPresenter.new(function)
         function_presenter.rows.must_equal [
           %w(0--10 0001010),

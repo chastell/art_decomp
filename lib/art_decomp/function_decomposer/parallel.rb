@@ -16,8 +16,9 @@ module ArtDecomp
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            wires = merged.map { |f| Wirer.new(f, is, os).wires }.reduce(:+)
-            circ  = Circuit.new(functions: merged, is: is, os: os, wires: wires)
+            wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)
+            circ  = Circuit.new(functions: merged, ins: ins, outs: outs,
+                                wires: wires)
             yielder << circ
           end
         end
@@ -29,8 +30,8 @@ module ArtDecomp
 
       def merged
         @merged ||= begin
-          split = os.map do |o|
-            Function.new(is: is, os: Puts.new([o]))
+          split = outs.map do |o|
+            Function.new(ins: ins, outs: Puts.new([o]))
           end
           simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
           FunctionMerger.merge(simple)
@@ -38,27 +39,27 @@ module ArtDecomp
       end
 
       class Wirer
-        def initialize(function, is, os)
-          @function, @is, @os = function, is, os
+        def initialize(function, ins, outs)
+          @function, @ins, @outs = function, ins, outs
         end
 
         def wires
-          is_wires + os_wires
+          ins_wires + outs_wires
         end
 
-        private_attr_reader :function, :is, :os
+        private_attr_reader :function, :ins, :outs
 
         private
 
-        def is_wires
-          Wires.from_array(function.is.map.with_index do |put, fi|
-            [[:circuit, :is, is.index(put)], [function, :is, fi]]
+        def ins_wires
+          Wires.from_array(function.ins.map.with_index do |put, fi|
+            [[:circuit, :ins, ins.index(put)], [function, :ins, fi]]
           end)
         end
 
-        def os_wires
-          Wires.from_array(function.os.map.with_index do |put, fo|
-            [[function, :os, fo], [:circuit, :os, os.index(put)]]
+        def outs_wires
+          Wires.from_array(function.outs.map.with_index do |put, fo|
+            [[function, :outs, fo], [:circuit, :outs, outs.index(put)]]
           end)
         end
       end
