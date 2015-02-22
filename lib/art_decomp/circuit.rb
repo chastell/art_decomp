@@ -1,4 +1,4 @@
-require 'equalizer'
+require 'anima'
 require_relative 'circuit_sizer'
 require_relative 'function'
 require_relative 'puts'
@@ -6,11 +6,8 @@ require_relative 'wires'
 
 module ArtDecomp
   class Circuit
-    include Equalizer.new(:functions, :ins, :outs, :states, :next_states,
-                          :recoders, :wires)
-
-    attr_reader :functions, :ins, :outs, :states, :next_states, :recoders,
-                :wires
+    include Anima.new(:functions, :ins, :outs, :states, :next_states, :recoders,
+                      :wires)
 
     def self.from_fsm(ins:, outs:, states:, next_states:)
       function = Function.new(ins: ins + states, outs: outs + next_states)
