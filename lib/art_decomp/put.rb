@@ -1,4 +1,4 @@
-require 'equalizer'
+require 'anima'
 require 'forwardable'
 require_relative 'b'
 require_relative 'seps'
@@ -6,8 +6,7 @@ require_relative 'seps'
 module ArtDecomp
   class Put
     extend Forwardable
-
-    include Equalizer.new(:blanket)
+    include Anima.new(:blanket)
 
     def self.[](blanket = {})
       new(blanket: blanket)
@@ -49,7 +48,5 @@ module ArtDecomp
     end
 
     delegate size: :blanket
-
-    private_attr_reader :blanket
   end
 end
