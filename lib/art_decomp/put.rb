@@ -19,10 +19,6 @@ module ArtDecomp
       new(blanket: codes.zip(blocks).to_h)
     end
 
-    def initialize(blanket: {})
-      @blanket = blanket
-    end
-
     def binwidth
       size.zero? ? 0 : Math.log2(size).ceil
     end
