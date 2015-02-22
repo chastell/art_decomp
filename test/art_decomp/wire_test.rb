@@ -7,9 +7,13 @@ require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp
   describe Wire do
-    let(:fun_a) { Function.new(outs: Puts.new([Put[a: 1, b: 0]]))      }
-    let(:fun_b) { Function.new(ins: Puts.new([Put[a: 0, b: 1, c: 2]])) }
-    let(:wire)  { Wire[Pin[fun_a, :outs, 0], Pin[fun_b, :ins, 1]]      }
+    let(:fun_a) do
+      Function.new(ins: Puts.new, outs: Puts.new([Put[a: 1, b: 0]]))
+    end
+    let(:fun_b) do
+      Function.new(ins: Puts.new([Put[a: 0, b: 1, c: 2]]), outs: Puts.new)
+    end
+    let(:wire) { Wire[Pin[fun_a, :outs, 0], Pin[fun_b, :ins, 1]] }
 
     describe '.from_arrays' do
       it 'constructs the Wire from a minimal Array' do

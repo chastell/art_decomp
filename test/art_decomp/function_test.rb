@@ -29,7 +29,7 @@ module ArtDecomp
     describe '#arch' do
       it 'returns the Arch' do
         function.arch.must_equal Arch[3,3]
-        Function.new.arch.must_equal Arch[0,0]
+        Function.new(ins: Puts.new, outs: Puts.new).arch.must_equal Arch[0,0]
       end
     end
 
