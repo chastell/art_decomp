@@ -1,11 +1,10 @@
-require 'equalizer'
+require 'anima'
 require 'forwardable'
 
 module ArtDecomp
   class Seps
     extend Forwardable
-
-    include Equalizer.new(:matrix)
+    include Anima.new(:matrix)
 
     def self.from_blocks(blocks)
       all  = blocks.reduce(0, :|)
@@ -53,7 +52,5 @@ module ArtDecomp
     def size
       matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
     end
-
-    protected_attr_reader :matrix
   end
 end
