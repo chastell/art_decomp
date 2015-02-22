@@ -1,12 +1,10 @@
-require 'equalizer'
+require 'anima'
 require_relative 'arch'
 require_relative 'puts'
 
 module ArtDecomp
   class Function
-    include Equalizer.new(:ins, :outs)
-
-    attr_reader :ins, :outs
+    include Anima.new(:ins, :outs)
 
     def initialize(ins: Puts.new, outs: Puts.new)
       @ins, @outs = ins, outs
