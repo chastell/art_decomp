@@ -42,6 +42,9 @@ module ArtDecomp
         circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
                               ins: Puts.new([a, b, c]),
                               outs: Puts.new([anb, buc, nbuc]),
+                              states: Puts.new,
+                              next_states: Puts.new,
+                              recoders: [],
                               wires: wires)
         fun = Function.new(ins: Puts.new([a,b,c]),
                            outs: Puts.new([anb,buc,nbuc]))

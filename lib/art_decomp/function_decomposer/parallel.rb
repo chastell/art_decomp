@@ -18,7 +18,8 @@ module ArtDecomp
           unless merged == [function]
             wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)
             circ  = Circuit.new(functions: merged, ins: ins, outs: outs,
-                                wires: wires)
+                                states: Puts.new, next_states: Puts.new,
+                                recoders: [], wires: wires)
             yielder << circ
           end
         end

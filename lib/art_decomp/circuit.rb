@@ -8,22 +8,13 @@ module ArtDecomp
   class Circuit
     include Anima.new(:functions, :ins, :outs, :states, :next_states, :recoders,
                       :wires)
+    include Anima::Update
 
     def self.from_fsm(ins:, outs:, states:, next_states:)
       function = Function.new(ins: ins + states, outs: outs + next_states)
       wires = Wirer.new(function, ins: ins, outs: outs).wires
       new(functions: [function], ins: ins, outs: outs, states: states,
-          next_states: next_states, wires: wires)
-    end
-
-    def initialize(functions: [], ins: Puts.new, outs: Puts.new,
-                   states: Puts.new, next_states: Puts.new, recoders: [],
-                   wires: Wires.new)
-      @functions            = functions
-      @ins, @outs              = ins, outs
-      @states, @next_states = states, next_states
-      @recoders             = recoders
-      @wires                = wires
+          next_states: next_states, recoders: [], wires: wires)
     end
 
     def adm_size(circuit_sizer: CircuitSizer.new(self))
