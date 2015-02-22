@@ -1,11 +1,11 @@
-require 'equalizer'
+require 'anima'
 require 'forwardable'
 
 module ArtDecomp
   class Puts
     extend  Forwardable
     include Enumerable
-    include Equalizer.new(:puts)
+    include Anima.new(:puts)
 
     def initialize(puts = [])
       @puts = puts
@@ -28,7 +28,5 @@ module ArtDecomp
     def uniq
       self.class.new(puts.uniq)
     end
-
-    protected_attr_reader :puts
   end
 end
