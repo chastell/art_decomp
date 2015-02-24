@@ -6,7 +6,7 @@ require_relative 'seps'
 module ArtDecomp
   class Put
     extend Forwardable
-    include Anima.new(:blanket)
+    include Anima.new(:blanket, :seps)
 
     def self.[](blanket = {})
       new(blanket: blanket)
@@ -17,6 +17,11 @@ module ArtDecomp
         B[*col.each_index.select { |i| col[i] == code or col[i] == dont_care }]
       end
       new(blanket: codes.zip(blocks).to_h)
+    end
+
+    def initialize(blanket:)
+      @blanket = blanket
+      @seps    = Seps.from_blocks(blanket.values)
     end
 
     def binwidth
@@ -37,10 +42,6 @@ module ArtDecomp
         "#{key.inspect} => B[#{bits.join ','}]"
       end
       "#{self.class}[#{blocks.join ', '}]"
-    end
-
-    def seps
-      @seps ||= Seps.from_blocks(blanket.values)
     end
 
     delegate size: :blanket
