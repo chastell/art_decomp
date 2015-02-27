@@ -49,4 +49,4 @@ UncommunicativeVariableName:
     - ArtDecomp::Seps#&
     - ArtDecomp::Seps#-
     - ArtDecomp::Seps#inspect
-    - ArtDecomp::Seps#|
+    - ArtDecomp::Seps#\|
