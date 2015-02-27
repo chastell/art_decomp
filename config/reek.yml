@@ -31,6 +31,7 @@ UncommunicativeModuleName:
 
 UncommunicativeParameterName:
   exclude:
+    - ArtDecomp::Arch#self\.\[\]
     - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#suffix
 
 UncommunicativeVariableName:
