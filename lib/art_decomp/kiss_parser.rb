@@ -40,9 +40,7 @@ module ArtDecomp
     end
 
     def state_codes
-      symbols = col_groups[:states].map(&:to_sym) +
-                col_groups[:next_states].map(&:to_sym)
-      symbols.uniq - [:*]
+      (col_groups[:states] + col_groups[:next_states]).uniq.map(&:to_sym) - [:*]
     end
 
     def state_cols_from_group(name)
