@@ -1,12 +1,15 @@
+require 'anima'
 require 'optparse'
 
 module ArtDecomp
-  Settings = Struct.new(:kiss_path, :vhdl_path) do
+  class Settings
+    include Anima.new(:kiss_path, :vhdl_path)
+
     def initialize(args)
       OptionParser.new do |opts|
-        opts.on('--dir=DIR', String) { |dir| self.vhdl_path = dir }
+        opts.on('--dir=DIR', String) { |dir| @vhdl_path = dir }
       end.parse! args
-      self.kiss_path = args.first
+      @kiss_path = args.first
     end
   end
 end
