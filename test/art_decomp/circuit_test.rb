@@ -22,10 +22,8 @@ module ArtDecomp
         next_states = Puts.new([Put[s1: B[1], s2: B[2], s3: B[0]]])
         circuit  = Circuit.from_fsm(ins: ins, outs: outs, states: states,
                                     next_states: next_states)
-        function = circuit.functions.first
+        function = Function.new(ins: ins + states, outs: outs + next_states)
         circuit.functions.must_equal [function]
-        function.ins.must_equal ins + states
-        function.outs.must_equal outs + next_states
         circuit.recoders.must_be :empty?
         circuit.wires.must_equal Wires.from_array([
           [[:circuit, :ins,    0], [function, :ins,         0]],
