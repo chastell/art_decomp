@@ -36,7 +36,9 @@ module ArtDecomp
 
     def put_cols_from_group(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
-      Puts.new(rows.transpose.map { |column| Put.from_column(column) })
+      Puts.new(rows.transpose.map do |column|
+        Put.from_column(column, codes: %i(0 1), dont_care: :-)
+      end)
     end
 
     def state_codes

@@ -16,7 +16,7 @@ module ArtDecomp
 
     describe '.from_column' do
       it 'builds a Put from the given column' do
-        Put.from_column(%i(0 1 -))
+        Put.from_column(%i(0 1 -), codes: %i(0 1), dont_care: :-)
           .must_equal Put[:'0' => B[0,2], :'1' => B[1,2]]
       end
 

@@ -12,7 +12,7 @@ module ArtDecomp
       new(blanket: blanket)
     end
 
-    def self.from_column(col, codes: %i(0 1), dont_care: :-)
+    def self.from_column(col, codes:, dont_care:)
       blocks = codes.map do |code|
         B[*col.each_index.select { |i| col[i] == code or col[i] == dont_care }]
       end
