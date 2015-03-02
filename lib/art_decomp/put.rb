@@ -12,10 +12,9 @@ module ArtDecomp
       new(blanket: blanket)
     end
 
-    def self.from_column(col, codes:, dont_care:)
-      blocks = codes.map do |code|
-        B[*col.each_index.select { |i| col[i] == code or col[i] == dont_care }]
-      end
+    def self.from_column(column, codes:, dont_care:)
+      indices = (0...column.size).group_by { |i| column[i] }
+      blocks  = codes.map { |code| B[*indices[code]] | B[*indices[dont_care]] }
       new(blanket: codes.zip(blocks).to_h)
     end
 
