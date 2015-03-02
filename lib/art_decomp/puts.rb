@@ -12,11 +12,11 @@ module ArtDecomp
     end
 
     def &(other)
-      Puts.new(puts & other.puts)
+      self.class.new(puts & other.puts)
     end
 
     def +(other)
-      Puts.new(puts + other.puts)
+      self.class.new(puts + other.puts)
     end
 
     delegate %i([] each empty? index size) => :puts
