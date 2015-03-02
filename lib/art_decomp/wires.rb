@@ -20,6 +20,6 @@ module ArtDecomp
       Wires.new(wires + other.wires)
     end
 
-    delegate %i(each) => :wires
+    delegate each: :wires
   end
 end
