@@ -31,7 +31,7 @@ UncommunicativeModuleName:
 
 UncommunicativeParameterName:
   exclude:
-    - ArtDecomp::Arch#self\.\[\]
+    - ArtDecomp::Arch#self.[]
     - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#suffix
 
 UncommunicativeVariableName:
@@ -49,4 +49,4 @@ UncommunicativeVariableName:
     - ArtDecomp::Seps#&
     - ArtDecomp::Seps#-
     - ArtDecomp::Seps#inspect
-    - ArtDecomp::Seps#\|
+    - ArtDecomp::Seps#|
