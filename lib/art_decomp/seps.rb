@@ -17,6 +17,15 @@ module ArtDecomp
       new(matrix)
     end
 
+    def self.from_column(column)
+      ones   = (1 << column.size) - 1
+      coding = (0...column.size).group_by { |i| column[i] }
+      matrix = column.map do |code|
+        code == :- ? 0 : ones & ~B[*coding[code]] & ~B[*coding[:-]]
+      end
+      new(matrix)
+    end
+
     def self.normalise(matrix)
       matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
     end
