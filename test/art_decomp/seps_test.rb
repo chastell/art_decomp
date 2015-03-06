@@ -196,5 +196,51 @@ module ArtDecomp
         Seps.new([B[1,2,3], B[0,2,3], B[0,1], B[0,1]]).size.must_equal 5
       end
     end
+
+    describe '#to_column' do
+      it 'returns a proper column' do
+        {
+          [] => %i(),
+          [0b10, 0b01] => %i(a b),
+          [
+            0b11110,
+            0b11101,
+            0b10011,
+            0b10011,
+            0b01111,
+          ] => %i(a b c c d),
+          [
+            0b10010,
+            0b11101,
+            0b10010,
+            0b10010,
+            0b01111,
+          ] => %i(a b a a c),
+          [
+            0b00000,
+            0b10000,
+            0b00000,
+            0b00000,
+            0b00010,
+          ] => %i(- a - - b),
+          [
+            0b11110,
+            0b11101,
+            0b11011,
+            0b10111,
+            0b01111,
+          ] => %i(a b c d e),
+          [
+            0b11000,
+            0b00000,
+            0b00000,
+            0b00001,
+            0b00001,
+          ] => %i(a - - b b),
+        }.each do |matrix, column|
+          Seps.new(matrix).to_column.must_equal column
+        end
+      end
+    end
   end
 end

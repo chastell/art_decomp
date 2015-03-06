@@ -61,5 +61,18 @@ module ArtDecomp
     def size
       matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
     end
+
+    def to_column
+      codes = Enumerator.new do |yielder|
+        code = :a
+        loop do
+          yielder << code
+          code = code.next
+        end
+      end
+      coding = (matrix.uniq - [0]).map { |int| [int, codes.next] }.to_h
+      coding[0] = :-
+      matrix.map { |int| coding[int] }
+    end
   end
 end
