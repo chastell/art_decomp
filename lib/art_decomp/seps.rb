@@ -48,6 +48,16 @@ module ArtDecomp
       self.class.new(larger.zip(smaller).map { |a, b| b ? a | b : a })
     end
 
+    def code_generator
+      Enumerator.new do |yielder|
+        code = :a
+        loop do
+          yielder << code
+          code = code.next
+        end
+      end
+    end
+
     delegate empty?: :matrix
 
     def inspect
@@ -63,13 +73,7 @@ module ArtDecomp
     end
 
     def to_column
-      codes = Enumerator.new do |yielder|
-        code = :a
-        loop do
-          yielder << code
-          code = code.next
-        end
-      end
+      codes  = code_generator
       coding = (matrix.uniq - [0]).map { |int| [int, codes.next] }.to_h
       coding[0] = :-
       matrix.map { |int| coding[int] }
