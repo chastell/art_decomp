@@ -74,9 +74,8 @@ module ArtDecomp
 
     def to_column
       codes  = code_generator
-      coding = (matrix.uniq - [0]).map { |int| [int, codes.next] }.to_h
-      coding[0] = :-
-      matrix.map { |int| coding[int] }
+      coding = matrix.uniq.reject(&:zero?).map { |int| [int, codes.next] }.to_h
+      matrix.map { |int| coding.fetch(int, :-) }
     end
   end
 end
