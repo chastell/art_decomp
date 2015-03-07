@@ -16,10 +16,10 @@ module ArtDecomp
 
     describe '.from_fsm' do
       it 'creates a Circuit representing the FSM' do
-        ins  = Puts.new([Put[:'0' => B[0], :'1' => B[1]]])
-        outs = Puts.new([Put[:'0' => B[1], :'1' => B[0]]])
-        states      = Puts.new([Put[s1: B[0], s2: B[1], s3: B[2]]])
-        next_states = Puts.new([Put[s1: B[1], s2: B[2], s3: B[0]]])
+        ins  = Puts.new([Put[:'0', :'1']])
+        outs = Puts.new([Put[:'1', :'0']])
+        states      = Puts.new([Put[:s1, :s2, :s3]])
+        next_states = Puts.new([Put[:s3, :s1, :s2]])
         circuit  = Circuit.from_fsm(ins: ins, outs: outs, states: states,
                                     next_states: next_states)
         function = Function.new(ins: ins + states, outs: outs + next_states)

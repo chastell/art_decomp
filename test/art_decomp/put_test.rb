@@ -5,45 +5,43 @@ require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
   describe Put do
-    let(:put) { Put[a: B[0,1], b: B[1,2]] }
+    let(:put) { Put[:a, :-, :b] }
 
     describe '.[]' do
-      it 'creates a new Put with the given blanket' do
-        put.must_equal Put.new(blanket: { a: B[0,1], b: B[1,2] })
-        Put[].must_equal Put.new(blanket: {})
+      it 'creates a new Put with the given column' do
+        put.must_equal Put.new(column: %i(a - b))
+        Put[].must_equal Put.new(column: [])
       end
     end
 
     describe '.from_column' do
       it 'builds a Put from the given column' do
-        Put.from_column(%i(0 1 -), codes: %i(0 1))
-          .must_equal Put[:'0' => B[0,2], :'1' => B[1,2]]
+        put = Put[:'0', :'1', :-]
+        Put.from_column(%i(0 1 -), codes: %i(0 1)).must_equal put
       end
 
       it 'can have the don’t-care and available codes overridden' do
-        Put.from_column(%i(s1 s2 -), codes: %i(s1 s2 s3))
-          .must_equal Put[s1: B[0,2], s2: B[1,2], s3: B[2]]
+        put = Put[:s1, :s2, :-, codes: %i(s1 s2 s3)]
+        Put.from_column(%i(s1 s2 -), codes: %i(s1 s2 s3)).must_equal put
       end
     end
 
     describe '#==' do
       it 'compares two Puts by value' do
         assert put == put.dup
-        assert put == Put[b: B[1,2], a: B[0,1]]
-        refute put == Put[a: B[1,2], b: B[0,1]]
+        assert put == Put[:a, :-, :b]
+        refute put == Put[:b, :-, :a]
       end
     end
 
     describe '#binwidth' do
       it 'returns the binary width' do
         Put[].binwidth.must_equal 0
-        Put[a: 1].binwidth.must_equal 0
-        Put[a: 1, b: 2].binwidth.must_equal 1
-        Put[a: 1, b: 2, c: 4].binwidth.must_equal 2
-        Put[a: 1, b: 2, c: 4, d: 8, e: 16, f: 32, g: 64, h: 128].binwidth
-          .must_equal 3
-        Put[a: 1, b: 2, c: 4, d: 8, e: 16, f: 32, g: 64, h: 128, i: 256]
-          .binwidth.must_equal 4
+        Put[:a].binwidth.must_equal 0
+        Put[:a, :b].binwidth.must_equal 1
+        Put[:a, :b, :c].binwidth.must_equal 2
+        Put[:a, :b, :c, :d, :e, :f, :g, :h].binwidth.must_equal 3
+        Put[:a, :b, :c, :d, :e, :f, :g, :h, :i].binwidth.must_equal 4
       end
     end
 
@@ -55,8 +53,7 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        Put[a: B[0,1], b: B[1,2]].inspect
-          .must_equal 'ArtDecomp::Put[:a, :-, :b]'
+        Put[:a, :-, :b].inspect.must_equal 'ArtDecomp::Put[:a, :-, :b]'
       end
     end
 

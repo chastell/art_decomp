@@ -7,17 +7,9 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Function do
-    let(:ins) do
-      Puts.new([Put[:'0' => B[0], :'1' => B[1]],
-                Put[s1: B[0], s2: B[1], s3: B[2]]])
-    end
-
-    let(:outs) do
-      Puts.new([Put[:'0' => B[1], :'1' => B[0]],
-                Put[s1: B[1], s2: B[2], s3: B[0]]])
-    end
-
-    let(:function) { Function.new(ins: ins, outs: outs) }
+    let(:function) { Function.new(ins: ins, outs: outs)              }
+    let(:ins)      { Puts.new([Put[:'0', :'1'], Put[:s1, :s2, :s3]]) }
+    let(:outs)     { Puts.new([Put[:'1', :'0'], Put[:s3, :s1, :s2]]) }
 
     describe '#==' do
       it 'compares two Functions by value' do

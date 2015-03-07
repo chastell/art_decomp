@@ -15,17 +15,14 @@ module ArtDecomp
           -0 s3 s1 --0
         end
 
-        ins = Puts.new([
-          Put[:'0' => B[0,2], :'1' => B[1,2]],
-          Put[:'0' => B[0,2], :'1' => B[0,1]],
-        ])
+        ins = Puts.new([Put[:'0', :'1', :-], Put[:-, :'1', :'0']])
         outs = Puts.new([
-          Put[:'0' => B[0,2],   :'1' => B[1,2]],
-          Put[:'0' => B[0,1,2], :'1' => B[0,1,2]],
-          Put[:'0' => B[0,1,2], :'1' => B[0,1]],
+          Put[:'0', :'1', :-],
+          Put[:-, :-, :-,   codes: %i(0 1)],
+          Put[:-, :-, :'0', codes: %i(0 1)],
         ])
-        states      = Puts.new([Put[s1: B[0,1], s2: B[],    s3: B[2]]])
-        next_states = Puts.new([Put[s1: B[0,2], s2: B[0,1], s3: B[0]]])
+        states      = Puts.new([Put[:s1, :s1, :s3, codes: %i(s1 s2 s3)]])
+        next_states = Puts.new([Put[:-, :s2, :s1,  codes: %i(s1 s2 s3)]])
 
         circuit = Circuit.from_fsm(ins: ins, outs: outs, states: states,
                                    next_states: next_states)

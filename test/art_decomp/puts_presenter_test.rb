@@ -9,10 +9,10 @@ module ArtDecomp
     describe '#bin_columns' do
       it 'returns binary-encoded column representation of the Puts' do
         puts = Puts.new([
-          Put[:'0' => B[0,1,3,4,6,7,8,9], :'1' => B[1,2,3,4,5,7,8,9]],
-          Put[:'0' => B[0,1,3,4,5,6,8,9], :'1' => B[0,2,3,4,6,7,8,9]],
-          Put[:'0' => B[0,1,2,3,5,6,7,8], :'1' => B[0,1,2,4,5,6,7,9]],
-          Put[HG: B[0,1,2], HY: B[3,4], FG: B[5,6,7], FY: B[8,9]],
+          Put[:'0', :-, :'1', :-, :-, :'1', :'0', :-, :-, :-],
+          Put[:-, :'0', :'1', :-, :-, :'0', :-, :'1', :-, :-],
+          Put[:-, :-, :-, :'0', :'1', :-, :-, :-, :'0', :'1'],
+          Put[:HG, :HG, :HG, :HY, :HY, :FG, :FG, :FG, :FY, :FY],
         ])
         PutsPresenter.new(puts).bin_columns.must_equal %w(
           0--10

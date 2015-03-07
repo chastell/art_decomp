@@ -5,10 +5,10 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Puts do
-    let(:a0b1)   { Put[a: B[0], b: B[1]]          }
-    let(:a0b1c2) { Put[a: B[0], b: B[1], c: B[2]] }
-    let(:a1b0)   { Put[a: B[1], b: B[0]]          }
-    let(:puts)   { Puts.new([a0b1, a1b0])         }
+    let(:a0b1)   { Put[:a, :b]            }
+    let(:a0b1c2) { Put[:a, :b, :c]        }
+    let(:a1b0)   { Put[:b, :a]            }
+    let(:puts)   { Puts.new([a0b1, a1b0]) }
 
     describe '#==' do
       it 'compares Puts according to contents' do

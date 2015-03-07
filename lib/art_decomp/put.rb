@@ -8,17 +8,16 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:codes, :column, :seps)
 
-    def self.[](blanket = {})
-      new(blanket: blanket, codes: blanket.keys)
+    def self.[](*column, codes: column.uniq - [:-])
+      new(column: column, codes: codes)
     end
 
     def self.from_column(column, codes:)
-      new(blanket: nil, column: column, codes: codes)
+      new(column: column, codes: codes)
     end
 
-    def initialize(blanket:, column: column_from(blanket),
-                   codes: column.uniq - [:-], seps: Seps.from_column(column))
-      @blanket = blanket
+    def initialize(column:, codes: column.uniq - [:-],
+                   seps: Seps.from_column(column))
       @codes   = codes.sort
       @column  = column
       @seps    = seps

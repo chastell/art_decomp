@@ -21,12 +21,12 @@ module ArtDecomp
       # 7 | 1 1 1 |  1   1   0
 
       it 'yields decomposed Circuits' do
-        a    = Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]]
-        b    = Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]]
-        c    = Put[:'0' => B[0,2,4,6], :'1' => B[1,3,5,7]]
-        anb  = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
-        buc  = Put[:'0' => B[0,4], :'1' => B[1,2,3,5,6,7]]
-        nbuc = Put[:'0' => B[1,2,3,5,6,7], :'1' => B[0,4]]
+        a    = Put[:'0', :'0', :'0', :'0', :'1', :'1', :'1', :'1']
+        b    = Put[:'0', :'0', :'1', :'1', :'0', :'0', :'1', :'1']
+        c    = Put[:'0', :'1', :'0', :'1', :'0', :'1', :'0', :'1']
+        anb  = Put[:'0', :'0', :'0', :'0', :'0', :'0', :'1', :'1']
+        buc  = Put[:'0', :'1', :'1', :'1', :'0', :'1', :'1', :'1']
+        nbuc = Put[:'1', :'0', :'0', :'0', :'1', :'0', :'0', :'0']
         ab_anb      = Function.new(ins: Puts.new([a,b]), outs: Puts.new([anb]))
         bc_buc_nbuc = Function.new(ins: Puts.new([b,c]),
                                    outs: Puts.new([buc, nbuc]))
@@ -52,9 +52,9 @@ module ArtDecomp
       end
 
       it 'does not yield if it can’t decompose' do
-        a   = Put[:'0' => B[0,1,2,3], :'1' => B[4,5,6,7]]
-        b   = Put[:'0' => B[0,1,4,5], :'1' => B[2,3,6,7]]
-        anb = Put[:'0' => B[0,1,2,3,4,5], :'1' => B[6,7]]
+        a   = Put[:'0', :'0', :'0', :'0', :'1', :'1', :'1', :'1']
+        b   = Put[:'0', :'0', :'1', :'1', :'0', :'0', :'1', :'1']
+        anb = Put[:'0', :'0', :'0', :'0', :'0', :'0', :'1', :'1']
         fun = Function.new(ins: Puts.new([a,b]), outs: Puts.new([anb]))
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_be_empty
       end
