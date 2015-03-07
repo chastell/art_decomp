@@ -6,7 +6,7 @@ require_relative 'seps'
 module ArtDecomp
   class Put
     extend Forwardable
-    include Anima.new(:column, :seps)
+    include Anima.new(:codes, :column, :seps)
 
     def self.[](blanket = {})
       new(blanket: blanket)
@@ -29,8 +29,6 @@ module ArtDecomp
     def binwidth
       size.zero? ? 0 : Math.log2(size).ceil
     end
-
-    attr_reader :codes
 
     def inspect
       "#{self.class}#{column}"
