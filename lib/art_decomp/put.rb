@@ -40,8 +40,6 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :blanket
-
     def column_from(blanket)
       return [] if blanket.empty?
       Array.new(blanket.values.max.to_s(2).size) do |row|
