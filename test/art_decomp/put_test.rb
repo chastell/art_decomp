@@ -21,7 +21,7 @@ module ArtDecomp
       end
 
       it 'can have the don’t-care and available codes overridden' do
-        Put.from_column(%i(s1 s2 *), codes: %i(s1 s2 s3), dont_care: :*)
+        Put.from_column(%i(s1 s2 -), codes: %i(s1 s2 s3), dont_care: :-)
           .must_equal Put[s1: B[0,2], s2: B[1,2], s3: B[2]]
       end
     end
