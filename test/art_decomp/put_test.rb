@@ -56,7 +56,7 @@ module ArtDecomp
     describe '#inspect' do
       it 'returns self-initialising representation' do
         Put[a: B[0,1], b: B[1,2]].inspect
-          .must_equal 'ArtDecomp::Put[:a => B[0,1], :b => B[1,2]]'
+          .must_equal 'ArtDecomp::Put[:a, :-, :b]'
       end
     end
 

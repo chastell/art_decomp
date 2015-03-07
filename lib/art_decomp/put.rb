@@ -33,11 +33,7 @@ module ArtDecomp
     end
 
     def inspect
-      blocks = blanket.map do |key, block|
-        bits = (0...block.to_s(2).size).select { |bit| block[bit] == 1 }
-        "#{key.inspect} => B[#{bits.join ','}]"
-      end
-      "#{self.class}[#{blocks.join ', '}]"
+      "#{self.class}#{column}"
     end
 
     delegate size: :codes
