@@ -9,19 +9,17 @@ module ArtDecomp
     include Anima.new(:codes, :column, :seps)
 
     def self.[](blanket = {})
-      new(blanket: blanket)
+      new(blanket: blanket, codes: blanket.keys)
     end
 
     def self.from_column(column, codes:)
-      indices = (0...column.size).group_by { |i| column[i] }
-      blocks  = codes.map { |code| B[*indices[code]] | B[*indices[:-]] }
-      new(blanket: codes.zip(blocks).to_h)
+      new(blanket: nil, column: column, codes: codes)
     end
 
     def initialize(blanket:, column: column_from(blanket),
                    codes: column.uniq - [:-], seps: Seps.from_column(column))
       @blanket = blanket
-      @codes   = codes
+      @codes   = codes.sort
       @column  = column
       @seps    = seps
     end
