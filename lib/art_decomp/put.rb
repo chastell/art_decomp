@@ -33,7 +33,7 @@ module ArtDecomp
     end
 
     def codes
-      blanket.keys
+      column.uniq - [:-]
     end
 
     def inspect
