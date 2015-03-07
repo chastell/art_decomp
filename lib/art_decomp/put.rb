@@ -20,6 +20,7 @@ module ArtDecomp
 
     def initialize(blanket:)
       @blanket = blanket
+      @column  = column_from(blanket)
       @seps    = Seps.from_blocks(blanket.values)
     end
 
@@ -44,5 +45,19 @@ module ArtDecomp
     end
 
     delegate size: :blanket
+
+    private
+
+    def column_from(blanket)
+      return [] if blanket.empty?
+      Array.new(blanket.values.max.to_s(2).size) do |row|
+        row_codes = codes { |_, block| (block & B[row]).nonzero? }.sort
+        case row_codes.size
+        when size then :-
+        when 1    then row_codes.first
+        else fail 'trying to map multiple (but not all) codes'
+        end
+      end
+    end
   end
 end
