@@ -6,7 +6,7 @@ require_relative 'seps'
 module ArtDecomp
   class Put
     extend Forwardable
-    include Anima.new(:blanket, :seps)
+    include Anima.new(:column, :seps)
 
     def self.[](blanket = {})
       new(blanket: blanket)
@@ -47,6 +47,8 @@ module ArtDecomp
     delegate size: :blanket
 
     private
+
+    private_attr_reader :blanket
 
     def column_from(blanket)
       return [] if blanket.empty?
