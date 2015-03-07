@@ -40,7 +40,7 @@ module ArtDecomp
       "#{self.class}[#{blocks.join ', '}]"
     end
 
-    delegate size: :blanket
+    delegate size: :codes
 
     private
 
