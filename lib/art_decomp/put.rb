@@ -51,7 +51,7 @@ module ArtDecomp
     def column_from(blanket)
       return [] if blanket.empty?
       Array.new(blanket.values.max.to_s(2).size) do |row|
-        row_codes = codes { |_, block| (block & B[row]).nonzero? }.sort
+        row_codes = blanket.reject { |_, int| (int & B[row]).zero? }.keys.sort
         case row_codes.size
         when size then :-
         when 1    then row_codes.first
