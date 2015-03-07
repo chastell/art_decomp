@@ -7,12 +7,11 @@ module ArtDecomp
   describe PutPresenter do
     describe '#bin_column' do
       it 'returns binary column representation of the Put' do
-        PutPresenter.new(Put[:'0', :-, :'1']).bin_column.must_equal %w(0 - 1)
+        PutPresenter.new(Put[%i(0 - 1)]).bin_column.must_equal %w(0 - 1)
       end
 
       it 'represents inputs alphabetically with enough bits' do
-        put = Put[:HG, :HG, :HY, :FG, :FY, :-]
-        PutPresenter.new(put).bin_column.must_equal %w(
+        PutPresenter.new(Put[%i(HG HG HY FG FY -)]).bin_column.must_equal %w(
           10
           10
           11

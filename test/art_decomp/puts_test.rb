@@ -5,9 +5,9 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Puts do
-    let(:a0b1)   { Put[:a, :b]            }
-    let(:a0b1c2) { Put[:a, :b, :c]        }
-    let(:a1b0)   { Put[:b, :a]            }
+    let(:a0b1)   { Put[%i(a b)]           }
+    let(:a0b1c2) { Put[%i(a b c)]         }
+    let(:a1b0)   { Put[%i(b a)]           }
     let(:puts)   { Puts.new([a0b1, a1b0]) }
 
     describe '#==' do

@@ -19,11 +19,11 @@ module ArtDecomp
       # 6 | 1 1 0 |  1   1
       # 7 | 1 1 1 |  1   1
 
-      let(:a)   { Put[:'0', :'0', :'0', :'0', :'1', :'1', :'1', :'1'] }
-      let(:b)   { Put[:'0', :'0', :'1', :'1', :'0', :'0', :'1', :'1'] }
-      let(:c)   { Put[:'0', :'1', :'0', :'1', :'0', :'1', :'0', :'1'] }
-      let(:anb) { Put[:'0', :'0', :'0', :'0', :'0', :'0', :'1', :'1'] }
-      let(:buc) { Put[:'0', :'1', :'1', :'1', :'0', :'1', :'1', :'1'] }
+      let(:a)   { Put[%i(0 0 0 0 1 1 1 1)] }
+      let(:b)   { Put[%i(0 0 1 1 0 0 1 1)] }
+      let(:c)   { Put[%i(0 1 0 1 0 1 0 1)] }
+      let(:anb) { Put[%i(0 0 0 0 0 0 1 1)] }
+      let(:buc) { Put[%i(0 1 1 1 0 1 1 1)] }
 
       it 'returns the simplest implementation of a Function' do
         ab_anb  = Function.new(ins: Puts.new([a,b]),   outs: Puts.new([anb]))

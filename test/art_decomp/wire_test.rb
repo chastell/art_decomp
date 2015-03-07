@@ -8,10 +8,10 @@ require_relative '../../lib/art_decomp/wire'
 module ArtDecomp
   describe Wire do
     let(:fun_a) do
-      Function.new(ins: Puts.new, outs: Puts.new([Put[:b, :a]]))
+      Function.new(ins: Puts.new, outs: Puts.new([Put[%i(b a)]]))
     end
     let(:fun_b) do
-      Function.new(ins: Puts.new([Put[:a, :b, :c]]), outs: Puts.new)
+      Function.new(ins: Puts.new([Put[%i(a b c)]]), outs: Puts.new)
     end
     let(:wire) { Wire[Pin[fun_a, :outs, 0], Pin[fun_b, :ins, 1]] }
 

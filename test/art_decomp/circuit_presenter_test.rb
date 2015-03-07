@@ -20,38 +20,33 @@ module ArtDecomp
 
       it 'returns VHDL for the given decomposed Circuit' do
         f0ins = Puts.new([
-          Put[:'0', :'0', :'0', :'0', :'1', :'1', :'1', :'1'],
-          Put[:'0', :'0', :'1', :'1', :'0', :'0', :'1', :'1'],
-          Put[:a, :b, :a, :b, :a, :b, :a, :b],
+          Put[%i(0 0 0 0 1 1 1 1)],
+          Put[%i(0 0 1 1 0 0 1 1)],
+          Put[%i(a b a b a b a b)],
         ])
         f0outs = Puts.new([
-          Put[:b, :a, :b, :a, :a, :a, :b, :b],
-          Put[:a, :b, :a, :b, :a, :b, :a, :b],
+          Put[%i(b a b a a a b b)],
+          Put[%i(a b a b a b a b)],
         ])
         f1ins = Puts.new([
-          Put[:-, :-, :-, :-, :'0', :'0', :'0', :'0', :'1', :'1', :'1', :'1'],
-          Put[:a, :a, :b, :b, :a, :a, :b, :b, :a, :a, :b, :b],
-          Put[:a, :b, :a, :b, :a, :b, :a, :b, :a, :b, :a, :b],
-          Put[:a, :a, :a, :a, :b, :b, :b, :b, :b, :b, :b, :b],
+          Put[%i(- - - - 0 0 0 0 1 1 1 1)],
+          Put[%i(a a b b a a b b a a b b)],
+          Put[%i(a b a b a b a b a b a b)],
+          Put[%i(a a a a b b b b b b b b)],
         ])
         f1outs = Puts.new([
-          Put[:a, :a, :b, :b, :b, :b, :b, :b, :a, :a, :a, :a],
-          Put[:a, :b, :a, :b, :a, :b, :a, :b, :b, :a, :b, :a],
-          Put[:'0', :'0', :'1', :'1', :'0', :'0',
-              :'0', :'0', :'1', :'1', :'1', :'1'],
-          Put[:'1', :'0', :'1', :'0', :'1', :'0',
-              :'1', :'0', :'1', :'0', :'1', :'0'],
-          Put[:'0', :'0', :'0', :'0', :'0', :'1',
-              :'0', :'1', :'0', :'1', :'0', :'1'],
-          Put[:'0', :'1', :'0', :'1', :'0', :'1',
-              :'0', :'1', :'0', :'1', :'0', :'1'],
-          Put[:'0', :'0', :'0', :'0', :'1', :'0',
-              :'1', :'0', :'1', :'0', :'1', :'0'],
+          Put[%i(a a b b b b b b a a a a)],
+          Put[%i(a b a b a b a b b a b a)],
+          Put[%i(0 0 1 1 0 0 0 0 1 1 1 1)],
+          Put[%i(1 0 1 0 1 0 1 0 1 0 1 0)],
+          Put[%i(0 0 0 0 0 1 0 1 0 1 0 1)],
+          Put[%i(0 1 0 1 0 1 0 1 0 1 0 1)],
+          Put[%i(0 0 0 0 1 0 1 0 1 0 1 0)],
         ])
         f0 = Function.new(ins: f0ins, outs: f0outs)
         f1 = Function.new(ins: f1ins, outs: f1outs)
-        r_state = Puts.new([Put[:FG, :FY, :HG, :HY]])
-        r_coded = Puts.new([Put[:a, :b, :a, :b], Put[:a, :a, :b, :b]])
+        r_state = Puts.new([Put[%i(FG FY HG HY)]])
+        r_coded = Puts.new([Put[%i(a b a b)], Put[%i(a a b b)]])
         r0 = Function.new(ins: r_state, outs: r_coded)
         r1 = Function.new(ins: r_coded, outs: r_state)
         wires = Wires.from_array([

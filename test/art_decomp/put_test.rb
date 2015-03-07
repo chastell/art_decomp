@@ -5,7 +5,7 @@ require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
   describe Put do
-    let(:put) { Put[:a, :-, :b] }
+    let(:put) { Put[%i(a - b)] }
 
     describe '.[]' do
       it 'creates a new Put with the given column' do
@@ -16,12 +16,11 @@ module ArtDecomp
 
     describe '.from_column' do
       it 'builds a Put from the given column' do
-        put = Put[:'0', :'1', :-]
-        Put.from_column(%i(0 1 -), codes: %i(0 1)).must_equal put
+        Put.from_column(%i(0 1 -), codes: %i(0 1)).must_equal Put[%i(0 1 -)]
       end
 
       it 'can have the don’t-care and available codes overridden' do
-        put = Put[:s1, :s2, :-, codes: %i(s1 s2 s3)]
+        put = Put[%i(s1 s2 -), codes: %i(s1 s2 s3)]
         Put.from_column(%i(s1 s2 -), codes: %i(s1 s2 s3)).must_equal put
       end
     end
@@ -29,19 +28,19 @@ module ArtDecomp
     describe '#==' do
       it 'compares two Puts by value' do
         assert put == put.dup
-        assert put == Put[:a, :-, :b]
-        refute put == Put[:b, :-, :a]
+        assert put == Put[%i(a - b)]
+        refute put == Put[%i(b - a)]
       end
     end
 
     describe '#binwidth' do
       it 'returns the binary width' do
         Put[].binwidth.must_equal 0
-        Put[:a].binwidth.must_equal 0
-        Put[:a, :b].binwidth.must_equal 1
-        Put[:a, :b, :c].binwidth.must_equal 2
-        Put[:a, :b, :c, :d, :e, :f, :g, :h].binwidth.must_equal 3
-        Put[:a, :b, :c, :d, :e, :f, :g, :h, :i].binwidth.must_equal 4
+        Put[%i(a)].binwidth.must_equal 0
+        Put[%i(a b)].binwidth.must_equal 1
+        Put[%i(a b c)].binwidth.must_equal 2
+        Put[%i(a b c d e f g h)].binwidth.must_equal 3
+        Put[%i(a b c d e f g h i)].binwidth.must_equal 4
       end
     end
 
@@ -53,7 +52,7 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        Put[:a, :-, :b].inspect.must_equal 'ArtDecomp::Put[:a, :-, :b]'
+        Put[%i(a - b)].inspect.must_equal 'ArtDecomp::Put[:a, :-, :b]'
       end
     end
 
