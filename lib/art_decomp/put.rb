@@ -19,8 +19,9 @@ module ArtDecomp
     end
 
     def initialize(blanket:, column: column_from(blanket),
-                   seps: Seps.from_column(column))
+                   codes: column.uniq - [:-], seps: Seps.from_column(column))
       @blanket = blanket
+      @codes   = codes
       @column  = column
       @seps    = seps
     end
@@ -29,9 +30,7 @@ module ArtDecomp
       size.zero? ? 0 : Math.log2(size).ceil
     end
 
-    def codes
-      column.uniq - [:-]
-    end
+    attr_reader :codes
 
     def inspect
       "#{self.class}#{column}"
