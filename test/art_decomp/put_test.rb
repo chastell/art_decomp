@@ -39,11 +39,11 @@ module ArtDecomp
         Put[].binwidth.must_equal 0
         Put[a: 1].binwidth.must_equal 0
         Put[a: 1, b: 2].binwidth.must_equal 1
-        Put[a: 1, b: 2, c: 3].binwidth.must_equal 2
-        Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8].binwidth
+        Put[a: 1, b: 2, c: 4].binwidth.must_equal 2
+        Put[a: 1, b: 2, c: 4, d: 8, e: 16, f: 32, g: 64, h: 128].binwidth
           .must_equal 3
-        Put[a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9].binwidth
-          .must_equal 4
+        Put[a: 1, b: 2, c: 4, d: 8, e: 16, f: 32, g: 64, h: 128, i: 256]
+          .binwidth.must_equal 4
       end
     end
 
