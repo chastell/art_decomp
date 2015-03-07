@@ -32,19 +32,5 @@ module ArtDecomp
     end
 
     delegate size: :codes
-
-    private
-
-    def column_from(blanket)
-      return [] if blanket.empty?
-      Array.new(blanket.values.max.to_s(2).size) do |row|
-        row_codes = blanket.reject { |_, int| (int & B[row]).zero? }.keys.sort
-        case row_codes.size
-        when blanket.size then :-
-        when 1            then row_codes.first
-        else fail 'trying to map multiple (but not all) codes'
-        end
-      end
-    end
   end
 end
