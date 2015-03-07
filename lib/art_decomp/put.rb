@@ -51,8 +51,8 @@ module ArtDecomp
       Array.new(blanket.values.max.to_s(2).size) do |row|
         row_codes = blanket.reject { |_, int| (int & B[row]).zero? }.keys.sort
         case row_codes.size
-        when size then :-
-        when 1    then row_codes.first
+        when blanket.size then :-
+        when 1            then row_codes.first
         else fail 'trying to map multiple (but not all) codes'
         end
       end
