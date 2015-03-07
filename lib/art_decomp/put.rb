@@ -28,10 +28,6 @@ module ArtDecomp
       size.zero? ? 0 : Math.log2(size).ceil
     end
 
-    def blocks
-      blanket.values
-    end
-
     def codes
       column.uniq - [:-]
     end

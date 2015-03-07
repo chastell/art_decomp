@@ -47,12 +47,6 @@ module ArtDecomp
       end
     end
 
-    describe '#blocks' do
-      it 'returns blocks' do
-        put.blocks.must_equal [B[0,1], B[1,2]]
-      end
-    end
-
     describe '#codes' do
       it 'returns codes' do
         put.codes.must_equal %i(a b)
