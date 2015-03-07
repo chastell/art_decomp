@@ -57,11 +57,6 @@ module ArtDecomp
       it 'returns codes' do
         put.codes.must_equal %i(a b)
       end
-
-      it 'allows requesting just certain codes' do
-        put.codes { |code, _| code < :b }.must_equal [:a]
-        put.codes { |_, block| (block & B[2]).nonzero? }.must_equal [:b]
-      end
     end
 
     describe '#inspect' do

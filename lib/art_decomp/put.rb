@@ -32,8 +32,8 @@ module ArtDecomp
       blanket.values
     end
 
-    def codes(&block)
-      block_given? ? blanket.select(&block).keys : blanket.keys
+    def codes
+      blanket.keys
     end
 
     def inspect
