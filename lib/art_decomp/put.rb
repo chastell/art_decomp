@@ -18,10 +18,11 @@ module ArtDecomp
       new(blanket: codes.zip(blocks).to_h)
     end
 
-    def initialize(blanket:)
+    def initialize(blanket:, column: column_from(blanket),
+                   seps: Seps.from_column(column))
       @blanket = blanket
-      @column  = column_from(blanket)
-      @seps    = Seps.from_blocks(blanket.values)
+      @column  = column
+      @seps    = seps
     end
 
     def binwidth
