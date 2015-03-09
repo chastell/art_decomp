@@ -36,9 +36,8 @@ module ArtDecomp
 
     def put_cols_from_group(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
-      Puts.new(rows.transpose.map do |column|
-        Put.from_column(column, codes: %i(0 1))
-      end)
+      puts = rows.transpose.map { |col| Put.new(column: col, codes: %i(0 1)) }
+      Puts.new(puts)
     end
 
     def state_codes
@@ -47,7 +46,7 @@ module ArtDecomp
 
     def state_cols_from_group(name)
       column = col_groups[name].map { |state| state == '*' ? :- : state.to_sym }
-      Puts.new([Put.from_column(column, codes: state_codes)])
+      Puts.new([Put.new(column: column, codes: state_codes)])
     end
 
     def states
