@@ -12,10 +12,6 @@ module ArtDecomp
       new(column: column, codes: codes)
     end
 
-    def self.from_column(column, codes:)
-      new(column: column, codes: codes)
-    end
-
     def initialize(column:, codes: column.uniq - [:-],
                    seps: Seps.from_column(column))
       @codes   = codes.sort
