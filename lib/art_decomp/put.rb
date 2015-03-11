@@ -12,11 +12,10 @@ module ArtDecomp
       new(column: column, codes: codes)
     end
 
-    def initialize(column:, codes: column.uniq - [:-],
-                   seps: Seps.from_column(column))
+    def initialize(column:, codes: column.uniq - [:-])
       @codes   = codes.sort
       @column  = column
-      @seps    = seps
+      @seps    = Seps.from_column(column)
     end
 
     def binwidth
