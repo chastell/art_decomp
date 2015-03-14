@@ -8,7 +8,7 @@ module ArtDecomp
 
     def self.from_blocks(blocks)
       all  = blocks.reduce(0, :|)
-      size = Math.log2(all + 1).ceil
+      size = all.bit_length
       ones = (1 << size) - 1
       blocks += [ones ^ all]
       matrix = (0...size).map do |bit|
