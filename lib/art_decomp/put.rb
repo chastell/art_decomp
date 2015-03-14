@@ -18,7 +18,7 @@ module ArtDecomp
     end
 
     def binwidth
-      size.zero? ? 0 : Math.log2(size).ceil
+      (size - 1).bit_length
     end
 
     def inspect
