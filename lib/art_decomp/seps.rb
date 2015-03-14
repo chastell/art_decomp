@@ -27,7 +27,7 @@ module ArtDecomp
     end
 
     def self.normalise(matrix)
-      matrix[0...Math.log2((matrix.max || 0) + 1).ceil]
+      matrix[0...(matrix.max || 0).bit_length]
     end
 
     def initialize(matrix = [])
