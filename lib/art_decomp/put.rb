@@ -8,7 +8,7 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:codes, :column, :seps)
 
-    def self.[](column = [], codes: column.uniq - [:-])
+    def self.[](column, codes: column.uniq - [:-])
       new(column: column, codes: codes)
     end
 

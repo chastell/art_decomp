@@ -10,7 +10,7 @@ module ArtDecomp
     describe '.[]' do
       it 'creates a new Put with the given column' do
         put.must_equal Put.new(column: %i(a - b))
-        Put[].must_equal Put.new(column: [])
+        Put[[]].must_equal Put.new(column: [])
       end
     end
 
@@ -35,7 +35,7 @@ module ArtDecomp
 
     describe '#binwidth' do
       it 'returns the binary width' do
-        Put[].binwidth.must_equal 0
+        Put[[]].binwidth.must_equal 0
         Put[%i(a)].binwidth.must_equal 0
         Put[%i(a b)].binwidth.must_equal 1
         Put[%i(a b c)].binwidth.must_equal 2
