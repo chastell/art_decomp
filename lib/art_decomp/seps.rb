@@ -61,11 +61,9 @@ module ArtDecomp
     delegate empty?: :matrix
 
     def inspect
-      bits = matrix.map do |row|
-        (0...row.to_s(2).size).select { |bit| row[bit] == 1 }
-      end
-      blocks = bits.map { |r| "B[#{r.join(',')}]" }
-      "#{self.class}.new([#{blocks.join(', ')}])"
+      bits = matrix.map(&:bit_length).max
+      rows = matrix.map { |int| "0b#{int.to_s(2).rjust(bits, '0')}" }
+      "#{self.class}.new([#{rows.join(', ')}])"
     end
 
     def size
