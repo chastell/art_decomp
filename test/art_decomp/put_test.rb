@@ -58,7 +58,7 @@ module ArtDecomp
 
     describe '#seps' do
       it 'returns the Put’s Seps' do
-        put.seps.must_equal Seps.from_blocks([B[0,1], B[1,2]])
+        put.seps.must_equal Seps.new([0b100, 0b000, 0b001])
       end
     end
 
