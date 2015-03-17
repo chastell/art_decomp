@@ -4,13 +4,13 @@ require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
   describe Seps do
-    let(:sep_01)          { Seps.from_blocks([B[0], B[1]])             }
-    let(:sep_01_02)       { Seps.from_blocks([B[0], B[1,2]])           }
-    let(:sep_01_02_03_13) { Seps.from_blocks([B[0], B[1,2], B[2,3]])   }
-    let(:sep_01_02_12)    { Seps.from_blocks([B[0], B[1], B[2]])       }
-    let(:sep_01_12)       { Seps.from_blocks([B[0,2], B[1], B[2]])     }
-    let(:sep_03_13)       { Seps.from_blocks([B[0,1,2], B[2,3]])       }
-    let(:sep_12)          { Seps.from_blocks([B[0,1], B[0,2]])         }
+    let(:sep_01)          { Seps.new([0b10, 0b01])                     }
+    let(:sep_01_02)       { Seps.new([0b110, 0b001, 0b001])            }
+    let(:sep_01_02_03_13) { Seps.new([0b1110, 0b1001, 0b0001, 0b0011]) }
+    let(:sep_01_02_12)    { Seps.new([0b110, 0b101, 0b011])            }
+    let(:sep_01_12)       { Seps.new([0b010, 0b101, 0b010])            }
+    let(:sep_03_13)       { Seps.new([0b1000, 0b1000, 0b0000, 0b0011]) }
+    let(:sep_12)          { Seps.new([0b000, 0b100, 0b010])            }
 
     describe '.from_blocks' do
       it 'builds a proper matrix' do
@@ -117,12 +117,11 @@ module ArtDecomp
 
     describe '.new' do
       it 'can take a matrix to start from' do
-        Seps.new([B[2], B[], B[0]])
-          .must_equal Seps.from_blocks([B[0,1], B[1,2]])
+        Seps.new([0b100, 0b000, 0b001]).must_equal Seps.from_column(%i(a - b))
       end
 
       it 'normalises the matrix' do
-        Seps.from_blocks([B[0,1,2]]).must_equal Seps.new([])
+        Seps.from_column(%i(a a)).must_equal Seps.new([])
       end
     end
 
@@ -152,12 +151,9 @@ module ArtDecomp
 
     describe '#==' do
       it 'compares two Seps by value' do
-        assert Seps.from_blocks([B[0,1], B[1,2]]) ==
-          Seps.from_blocks([B[0,1], B[1,2]]).dup
-        assert Seps.from_blocks([B[0,1], B[1,2]]) ==
-          Seps.from_blocks([B[1,2], B[0,1]])
-        refute Seps.from_blocks([B[0,1], B[1,2]]) ==
-          Seps.from_blocks([B[0,2], B[1,2]])
+        assert Seps.from_column(%i(a - b)) == Seps.from_column(%i(a - b)).dup
+        assert Seps.from_column(%i(a - b)) == Seps.from_column(%i(b - a))
+        refute Seps.from_column(%i(a - b)) == Seps.from_column(%i(a b))
       end
     end
 
@@ -171,9 +167,9 @@ module ArtDecomp
 
     describe '#empty?' do
       it 'returns a predicate whether the Seps are empty' do
-        Seps.from_blocks([]).must_be :empty?
-        Seps.from_blocks([B[0,1]]).must_be :empty?
-        Seps.from_blocks([B[0], B[1]]).wont_be :empty?
+        Seps.from_column([]).must_be :empty?
+        Seps.from_column(%i(a a)).must_be :empty?
+        Seps.from_column(%i(a b)).wont_be :empty?
       end
     end
 
@@ -187,13 +183,13 @@ module ArtDecomp
 
     describe '#size' do
       it 'returns the number of separations' do
-        Seps.from_blocks([]).size.must_equal 0
-        Seps.from_blocks([B[0], B[1]]).size.must_equal 1
-        Seps.from_blocks([B[0,1,2], B[1,2,3,4]]).size.must_equal 2
-        Seps.from_blocks([B[0,2,3], B[1], B[4]]).size.must_equal 7
-        Seps.from_blocks([B[0,1,2,3], B[0,2,3,4]]).size.must_equal 1
-        Seps.from_blocks([B[0], B[1], B[2], B[3], B[4]]).size.must_equal 10
-        Seps.new([B[1,2,3], B[0,2,3], B[0,1], B[0,1]]).size.must_equal 5
+        Seps.from_column([]).size.must_equal 0
+        Seps.from_column(%i(a b)).size.must_equal 1
+        Seps.from_column(%i(a - - b b)).size.must_equal 2
+        Seps.from_column(%i(a b a a c)).size.must_equal 7
+        Seps.from_column(%i(- a - - b)).size.must_equal 1
+        Seps.from_column(%i(a b c d e)).size.must_equal 10
+        Seps.from_column(%i(a b c c)).size.must_equal 5
       end
     end
 
