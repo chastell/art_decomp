@@ -6,17 +6,6 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:matrix)
 
-    def self.from_blocks(blocks)
-      all  = blocks.reduce(0, :|)
-      size = all.bit_length
-      ones = (1 << size) - 1
-      blocks += [ones ^ all]
-      matrix = (0...size).map do |bit|
-        ones ^ blocks.select { |block| block[bit] == 1 }.reduce(0, :|)
-      end
-      new(matrix)
-    end
-
     def self.from_column(column)
       ones   = (1 << column.size) - 1
       coding = (0...column.size).group_by { |i| column[i] }

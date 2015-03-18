@@ -12,61 +12,6 @@ module ArtDecomp
     let(:sep_03_13)       { Seps.new([0b1000, 0b1000, 0b0000, 0b0011]) }
     let(:sep_12)          { Seps.new([0b000, 0b100, 0b010])            }
 
-    describe '.from_blocks' do
-      it 'builds a proper matrix' do
-        {
-          []           => [],
-          [B[0]]       => [],
-          [B[0,1]]     => [],
-          [B[0], B[1]] => [0b10, 0b01],
-          [B[0], B[1], B[2,3], B[4]] => [
-            0b11110,
-            0b11101,
-            0b10011,
-            0b10011,
-            0b01111,
-          ],
-          [B[1], B[4]] => [
-            0b10010,
-            0b11101,
-            0b10010,
-            0b10010,
-            0b01111,
-          ],
-          [B[0,2,3], B[1], B[4]] => [
-            0b10010,
-            0b11101,
-            0b10010,
-            0b10010,
-            0b01111,
-          ],
-          [B[0,1,2,3], B[0,2,3,4]] => [
-            0b00000,
-            0b10000,
-            0b00000,
-            0b00000,
-            0b00010,
-          ],
-          [B[0], B[1], B[2], B[3], B[4]] => [
-            0b11110,
-            0b11101,
-            0b11011,
-            0b10111,
-            0b01111,
-          ],
-          [B[0,1,2], B[1,2,3,4]] => [
-            0b11000,
-            0b00000,
-            0b00000,
-            0b00001,
-            0b00001,
-          ],
-        }.each do |blocks, matrix|
-          Seps.from_blocks(blocks).must_equal Seps.new(matrix)
-        end
-      end
-    end
-
     describe '.from_column' do
       it 'builds a proper matrix' do
         {
