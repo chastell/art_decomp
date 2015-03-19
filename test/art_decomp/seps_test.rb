@@ -12,51 +12,55 @@ module ArtDecomp
     let(:sep_03_13)       { Seps.new([0b1000, 0b1000, 0b0000, 0b0011]) }
     let(:sep_12)          { Seps.new([0b000, 0b100, 0b010])            }
 
+    let(:column_to_matrix) do
+      {
+        %i()    => [],
+        %i(a b) => [0b10, 0b01],
+        %i(a b c c d) => [
+          0b11110,
+          0b11101,
+          0b10011,
+          0b10011,
+          0b01111,
+        ],
+        %i(a b a a c) => [
+          0b10010,
+          0b11101,
+          0b10010,
+          0b10010,
+          0b01111,
+        ],
+        %i(- a - - b) => [
+          0b00000,
+          0b10000,
+          0b00000,
+          0b00000,
+          0b00010,
+        ],
+        %i(a b c d e) => [
+          0b11110,
+          0b11101,
+          0b11011,
+          0b10111,
+          0b01111,
+        ],
+        %i(a - - b b) => [
+          0b11000,
+          0b00000,
+          0b00000,
+          0b00001,
+          0b00001,
+        ],
+      }
+    end
+
     describe '.from_column' do
       it 'builds a proper matrix' do
-        {
-          %i()    => [],
-          %i(a)   => [],
-          %i(a a) => [],
-          %i(a b) => [0b10, 0b01],
-          %i(a b c c d) => [
-            0b11110,
-            0b11101,
-            0b10011,
-            0b10011,
-            0b01111,
-          ],
-          %i(a b a a c) => [
-            0b10010,
-            0b11101,
-            0b10010,
-            0b10010,
-            0b01111,
-          ],
-          %i(- a - - b) => [
-            0b00000,
-            0b10000,
-            0b00000,
-            0b00000,
-            0b00010,
-          ],
-          %i(a b c d e) => [
-            0b11110,
-            0b11101,
-            0b11011,
-            0b10111,
-            0b01111,
-          ],
-          %i(a - - b b) => [
-            0b11000,
-            0b00000,
-            0b00000,
-            0b00001,
-            0b00001,
-          ],
-        }.each do |column, matrix|
+        column_to_matrix.each do |column, matrix|
           Seps.from_column(column).must_equal Seps.new(matrix)
         end
+        Seps.from_column(%i(a)).must_equal Seps.new([])
+        Seps.from_column(%i(a a)).must_equal Seps.new([])
       end
     end
 
@@ -140,45 +144,7 @@ module ArtDecomp
 
     describe '#to_column' do
       it 'returns a proper column' do
-        {
-          [] => %i(),
-          [0b10, 0b01] => %i(a b),
-          [
-            0b11110,
-            0b11101,
-            0b10011,
-            0b10011,
-            0b01111,
-          ] => %i(a b c c d),
-          [
-            0b10010,
-            0b11101,
-            0b10010,
-            0b10010,
-            0b01111,
-          ] => %i(a b a a c),
-          [
-            0b00000,
-            0b10000,
-            0b00000,
-            0b00000,
-            0b00010,
-          ] => %i(- a - - b),
-          [
-            0b11110,
-            0b11101,
-            0b11011,
-            0b10111,
-            0b01111,
-          ] => %i(a b c d e),
-          [
-            0b11000,
-            0b00000,
-            0b00000,
-            0b00001,
-            0b00001,
-          ] => %i(a - - b b),
-        }.each do |matrix, column|
+        column_to_matrix.each do |column, matrix|
           Seps.new(matrix).to_column.must_equal column
         end
       end
