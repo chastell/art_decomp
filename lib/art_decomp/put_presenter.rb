@@ -1,5 +1,4 @@
 require 'delegate'
-require_relative 'b'
 
 module ArtDecomp
   class PutPresenter < SimpleDelegator

@@ -1,5 +1,6 @@
 require 'anima'
 require 'forwardable'
+require_relative 'b'
 
 module ArtDecomp
   class Seps
