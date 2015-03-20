@@ -2,7 +2,6 @@ DuplicateMethodCall:
   exclude:
     - ArtDecomp::ArchSizer#min_quarters
     - ArtDecomp::FunctionDecomposer#self.decompose
-    - ArtDecomp::Put#self.from_column
     - ArtDecomp::Seps#self.from_column
 
 IrresponsibleModule:
@@ -10,21 +9,14 @@ IrresponsibleModule:
 
 LongParameterList:
   exclude:
-    - ArtDecomp::Circuit#initialize
     - ArtDecomp::Circuit#self.from_fsm
 
 NestedIterators:
   max_allowed_nesting: 2
 
-TooManyInstanceVariables:
-  exclude:
-    - ArtDecomp::Circuit
-
 TooManyStatements:
   exclude:
     - ArtDecomp::ArchSizer#max_quarters
-    - ArtDecomp::Seps#inspect
-    - ArtDecomp::Seps#self.from_blocks
     - ArtDecomp::Seps#self.from_column
 
 UncommunicativeModuleName:
@@ -38,18 +30,14 @@ UncommunicativeParameterName:
 
 UncommunicativeVariableName:
   exclude:
-    - ArtDecomp::Circuit#ins_wires
-    - ArtDecomp::Circuit#outs_wires
     - ArtDecomp::Circuit::Wirer#ins_wires
     - ArtDecomp::Circuit::Wirer#outs_wires
     - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#labels
     - ArtDecomp::FunctionDecomposer::Parallel#decompositions
     - ArtDecomp::FunctionDecomposer::Parallel#merged
     - ArtDecomp::KISSDecomposer#decompose
-    - ArtDecomp::Put#self.from_column
     - ArtDecomp::RequiredPutsFilter#initialize
     - ArtDecomp::Seps#&
     - ArtDecomp::Seps#-
-    - ArtDecomp::Seps#inspect
     - ArtDecomp::Seps#self.from_column
     - ArtDecomp::Seps#|
