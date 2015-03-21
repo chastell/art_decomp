@@ -11,7 +11,7 @@ module ArtDecomp
 
     describe '.from_columns' do
       it 'creates Puts from an Array of columns' do
-        puts = Puts.from_columns([%i(a b -), %i(b - c)], codes: %i(a b c))
+        puts = Puts.from_columns([%i(a b -), %i(b - c)])
         puts.must_equal Puts.new([Put[%i(a b -), codes: %i(a b c)],
                                   Put[%i(b - c), codes: %i(a b c)]])
       end

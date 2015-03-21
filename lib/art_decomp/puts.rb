@@ -7,7 +7,7 @@ module ArtDecomp
     include Enumerable
     include Anima.new(:puts)
 
-    def self.from_columns(columns, codes:)
+    def self.from_columns(columns, codes: columns.flatten.uniq - [:-])
       new(columns.map { |column| Put.new(column: column, codes: codes) })
     end
 
