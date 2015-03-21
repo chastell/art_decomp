@@ -13,25 +13,15 @@ module ArtDecomp
     end
 
     def circuit
-      Circuit.from_fsm(ins: ins, outs: outs, states: states,
-                       next_states: next_states)
+      Circuit.from_fsm(ins:         put_cols_from(:ins),
+                       outs:        put_cols_from(:outs),
+                       states:      state_cols_from(:states),
+                       next_states: state_cols_from(:next_states))
     end
 
     private_attr_reader :col_groups
 
     private
-
-    def ins
-      put_cols_from(:ins)
-    end
-
-    def outs
-      put_cols_from(:outs)
-    end
-
-    def next_states
-      state_cols_from(:next_states)
-    end
 
     def put_cols_from(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
@@ -45,10 +35,6 @@ module ArtDecomp
     def state_cols_from(name)
       column = col_groups[name].map { |state| state == '*' ? :- : state.to_sym }
       Puts.from_columns([column], codes: state_codes)
-    end
-
-    def states
-      state_cols_from(:states)
     end
   end
 end
