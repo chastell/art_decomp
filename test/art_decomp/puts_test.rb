@@ -9,6 +9,14 @@ module ArtDecomp
     let(:a1b0)   { Put[%i(b a)]           }
     let(:puts)   { Puts.new([a0b1, a1b0]) }
 
+    describe '.from_columns' do
+      it 'creates Puts from an Array of columns' do
+        puts = Puts.from_columns([%i(a b -), %i(b - c)], codes: %i(a b c))
+        puts.must_equal Puts.new([Put[%i(a b -), codes: %i(a b c)],
+                                  Put[%i(b - c), codes: %i(a b c)]])
+      end
+    end
+
     describe '#==' do
       it 'compares Puts according to contents' do
         Puts.new([a0b1]).must_equal Puts.new([a0b1])
