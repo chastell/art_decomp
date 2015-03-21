@@ -22,18 +22,18 @@ module ArtDecomp
     private
 
     def ins
-      put_cols_from_group(:ins)
+      put_cols_from(:ins)
     end
 
     def outs
-      put_cols_from_group(:outs)
+      put_cols_from(:outs)
     end
 
     def next_states
-      state_cols_from_group(:next_states)
+      state_cols_from(:next_states)
     end
 
-    def put_cols_from_group(name)
+    def put_cols_from(name)
       rows = col_groups[name].map { |string| string.split('').map(&:to_sym) }
       Puts.from_columns(rows.transpose, codes: %i(0 1))
     end
@@ -42,13 +42,13 @@ module ArtDecomp
       (col_groups[:states] + col_groups[:next_states]).uniq.map(&:to_sym) - [:*]
     end
 
-    def state_cols_from_group(name)
+    def state_cols_from(name)
       column = col_groups[name].map { |state| state == '*' ? :- : state.to_sym }
       Puts.from_columns([column], codes: state_codes)
     end
 
     def states
-      state_cols_from_group(:states)
+      state_cols_from(:states)
     end
   end
 end
