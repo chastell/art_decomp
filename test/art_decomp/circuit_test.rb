@@ -1,7 +1,6 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/arch'
 require_relative '../../lib/art_decomp/circuit'
-require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/wires'
 
@@ -15,10 +14,10 @@ module ArtDecomp
 
     describe '.from_fsm' do
       it 'creates a Circuit representing the FSM' do
-        ins  = Puts.new([Put[%i(0 1)]])
-        outs = Puts.new([Put[%i(1 0)]])
-        states      = Puts.new([Put[%i(s1 s2 s3)]])
-        next_states = Puts.new([Put[%i(s3 s1 s2)]])
+        ins  = Puts.from_columns([%i(0 1)])
+        outs = Puts.from_columns([%i(1 0)])
+        states      = Puts.from_columns([%i(s1 s2 s3)])
+        next_states = Puts.from_columns([%i(s3 s1 s2)])
         circuit  = Circuit.from_fsm(ins: ins, outs: outs, states: states,
                                     next_states: next_states)
         function = Function.new(ins: ins + states, outs: outs + next_states)
