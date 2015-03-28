@@ -8,33 +8,46 @@ module ArtDecomp
     end
 
     def initialize(kiss)
-      order = %i(ins states next_states outs)
-      @columns = order.zip(kiss.lines.grep(/^[^.]/).map(&:split).transpose).to_h
+      @kiss = kiss
     end
 
     def circuit
-      Circuit.from_fsm(ins:         bin_puts_for(:ins),
-                       outs:        bin_puts_for(:outs),
-                       states:      state_puts_for(:states),
-                       next_states: state_puts_for(:next_states))
+      Circuit.from_fsm(puts)
     end
 
-    private_attr_reader :columns
+    private_attr_reader :kiss
 
     private
 
-    def bin_puts_for(group)
-      cols = columns[group].map { |row| row.split('').map(&:to_sym) }.transpose
-      Puts.from_columns(cols, codes: %i(0 1))
+    def blocks
+      order = %i(ins states next_states outs)
+      order.zip(kiss.lines.grep(/^[^.]/).map(&:split).transpose).to_h
     end
 
-    def state_puts_for(group)
-      col = columns[group].map { |state| state == '*' ? :- : state.to_sym }
-      Puts.from_columns([col], codes: state_codes)
+    def codes(type)
+      case type
+      when :bin
+        %i(0 1)
+      when :state
+        (blocks[:states] + blocks[:next_states] - ['*']).uniq.map(&:to_sym)
+      end
     end
 
-    def state_codes
-      (columns[:states] + columns[:next_states] - ['*']).uniq.map(&:to_sym)
+    def cols(type, block)
+      case type
+      when :bin
+        block.map { |row| row.split('').map(&:to_sym) }.transpose
+      when :state
+        [block.map { |state| state == '*' ? :- : state.to_sym }]
+      end
+    end
+
+    def puts
+      types = { ins: :bin, states: :state, next_states: :state, outs: :bin }
+      types.map do |group, type|
+        block = blocks[group]
+        [group, Puts.from_columns(cols(type, block), codes: codes(type))]
+      end.to_h
     end
   end
 end
