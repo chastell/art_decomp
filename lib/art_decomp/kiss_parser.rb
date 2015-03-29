@@ -20,34 +20,28 @@ module ArtDecomp
     private
 
     def blocks
-      order = %i(ins states next_states outs)
-      order.zip(kiss.lines.grep(/^[^.]/).map(&:split).transpose).to_h
+      kiss.lines.reject { |line| line.start_with?('.') }.map(&:split).transpose
     end
 
-    def codes(type)
-      case type
-      when :bin
-        %i(0 1)
-      when :state
-        (blocks[:states] + blocks[:next_states] - ['*']).uniq.map(&:to_sym)
-      end
-    end
-
-    def cols(type, block)
-      case type
-      when :bin
-        block.map { |row| row.split('').map(&:to_sym) }.transpose
-      when :state
-        [block.map { |state| state == '*' ? :- : state.to_sym }]
-      end
+    def bin_puts_for(block)
+      cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
+      Puts.from_columns(cols, codes: %i(0 1))
     end
 
     def puts
-      types = { ins: :bin, states: :state, next_states: :state, outs: :bin }
-      types.map do |group, type|
-        block = blocks[group]
-        [group, Puts.from_columns(cols(type, block), codes: codes(type))]
-      end.to_h
+      ins, states, next_states, outs = blocks
+      state_codes = (states + next_states - ['*']).uniq.map(&:to_sym)
+      {
+        ins:         bin_puts_for(ins),
+        outs:        bin_puts_for(outs),
+        states:      state_puts_for(states, codes: state_codes),
+        next_states: state_puts_for(next_states, codes: state_codes),
+      }
+    end
+
+    def state_puts_for(block, codes:)
+      col = block.map { |state| state == '*' ? :- : state.to_sym }
+      Puts.from_columns([col], codes: codes)
     end
   end
 end
