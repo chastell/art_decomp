@@ -23,25 +23,34 @@ module ArtDecomp
       kiss.lines.reject { |line| line.start_with?('.') }.map(&:split).transpose
     end
 
-    def bin_puts_for(block)
-      cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
-      Puts.from_columns(cols, codes: %i(0 1))
-    end
-
     def puts
-      ins, states, next_states, outs = blocks
-      state_codes = (states + next_states - ['*']).uniq.map(&:to_sym)
+      in_block, state_block, next_block, out_block = blocks
+      states = (state_block + next_block - ['*']).uniq.map(&:to_sym)
       {
-        ins:         bin_puts_for(ins),
-        outs:        bin_puts_for(outs),
-        states:      state_puts_for(states, codes: state_codes),
-        next_states: state_puts_for(next_states, codes: state_codes),
+        ins:         BlockParser.new(in_block).bin_puts,
+        outs:        BlockParser.new(out_block).bin_puts,
+        states:      BlockParser.new(state_block, codes: states).state_puts,
+        next_states: BlockParser.new(next_block, codes: states).state_puts,
       }
     end
 
-    def state_puts_for(block, codes:)
-      col = block.map { |state| state == '*' ? :- : state.to_sym }
-      Puts.from_columns([col], codes: codes)
+    class BlockParser
+      def initialize(block, codes: %i(0 1))
+        @block = block
+        @codes = codes
+      end
+
+      def bin_puts
+        cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
+        Puts.from_columns(cols, codes: codes)
+      end
+
+      def state_puts
+        col = block.map { |state| state == '*' ? :- : state.to_sym }
+        Puts.from_columns([col], codes: codes)
+      end
+
+      private_attr_reader :block, :codes
     end
   end
 end
