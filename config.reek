@@ -4,6 +4,11 @@ DuplicateMethodCall:
     - ArtDecomp::FunctionDecomposer#self.decompose
     - ArtDecomp::Seps#self.from_column
 
+FeatureEnvy:
+  exclude:
+    # https://github.com/troessner/reek/issues/53
+    - ArtDecomp::Seps::MatrixNormaliser#normalise
+
 IrresponsibleModule:
   enabled: false
 
@@ -41,3 +46,8 @@ UncommunicativeVariableName:
     - ArtDecomp::Seps#-
     - ArtDecomp::Seps#self.from_column
     - ArtDecomp::Seps#|
+
+UtilityFunction:
+  exclude:
+    # https://github.com/troessner/reek/issues/27
+    - ArtDecomp::Seps::MatrixNormaliser#normalise

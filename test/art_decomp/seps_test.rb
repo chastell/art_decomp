@@ -70,14 +70,10 @@ module ArtDecomp
 
       it 'normalises the matrix' do
         Seps.from_column(%i(a a)).must_equal Seps.new([])
-      end
-    end
-
-    describe '.normalise' do
-      it 'normalises the matrix' do
-        Seps.normalise([0b000, 0b000, 0b000]).must_equal []
-        Seps.normalise([0b010, 0b001, 0b000]).must_equal [0b10, 0b01]
-        Seps.normalise([0b000, 0b100, 0b000]).must_equal [0b000, 0b100, 0b000]
+        Seps.new([0b000, 0b000, 0b000]).must_equal Seps.new([])
+        Seps.new([0b010, 0b001, 0b000]).must_equal Seps.new([0b10, 0b01])
+        Seps.new([0b000, 0b100, 0b000])
+          .must_equal Seps.new([0b000, 0b100, 0b000])
       end
     end
 

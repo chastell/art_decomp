@@ -16,12 +16,8 @@ module ArtDecomp
       new(matrix)
     end
 
-    def self.normalise(matrix)
-      matrix[0...(matrix.max || 0).bit_length]
-    end
-
     def initialize(matrix = [])
-      @matrix = self.class.normalise(matrix)
+      @matrix = MatrixNormaliser.normalise(matrix)
     end
 
     def &(other)
@@ -64,6 +60,14 @@ module ArtDecomp
       codes  = code_generator
       coding = matrix.uniq.reject(&:zero?).map { |int| [int, codes.next] }.to_h
       matrix.map { |int| coding.fetch(int, :-) }
+    end
+
+    module MatrixNormaliser
+      module_function
+
+      def normalise(matrix)
+        matrix[0...(matrix.max || 0).bit_length]
+      end
     end
   end
 end
