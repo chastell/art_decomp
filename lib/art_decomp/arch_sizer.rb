@@ -7,7 +7,7 @@ module ArtDecomp
       i <= 8
     end
 
-    def max_quarters
+    def max_quarters                           # rubocop:disable Metrics/AbcSize
       case
       when i.zero?, o.zero? then 0
       when i <= 5           then (o / 2.0).ceil
@@ -18,7 +18,7 @@ module ArtDecomp
       end
     end
 
-    def min_quarters
+    def min_quarters                           # rubocop:disable Metrics/AbcSize
       case
       when i.zero?, o.zero? then 0
       when i <= 5           then (o / 2.0).ceil

@@ -12,7 +12,7 @@ module ArtDecomp
         new(function).decompositions
       end
 
-      def decompositions
+      def decompositions                       # rubocop:disable Metrics/AbcSize
         Enumerator.new do |yielder|
           unless merged == [function]
             wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)

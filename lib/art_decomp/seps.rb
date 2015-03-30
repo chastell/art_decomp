@@ -7,7 +7,7 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:matrix)
 
-    def self.from_column(column)
+    def self.from_column(column)               # rubocop:disable Metrics/AbcSize
       ones   = (1 << column.size) - 1
       coding = (0...column.size).group_by { |i| column[i] }
       matrix = column.map do |code|
