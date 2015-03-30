@@ -16,10 +16,9 @@ module ArtDecomp
         Enumerator.new do |yielder|
           unless merged == [function]
             wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)
-            circ  = Circuit.new(functions: merged, ins: ins, outs: outs,
-                                states: Puts.new, next_states: Puts.new,
-                                recoders: [], wires: wires)
-            yielder << circ
+            yielder << Circuit.new(functions: merged, ins: ins, outs: outs,
+                                   states: Puts.new, next_states: Puts.new,
+                                   recoders: [], wires: wires)
           end
         end
       end
@@ -30,9 +29,7 @@ module ArtDecomp
 
       def merged
         @merged ||= begin
-          split = outs.map do |o|
-            Function.new(ins: ins, outs: Puts.new([o]))
-          end
+          split = outs.map { |o| Function.new(ins: ins, outs: Puts.new([o])) }
           simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
           FunctionMerger.merge(simple)
         end
