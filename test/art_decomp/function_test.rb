@@ -1,14 +1,17 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/arch'
 require_relative '../../lib/art_decomp/function'
-require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Function do
-    let(:function) { Function.new(ins: ins, outs: outs)          }
-    let(:ins)      { Puts.new([Put[%i(0 1)], Put[%i(s1 s2 s3)]]) }
-    let(:outs)     { Puts.new([Put[%i(1 0)], Put[%i(s3 s1 s2)]]) }
+    let(:function) { Function.new(ins: ins, outs: outs) }
+    let(:ins) do
+      Puts.from_columns([%i(0 1)]) + Puts.from_columns([%i(s1 s2 s3)])
+    end
+    let(:outs) do
+      Puts.from_columns([%i(1 0)]) + Puts.from_columns([%i(s3 s1 s2)])
+    end
 
     describe '#==' do
       it 'compares two Functions by value' do
