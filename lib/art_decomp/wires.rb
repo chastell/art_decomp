@@ -9,7 +9,7 @@ module ArtDecomp
     include Anima.new(:wires)
 
     def self.from_array(array)
-      new array.map { |source, target| Wire.from_arrays(source, target) }
+      new(array.map { |source, target| Wire.from_arrays(source, target) })
     end
 
     def initialize(wires = [])
