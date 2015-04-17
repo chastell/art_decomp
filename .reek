@@ -1,12 +1,13 @@
 DuplicateMethodCall:
   exclude:
     - ArtDecomp::ArchSizer#min_quarters
-    - ArtDecomp::FunctionDecomposer#self.decompose
+    - ArtDecomp::FunctionDecomposer#decompose
     - ArtDecomp::Seps#self.from_column
 
 FeatureEnvy:
   exclude:
     # https://github.com/troessner/reek/issues/53
+    - ArtDecomp::FunctionDecomposer#decompose
     - ArtDecomp::Seps::MatrixNormaliser#normalise
 
 IrresponsibleModule:
@@ -50,4 +51,5 @@ UncommunicativeVariableName:
 UtilityFunction:
   exclude:
     # https://github.com/troessner/reek/issues/27
+    - ArtDecomp::FunctionDecomposer#decompose
     - ArtDecomp::Seps::MatrixNormaliser#normalise
