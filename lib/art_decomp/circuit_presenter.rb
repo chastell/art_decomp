@@ -15,9 +15,9 @@ module ArtDecomp
       ERB.new(template, nil, '%').result(binding)
     end
 
-    private_attr_reader :name
-
     private
+
+    private_attr_reader :name
 
     alias_method :circuit, :__getobj__
 
@@ -73,9 +73,9 @@ module ArtDecomp
             Array.new(pins[index].binwidth) { |n| "#{prefix}_#{suffix(n)}" }
           end
 
-          private_attr_reader :circuit, :pins
-
           private
+
+          private_attr_reader :circuit, :pins
 
           delegate %i(functions recoders) => :circuit
 

@@ -22,9 +22,9 @@ module ArtDecomp
       end
     end
 
-    private_attr_reader :settings
-
     private
+
+    private_attr_reader :settings
 
     delegate %i(kiss_path vhdl_path) => :settings
   end

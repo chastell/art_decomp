@@ -44,9 +44,9 @@ module ArtDecomp
           ins_wires + outs_wires
         end
 
-        private_attr_reader :function, :ins, :outs
-
         private
+
+        private_attr_reader :function, :ins, :outs
 
         def ins_wires
           Wires.from_array(function.ins.map.with_index do |put, fi|

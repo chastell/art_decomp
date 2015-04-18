@@ -15,9 +15,9 @@ module ArtDecomp
       Circuit.from_fsm(puts)
     end
 
-    private_attr_reader :kiss
-
     private
+
+    private_attr_reader :kiss
 
     def blocks
       kiss.lines.reject { |line| line.start_with?('.') }.map(&:split).transpose

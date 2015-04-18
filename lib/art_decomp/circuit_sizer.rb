@@ -18,9 +18,9 @@ module ArtDecomp
       (archs.map(&:min_quarters).reduce(0, :+) / 4.0).ceil
     end
 
-    private_attr_reader :archs
-
     private
+
+    private_attr_reader :archs
 
     def max_for_fitting
       archs.select(&:fits?).map(&:max_quarters)
