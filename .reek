@@ -45,6 +45,7 @@ UncommunicativeVariableName:
 UtilityFunction:
   exclude:
     # https://github.com/troessner/reek/issues/27
+    - ArtDecomp::B#[]
     - ArtDecomp::FunctionDecomposer#decompose
     - ArtDecomp::FunctionMerger#merge
     - ArtDecomp::Seps::MatrixNormaliser#normalise
