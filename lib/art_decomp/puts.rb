@@ -3,7 +3,7 @@ require 'forwardable'
 
 module ArtDecomp
   class Puts
-    extend  Forwardable
+    extend Forwardable
     include Enumerable
     include Anima.new(:puts)
 

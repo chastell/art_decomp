@@ -4,7 +4,7 @@ require_relative 'wire'
 
 module ArtDecomp
   class Wires
-    extend  Forwardable
+    extend Forwardable
     include Enumerable
     include Anima.new(:wires)
 

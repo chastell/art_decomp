@@ -46,9 +46,9 @@ module ArtDecomp
 
     describe '#binwidth' do
       it 'returns the binwidth of all the Puts combined' do
-        Puts.new.binwidth.must_equal                 0
-        Puts.new([a0b1]).binwidth.must_equal         1
-        puts.binwidth.must_equal                     2
+        Puts.new.binwidth.must_equal 0
+        Puts.new([a0b1]).binwidth.must_equal 1
+        puts.binwidth.must_equal 2
         Puts.new([a1b0, a0b1c2]).binwidth.must_equal 3
       end
     end
@@ -76,7 +76,7 @@ module ArtDecomp
     describe '#size' do
       it 'returns the number of Puts' do
         Puts.new.size.must_equal 0
-        puts.size.must_equal     2
+        puts.size.must_equal 2
       end
     end
 
