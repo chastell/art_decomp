@@ -77,4 +77,20 @@ begin
     elsif std_match(f1_ins, "1111") then f1_outs <= "0010110";
     end if;
   end process;
+  r0: process(r0_ins) begin
+    r0_outs <= (others => '-');
+    if std_match(r0_ins, "00") then r0_outs <= "00";
+    elsif std_match(r0_ins, "01") then r0_outs <= "10";
+    elsif std_match(r0_ins, "10") then r0_outs <= "01";
+    elsif std_match(r0_ins, "11") then r0_outs <= "11";
+    end if;
+  end process;
+  r1: process(r1_ins) begin
+    r1_outs <= (others => '-');
+    if std_match(r1_ins, "00") then r1_outs <= "00";
+    elsif std_match(r1_ins, "10") then r1_outs <= "01";
+    elsif std_match(r1_ins, "01") then r1_outs <= "10";
+    elsif std_match(r1_ins, "11") then r1_outs <= "11";
+    end if;
+  end process;
 end behaviour;

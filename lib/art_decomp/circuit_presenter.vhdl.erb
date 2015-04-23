@@ -43,4 +43,15 @@ begin
     end if;
   end process;
 % end
+% unless recoders.empty?
+% recoders.each.with_index do |rec, i|
+  r<%= i %>: process(r<%= i %>_ins) begin
+    r<%= i %>_outs <= (others => '-');
+% rec.rows.each.with_index do |(input, output), rownum|
+    <%= rownum.zero? ? 'if' : 'elsif' %> std_match(r<%= i %>_ins, "<%= input %>") then r<%= i %>_outs <= "<%= output %>";
+% end
+    end if;
+  end process;
+% end
+% end
 end behaviour;
