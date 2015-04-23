@@ -26,6 +26,8 @@ architecture behaviour of mc is
 begin
   f0_ins(0) <= fsm_ins(0);
   f0_ins(1) <= fsm_ins(1);
+  r0_ins(0) <= fsm_states(0);
+  r0_ins(1) <= fsm_states(1);
   f0_ins(2) <= r0_outs(1);
   f1_ins(0) <= fsm_ins(2);
   f1_ins(1) <= f0_outs(0);
@@ -33,6 +35,8 @@ begin
   f1_ins(3) <= r0_outs(0);
   fsm_next_states(0) <= r1_outs(0);
   fsm_next_states(1) <= r1_outs(1);
+  r1_ins(0) <= f1_outs(0);
+  r1_ins(1) <= f1_outs(1);
   fsm_outs(0) <= f1_outs(2);
   fsm_outs(1) <= f1_outs(3);
   fsm_outs(2) <= f1_outs(4);
