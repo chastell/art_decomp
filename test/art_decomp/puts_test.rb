@@ -46,10 +46,14 @@ module ArtDecomp
 
     describe '#binwidth' do
       it 'returns the binwidth of all the Puts combined' do
-        Puts.new.binwidth.must_equal 0
-        Puts.new([a0b1]).binwidth.must_equal 1
-        puts.binwidth.must_equal 2
-        Puts.new([a1b0, a0b1c2]).binwidth.must_equal 3
+        {
+          Puts.new                 => 0,
+          Puts.new([a0b1])         => 1,
+          Puts.new([a0b1, a1b0])   => 2,
+          Puts.new([a1b0, a0b1c2]) => 3,
+        }.each do |puts, binwidth|
+          puts.binwidth.must_equal binwidth
+        end
       end
     end
 
