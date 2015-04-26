@@ -1,3 +1,4 @@
+require 'delegate'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
