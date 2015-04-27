@@ -12,8 +12,8 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given Circuit' do
-        CircuitPresenter.vhdl_for(mc, name: 'mc')
-          .must_equal File.read('test/fixtures/mc.vhdl')
+        vhdl = CircuitPresenter.vhdl_for(mc, name: 'mc')
+        vhdl.must_equal File.read('test/fixtures/mc.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
@@ -58,8 +58,8 @@ module ArtDecomp
         mc_decd = Circuit.new(functions: [f0, f1], ins: mc.ins, outs: mc.outs,
                               states: mc.states, next_states: mc.next_states,
                               recoders: [r0, r1], wires: wires)
-        vhdl = File.read('test/fixtures/mc.decomposed.vhdl')
-        CircuitPresenter.vhdl_for(mc_decd, name: 'mc').must_equal vhdl
+        vhdl = CircuitPresenter.vhdl_for(mc_decd, name: 'mc')
+        vhdl.must_equal File.read('test/fixtures/mc.decomposed.vhdl')
       end
     end
   end
