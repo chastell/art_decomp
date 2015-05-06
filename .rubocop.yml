@@ -1,6 +1,10 @@
 Lint/UnusedMethodArgument:
   Enabled: false
 
+Metrics/ModuleLength:
+  Exclude:
+    - test/art_decomp/seps_test.rb
+
 Performance/ParallelAssignment:
   Enabled: false
 
