@@ -19,6 +19,10 @@ module ArtDecomp
           --
         )
       end
+
+      it 'returns encoded binary inputs with their values' do
+        PutPresenter.new(Put[%i(1 - 0)]).bin_column.must_equal %w(1 - 0)
+      end
     end
   end
 end
