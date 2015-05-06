@@ -1,6 +1,9 @@
 Lint/UnusedMethodArgument:
   Enabled: false
 
+Performance/ParallelAssignment:
+  Enabled: false
+
 Style/AndOr:
   Enabled: false
 
