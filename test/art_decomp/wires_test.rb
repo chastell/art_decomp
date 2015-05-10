@@ -1,11 +1,12 @@
 require_relative '../test_helper'
+require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Wires do
-    let(:fun_a) { fake(:function) }
-    let(:fun_b) { fake(:function) }
+    let(:fun_a) { fake(Function) }
+    let(:fun_b) { fake(Function) }
     let(:wires) do
       Wires.new([
         Wire.from_arrays([fun_a, :outs, 0], [fun_b, :ins, 1]),
