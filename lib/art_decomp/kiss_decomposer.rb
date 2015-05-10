@@ -8,12 +8,15 @@ module ArtDecomp
   class KISSDecomposer
     extend Forwardable
 
-    def initialize(args)
-      @settings = Settings.new(args)
+    def initialize(args, circuit_presenter: CircuitPresenter,
+                         decomposer: Decomposer, kiss_parser: KISSParser)
+      @circuit_presenter = circuit_presenter
+      @decomposer        = decomposer
+      @kiss_parser       = kiss_parser
+      @settings          = Settings.new(args)
     end
 
-    def decompose(circuit_presenter: CircuitPresenter,
-                  decomposer: Decomposer, kiss_parser: KISSParser)
+    def decompose
       circuit = kiss_parser.circuit_for(File.read(kiss_path))
       decomposer.decompositions(circuit).each.with_index do |dc, i|
         name = "#{File.basename(kiss_path, '.kiss')}_#{i}"
@@ -24,7 +27,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :settings
+    private_attr_reader :circuit_presenter, :decomposer, :kiss_parser, :settings
 
     delegate %i(kiss_path vhdl_path) => :settings
   end

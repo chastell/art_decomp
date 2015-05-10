@@ -18,11 +18,12 @@ module ArtDecomp
             presenter  = fake(CircuitPresenter, as: :class)
             stub(presenter).vhdl_for(c1, name: 'mc_0') { 'VHDL for mc_0' }
             stub(presenter).vhdl_for(c2, name: 'mc_1') { 'VHDL for mc_1' }
-            parser = fake(KISSParser, as: :class, circuit_for: fake(Circuit))
-            args   = %W(--dir=#{vhdl_path} foo/bar/mc.kiss)
-            KISSDecomposer.new(args).decompose circuit_presenter: presenter,
-                                               decomposer: decomposer,
-                                               kiss_parser: parser
+            parser   = fake(KISSParser, as: :class, circuit_for: fake(Circuit))
+            args     = %W(--dir=#{vhdl_path} foo/bar/mc.kiss)
+            kiss_dec = KISSDecomposer.new(args, circuit_presenter: presenter,
+                                                decomposer: decomposer,
+                                                kiss_parser: parser)
+            kiss_dec.decompose
           end
           File.read("#{vhdl_path}/mc_0.vhdl").must_equal 'VHDL for mc_0'
           File.read("#{vhdl_path}/mc_1.vhdl").must_equal 'VHDL for mc_1'
