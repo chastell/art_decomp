@@ -12,7 +12,7 @@ module ArtDecomp
     end
 
     def circuit
-      Circuit.from_fsm(puts)
+      Circuit.from_puts(puts)
     end
 
     private

@@ -9,7 +9,7 @@ IrresponsibleModule:
 
 LongParameterList:
   exclude:
-    - ArtDecomp::Circuit#self.from_fsm
+    - ArtDecomp::Circuit#self.from_puts
 
 NestedIterators:
   max_allowed_nesting: 2

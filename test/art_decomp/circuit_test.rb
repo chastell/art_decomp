@@ -12,14 +12,14 @@ module ArtDecomp
                   wires: Wires.new)
     end
 
-    describe '.from_fsm' do
+    describe '.from_puts' do
       it 'creates a Circuit representing the FSM' do
         ins  = Puts.from_columns([%i(0 1)])
         outs = Puts.from_columns([%i(1 0)])
         states      = Puts.from_columns([%i(s1 s2 s3)])
         next_states = Puts.from_columns([%i(s3 s1 s2)])
-        circuit  = Circuit.from_fsm(ins: ins, outs: outs, states: states,
-                                    next_states: next_states)
+        circuit  = Circuit.from_puts(ins: ins, outs: outs, states: states,
+                                     next_states: next_states)
         function = Function.new(ins: ins + states, outs: outs + next_states)
         circuit.functions.must_equal [function]
         circuit.recoders.must_be :empty?

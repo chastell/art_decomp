@@ -18,8 +18,8 @@ module ArtDecomp
         states      = Puts.from_columns([%i(s1 s1 s3)], codes: %i(s1 s2 s3))
         next_states = Puts.from_columns([%i(-  s2 s1)], codes: %i(s1 s2 s3))
 
-        circuit = Circuit.from_fsm(ins: ins, outs: outs, states: states,
-                                   next_states: next_states)
+        circuit = Circuit.from_puts(ins: ins, outs: outs, states: states,
+                                    next_states: next_states)
         KISSParser.circuit_for(kiss).must_equal circuit
       end
     end
