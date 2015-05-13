@@ -3,7 +3,6 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/decomposer'
 require_relative '../../lib/art_decomp/fsm_kiss_decomposer'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
-require_relative '../../lib/art_decomp/fsm_presenter'
 
 module ArtDecomp
   describe FSMKISSDecomposer do
@@ -14,7 +13,7 @@ module ArtDecomp
             c1, c2     = fake(:circ), fake(:circ)
             decs       = [c1, c2].to_enum
             decomposer = fake(Decomposer, as: :class, decompositions: decs)
-            presenter  = fake(FSMPresenter, as: :class)
+            presenter  = fake(:circuit_presenter, as: :class)
             stub(presenter).vhdl_for(c1, name: 'foo_0') { 'VHDL for foo_0' }
             stub(presenter).vhdl_for(c2, name: 'foo_1') { 'VHDL for foo_1' }
             parser   = fake(FSMKISSParser, as: :class, circuit_for: fake(:circ))
