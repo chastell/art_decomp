@@ -1,7 +1,6 @@
 require 'tmpdir'
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/decomposer'
-require_relative '../../lib/art_decomp/fsm'
 require_relative '../../lib/art_decomp/fsm_kiss_decomposer'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/fsm_presenter'
@@ -12,13 +11,13 @@ module ArtDecomp
       it 'decomposes the given KISS file into VHDL implementation' do
         Dir.mktmpdir do |vhdl_path|
           File.stub(:read, 'some KISS') do
-            c1, c2     = fake(FSM), fake(FSM)
+            c1, c2     = fake(:circ), fake(:circ)
             decs       = [c1, c2].to_enum
             decomposer = fake(Decomposer, as: :class, decompositions: decs)
             presenter  = fake(FSMPresenter, as: :class)
             stub(presenter).vhdl_for(c1, name: 'foo_0') { 'VHDL for foo_0' }
             stub(presenter).vhdl_for(c2, name: 'foo_1') { 'VHDL for foo_1' }
-            parser   = fake(FSMKISSParser, as: :class, circuit_for: fake(FSM))
+            parser   = fake(FSMKISSParser, as: :class, circuit_for: fake(:circ))
             args     = %W(--dir=#{vhdl_path} baz/bar/foo.kiss)
             kiss_dec = FSMKISSDecomposer.new(args, circuit_presenter: presenter,
                                                    decomposer: decomposer,
