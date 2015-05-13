@@ -1,6 +1,14 @@
 Lint/UnusedMethodArgument:
   Enabled: false
 
+Metrics/AbcSize:
+  Exclude:
+    - test/art_decomp/circ_kiss_decomposer.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - test/art_decomp/circ_kiss_decomposer.rb
+
 Metrics/ModuleLength:
   Exclude:
     - test/art_decomp/seps_test.rb
