@@ -1,5 +1,5 @@
 require 'delegate'
-require_relative '../circuit'
+require_relative '../fsm'
 require_relative '../function'
 require_relative '../function_merger'
 require_relative '../function_simplifier'
@@ -17,9 +17,9 @@ module ArtDecomp
         Enumerator.new do |yielder|
           unless merged == [function]
             wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)
-            yielder << Circuit.new(functions: merged, ins: ins, outs: outs,
-                                   states: Puts.new, next_states: Puts.new,
-                                   recoders: [], wires: wires)
+            yielder << FSM.new(functions: merged, ins: ins, outs: outs,
+                               states: Puts.new, next_states: Puts.new,
+                               recoders: [], wires: wires)
           end
         end
       end
