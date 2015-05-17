@@ -29,6 +29,15 @@ module ArtDecomp
           end
         end
 
+        describe '#ins, #outs' do
+          it 'returns the Circuit’s Put groups' do
+            %i(ins outs).each do |type|
+              puts = Puts.new([stub(:put)])
+              empty.update(type => puts).send(type).must_equal puts
+            end
+          end
+        end
+
         describe '#inspect' do
           it 'returns a readable representation' do
             f1 = fake(Function, arch: Arch[2,1])

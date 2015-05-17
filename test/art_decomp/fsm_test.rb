@@ -35,9 +35,9 @@ module ArtDecomp
       end
     end
 
-    describe '#ins, #outs, #states, #next_states' do
+    describe '#states, #next_states' do
       it 'returns the FSM’s Put groups' do
-        %i(ins outs states next_states).each do |type|
+        %i(states next_states).each do |type|
           puts = Puts.new([stub(:put)])
           empty.update(type => puts).send(type).must_equal puts
         end

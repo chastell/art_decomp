@@ -11,7 +11,6 @@ module ArtDecomp
 
     let(:empty) do
       Circuit.new(functions: [], ins: Puts.new, outs: Puts.new,
-                  states: Puts.new, next_states: Puts.new, recoders: [],
                   wires: Wires.new)
     end
 
@@ -19,34 +18,13 @@ module ArtDecomp
       it 'creates a Circuit representing the FSM' do
         ins  = Puts.from_columns([%i(0 1)])
         outs = Puts.from_columns([%i(1 0)])
-        states      = Puts.from_columns([%i(s1 s2 s3)])
-        next_states = Puts.from_columns([%i(s3 s1 s2)])
-        circuit  = Circuit.from_puts(ins: ins, outs: outs, states: states,
-                                     next_states: next_states)
-        function = Function.new(ins: ins + states, outs: outs + next_states)
+        circuit  = Circuit.from_puts(ins: ins, outs: outs)
+        function = Function.new(ins: ins, outs: outs)
         circuit.functions.must_equal [function]
-        circuit.recoders.must_be :empty?
         circuit.wires.must_equal Wires.from_array([
-          [[:circuit, :ins,    0], [function, :ins,         0]],
-          [[:circuit, :states, 0], [function, :ins,         1]],
-          [[function, :outs,   0], [:circuit, :outs,        0]],
-          [[function, :outs,   1], [:circuit, :next_states, 0]],
+          [[:circuit, :ins,  0], [function, :ins,  0]],
+          [[function, :outs, 0], [:circuit, :outs, 0]],
         ])
-      end
-    end
-
-    describe '#ins, #outs, #states, #next_states' do
-      it 'returns the Circuit’s Put groups' do
-        %i(ins outs states next_states).each do |type|
-          puts = Puts.new([stub(:put)])
-          empty.update(type => puts).send(type).must_equal puts
-        end
-      end
-    end
-
-    describe '#recoders' do
-      it 'gets the Recorders' do
-        empty.update(recoders: recs = fake(Array)).recoders.must_equal recs
       end
     end
   end
