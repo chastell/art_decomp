@@ -29,12 +29,10 @@ module ArtDecomp
           end
         end
 
-        describe '#ins, #outs' do
-          it 'returns the Circuit’s Put groups' do
-            %i(ins outs).each do |type|
-              puts = Puts.new([stub(:put)])
-              empty.update(type => puts).send(type).must_equal puts
-            end
+        describe '#ins' do
+          it 'returns the Circuit’s input Puts' do
+            puts = Puts.new([stub(:put)])
+            empty.update(ins: puts).ins.must_equal puts
           end
         end
 
@@ -69,6 +67,13 @@ module ArtDecomp
           it 'returns the smallest possible size of the Circuit' do
             stub(cs = fake(CircuitSizer)).min_size { 7 }
             empty.min_size(circuit_sizer: cs).must_equal 7
+          end
+        end
+
+        describe '#outs' do
+          it 'returns the Circuit’s output Puts' do
+            puts = Puts.new([stub(:put)])
+            empty.update(outs: puts).outs.must_equal puts
           end
         end
 
