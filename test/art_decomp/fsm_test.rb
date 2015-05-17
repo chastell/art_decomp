@@ -5,9 +5,12 @@ require_relative '../../lib/art_decomp/circuit_sizer'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/wires'
+require_relative 'circuit_behaviour'
 
 module ArtDecomp
   describe FSM do
+    include CircuitBehaviour
+
     let(:empty) do
       FSM.new(functions: [], ins: Puts.new, outs: Puts.new,
               states: Puts.new, next_states: Puts.new, recoders: [],
