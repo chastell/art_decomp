@@ -4,6 +4,7 @@ require_relative '../../lib/art_decomp/fsm_presenter'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe FSMPresenter do

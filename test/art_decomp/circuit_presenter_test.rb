@@ -4,6 +4,7 @@ require_relative '../../lib/art_decomp/circuit_presenter'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe CircuitPresenter do
