@@ -8,14 +8,13 @@ require_relative '../../lib/art_decomp/puts'
 module ArtDecomp
   describe CircuitPresenter do
     describe '.vhdl_for' do
-      let(:mc) do
-        KISSParser.circuit_for(File.read('test/fixtures/mc.kiss'))
+      let(:bin) do
+        KISSParser.circuit_for(File.read('test/fixtures/bin.kiss'))
       end
 
       it 'returns VHDL for the given Circuit' do
-        skip 'CircuitPresenter test needs to be about a non-FSM Circuit'
-        vhdl = CircuitPresenter.vhdl_for(mc, name: 'mc')
-        vhdl.must_equal File.read('test/fixtures/mc.vhdl')
+        vhdl = CircuitPresenter.vhdl_for(bin, name: 'bin')
+        vhdl.must_equal File.read('test/fixtures/bin.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do

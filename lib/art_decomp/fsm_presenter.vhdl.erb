@@ -12,15 +12,27 @@ entity <%= name %> is
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
+  signal fsm_states, fsm_next_states: std_logic_vector(0 to <%= states.binwidth - 1 %>);
+
 % functions.each.with_index do |fun, i|
   signal f<%= i %>_ins: std_logic_vector(0 to <%= fun.ins.binwidth - 1 %>);
   signal f<%= i %>_outs: std_logic_vector(0 to <%= fun.outs.binwidth - 1 %>);
+% end
+% recoders.each.with_index do |rec, i|
+  signal r<%= i %>_ins: std_logic_vector(0 to <%= rec.ins.binwidth - 1 %>);
+  signal r<%= i %>_outs: std_logic_vector(0 to <%= rec.outs.binwidth - 1 %>);
 % end
 
 begin
 % wire_labels.each do |src_label, dst_label|
   <%= dst_label %> <= <%= src_label %>;
 % end
+
+  process(reset, clock) begin
+    if reset = '1' then fsm_states <= "<%= '0' * states.binwidth %>";
+    elsif rising_edge(clock) then fsm_states <= fsm_next_states;
+    end if;
+  end process;
 
 % functions.each.with_index do |fun, i|
   f<%= i %>: process(f<%= i %>_ins) begin
@@ -30,5 +42,16 @@ begin
 % end
     end if;
   end process;
+% end
+% unless recoders.empty?
+% recoders.each.with_index do |rec, i|
+  r<%= i %>: process(r<%= i %>_ins) begin
+    r<%= i %>_outs <= (others => '-');
+% rec.rows.each.with_index do |(input, output), rownum|
+    <%= rownum.zero? ? 'if' : 'elsif' %> std_match(r<%= i %>_ins, "<%= input %>") then r<%= i %>_outs <= "<%= output %>";
+% end
+    end if;
+  end process;
+% end
 % end
 end behaviour;
