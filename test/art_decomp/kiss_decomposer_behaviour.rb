@@ -2,7 +2,7 @@ require 'tmpdir'
 require_relative '../../lib/art_decomp/decomposer'
 
 module ArtDecomp
-  module CircKISSDecomposer
+  module KISSDecomposerBehaviour
     def self.included(spec_class)
       spec_class.class_eval do
         describe '#decompose' do
@@ -17,10 +17,10 @@ module ArtDecomp
                 stub(presenter).vhdl_for(c2, name: 'foo_1') { 'VHDL for foo_1' }
                 parser = fake(:circ_kiss_parser, circuit_for: fake(:circ))
                 args   = %W(--dir=#{vhdl_path} baz/bar/foo.kiss)
-                decomp = circ_kiss_decomposer.new(args,
-                                                  circuit_presenter: presenter,
-                                                  decomposer: decomposer,
-                                                  kiss_parser: parser)
+                decomp = kiss_decomposer.new(args,
+                                             circuit_presenter: presenter,
+                                             decomposer: decomposer,
+                                             kiss_parser: parser)
                 decomp.decompose
               end
               File.read("#{vhdl_path}/foo_0.vhdl").must_equal 'VHDL for foo_0'

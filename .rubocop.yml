@@ -3,11 +3,11 @@ Lint/UnusedMethodArgument:
 
 Metrics/AbcSize:
   Exclude:
-    - test/art_decomp/circ_kiss_decomposer.rb
+    - test/art_decomp/kiss_decomposer_behaviour.rb
 
 Metrics/MethodLength:
   Exclude:
-    - test/art_decomp/circ_kiss_decomposer.rb
+    - test/art_decomp/kiss_decomposer_behaviour.rb
 
 Metrics/ModuleLength:
   Exclude:
