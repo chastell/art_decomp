@@ -13,11 +13,13 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given Circuit' do
+        skip 'CircuitPresenter test needs to be about a non-FSM Circuit'
         vhdl = CircuitPresenter.vhdl_for(mc, name: 'mc')
         vhdl.must_equal File.read('test/fixtures/mc.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
+        skip 'CircuitPresenter test needs to be about a non-FSM Circuit'
         f0ins  = Puts.from_columns([%i(0 0 0 0 1 1 1 1), %i(0 0 1 1 0 0 1 1)]) +
                  Puts.from_columns([%i(a b a b a b a b)])
         f0outs = Puts.from_columns([%i(b a b a a a b b), %i(a b a b a b a b)])

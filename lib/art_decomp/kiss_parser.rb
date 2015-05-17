@@ -24,13 +24,10 @@ module ArtDecomp
     end
 
     def puts
-      in_block, state_block, next_block, out_block = blocks
-      states = (state_block + next_block - ['*']).uniq.map(&:to_sym)
+      in_block, out_block = blocks
       {
-        ins:         BlockParser.new(in_block).bin_puts,
-        outs:        BlockParser.new(out_block).bin_puts,
-        states:      BlockParser.new(state_block, codes: states).state_puts,
-        next_states: BlockParser.new(next_block, codes: states).state_puts,
+        ins:  BlockParser.new(in_block).bin_puts,
+        outs: BlockParser.new(out_block).bin_puts,
       }
     end
 
@@ -43,11 +40,6 @@ module ArtDecomp
       def bin_puts
         cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
         Puts.from_columns(cols, codes: codes)
-      end
-
-      def state_puts
-        col = block.map { |state| state == '*' ? :- : state.to_sym }
-        Puts.from_columns([col], codes: codes)
       end
 
       private_attr_reader :block, :codes

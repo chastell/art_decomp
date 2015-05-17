@@ -9,7 +9,7 @@ module ArtDecomp
                       :wires)
     include Anima::Update
 
-    def self.from_puts(ins:, outs:, states:, next_states:)
+    def self.from_puts(ins:, outs:, states: Puts.new, next_states: Puts.new)
       function = Function.new(ins: ins + states, outs: outs + next_states)
       wires = Wirer.new(function, ins: ins, outs: outs).wires
       new(functions: [function], ins: ins, outs: outs, states: states,
