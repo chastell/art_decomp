@@ -35,12 +35,17 @@ module ArtDecomp
       end
     end
 
-    describe '#states, #next_states' do
-      it 'returns the FSM’s Put groups' do
-        %i(states next_states).each do |type|
-          puts = Puts.new([stub(:put)])
-          empty.update(type => puts).send(type).must_equal puts
-        end
+    describe '#next_states' do
+      it 'returns the FSM’s next states' do
+        puts = Puts.new([stub(:put)])
+        empty.update(next_states: puts).next_states.must_equal puts
+      end
+    end
+
+    describe '#states' do
+      it 'returns the FSM’s states' do
+        puts = Puts.new([stub(:put)])
+        empty.update(states: puts).states.must_equal puts
       end
     end
 
