@@ -3,17 +3,11 @@ Lint/UnusedMethodArgument:
 
 Metrics/AbcSize:
   Exclude:
-    - test/art_decomp/circuit_behaviour.rb
-    - test/art_decomp/kiss_decomposer_behaviour.rb
+    - test/art_decomp/*_behaviour.rb
 
 Metrics/MethodLength:
   Exclude:
-    - test/art_decomp/circuit_behaviour.rb
-    - test/art_decomp/kiss_decomposer_behaviour.rb
-
-Metrics/ModuleLength:
-  Exclude:
-    - test/art_decomp/seps_test.rb
+    - test/art_decomp/*_behaviour.rb
 
 Performance/ParallelAssignment:
   Enabled: false
