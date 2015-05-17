@@ -18,50 +18,30 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
-        skip 'CircuitPresenter test needs to be about a non-FSM Circuit'
-        f0ins  = Puts.from_columns([%i(0 0 0 0 1 1 1 1), %i(0 0 1 1 0 0 1 1)]) +
-                 Puts.from_columns([%i(a b a b a b a b)])
-        f0outs = Puts.from_columns([%i(b a b a a a b b), %i(a b a b a b a b)])
-        f1ins  = Puts.from_columns([%i(- - - - 0 0 0 0 1 1 1 1)]) +
-                 Puts.from_columns([%i(a a b b a a b b a a b b),
-                                    %i(a b a b a b a b a b a b),
-                                    %i(a a a a b b b b b b b b)])
-        f1outs = Puts.from_columns([%i(a a b b b b b b a a a a),
-                                    %i(a b a b a b a b b a b a)]) +
-                 Puts.from_columns([%i(0 0 1 1 0 0 0 0 1 1 1 1),
-                                    %i(1 0 1 0 1 0 1 0 1 0 1 0),
-                                    %i(0 0 0 0 0 1 0 1 0 1 0 1),
-                                    %i(0 1 0 1 0 1 0 1 0 1 0 1),
-                                    %i(0 0 0 0 1 0 1 0 1 0 1 0)])
+        f0ins  = Puts.from_columns([%i(0 0 0 0 1 1 0 1),
+                                    %i(1 - 0 1 1 1 0 0),
+                                    %i(- 0 0 1 - 0 1 -)])
+        f0outs = Puts.from_columns([%i(0 0 0 0 0 0 1 1)])
+        f1ins  = Puts.from_columns([%i(0 0 - 0 0 - 1 0 - 1),
+                                    %i(1 1 1 1 0 - - 0 1 -),
+                                    %i(0 0 - - 1 1 - 0 - -),
+                                    %i(0 0 0 0 - 0 0 - 1 1)])
+        f1outs = Puts.from_columns([%i(0 0 0 0 0 0 0 1 1 1)])
         f0 = Function.new(ins: f0ins, outs: f0outs)
         f1 = Function.new(ins: f1ins, outs: f1outs)
-        r_state = Puts.from_columns([%i(FG FY HG HY)])
-        r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
-        r0 = Function.new(ins: r_state, outs: r_coded)
-        r1 = Function.new(ins: r_coded, outs: r_state)
         wires = Wires.from_array([
-          [[:circuit, :ins,    0], [f0,       :ins,         0]],
-          [[:circuit, :ins,    1], [f0,       :ins,         1]],
-          [[:circuit, :states, 0], [r0,       :ins,         0]],
-          [[r0,       :outs,   1], [f0,       :ins,         2]],
-          [[:circuit, :ins,    2], [f1,       :ins,         0]],
-          [[f0,       :outs,   0], [f1,       :ins,         1]],
-          [[f0,       :outs,   1], [f1,       :ins,         2]],
-          [[r0,       :outs,   0], [f1,       :ins,         3]],
-          [[r1,       :outs,   0], [:circuit, :next_states, 0]],
-          [[f1,       :outs,   0], [r1,       :ins,         0]],
-          [[f1,       :outs,   1], [r1,       :ins,         1]],
-          [[f1,       :outs,   2], [:circuit, :outs,        0]],
-          [[f1,       :outs,   3], [:circuit, :outs,        1]],
-          [[f1,       :outs,   4], [:circuit, :outs,        2]],
-          [[f1,       :outs,   5], [:circuit, :outs,        3]],
-          [[f1,       :outs,   6], [:circuit, :outs,        4]],
+          [[:circuit, :ins,  2], [f0,       :ins,  0]],
+          [[:circuit, :ins,  3], [f0,       :ins,  1]],
+          [[:circuit, :ins,  4], [f0,       :ins,  2]],
+          [[:circuit, :ins,  0], [f1,       :ins,  0]],
+          [[:circuit, :ins,  1], [f1,       :ins,  1]],
+          [[:circuit, :ins,  5], [f1,       :ins,  2]],
+          [[f0,       :outs, 0], [f1,       :ins,  3]],
+          [[f1,       :outs, 0], [:circuit, :outs, 0]],
         ])
-        mc_decd = Circuit.new(functions: [f0, f1], ins: mc.ins, outs: mc.outs,
-                              states: mc.states, next_states: mc.next_states,
-                              recoders: [r0, r1], wires: wires)
-        vhdl = CircuitPresenter.vhdl_for(mc_decd, name: 'mc')
-        vhdl.must_equal File.read('test/fixtures/mc.decomposed.vhdl')
+        bin_decd = bin.update(functions: [f0, f1], wires: wires)
+        vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
+        vhdl.must_equal File.read('test/fixtures/bin.decomposed.vhdl')
       end
     end
   end
