@@ -6,8 +6,8 @@ entity bin is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        fsm_ins: in  std_logic_vector(0 to 5);
-        fsm_outs: out std_logic_vector(0 to 0)
+        circ_ins: in  std_logic_vector(0 to 5);
+        circ_outs: out std_logic_vector(0 to 0)
       );
 end bin;
 
@@ -16,13 +16,13 @@ architecture behaviour of bin is
   signal f0_outs: std_logic_vector(0 to 0);
 
 begin
-  f0_ins(0) <= fsm_ins(0);
-  f0_ins(1) <= fsm_ins(1);
-  f0_ins(2) <= fsm_ins(2);
-  f0_ins(3) <= fsm_ins(3);
-  f0_ins(4) <= fsm_ins(4);
-  f0_ins(5) <= fsm_ins(5);
-  fsm_outs(0) <= f0_outs(0);
+  f0_ins(0) <= circ_ins(0);
+  f0_ins(1) <= circ_ins(1);
+  f0_ins(2) <= circ_ins(2);
+  f0_ins(3) <= circ_ins(3);
+  f0_ins(4) <= circ_ins(4);
+  f0_ins(5) <= circ_ins(5);
+  circ_outs(0) <= f0_outs(0);
 
   f0: process(f0_ins) begin
     f0_outs <= (others => '-');

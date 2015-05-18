@@ -81,7 +81,7 @@ module ArtDecomp
 
           def prefix
             case
-            when object == :circuit         then 'fsm'
+            when object == :circuit         then 'circ'
             when functions.include?(object) then "f#{functions.index(object)}"
             when recoders.include?(object)  then "r#{recoders.index(object)}"
             end

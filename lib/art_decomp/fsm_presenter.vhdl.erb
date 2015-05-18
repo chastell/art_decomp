@@ -6,13 +6,13 @@ entity <%= name %> is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        fsm_ins: in  std_logic_vector(0 to <%= ins.binwidth - 1 %>);
-        fsm_outs: out std_logic_vector(0 to <%= outs.binwidth - 1 %>)
+        circ_ins: in  std_logic_vector(0 to <%= ins.binwidth - 1 %>);
+        circ_outs: out std_logic_vector(0 to <%= outs.binwidth - 1 %>)
       );
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
-  signal fsm_states, fsm_next_states: std_logic_vector(0 to <%= states.binwidth - 1 %>);
+  signal circ_states, circ_next_states: std_logic_vector(0 to <%= states.binwidth - 1 %>);
 
 % functions.each.with_index do |fun, i|
   signal f<%= i %>_ins: std_logic_vector(0 to <%= fun.ins.binwidth - 1 %>);
@@ -29,8 +29,8 @@ begin
 % end
 
   process(reset, clock) begin
-    if reset = '1' then fsm_states <= "<%= '0' * states.binwidth %>";
-    elsif rising_edge(clock) then fsm_states <= fsm_next_states;
+    if reset = '1' then circ_states <= "<%= '0' * states.binwidth %>";
+    elsif rising_edge(clock) then circ_states <= circ_next_states;
     end if;
   end process;
 
