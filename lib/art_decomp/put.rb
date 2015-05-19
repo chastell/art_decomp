@@ -5,7 +5,7 @@ require_relative 'seps'
 module ArtDecomp
   class Put
     extend Forwardable
-    include Anima.new(:codes, :column, :seps)
+    include Anima.new(:codes, :column)
 
     def self.[](column, codes: column.uniq - [:-])
       new(column: column, codes: codes)
@@ -14,7 +14,6 @@ module ArtDecomp
     def initialize(column:, codes: column.uniq - [:-])
       @codes  = codes.sort
       @column = column
-      @seps   = Seps.from_column(column)
     end
 
     def binwidth
@@ -23,6 +22,10 @@ module ArtDecomp
 
     def inspect
       "#{self.class}#{column}"
+    end
+
+    def seps
+      @seps ||= Seps.from_column(column)
     end
 
     delegate size: :codes
