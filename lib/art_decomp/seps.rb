@@ -34,16 +34,6 @@ module ArtDecomp
       self.class.new(larger.zip(smaller).map { |a, b| b ? a | b : a })
     end
 
-    def code_generator
-      Enumerator.new do |yielder|
-        code = :a
-        loop do
-          yielder << code
-          code = code.next
-        end
-      end
-    end
-
     delegate empty?: :matrix
 
     def inspect
@@ -60,6 +50,18 @@ module ArtDecomp
       codes  = code_generator
       coding = matrix.uniq.reject(&:zero?).map { |int| [int, codes.next] }.to_h
       matrix.map { |int| coding.fetch(int, :-) }
+    end
+
+    private
+
+    def code_generator
+      Enumerator.new do |yielder|
+        code = :a
+        loop do
+          yielder << code
+          code = code.next
+        end
+      end
     end
 
     module MatrixNormaliser
