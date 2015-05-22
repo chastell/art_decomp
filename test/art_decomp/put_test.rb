@@ -51,7 +51,10 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        Put[%i(a - b)].inspect.must_equal 'ArtDecomp::Put[:a, :-, :b]'
+        Put[%i(a - b)].inspect
+          .must_equal 'ArtDecomp::Put[[:a, :-, :b], codes: [:a, :b]]'
+        Put[%i(1 0)].inspect
+          .must_equal 'ArtDecomp::Put[[:"1", :"0"], codes: [:"0", :"1"]]'
       end
     end
 

@@ -21,7 +21,7 @@ module ArtDecomp
     end
 
     def inspect
-      "#{self.class}#{column}"
+      "#{self.class}[#{column}, codes: #{codes}]"
     end
 
     def seps
