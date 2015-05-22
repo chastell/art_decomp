@@ -2,6 +2,18 @@ require_relative 'arch_sizer'
 
 module ArtDecomp
   class CircuitSizer
+    def self.adm_size(circuit)
+      new(circuit).adm_size
+    end
+
+    def self.max_size(circuit)
+      new(circuit).max_size
+    end
+
+    def self.min_size(circuit)
+      new(circuit).min_size
+    end
+
     def initialize(circuit)
       @archs = circuit.function_archs.map { |arch| ArchSizer.new(arch) }
     end

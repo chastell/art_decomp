@@ -5,7 +5,7 @@ require_relative '../../lib/art_decomp/circuit_sizer'
 
 module ArtDecomp
   describe CircuitSizer do
-    describe '#adm_size' do
+    describe '.adm_size' do
       it 'returns the admissible heuristic size for the given Circuit' do
         {
           []                      => 0,
@@ -15,12 +15,12 @@ module ArtDecomp
           [Arch[20,8]]            => 1,
         }.each do |archs, size|
           circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.new(circuit).adm_size.must_equal size
+          CircuitSizer.adm_size(circuit).must_equal size
         end
       end
     end
 
-    describe '#max_size' do
+    describe '.max_size' do
       it 'returns the maximum size for the given Circuit' do
         {
           []                                => 0,
@@ -45,12 +45,12 @@ module ArtDecomp
           [Arch[14,7]]                      => 485,
         }.each do |archs, size|
           circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.new(circuit).max_size.must_equal size
+          CircuitSizer.max_size(circuit).must_equal size
         end
       end
     end
 
-    describe '#min_size' do
+    describe '.min_size' do
       it 'returns the smallest possible size for the given Circuit' do
         {
           []                                => 0,
@@ -66,7 +66,7 @@ module ArtDecomp
           [Arch[20,9]]                      => 2,
         }.each do |archs, size|
           circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.new(circuit).min_size.must_equal size
+          CircuitSizer.min_size(circuit).must_equal size
         end
       end
     end
