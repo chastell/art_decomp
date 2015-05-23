@@ -26,8 +26,8 @@ module ArtDecomp
     def puts
       in_block, out_block = blocks
       {
-        ins:  BlockParser.new(in_block).bin_puts,
-        outs: BlockParser.new(out_block).bin_puts,
+        ins:  BlockParser.new(in_block).puts,
+        outs: BlockParser.new(out_block).puts,
       }
     end
 
@@ -37,7 +37,7 @@ module ArtDecomp
         @codes = codes
       end
 
-      def bin_puts
+      def puts
         cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
         Puts.from_columns(cols, codes: codes)
       end
