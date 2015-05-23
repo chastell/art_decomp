@@ -20,15 +20,6 @@ module ArtDecomp
           end
         end
 
-        describe '#function_archs' do
-          it 'returns the Archs of its Functions' do
-            f1 = fake(Function, arch: Arch[2,1])
-            f2 = fake(Function, arch: Arch[4,3])
-            empty.update(functions: [f1, f2]).function_archs
-              .must_equal [Arch[2,1], Arch[4,3]]
-          end
-        end
-
         describe '#ins' do
           it 'returns the Circuit’s input Puts' do
             puts = Puts.new([stub(:put)])

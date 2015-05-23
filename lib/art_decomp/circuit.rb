@@ -18,10 +18,6 @@ module ArtDecomp
       @adm_size ||= circuit_sizer.adm_size(function_archs)
     end
 
-    def function_archs
-      functions.map(&:arch)
-    end
-
     def inspect
       "#{self.class}(#{function_archs})"
     end
@@ -36,6 +32,12 @@ module ArtDecomp
 
     def min_size(circuit_sizer: CircuitSizer)
       @min_size ||= circuit_sizer.min_size(function_archs)
+    end
+
+    private
+
+    def function_archs
+      functions.map(&:arch)
     end
 
     class Wirer
