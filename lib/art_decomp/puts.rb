@@ -1,5 +1,6 @@
 require 'anima'
 require 'forwardable'
+require_relative 'put'
 
 module ArtDecomp
   class Puts
