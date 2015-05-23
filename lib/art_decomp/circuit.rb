@@ -15,7 +15,7 @@ module ArtDecomp
     end
 
     def adm_size(circuit_sizer: CircuitSizer)
-      @adm_size ||= circuit_sizer.adm_size(self)
+      @adm_size ||= circuit_sizer.adm_size(function_archs)
     end
 
     def function_archs
@@ -31,11 +31,11 @@ module ArtDecomp
     end
 
     def max_size(circuit_sizer: CircuitSizer)
-      @max_size ||= circuit_sizer.max_size(self)
+      @max_size ||= circuit_sizer.max_size(function_archs)
     end
 
     def min_size(circuit_sizer: CircuitSizer)
-      @min_size ||= circuit_sizer.min_size(self)
+      @min_size ||= circuit_sizer.min_size(function_archs)
     end
 
     class Wirer

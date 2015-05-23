@@ -1,12 +1,11 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/arch'
-require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/circuit_sizer'
 
 module ArtDecomp
   describe CircuitSizer do
     describe '.adm_size' do
-      it 'returns the admissible heuristic size for the given Circuit' do
+      it 'returns the admissible heuristic size for the given Archs' do
         {
           []                      => 0,
           [Arch[8,1]]             => 1,
@@ -14,14 +13,13 @@ module ArtDecomp
           [Arch[8,2]]             => 2,
           [Arch[20,8]]            => 1,
         }.each do |archs, size|
-          circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.adm_size(circuit).must_equal size
+          CircuitSizer.adm_size(archs).must_equal size
         end
       end
     end
 
     describe '.max_size' do
-      it 'returns the maximum size for the given Circuit' do
+      it 'returns the maximum size for the given Archs' do
         {
           []                                => 0,
           [Arch[0,0]]                       => 0,
@@ -44,14 +42,13 @@ module ArtDecomp
           [Arch[9,4]]                       => 9,
           [Arch[14,7]]                      => 485,
         }.each do |archs, size|
-          circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.max_size(circuit).must_equal size
+          CircuitSizer.max_size(archs).must_equal size
         end
       end
     end
 
     describe '.min_size' do
-      it 'returns the smallest possible size for the given Circuit' do
+      it 'returns the smallest possible size for the given Archs' do
         {
           []                                => 0,
           [Arch[0,0]]                       => 0,
@@ -65,8 +62,7 @@ module ArtDecomp
           [Arch[21,8]]                      => 2,
           [Arch[20,9]]                      => 2,
         }.each do |archs, size|
-          circuit = fake(Circuit, function_archs: archs)
-          CircuitSizer.min_size(circuit).must_equal size
+          CircuitSizer.min_size(archs).must_equal size
         end
       end
     end
