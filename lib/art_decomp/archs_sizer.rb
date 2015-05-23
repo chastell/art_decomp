@@ -1,7 +1,7 @@
 require_relative 'arch_sizer'
 
 module ArtDecomp
-  class CircuitSizer
+  class ArchsSizer
     def self.adm_size(archs)
       new(archs).adm_size
     end

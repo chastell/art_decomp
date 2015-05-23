@@ -1,9 +1,9 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/arch'
-require_relative '../../lib/art_decomp/circuit_sizer'
+require_relative '../../lib/art_decomp/archs_sizer'
 
 module ArtDecomp
-  describe CircuitSizer do
+  describe ArchsSizer do
     describe '.adm_size' do
       it 'returns the admissible heuristic size for the given Archs' do
         {
@@ -13,7 +13,7 @@ module ArtDecomp
           [Arch[8,2]]             => 2,
           [Arch[20,8]]            => 1,
         }.each do |archs, size|
-          CircuitSizer.adm_size(archs).must_equal size
+          ArchsSizer.adm_size(archs).must_equal size
         end
       end
     end
@@ -42,7 +42,7 @@ module ArtDecomp
           [Arch[9,4]]                       => 9,
           [Arch[14,7]]                      => 485,
         }.each do |archs, size|
-          CircuitSizer.max_size(archs).must_equal size
+          ArchsSizer.max_size(archs).must_equal size
         end
       end
     end
@@ -62,7 +62,7 @@ module ArtDecomp
           [Arch[21,8]]                      => 2,
           [Arch[20,9]]                      => 2,
         }.each do |archs, size|
-          CircuitSizer.min_size(archs).must_equal size
+          ArchsSizer.min_size(archs).must_equal size
         end
       end
     end

@@ -1,5 +1,5 @@
 require_relative '../../lib/art_decomp/arch'
-require_relative '../../lib/art_decomp/circuit_sizer'
+require_relative '../../lib/art_decomp/archs_sizer'
 require_relative '../../lib/art_decomp/function'
 
 module ArtDecomp
@@ -8,8 +8,8 @@ module ArtDecomp
       spec_class.class_eval do
         describe '#adm_size' do
           it 'returns the admissible heuristic size of the Circuit' do
-            stub(cs = fake(CircuitSizer, as: :class)).adm_size([]) { 7 }
-            empty.adm_size(circuit_sizer: cs).must_equal 7
+            stub(cs = fake(ArchsSizer, as: :class)).adm_size([]) { 7 }
+            empty.adm_size(archs_sizer: cs).must_equal 7
           end
         end
 
@@ -49,15 +49,15 @@ module ArtDecomp
 
         describe '#max_size' do
           it 'returns the maximum size of the Circuit' do
-            stub(cs = fake(CircuitSizer, as: :class)).max_size([]) { 7 }
-            empty.max_size(circuit_sizer: cs).must_equal 7
+            stub(cs = fake(ArchsSizer, as: :class)).max_size([]) { 7 }
+            empty.max_size(archs_sizer: cs).must_equal 7
           end
         end
 
         describe '#min_size' do
           it 'returns the smallest possible size of the Circuit' do
-            stub(cs = fake(CircuitSizer, as: :class)).min_size([]) { 7 }
-            empty.min_size(circuit_sizer: cs).must_equal 7
+            stub(cs = fake(ArchsSizer, as: :class)).min_size([]) { 7 }
+            empty.min_size(archs_sizer: cs).must_equal 7
           end
         end
 
