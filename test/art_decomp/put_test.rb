@@ -4,11 +4,9 @@ require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
   describe Put do
-    let(:put) { Put[%i(a - b)] }
-
     describe '.[]' do
       it 'creates a new Put with the given column' do
-        put.must_equal Put.new(column: %i(a - b))
+        Put[%i(a - b)].must_equal Put.new(column: %i(a - b))
         Put[[]].must_equal Put.new(column: [])
       end
     end
@@ -26,9 +24,8 @@ module ArtDecomp
 
     describe '#==' do
       it 'compares two Puts by value' do
-        assert put == put.dup
-        assert put == Put[%i(a - b)]
-        refute put == Put[%i(b - a)]
+        assert Put[%i(a - b)] == Put[%i(a - b)].dup
+        refute Put[%i(a - b)] == Put[%i(b - a)]
       end
     end
 
@@ -45,7 +42,7 @@ module ArtDecomp
 
     describe '#codes' do
       it 'returns codes' do
-        put.codes.must_equal %i(a b)
+        Put[%i(a - b)].codes.must_equal %i(a b)
       end
     end
 
@@ -60,13 +57,13 @@ module ArtDecomp
 
     describe '#seps' do
       it 'returns the Put’s Seps' do
-        put.seps.must_equal Seps.new([0b100, 0b000, 0b001])
+        Put[%i(a - b)].seps.must_equal Seps.new([0b100, 0b000, 0b001])
       end
     end
 
     describe '#size' do
       it 'returns size' do
-        put.size.must_equal 2
+        Put[%i(a - b)].size.must_equal 2
       end
     end
   end
