@@ -2,6 +2,7 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/fsm'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/state_put'
 
 module ArtDecomp
   describe FSMKISSParser do
@@ -16,8 +17,8 @@ module ArtDecomp
 
         ins  = Puts.from_columns([%i(0 1 -), %i(- 1 0)])
         outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)])
-        states      = Puts.from_columns([%i(s1 s1 s3)], codes: %i(s1 s2 s3))
-        next_states = Puts.from_columns([%i(-  s2 s1)], codes: %i(s1 s2 s3))
+        states      = Puts.new([StatePut[%i(s1 s1 s3), codes: %i(s1 s2 s3)]])
+        next_states = Puts.new([StatePut[%i(-  s2 s1), codes: %i(s1 s2 s3)]])
 
         fsm = FSM.from_puts(ins: ins, outs: outs, states: states,
                             next_states: next_states)

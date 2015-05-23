@@ -1,6 +1,7 @@
 require_relative 'fsm'
 require_relative 'kiss_parser'
 require_relative 'puts'
+require_relative 'state_put'
 
 module ArtDecomp
   class FSMKISSParser < KISSParser
@@ -24,7 +25,7 @@ module ArtDecomp
     class BlockParser < BlockParser
       def state_puts
         col = block.map { |state| state == '*' ? :- : state.to_sym }
-        Puts.from_columns([col], codes: codes)
+        Puts.new([StatePut[col, codes: codes]])
       end
     end
   end
