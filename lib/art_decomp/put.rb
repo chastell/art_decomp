@@ -29,5 +29,9 @@ module ArtDecomp
     end
 
     delegate size: :codes
+
+    def state?
+      false
+    end
   end
 end

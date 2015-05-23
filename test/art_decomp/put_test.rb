@@ -6,5 +6,11 @@ module ArtDecomp
   describe Put do
     include PutBehaviour
     let(:put_class) { Put }
+
+    describe '#state?' do
+      it 'is so very false' do
+        refute Put[[]].state?
+      end
+    end
   end
 end

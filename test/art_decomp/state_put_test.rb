@@ -6,5 +6,11 @@ module ArtDecomp
   describe StatePut do
     include PutBehaviour
     let(:put_class) { StatePut }
+
+    describe '#state?' do
+      it 'is so, so true' do
+        assert StatePut[[]].state?
+      end
+    end
   end
 end
