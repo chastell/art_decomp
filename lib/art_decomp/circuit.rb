@@ -55,14 +55,17 @@ module ArtDecomp
 
       def ins_wires
         Wires.from_array(ins.map.with_index do |put, n|
-          [[:circuit, :ins, n, put.binwidth], [function, :ins, n, put.binwidth]]
+          offset = ins[0...n].map(&:binwidth).reduce(0, :+)
+          [[:circuit, :ins, n, put.binwidth, offset],
+           [function, :ins, n, put.binwidth, offset]]
         end)
       end
 
       def outs_wires
         Wires.from_array(outs.map.with_index do |put, n|
-          [[function, :outs, n, put.binwidth],
-           [:circuit, :outs, n, put.binwidth]]
+          offset = outs[0...n].map(&:binwidth).reduce(0, :+)
+          [[function, :outs, n, put.binwidth, offset],
+           [:circuit, :outs, n, put.binwidth, offset]]
         end)
       end
     end

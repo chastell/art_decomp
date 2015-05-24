@@ -30,13 +30,13 @@ module ArtDecomp
         bc_buc_nbuc = Function.new(ins:  Puts.from_columns([b,c]),
                                    outs: Puts.from_columns([buc, nbuc]))
         wires = Wires.from_array([
-          [[:circuit,    :ins,  0, 1], [ab_anb,      :ins,  0, 1]],
-          [[:circuit,    :ins,  1, 1], [ab_anb,      :ins,  1, 1]],
-          [[ab_anb,      :outs, 0, 1], [:circuit,    :outs, 0, 1]],
-          [[:circuit,    :ins,  1, 1], [bc_buc_nbuc, :ins,  0, 1]],
-          [[:circuit,    :ins,  2, 1], [bc_buc_nbuc, :ins,  1, 1]],
-          [[bc_buc_nbuc, :outs, 0, 1], [:circuit,    :outs, 1, 1]],
-          [[bc_buc_nbuc, :outs, 1, 1], [:circuit,    :outs, 2, 1]],
+          [[:circuit,    :ins,  0, 1, 0], [ab_anb,      :ins,  0, 1, 0]],
+          [[:circuit,    :ins,  1, 1, 1], [ab_anb,      :ins,  1, 1, 1]],
+          [[ab_anb,      :outs, 0, 1, 0], [:circuit,    :outs, 0, 1, 0]],
+          [[:circuit,    :ins,  1, 1, 1], [bc_buc_nbuc, :ins,  0, 1, 0]],
+          [[:circuit,    :ins,  2, 1, 2], [bc_buc_nbuc, :ins,  1, 1, 1]],
+          [[bc_buc_nbuc, :outs, 0, 1, 0], [:circuit,    :outs, 1, 1, 1]],
+          [[bc_buc_nbuc, :outs, 1, 1, 1], [:circuit,    :outs, 2, 1, 2]],
         ])
         circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
                               ins: Puts.from_columns([a, b, c]),

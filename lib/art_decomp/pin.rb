@@ -2,15 +2,16 @@ require 'anima'
 
 module ArtDecomp
   class Pin
-    include Anima.new(:object, :group, :index, :binwidth)
+    include Anima.new(:object, :group, :index, :binwidth, :offset)
 
-    def self.[](object, group, index, binwidth)
-      new(object: object, group: group, index: index, binwidth: binwidth)
+    def self.[](object, group, index, binwidth, offset)
+      new(object: object, group: group, index: index, binwidth: binwidth,
+          offset: offset)
     end
 
     def inspect
       "#{self.class}" \
-      "[#{object.inspect}, #{group.inspect}, #{index}, #{binwidth}]"
+      "[#{object.inspect}, #{group.inspect}, #{index}, #{binwidth}, #{offset}]"
     end
   end
 end
