@@ -27,17 +27,17 @@ module ArtDecomp
     end
 
     def ins_binwidth
-      in_wires = wires.select do |wire|
-        wire.source.object == :circuit and wire.source.group == :ins
+      pins = wires.map(&:source).select do |pin|
+        pin.object == :circuit and pin.group == :ins
       end
-      in_wires.map { |wire| wire.source.binwidth }.reduce(0, :+)
+      pins.map(&:binwidth).reduce(0, :+)
     end
 
     def outs_binwidth
-      out_wires = wires.select do |wire|
-        wire.destination.object == :circuit and wire.destination.group == :outs
+      pins = wires.map(&:destination).select do |pin|
+        pin.object == :circuit and pin.group == :outs
       end
-      out_wires.map { |wire| wire.destination.binwidth }.reduce(0, :+)
+      pins.map(&:binwidth).reduce(0, :+)
     end
 
     def recoders

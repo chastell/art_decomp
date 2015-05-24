@@ -9,10 +9,10 @@ module ArtDecomp
     private
 
     def state_binwidth
-      state_wires = wires.select do |wire|
-        wire.source.object == :circuit and wire.source.group == :states
+      pins = wires.map(&:source).select do |pin|
+        pin.object == :circuit and pin.group == :states
       end
-      state_wires.map { |wire| wire.source.binwidth }.reduce(0, :+)
+      pins.map(&:binwidth).reduce(0, :+)
     end
   end
 end
