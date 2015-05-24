@@ -9,9 +9,9 @@ module ArtDecomp
       it 'returns self-initialising representation' do
         ins = Puts.from_columns([[%i(a b c)]])
         function = Function.new(ins: ins, outs: Puts.new)
-        Pin[function, :ins, 0].inspect
+        Pin[function, :ins, 0, 2].inspect
           .must_equal 'ArtDecomp::Pin' \
-                      '[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :ins, 0]'
+                      '[ArtDecomp::Function(ArtDecomp::Arch[2,0]), :ins, 0, 2]'
       end
     end
   end

@@ -54,14 +54,15 @@ module ArtDecomp
       private_attr_reader :function, :ins, :outs
 
       def ins_wires
-        Wires.from_array((0...ins.size).map do |n|
-          [[:circuit, :ins, n], [function, :ins, n]]
+        Wires.from_array(ins.map.with_index do |put, n|
+          [[:circuit, :ins, n, put.binwidth], [function, :ins, n, put.binwidth]]
         end)
       end
 
       def outs_wires
-        Wires.from_array((0...outs.size).map do |n|
-          [[function, :outs, n], [:circuit, :outs, n]]
+        Wires.from_array(outs.map.with_index do |put, n|
+          [[function, :outs, n, put.binwidth],
+           [:circuit, :outs, n, put.binwidth]]
         end)
       end
     end

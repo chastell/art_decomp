@@ -26,25 +26,29 @@ module ArtDecomp
 
       def ins_wires
         Wires.from_array(ins.map.with_index do |put, n|
-          [[:circuit, :ins, n], [function, :ins, n]] unless put.state?
+          [[:circuit, :ins, n, put.binwidth],
+           [function, :ins, n, put.binwidth]] unless put.state?
         end.compact)
       end
 
       def next_states_wires
         Wires.from_array(outs.map.with_index do |put, n|
-          [[function, :outs, n], [:circuit, :next_states, 0]] if put.state?
+          [[function, :outs,        n, put.binwidth],
+           [:circuit, :next_states, 0, put.binwidth]] if put.state?
         end.compact)
       end
 
       def outs_wires
         Wires.from_array(outs.map.with_index do |put, n|
-          [[function, :outs, n], [:circuit, :outs, n]] unless put.state?
+          [[function, :outs, n, put.binwidth],
+           [:circuit, :outs, n, put.binwidth]] unless put.state?
         end.compact)
       end
 
       def states_wires
         Wires.from_array(ins.map.with_index do |put, n|
-          [[:circuit, :states, 0], [function, :ins, n]] if put.state?
+          [[:circuit, :states, 0, put.binwidth],
+           [function, :ins,    n, put.binwidth]] if put.state?
         end.compact)
       end
     end

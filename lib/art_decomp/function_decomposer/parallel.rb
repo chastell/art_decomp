@@ -50,13 +50,15 @@ module ArtDecomp
 
         def ins_wires
           Wires.from_array(function.ins.map.with_index do |put, fi|
-            [[:circuit, :ins, ins.index(put)], [function, :ins, fi]]
+            [[:circuit, :ins, ins.index(put), put.binwidth],
+             [function, :ins, fi,             put.binwidth]]
           end)
         end
 
         def outs_wires
           Wires.from_array(function.outs.map.with_index do |put, fo|
-            [[function, :outs, fo], [:circuit, :outs, outs.index(put)]]
+            [[function, :outs, fo,              put.binwidth],
+             [:circuit, :outs, outs.index(put), put.binwidth]]
           end)
         end
       end

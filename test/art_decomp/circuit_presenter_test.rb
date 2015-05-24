@@ -31,14 +31,14 @@ module ArtDecomp
         f0 = Function.new(ins: f0ins, outs: f0outs)
         f1 = Function.new(ins: f1ins, outs: f1outs)
         wires = Wires.from_array([
-          [[:circuit, :ins,  2], [f0,       :ins,  0]],
-          [[:circuit, :ins,  3], [f0,       :ins,  1]],
-          [[:circuit, :ins,  4], [f0,       :ins,  2]],
-          [[:circuit, :ins,  0], [f1,       :ins,  0]],
-          [[:circuit, :ins,  1], [f1,       :ins,  1]],
-          [[:circuit, :ins,  5], [f1,       :ins,  2]],
-          [[f0,       :outs, 0], [f1,       :ins,  3]],
-          [[f1,       :outs, 0], [:circuit, :outs, 0]],
+          [[:circuit, :ins,  2, 1], [f0,       :ins,  0, 1]],
+          [[:circuit, :ins,  3, 1], [f0,       :ins,  1, 1]],
+          [[:circuit, :ins,  4, 1], [f0,       :ins,  2, 1]],
+          [[:circuit, :ins,  0, 1], [f1,       :ins,  0, 1]],
+          [[:circuit, :ins,  1, 1], [f1,       :ins,  1, 1]],
+          [[:circuit, :ins,  5, 1], [f1,       :ins,  2, 1]],
+          [[f0,       :outs, 0, 1], [f1,       :ins,  3, 1]],
+          [[f1,       :outs, 0, 1], [:circuit, :outs, 0, 1]],
         ])
         bin_decd = bin.update(functions: [f0, f1], wires: wires)
         vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
