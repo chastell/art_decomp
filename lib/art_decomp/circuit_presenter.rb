@@ -26,6 +26,14 @@ module ArtDecomp
       @functions ||= super.map { |function| FunctionPresenter.new(function) }
     end
 
+    def ins_binwidth
+      ins.binwidth
+    end
+
+    def outs_binwidth
+      outs.binwidth
+    end
+
     def recoders
       @recoders ||= super.map { |recoder| FunctionPresenter.new(recoder) }
     end
