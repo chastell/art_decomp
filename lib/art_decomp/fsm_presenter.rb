@@ -1,6 +1,5 @@
 require 'erb'
 require_relative 'circuit_presenter'
-require_relative 'puts'
 
 module ArtDecomp
   class FSMPresenter < CircuitPresenter

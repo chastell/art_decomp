@@ -1,7 +1,9 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/fsm'
 require_relative '../../lib/art_decomp/function'
+require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/state_put'
 require_relative '../../lib/art_decomp/wires'
 require_relative 'circuit_behaviour'
 
