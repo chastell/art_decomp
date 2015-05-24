@@ -14,14 +14,11 @@ module ArtDecomp
           11 s1 s2 1--
           -0 s3 s1 --0
         end
-
-        ins  = Puts.from_columns([%i(0 1 -), %i(- 1 0)])
-        outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)])
-        states      = Puts.new([StatePut[%i(s1 s1 s3), codes: %i(s1 s2 s3)]])
-        next_states = Puts.new([StatePut[%i(-  s2 s1), codes: %i(s1 s2 s3)]])
-
-        fsm = FSM.from_puts(ins: ins + states, outs: outs + next_states,
-                            states: states, next_states: next_states)
+        ins  = Puts.from_columns([%i(0 1 -), %i(- 1 0)]) +
+               Puts.new([StatePut[%i(s1 s1 s3), codes: %i(s1 s2 s3)]])
+        outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)]) +
+               Puts.new([StatePut[%i(-  s2 s1), codes: %i(s1 s2 s3)]])
+        fsm  = FSM.from_puts(ins: ins, outs: outs)
         FSMKISSParser.circuit_for(kiss).must_equal fsm
       end
     end

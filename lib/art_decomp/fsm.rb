@@ -2,14 +2,13 @@ require_relative 'circuit'
 
 module ArtDecomp
   class FSM < Circuit
-    include Anima.new(:functions, :ins, :outs, :states, :next_states, :recoders,
-                      :wires)
+    include Anima.new(:functions, :ins, :outs, :recoders, :wires)
 
-    def self.from_puts(ins:, outs:, states: Puts.new, next_states: Puts.new)
+    def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)
       wires = Wirer.new(function, ins: ins, outs: outs).wires
-      new(functions: [function], ins: ins, outs: outs, states: states,
-          next_states: next_states, recoders: [], wires: wires)
+      new(functions: [function], ins: ins, outs: outs, recoders: [],
+          wires: wires)
     end
 
     # FIXME: figure out a way to inherit this

@@ -20,12 +20,7 @@ module ArtDecomp
              BlockParser.new(state_block, codes: states).state_puts
       outs = BlockParser.new(out_block).puts +
              BlockParser.new(next_block, codes: states).state_puts
-      {
-        ins:         ins,
-        outs:        outs,
-        states:      BlockParser.new(state_block, codes: states).state_puts,
-        next_states: BlockParser.new(next_block, codes: states).state_puts,
-      }
+      { ins: ins, outs: outs }
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
