@@ -71,7 +71,7 @@ module ArtDecomp
           end
 
           def labels
-            Array.new(pins[index].binwidth) { |n| "#{prefix}_#{suffix(n)}" }
+            Array.new(binwidth) { |n| "#{prefix}_#{suffix(n)}" }
           end
 
           private
@@ -89,7 +89,6 @@ module ArtDecomp
           end
 
           def suffix(n)
-            offset = pins[0...index].map(&:binwidth).reduce(0, :+)
             "#{group}(#{offset + n})"
           end
         end
