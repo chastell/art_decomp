@@ -5,13 +5,13 @@ require_relative 'wires'
 
 module ArtDecomp
   class Circuit
-    include Anima.new(:functions, :ins, :outs, :wires)
+    include Anima.new(:functions, :wires)
     include Anima::Update
 
     def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)
       wires = Wirer.new(function, ins: ins, outs: outs).wires
-      new(functions: [function], ins: ins, outs: outs, wires: wires)
+      new(functions: [function], wires: wires)
     end
 
     def adm_size(archs_sizer: ArchsSizer)

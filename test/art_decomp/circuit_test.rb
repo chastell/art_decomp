@@ -10,8 +10,7 @@ module ArtDecomp
     include CircuitBehaviour
 
     let(:empty) do
-      Circuit.new(functions: [], ins: Puts.new, outs: Puts.new,
-                  wires: Wires.new)
+      Circuit.new(functions: [], wires: Wires.new)
     end
 
     describe '.from_puts' do

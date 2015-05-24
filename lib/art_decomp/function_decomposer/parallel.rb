@@ -17,8 +17,7 @@ module ArtDecomp
         Enumerator.new do |yielder|
           unless merged == [function]
             wires = merged.map { |f| Wirer.new(f, ins, outs).wires }.reduce(:+)
-            yielder << Circuit.new(functions: merged, ins: ins, outs: outs,
-                                   wires: wires)
+            yielder << Circuit.new(functions: merged, wires: wires)
           end
         end
       end

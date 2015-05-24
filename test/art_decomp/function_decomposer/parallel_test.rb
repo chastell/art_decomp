@@ -38,10 +38,7 @@ module ArtDecomp
           [[bc_buc_nbuc, :outs, 0, 1, 0], [:circuit,    :outs, 1, 1, 1]],
           [[bc_buc_nbuc, :outs, 1, 1, 1], [:circuit,    :outs, 2, 1, 2]],
         ])
-        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc],
-                              ins: Puts.from_columns([a, b, c]),
-                              outs: Puts.from_columns([anb, buc, nbuc]),
-                              wires: wires)
+        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc], wires: wires)
         fun = Function.new(ins: Puts.from_columns([a,b,c]),
                            outs: Puts.from_columns([anb,buc,nbuc]))
         FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]

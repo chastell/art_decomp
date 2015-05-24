@@ -20,13 +20,6 @@ module ArtDecomp
           end
         end
 
-        describe '#ins' do
-          it 'returns the Circuit’s input Puts' do
-            puts = Puts.new([stub(:put)])
-            empty.update(ins: puts).ins.must_equal puts
-          end
-        end
-
         describe '#inspect' do
           it 'returns a readable representation' do
             f1 = fake(Function, arch: Arch[2,1])
@@ -58,13 +51,6 @@ module ArtDecomp
           it 'returns the smallest possible size of the Circuit' do
             stub(cs = fake(ArchsSizer, as: :class)).min_size([]) { 7 }
             empty.min_size(archs_sizer: cs).must_equal 7
-          end
-        end
-
-        describe '#outs' do
-          it 'returns the Circuit’s output Puts' do
-            puts = Puts.new([stub(:put)])
-            empty.update(outs: puts).outs.must_equal puts
           end
         end
 
