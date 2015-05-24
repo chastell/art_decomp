@@ -66,8 +66,6 @@ module ArtDecomp
           def initialize(pin, circuit:)
             super pin
             @circuit = circuit
-            target   = object == :circuit ? circuit : object
-            @pins    = target.send(group)
           end
 
           def labels
@@ -76,7 +74,7 @@ module ArtDecomp
 
           private
 
-          private_attr_reader :circuit, :pins
+          private_attr_reader :circuit
 
           delegate %i(functions recoders) => :circuit
 
