@@ -17,7 +17,7 @@ module ArtDecomp
     end
 
     def state_binwidth
-      states.binwidth
+      Puts.new(ins.select(&:state?)).binwidth
     end
   end
 end
