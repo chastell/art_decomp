@@ -8,16 +8,11 @@ module ArtDecomp
 
     private
 
-    def ins_binwidth
-      Puts.new(ins.reject(&:state?)).binwidth
-    end
-
-    def outs_binwidth
-      Puts.new(outs.reject(&:state?)).binwidth
-    end
-
     def state_binwidth
-      Puts.new(ins.select(&:state?)).binwidth
+      state_wires = wires.select do |wire|
+        wire.source.object == :circuit and wire.source.group == :states
+      end
+      state_wires.map { |wire| wire.source.binwidth }.reduce(0, :+)
     end
   end
 end
