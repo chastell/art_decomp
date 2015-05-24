@@ -6,8 +6,8 @@ entity <%= name %> is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        circ_ins: in  std_logic_vector(0 to <%= ins.binwidth - 1 %>);
-        circ_outs: out std_logic_vector(0 to <%= outs.binwidth - 1 %>)
+        circ_ins: in  std_logic_vector(0 to <%= ins_binwidth - 1 %>);
+        circ_outs: out std_logic_vector(0 to <%= outs_binwidth - 1 %>)
       );
 end <%= name %>;
 

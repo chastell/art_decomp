@@ -17,13 +17,13 @@ module ArtDecomp
 
     describe '.from_puts' do
       it 'creates an FSM from Puts' do
-        ins  = Puts.from_columns([%i(0 1)])
-        outs = Puts.from_columns([%i(1 0)])
+        ins  = Puts.new([Put[%i(0 1)], StatePut[%i(s1 s2 s3)]])
+        outs = Puts.new([Put[%i(1 0)], StatePut[%i(s3 s1 s2)]])
         states      = Puts.from_columns([%i(s1 s2 s3)])
         next_states = Puts.from_columns([%i(s3 s1 s2)])
         fsm  = FSM.from_puts(ins: ins, outs: outs, states: states,
                              next_states: next_states)
-        function = Function.new(ins: ins + states, outs: outs + next_states)
+        function = Function.new(ins: ins, outs: outs)
         fsm.functions.must_equal [function]
         fsm.recoders.must_be :empty?
         fsm.wires.must_equal Wires.from_array([

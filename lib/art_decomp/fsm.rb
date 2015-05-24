@@ -6,7 +6,7 @@ module ArtDecomp
                       :wires)
 
     def self.from_puts(ins:, outs:, states: Puts.new, next_states: Puts.new)
-      function = Function.new(ins: ins + states, outs: outs + next_states)
+      function = Function.new(ins: ins, outs: outs)
       wires = Wirer.new(function, ins: ins, outs: outs).wires
       new(functions: [function], ins: ins, outs: outs, states: states,
           next_states: next_states, recoders: [], wires: wires)
@@ -24,13 +24,28 @@ module ArtDecomp
 
       private
 
+      def ins_wires
+        Wires.from_array(ins.map.with_index do |put, n|
+          [[:circuit, :ins, n], [function, :ins, n]] unless put.state?
+        end.compact)
+      end
+
       def next_states_wires
-        Wires.from_array([[[function, :outs, outs.size],
-                           [:circuit, :next_states, 0]]])
+        Wires.from_array(outs.map.with_index do |put, n|
+          [[function, :outs, n], [:circuit, :next_states, 0]] if put.state?
+        end.compact)
+      end
+
+      def outs_wires
+        Wires.from_array(outs.map.with_index do |put, n|
+          [[function, :outs, n], [:circuit, :outs, n]] unless put.state?
+        end.compact)
       end
 
       def states_wires
-        Wires.from_array([[[:circuit, :states, 0], [function, :ins, ins.size]]])
+        Wires.from_array(ins.map.with_index do |put, n|
+          [[:circuit, :states, 0], [function, :ins, n]] if put.state?
+        end.compact)
       end
     end
   end
