@@ -6,64 +6,52 @@ module ArtDecomp
   describe ArchsSizer do
     describe '.adm_size' do
       it 'returns the admissible heuristic size for the given Archs' do
-        {
-          []                      => 0,
-          [Arch[8,1]]             => 1,
-          [Arch[7,1], Arch[10,4]] => 1,
-          [Arch[8,2]]             => 2,
-          [Arch[20,8]]            => 1,
-        }.each do |archs, size|
-          ArchsSizer.adm_size(archs).must_equal size
-        end
+        ArchsSizer.adm_size([]).must_equal 0
+        ArchsSizer.adm_size([Arch[8,1]]).must_equal 1
+        ArchsSizer.adm_size([Arch[7,1], Arch[10,4]]).must_equal 1
+        ArchsSizer.adm_size([Arch[8,2]]).must_equal 2
+        ArchsSizer.adm_size([Arch[20,8]]).must_equal 1
       end
     end
 
     describe '.max_size' do
       it 'returns the maximum size for the given Archs' do
-        {
-          []                                => 0,
-          [Arch[0,0]]                       => 0,
-          [Arch[0,1]]                       => 0,
-          [Arch[1,1]]                       => 1,
-          [Arch[5,2]]                       => 1,
-          [Arch[5,3], Arch[5,3], Arch[5,1]] => 2,
-          [Arch[5,8]]                       => 1,
-          [Arch[5,9]]                       => 2,
-          [Arch[6,4]]                       => 1,
-          [Arch[6,5]]                       => 2,
-          [Arch[7,0]]                       => 0,
-          [Arch[7,1], Arch[6,1]]            => 1,
-          [Arch[7,2]]                       => 1,
-          [Arch[7,3]]                       => 2,
-          [Arch[8,1]]                       => 1,
-          [Arch[8,2]]                       => 2,
-          [Arch[9,0]]                       => 0,
-          [Arch[9,1]]                       => 3,
-          [Arch[9,4]]                       => 9,
-          [Arch[14,7]]                      => 485,
-        }.each do |archs, size|
-          ArchsSizer.max_size(archs).must_equal size
-        end
+        ArchsSizer.max_size([]).must_equal 0
+        ArchsSizer.max_size([Arch[0,0]]).must_equal 0
+        ArchsSizer.max_size([Arch[0,1]]).must_equal 0
+        ArchsSizer.max_size([Arch[1,1]]).must_equal 1
+        ArchsSizer.max_size([Arch[5,2]]).must_equal 1
+        ArchsSizer.max_size([Arch[5,3], Arch[5,3], Arch[5,1]]).must_equal 2
+        ArchsSizer.max_size([Arch[5,8]]).must_equal 1
+        ArchsSizer.max_size([Arch[5,9]]).must_equal 2
+        ArchsSizer.max_size([Arch[6,4]]).must_equal 1
+        ArchsSizer.max_size([Arch[6,5]]).must_equal 2
+        ArchsSizer.max_size([Arch[7,0]]).must_equal 0
+        ArchsSizer.max_size([Arch[7,1], Arch[6,1]]).must_equal 1
+        ArchsSizer.max_size([Arch[7,2]]).must_equal 1
+        ArchsSizer.max_size([Arch[7,3]]).must_equal 2
+        ArchsSizer.max_size([Arch[8,1]]).must_equal 1
+        ArchsSizer.max_size([Arch[8,2]]).must_equal 2
+        ArchsSizer.max_size([Arch[9,0]]).must_equal 0
+        ArchsSizer.max_size([Arch[9,1]]).must_equal 3
+        ArchsSizer.max_size([Arch[9,4]]).must_equal 9
+        ArchsSizer.max_size([Arch[14,7]]).must_equal 485
       end
     end
 
     describe '.min_size' do
       it 'returns the smallest possible size for the given Archs' do
-        {
-          []                                => 0,
-          [Arch[0,0]]                       => 0,
-          [Arch[0,1]]                       => 0,
-          [Arch[1,0]]                       => 0,
-          [Arch[1,1]]                       => 1,
-          [Arch[5,2]]                       => 1,
-          [Arch[5,3], Arch[5,3], Arch[5,1]] => 2,
-          [Arch[7,0]]                       => 0,
-          [Arch[20,8]]                      => 1,
-          [Arch[21,8]]                      => 2,
-          [Arch[20,9]]                      => 2,
-        }.each do |archs, size|
-          ArchsSizer.min_size(archs).must_equal size
-        end
+        ArchsSizer.min_size([]).must_equal 0
+        ArchsSizer.min_size([Arch[0,0]]).must_equal 0
+        ArchsSizer.min_size([Arch[0,1]]).must_equal 0
+        ArchsSizer.min_size([Arch[1,0]]).must_equal 0
+        ArchsSizer.min_size([Arch[1,1]]).must_equal 1
+        ArchsSizer.min_size([Arch[5,2]]).must_equal 1
+        ArchsSizer.min_size([Arch[5,3], Arch[5,3], Arch[5,1]]).must_equal 2
+        ArchsSizer.min_size([Arch[7,0]]).must_equal 0
+        ArchsSizer.min_size([Arch[20,8]]).must_equal 1
+        ArchsSizer.min_size([Arch[21,8]]).must_equal 2
+        ArchsSizer.min_size([Arch[20,9]]).must_equal 2
       end
     end
   end
