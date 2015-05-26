@@ -12,7 +12,6 @@ module ArtDecomp
     private
 
     # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
     def puts
       in_block, state_block, next_block, out_block = blocks
       states = (state_block + next_block - ['*']).uniq.map(&:to_sym)
@@ -23,7 +22,6 @@ module ArtDecomp
       { ins: ins, outs: outs }
     end
     # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/MethodLength
 
     class BlockParser < BlockParser
       def state_puts
