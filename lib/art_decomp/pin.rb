@@ -11,7 +11,7 @@ module ArtDecomp
 
     def inspect
       "#{self.class}" \
-      "[#{object.inspect}, #{group.inspect}, #{index}, #{binwidth}, #{offset}]"
+      "[#{object}, #{group.inspect}, #{index}, #{binwidth}, #{offset}]"
     end
   end
 end
