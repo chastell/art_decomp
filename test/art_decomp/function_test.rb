@@ -25,7 +25,11 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns a readable representation' do
-        function.inspect.must_equal 'ArtDecomp::Function(ArtDecomp::Arch[3,3])'
+        function.inspect.must_equal <<-end.dedent
+          0 s1 | 1 s3
+          1 s2 | - s1
+          - s3 | 0 s2
+        end
       end
     end
 
