@@ -12,10 +12,9 @@ module ArtDecomp
           11 1--
           -0 --0
         end
-
         ins  = Puts.from_columns([%i(0 1 -), %i(- 1 0)])
-        outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)])
-
+        outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)],
+                                 codes: %i(0 1))
         circuit = Circuit.from_puts(ins: ins, outs: outs)
         KISSParser.circuit_for(kiss).must_equal circuit
       end
