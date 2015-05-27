@@ -7,7 +7,7 @@ module ArtDecomp
   describe Pin do
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        ins = Puts.from_columns([[%i(a b c)]])
+        ins = Puts.from_columns([%i(a b c)])
         function = Function.new(ins: ins, outs: Puts.new)
         Pin[function, :ins, 0, 2, 0].inspect
           .must_equal 'ArtDecomp::Pin'                               \
