@@ -5,13 +5,9 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Function do
-    let(:function) { Function.new(ins: ins, outs: outs) }
-    let(:ins) do
-      Puts.from_columns([%i(0 1)]) + Puts.from_columns([%i(s1 s2 s3)])
-    end
-    let(:outs) do
-      Puts.from_columns([%i(1 0)]) + Puts.from_columns([%i(s3 s1 s2)])
-    end
+    let(:function) { Function.new(ins: ins, outs: outs)           }
+    let(:ins)      { Puts.from_columns([%i(0 1 -), %i(s1 s2 s3)]) }
+    let(:outs)     { Puts.from_columns([%i(1 - 0), %i(s3 s1 s2)]) }
 
     describe '#==' do
       it 'compares two Functions by value' do
