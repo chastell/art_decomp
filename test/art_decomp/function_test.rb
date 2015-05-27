@@ -40,5 +40,11 @@ module ArtDecomp
         function.outs.must_equal outs
       end
     end
+
+    describe '#to_s' do
+      it 'returns a short representation' do
+        function.inspect.must_equal 'ArtDecomp::Function(ArtDecomp::Arch[3,3])'
+      end
+    end
   end
 end

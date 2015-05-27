@@ -12,5 +12,9 @@ module ArtDecomp
     def inspect
       "#{self.class}(#{arch.inspect})"
     end
+
+    def to_s
+      "#{self.class}(#{arch.inspect})"
+    end
   end
 end
