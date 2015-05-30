@@ -17,7 +17,7 @@ module ArtDecomp
     end
 
     def binwidth
-      (size - 1).bit_length
+      (codes.size - 1).bit_length
     end
 
     def inspect
@@ -27,8 +27,6 @@ module ArtDecomp
     def seps
       @seps ||= Seps.from_column(column)
     end
-
-    delegate size: :codes
 
     def state?
       false

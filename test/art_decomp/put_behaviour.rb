@@ -62,12 +62,6 @@ module ArtDecomp
             put_class[%i(a - b)].seps.must_equal Seps.new([0b100, 0b000, 0b001])
           end
         end
-
-        describe '#size' do
-          it 'returns size' do
-            put_class[%i(a - b)].size.must_equal 2
-          end
-        end
       end
     end
   end
