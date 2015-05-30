@@ -28,6 +28,8 @@ module ArtDecomp
       @seps ||= Seps.from_column(column)
     end
 
+    delegate size: :column
+
     def state?
       false
     end
