@@ -17,28 +17,28 @@ module ArtDecomp
     def ins_array                              # rubocop:disable Metrics/AbcSize
       function.ins.map.with_index do |put, n|
         next unless ins.include?(put)
-        c_offset = ins[0...ins.index(put)].binwidth
-        f_offset = function.ins[0...n].binwidth
+        index = ins.index(put)
+        binwidth = put.binwidth
         source = if put.state?
-                   [:circuit, :states, 0, put.binwidth, 0]
+                   [:circuit, :states, 0, binwidth, 0]
                  else
-                   [:circuit, :ins, ins.index(put), put.binwidth, c_offset]
+                   [:circuit, :ins, index, binwidth, ins[0...index].binwidth]
                  end
-        [source, [function, :ins, n, put.binwidth, f_offset]]
+        [source, [function, :ins, n, binwidth, function.ins[0...n].binwidth]]
       end.compact
     end
 
     def outs_array                             # rubocop:disable Metrics/AbcSize
       function.outs.map.with_index do |put, n|
         next unless outs.include?(put)
-        c_offset = outs[0...outs.index(put)].binwidth
-        f_offset = function.outs[0...n].binwidth
+        index = outs.index(put)
+        binwidth = put.binwidth
         target = if put.state?
-                   [:circuit, :next_states, 0, put.binwidth, 0]
+                   [:circuit, :next_states, 0, binwidth, 0]
                  else
-                   [:circuit, :outs, outs.index(put), put.binwidth, c_offset]
+                   [:circuit, :outs, index, binwidth, outs[0...index].binwidth]
                  end
-        [[function, :outs, n, put.binwidth, f_offset], target]
+        [[function, :outs, n, binwidth, function.outs[0...n].binwidth], target]
       end.compact
     end
   end
