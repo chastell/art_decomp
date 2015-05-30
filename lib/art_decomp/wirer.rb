@@ -17,8 +17,8 @@ module ArtDecomp
     def ins_array                              # rubocop:disable Metrics/AbcSize
       function.ins.map.with_index do |put, n|
         next unless ins.include?(put)
-        c_offset = ins[0...ins.index(put)].map(&:binwidth).reduce(0, :+)
-        f_offset = function.ins[0...n].map(&:binwidth).reduce(0, :+)
+        c_offset = ins[0...ins.index(put)].binwidth
+        f_offset = function.ins[0...n].binwidth
         source = if put.state?
                    [:circuit, :states, 0, put.binwidth, 0]
                  else
@@ -31,8 +31,8 @@ module ArtDecomp
     def outs_array                             # rubocop:disable Metrics/AbcSize
       function.outs.map.with_index do |put, n|
         next unless outs.include?(put)
-        c_offset = outs[0...outs.index(put)].map(&:binwidth).reduce(0, :+)
-        f_offset = function.outs[0...n].map(&:binwidth).reduce(0, :+)
+        c_offset = outs[0...outs.index(put)].binwidth
+        f_offset = function.outs[0...n].binwidth
         target = if put.state?
                    [:circuit, :next_states, 0, put.binwidth, 0]
                  else
