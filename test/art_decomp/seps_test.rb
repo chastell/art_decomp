@@ -109,6 +109,18 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#count' do
+      it 'returns the number of separations' do
+        Seps.from_column([]).count.must_equal 0
+        Seps.from_column(%i(a b)).count.must_equal 1
+        Seps.from_column(%i(a - - b b)).count.must_equal 2
+        Seps.from_column(%i(a b a a c)).count.must_equal 7
+        Seps.from_column(%i(- a - - b)).count.must_equal 1
+        Seps.from_column(%i(a b c d e)).count.must_equal 10
+        Seps.from_column(%i(a b c c)).count.must_equal 5
+      end
+    end
+
     describe '#empty?' do
       it 'returns a predicate whether the Seps are empty' do
         Seps.from_column([]).must_be :empty?
@@ -122,18 +134,6 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
         Seps.from_column([]).inspect.must_equal 'ArtDecomp::Seps.new([])'
         Seps.from_column(%i(a - b)).inspect
           .must_equal 'ArtDecomp::Seps.new([0b100, 0b000, 0b001])'
-      end
-    end
-
-    describe '#size' do
-      it 'returns the number of separations' do
-        Seps.from_column([]).size.must_equal 0
-        Seps.from_column(%i(a b)).size.must_equal 1
-        Seps.from_column(%i(a - - b b)).size.must_equal 2
-        Seps.from_column(%i(a b a a c)).size.must_equal 7
-        Seps.from_column(%i(- a - - b)).size.must_equal 1
-        Seps.from_column(%i(a b c d e)).size.must_equal 10
-        Seps.from_column(%i(a b c c)).size.must_equal 5
       end
     end
 

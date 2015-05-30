@@ -8,7 +8,7 @@ module ArtDecomp
 
     def initialize(puts:, required_seps:)
       @required_seps = required_seps
-      @sorted_puts = puts.sort_by { |p| (p.seps & required_seps).size }.reverse
+      @sorted_puts = puts.sort_by { |p| (p.seps & required_seps).count }.reverse
     end
 
     def required_puts

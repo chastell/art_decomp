@@ -34,16 +34,16 @@ module ArtDecomp
       self.class.new(larger.zip(smaller).map { |a, b| b ? a | b : a })
     end
 
+    def count
+      matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
+    end
+
     delegate empty?: :matrix
 
     def inspect
       bits = matrix.map(&:bit_length).max
       rows = matrix.map { |int| "0b#{int.to_s(2).rjust(bits, '0')}" }
       "#{self.class}.new([#{rows.join(', ')}])"
-    end
-
-    def size
-      matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
     end
 
     def to_column
