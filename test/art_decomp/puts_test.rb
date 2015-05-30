@@ -48,6 +48,10 @@ module ArtDecomp
         puts[0].must_equal a0b1
         puts[1].must_equal a1b0
       end
+
+      it 'returns the Puts from the given Range' do
+        puts[0..1].must_equal puts
+      end
     end
 
     describe '#binwidth' do

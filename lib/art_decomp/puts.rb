@@ -27,7 +27,14 @@ module ArtDecomp
       self.class.new(puts + other.puts)
     end
 
-    delegate %i([] each empty? index size) => :puts
+    def [](index_or_range)
+      case index_or_range
+      when Integer then puts[index_or_range]
+      when Range   then self.class.new(puts[index_or_range])
+      end
+    end
+
+    delegate %i(each empty? index size) => :puts
 
     def binwidth
       map(&:binwidth).reduce(0, :+)
