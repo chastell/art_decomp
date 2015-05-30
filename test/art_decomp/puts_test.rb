@@ -87,6 +87,13 @@ module ArtDecomp
       end
     end
 
+    describe '#seps' do
+      it 'returns the combined Seps of all the Puts' do
+        seps = Seps.new([0b110, 0b101, 0b011])
+        Puts.new([Put[%i(a a b)], Put[%i(a b b)]]).seps.must_equal seps
+      end
+    end
+
     describe '#size' do
       it 'returns the number of Puts' do
         Puts.new.size.must_equal 0

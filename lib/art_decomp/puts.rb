@@ -40,6 +40,10 @@ module ArtDecomp
       map(&:binwidth).reduce(0, :+)
     end
 
+    def seps
+      puts.map(&:seps).reduce(:|)
+    end
+
     def uniq
       self.class.new(puts.uniq)
     end
