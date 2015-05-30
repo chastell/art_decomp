@@ -35,7 +35,7 @@ module ArtDecomp
     end
 
     def count
-      matrix.map { |int| int.to_s(2).count('1') }.reduce(0, :+) / 2
+      popcounts.reduce(0, :+) / 2
     end
 
     delegate empty?: :matrix
@@ -62,6 +62,10 @@ module ArtDecomp
           code = code.next
         end
       end
+    end
+
+    def popcounts
+      matrix.map { |int| int.to_s(2).count('1') }
     end
 
     module MatrixNormaliser
