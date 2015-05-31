@@ -47,17 +47,17 @@ module ArtDecomp
     end
 
     def to_column
-      coding = {}
-      sorted = matrix.each.with_index.sort_by { |_, row| -popcounts[row] }
-      sorted.each do |int, row|
-        coding[row] = :- and next if int.zero?
-        conflicts = (0...int.bit_length).select { |bit| int[bit] == 1 }
-        forbidden = coding.values_at(*conflicts).compact.uniq
-        code = :a
-        code = code.next while forbidden.include?(code)
-        coding[row] = code
+      Array.new(matrix.size).tap do |column|
+        sorted = matrix.each.with_index.sort_by { |_, row| -popcounts[row] }
+        sorted.each do |int, row|
+          column[row] = :- and next if int.zero?
+          conflicts = (0...int.bit_length).select { |bit| int[bit] == 1 }
+          forbidden = column.values_at(*conflicts).compact.uniq.sort
+          code = :a
+          code = code.next while forbidden.include?(code)
+          column[row] = code
+        end
       end
-      coding.sort.map(&:last)
     end
 
     private
