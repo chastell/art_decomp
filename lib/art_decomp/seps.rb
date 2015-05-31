@@ -62,16 +62,6 @@ module ArtDecomp
 
     private
 
-    def code_generator
-      Enumerator.new do |yielder|
-        code = :a
-        loop do
-          yielder << code
-          code = code.next
-        end
-      end
-    end
-
     def popcounts
       @popcounts ||= matrix.map { |int| int.to_s(2).count('1') }
     end
