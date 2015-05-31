@@ -15,14 +15,14 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       {
         %i()    => [],
         %i(a b) => [0b10, 0b01],
-        %i(a b c c d) => [
+        %i(a b d d c) => [
           0b11110,
           0b11101,
           0b10011,
           0b10011,
           0b01111,
         ],
-        %i(a b a a c) => [
+        %i(c a c c b) => [
           0b10010,
           0b11101,
           0b10010,
@@ -142,6 +142,23 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
         column_to_matrix.each do |column, matrix|
           Seps.new(matrix).to_column.must_equal column
         end
+      end
+
+      it 'tries to give good enough results' do
+        matrix = [
+          0b0100000000,
+          0b0100000000,
+          0b1100000000,
+          0b0100000000,
+          0b0000000000,
+          0b1100000000,
+          0b1100000000,
+          0b0000000000,
+          0b0001101111,
+          0b0001100100,
+        ]
+        column = %i(b b b b - b b - a a)
+        Seps.new(matrix).to_column.must_equal column
       end
     end
   end

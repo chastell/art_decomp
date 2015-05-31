@@ -47,9 +47,17 @@ module ArtDecomp
     end
 
     def to_column
-      codes  = code_generator
-      coding = matrix.uniq.reject(&:zero?).map { |int| [int, codes.next] }.to_h
-      matrix.map { |int| coding.fetch(int, :-) }
+      coding = {}
+      sorted = matrix.each.with_index.sort_by { |_, row| -popcounts[row] }
+      sorted.each do |int, row|
+        coding[row] = :- and next if int.zero?
+        conflicts = (0...int.bit_length).select { |bit| int[bit] == 1 }
+        forbidden = coding.values_at(*conflicts).compact.uniq
+        code = :a
+        code = code.next while forbidden.include?(code)
+        coding[row] = code
+      end
+      coding.sort.map(&:last)
     end
 
     private
