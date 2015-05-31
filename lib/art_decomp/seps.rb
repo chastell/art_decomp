@@ -65,7 +65,7 @@ module ArtDecomp
     end
 
     def popcounts
-      matrix.map { |int| int.to_s(2).count('1') }
+      @popcounts ||= matrix.map { |int| int.to_s(2).count('1') }
     end
 
     module MatrixNormaliser
