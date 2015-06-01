@@ -41,7 +41,7 @@ module ArtDecomp
     end
 
     def seps
-      puts.map(&:seps).reduce(:|)
+      @seps ||= puts.map(&:seps).reduce(:|)
     end
 
     def uniq
