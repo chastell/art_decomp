@@ -48,8 +48,12 @@ module ArtDecomp
     end
 
     describe '#to_s' do
-      it 'returns a short representation' do
-        function.to_s.must_equal 'ArtDecomp::Function(ArtDecomp::Arch[3,3])'
+      it 'returns a readable representation' do
+        function.to_s.must_equal <<-end.dedent
+          0 s1 | 1 s3
+          1 s2 | - s1
+          - s3 | 0 s2
+        end
       end
     end
   end
