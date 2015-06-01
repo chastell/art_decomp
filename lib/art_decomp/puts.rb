@@ -40,6 +40,10 @@ module ArtDecomp
       map(&:binwidth).reduce(0, :+)
     end
 
+    def inspect
+      "#{self.class}.new(#{puts.inspect})"
+    end
+
     def seps
       @seps ||= puts.map(&:seps).reduce(:|)
     end
