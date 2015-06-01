@@ -10,9 +10,10 @@ module ArtDecomp
         ins = Puts.from_columns([%i(a b c)])
         function = Function.new(ins: ins, outs: Puts.new)
         Pin[function, :ins, 0, 2, 0].inspect
-          .must_equal 'ArtDecomp::Pin'                               \
-                      '[ArtDecomp::Function(ArtDecomp::Arch[2,0]), ' \
-                      ':ins, 0, 2, 0]'
+          .must_equal 'ArtDecomp::Pin[ArtDecomp::Function.new(ins: ' \
+            'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), '        \
+            'codes: %i(a b c)]]), '                                  \
+            'outs: ArtDecomp::Puts.new([])), :ins, 0, 2, 0]'
       end
     end
   end

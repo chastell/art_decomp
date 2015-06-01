@@ -23,15 +23,13 @@ module ArtDecomp
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        wire.inspect.must_equal 'ArtDecomp::Wire['                    \
-          'ArtDecomp::Pin['                                           \
-          'ArtDecomp::Function(ArtDecomp::Arch[0,1]), :outs, 0, 1, 0' \
-          ']'                                                         \
-          ', '                                                        \
-          'ArtDecomp::Pin['                                           \
-          'ArtDecomp::Function(ArtDecomp::Arch[2,0]), :ins, 0, 1, 0'  \
-          ']'                                                         \
-          ']'
+        wire.inspect.must_equal 'ArtDecomp::Wire[ArtDecomp::Pin['              \
+        'ArtDecomp::Function.new(ins: ArtDecomp::Puts.new([]), '               \
+        'outs: ArtDecomp::Puts.new([ArtDecomp::Put[%i(b a), '                  \
+        'codes: %i(a b)]])), :outs, 0, 1, 0], '                                \
+        'ArtDecomp::Pin[ArtDecomp::Function.new(ins: '                         \
+        'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), codes: %i(a b c)]]), ' \
+        'outs: ArtDecomp::Puts.new([])), :ins, 0, 1, 0]]'
       end
     end
   end
