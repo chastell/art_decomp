@@ -1,6 +1,5 @@
 require 'anima'
 require_relative 'arch'
-require_relative 'function_presenter'
 
 module ArtDecomp
   class Function
@@ -11,7 +10,7 @@ module ArtDecomp
     end
 
     def inspect
-      FunctionPresenter.new(self).simple
+      "#{self.class}.new(ins: #{ins.inspect}, outs: #{outs.inspect})"
     end
 
     def to_s
