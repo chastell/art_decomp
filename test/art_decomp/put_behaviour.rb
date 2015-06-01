@@ -51,9 +51,9 @@ module ArtDecomp
         describe '#inspect' do
           it 'returns self-initialising representation' do
             put_class[%i(a - b)].inspect
-              .must_equal put_class.to_s + '[[:a, :-, :b], codes: [:a, :b]]'
+              .must_equal put_class.to_s + '[%i(a - b), codes: %i(a b)]'
             put_class[%i(1 0)].inspect
-              .must_equal put_class.to_s + '[[:"1", :"0"], codes: [:"0", :"1"]]'
+              .must_equal put_class.to_s + '[%i(1 0), codes: %i(0 1)]'
           end
         end
 
