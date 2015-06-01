@@ -1,6 +1,7 @@
 require 'anima'
 require 'forwardable'
 require_relative 'put'
+require_relative 'puts_presenter'
 
 module ArtDecomp
   class Puts
@@ -46,6 +47,10 @@ module ArtDecomp
 
     def seps
       @seps ||= puts.map(&:seps).reduce(:|)
+    end
+
+    def to_s
+      PutsPresenter.new(self).simple.join("\n") + "\n"
     end
 
     def uniq

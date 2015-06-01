@@ -109,6 +109,15 @@ module ArtDecomp
       end
     end
 
+    describe '#to_s' do
+      it 'returns a readable representation' do
+        puts.to_s.must_equal <<-end.dedent
+          a b
+          b a
+        end
+      end
+    end
+
     describe '#uniq' do
       it 'returns a Puts with only unique members' do
         Puts.new([a0b1, a1b0, a0b1]).uniq.must_equal puts
