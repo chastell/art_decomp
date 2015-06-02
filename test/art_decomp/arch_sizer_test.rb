@@ -13,44 +13,36 @@ module ArtDecomp
 
     describe '#max_quarters' do
       it 'returns the maximum number of quarters of a slice' do
-        {
-          Arch[0,0]  => 0,
-          Arch[0,1]  => 0,
-          Arch[1,1]  => 1,
-          Arch[5,2]  => 1,
-          Arch[5,3]  => 2,
-          Arch[6,4]  => 4,
-          Arch[7,0]  => 0,
-          Arch[7,1]  => 2,
-          Arch[7,2]  => 4,
-          Arch[8,1]  => 4,
-          Arch[8,2]  => 8,
-          Arch[9,0]  => 0,
-          Arch[9,1]  => 9,
-          Arch[9,4]  => 36,
-          Arch[14,7] => 1939,
-        }.each do |arch, quarters|
-          ArchSizer.new(arch).max_quarters.must_equal quarters
-        end
+        ArchSizer.new(Arch[0,0]).max_quarters.must_equal 0
+        ArchSizer.new(Arch[0,1]).max_quarters.must_equal 0
+        ArchSizer.new(Arch[1,1]).max_quarters.must_equal 1
+        ArchSizer.new(Arch[5,2]).max_quarters.must_equal 1
+        ArchSizer.new(Arch[5,3]).max_quarters.must_equal 2
+        ArchSizer.new(Arch[6,4]).max_quarters.must_equal 4
+        ArchSizer.new(Arch[7,0]).max_quarters.must_equal 0
+        ArchSizer.new(Arch[7,1]).max_quarters.must_equal 2
+        ArchSizer.new(Arch[7,2]).max_quarters.must_equal 4
+        ArchSizer.new(Arch[8,1]).max_quarters.must_equal 4
+        ArchSizer.new(Arch[8,2]).max_quarters.must_equal 8
+        ArchSizer.new(Arch[9,0]).max_quarters.must_equal 0
+        ArchSizer.new(Arch[9,1]).max_quarters.must_equal 9
+        ArchSizer.new(Arch[9,4]).max_quarters.must_equal 36
+        ArchSizer.new(Arch[14,7]).max_quarters.must_equal 1939
       end
     end
 
     describe '#min_quarters' do
       it 'returns the maximum number of quarters of a slice' do
-        {
-          Arch[0,0]  => 0,
-          Arch[0,1]  => 0,
-          Arch[1,0]  => 0,
-          Arch[1,1]  => 1,
-          Arch[5,2]  => 1,
-          Arch[5,3]  => 2,
-          Arch[7,0]  => 0,
-          Arch[20,8] => 4,
-          Arch[21,8] => 5,
-          Arch[20,9] => 5,
-        }.each do |arch, quarters|
-          ArchSizer.new(arch).min_quarters.must_equal quarters
-        end
+        ArchSizer.new(Arch[0,0]).min_quarters.must_equal 0
+        ArchSizer.new(Arch[0,1]).min_quarters.must_equal 0
+        ArchSizer.new(Arch[1,0]).min_quarters.must_equal 0
+        ArchSizer.new(Arch[1,1]).min_quarters.must_equal 1
+        ArchSizer.new(Arch[5,2]).min_quarters.must_equal 1
+        ArchSizer.new(Arch[5,3]).min_quarters.must_equal 2
+        ArchSizer.new(Arch[7,0]).min_quarters.must_equal 0
+        ArchSizer.new(Arch[20,8]).min_quarters.must_equal 4
+        ArchSizer.new(Arch[21,8]).min_quarters.must_equal 5
+        ArchSizer.new(Arch[20,9]).min_quarters.must_equal 5
       end
     end
   end
