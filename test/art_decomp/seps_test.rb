@@ -161,5 +161,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
         Seps.new(matrix).to_column.must_equal column
       end
     end
+
+    describe '#to_s' do
+      it 'returns a readable representation' do
+        sep_01_02.to_s.must_equal <<-end.dedent
+          .xx
+          x..
+          x..
+        end
+      end
+    end
   end
 end

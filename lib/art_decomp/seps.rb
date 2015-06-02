@@ -60,6 +60,12 @@ module ArtDecomp
       end
     end
 
+    def to_s
+      max  = (matrix.max || 0).bit_length
+      rows = matrix.map { |int| int.to_s(2).rjust(max, '0').tr('01', '.x') }
+      rows.map(&:reverse).join("\n") + "\n"
+    end
+
     private
 
     def popcounts
