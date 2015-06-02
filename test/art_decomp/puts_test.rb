@@ -100,6 +100,10 @@ module ArtDecomp
         seps = Seps.new([0b110, 0b101, 0b011])
         Puts.new([Put[%i(a a b)], Put[%i(a b b)]]).seps.must_equal seps
       end
+
+      it 'returns empty Seps for empty Puts' do
+        Puts.new.seps.must_equal Seps.new
+      end
     end
 
     describe '#size' do
