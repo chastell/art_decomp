@@ -137,31 +137,6 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
-    describe '#to_column' do
-      it 'returns a proper column' do
-        column_to_matrix.each do |column, matrix|
-          Seps.new(matrix).to_column.must_equal column
-        end
-      end
-
-      it 'tries to give good enough results' do
-        matrix = [
-          0b0100000000,
-          0b0100000000,
-          0b1100000000,
-          0b0100000000,
-          0b0000000000,
-          0b1100000000,
-          0b1100000000,
-          0b0000000000,
-          0b0001101111,
-          0b0001100100,
-        ]
-        column = %i(b b b b - b b - a a)
-        Seps.new(matrix).to_column.must_equal column
-      end
-    end
-
     describe '#to_s' do
       it 'returns a readable representation' do
         sep_01_02.to_s.must_equal <<-end.dedent

@@ -46,19 +46,6 @@ module ArtDecomp
       "#{self.class}.new([#{rows.join(', ')}])"
     end
 
-    def to_column
-      Array.new(matrix.size, :-).tap do |column|
-        sorted = matrix.each.with_index.sort_by { |_, row| -popcounts[row] }
-        sorted.reject { |int, _| int.zero? }.each do |int, row|
-          conflicts = (0...int.bit_length).select { |bit| int[bit] == 1 }
-          forbidden = column.values_at(*conflicts).uniq
-          code = :a
-          code = code.next while forbidden.include?(code)
-          column[row] = code
-        end
-      end
-    end
-
     def to_s
       max  = (matrix.max || 0).bit_length
       rows = matrix.map { |int| int.to_s(2).rjust(max, '0').tr('01', '.x') }
