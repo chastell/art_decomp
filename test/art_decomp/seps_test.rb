@@ -152,6 +152,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#separates_from?' do
+      it 'is a predicate whether a given separation exists' do
+        assert sep_03_13.separates_from?(0, 3)
+        refute sep_03_13.separates_from?(2, 3)
+        refute sep_03_13.separates_from?(1, 4)
+        refute sep_03_13.separates_from?(4, 1)
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         sep_01_02.to_s.must_equal <<-end.dedent
