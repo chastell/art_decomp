@@ -46,6 +46,11 @@ module ArtDecomp
       "#{self.class}.new([#{rows.join(', ')}])"
     end
 
+    def nonempty_by_popcount
+      (0...matrix.size).reject { |row| matrix[row].zero? }
+        .sort_by { |row| -popcounts[row] }
+    end
+
     def to_s
       max  = (matrix.max || 0).bit_length
       rows = matrix.map { |int| int.to_s(2).rjust(max, '0').tr('01', '.x') }

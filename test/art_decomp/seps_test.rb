@@ -137,6 +137,13 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#nonempty_by_popcount' do
+      it 'returns non-empty row numbers in their reverse popcount order' do
+        sep_01_02_03_13.nonempty_by_popcount.must_equal [0, 1, 3, 2]
+        sep_03_13.nonempty_by_popcount.must_equal [3, 0, 1]
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         sep_01_02.to_s.must_equal <<-end.dedent
