@@ -144,6 +144,14 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#separates?' do
+      it 'is a predicate whether a given row is separated from anything' do
+        assert sep_03_13.separates?(3)
+        refute sep_03_13.separates?(2)
+        refute sep_03_13.separates?(4)
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         sep_01_02.to_s.must_equal <<-end.dedent

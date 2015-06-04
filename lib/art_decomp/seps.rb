@@ -51,6 +51,10 @@ module ArtDecomp
         .sort_by { |row| -popcounts[row] }
     end
 
+    def separates?(row)
+      matrix[row] and not matrix[row].zero?
+    end
+
     def to_s
       max  = (matrix.max || 0).bit_length
       rows = matrix.map { |int| int.to_s(2).rjust(max, '0').tr('01', '.x') }
