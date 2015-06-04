@@ -161,6 +161,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#seps_of' do
+      it 'returns an Array of rows separated from the given one' do
+        sep_03_13.seps_of(3).must_equal [0, 1]
+        sep_03_13.seps_of(1).must_equal [3]
+        sep_03_13.seps_of(2).must_equal []
+        sep_03_13.seps_of(4).must_equal []
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         sep_01_02.to_s.must_equal <<-end.dedent

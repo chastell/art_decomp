@@ -59,6 +59,10 @@ module ArtDecomp
       separates?(a) and not matrix[a][b].zero?
     end
 
+    def seps_of(row)
+      (0...matrix.size).select { |other| separates_from?(row, other) }
+    end
+
     def to_s
       max  = (matrix.max || 0).bit_length
       rows = matrix.map { |int| int.to_s(2).rjust(max, '0').tr('01', '.x') }
