@@ -144,12 +144,12 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
-    describe '#separates_from?' do
+    describe '#separates?' do
       it 'is a predicate whether a given separation exists' do
-        assert sep_03_13.separates_from?(0, 3)
-        refute sep_03_13.separates_from?(2, 3)
-        refute sep_03_13.separates_from?(1, 4)
-        refute sep_03_13.separates_from?(4, 1)
+        assert sep_03_13.separates?(0, 3)
+        refute sep_03_13.separates?(2, 3)
+        refute sep_03_13.separates?(1, 4)
+        refute sep_03_13.separates?(4, 1)
       end
     end
 
