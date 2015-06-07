@@ -15,10 +15,9 @@ module ArtDecomp
     private_attr_reader :function, :ins, :outs
 
     def ins_array
-      function.ins.map do |put|
-        next unless ins.include?(put)
+      (function.ins & ins).map do |put|
         [ins_source(ins, put), ins_destination(function, put)]
-      end.compact
+      end
     end
 
     def ins_destination(function, put)
@@ -36,10 +35,9 @@ module ArtDecomp
     end
 
     def outs_array
-      function.outs.map do |put|
-        next unless outs.include?(put)
+      (function.outs & outs).map do |put|
         [outs_source(function, put), outs_destination(outs, put)]
-      end.compact
+      end
     end
 
     def outs_destination(outs, put)
