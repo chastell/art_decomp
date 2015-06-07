@@ -27,7 +27,7 @@ module ArtDecomp
 
       alias_method :function, :__getobj__
 
-      def uv_ins
+      def uv_ins                               # rubocop:disable Metrics/AbcSize
         f_seps = outs.seps
         sorted = ins.sort_by { |put| (f_seps - put.seps).count }
         Enumerator.new do |yielder|
@@ -66,7 +66,7 @@ module ArtDecomp
           @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
         end
 
-        def g_h_array
+        def g_h_array                          # rubocop:disable Metrics/AbcSize
           g_outs.map.with_index do |put, i|
             g_offset = g_outs[0...i].binwidth
             h_offset = u_ins.binwidth + g_offset
@@ -75,7 +75,7 @@ module ArtDecomp
           end
         end
 
-        def wires
+        def wires                              # rubocop:disable Metrics/AbcSize
           Wirer.wires(g, ins: function.ins, outs: function.outs) +
             Wirer.wires(h, ins: function.ins, outs: function.outs) +
             Wires.from_array(g_h_array)
