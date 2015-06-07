@@ -13,6 +13,10 @@ Metrics/MethodLength:
   Exclude:
     - test/art_decomp/*_behaviour.rb
 
+Metrics/ModuleLength:
+  Exclude:
+    - test/art_decomp/puts_test.rb
+
 Performance/ParallelAssignment:
   Enabled: false
 
