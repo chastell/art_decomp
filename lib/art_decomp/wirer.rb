@@ -15,14 +15,15 @@ module ArtDecomp
     private_attr_reader :function, :ins, :outs
 
     def ins_array
-      function.ins.map.with_index do |put, n|
+      function.ins.map do |put|
         next unless ins.include?(put)
-        [ins_source(ins, put), ins_destination(function, put, n)]
+        [ins_source(ins, put), ins_destination(function, put)]
       end.compact
     end
 
-    def ins_destination(function, put, n)
-      [function, :ins, n, put.binwidth, function.ins[0...n].binwidth]
+    def ins_destination(function, put)
+      index = function.ins.index(put)
+      [function, :ins, index, put.binwidth, function.ins[0...index].binwidth]
     end
 
     def ins_source(ins, put)
@@ -35,9 +36,9 @@ module ArtDecomp
     end
 
     def outs_array
-      function.outs.map.with_index do |put, n|
+      function.outs.map do |put|
         next unless outs.include?(put)
-        [outs_source(function, put, n), outs_destination(outs, put)]
+        [outs_source(function, put), outs_destination(outs, put)]
       end.compact
     end
 
@@ -50,8 +51,9 @@ module ArtDecomp
       end
     end
 
-    def outs_source(function, put, n)
-      [function, :outs, n, put.binwidth, function.outs[0...n].binwidth]
+    def outs_source(function, put)
+      index = function.outs.index(put)
+      [function, :outs, index, put.binwidth, function.outs[0...index].binwidth]
     end
   end
 end
