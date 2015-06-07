@@ -66,13 +66,16 @@ module ArtDecomp
           @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
         end
 
-        def wires
-          g_h_array = g_outs.map.with_index do |put, i|
-            g_offset = Puts.new(g_outs[0...i]).binwidth
+        def g_h_array
+          g_outs.map.with_index do |put, i|
+            g_offset = g_outs[0...i].binwidth
             h_offset = u_ins.binwidth + g_offset
             [[g, :outs, i,              put.binwidth, g_offset],
              [h, :ins,  u_ins.size + i, put.binwidth, h_offset]]
           end
+        end
+
+        def wires
           Wirer.new(g, ins: function.ins, outs: function.outs).wires +
             Wirer.new(h, ins: function.ins, outs: function.outs).wires +
             Wires.from_array(g_h_array)
