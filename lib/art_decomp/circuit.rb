@@ -10,7 +10,7 @@ module ArtDecomp
 
     def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)
-      wires = Wirer.new(function, ins: ins, outs: outs).wires
+      wires = Wirer.wires(function, ins: ins, outs: outs)
       new(functions: [function], wires: wires)
     end
 

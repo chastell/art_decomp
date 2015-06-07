@@ -76,8 +76,8 @@ module ArtDecomp
         end
 
         def wires
-          Wirer.new(g, ins: function.ins, outs: function.outs).wires +
-            Wirer.new(h, ins: function.ins, outs: function.outs).wires +
+          Wirer.wires(g, ins: function.ins, outs: function.outs) +
+            Wirer.wires(h, ins: function.ins, outs: function.outs) +
             Wires.from_array(g_h_array)
         end
       end

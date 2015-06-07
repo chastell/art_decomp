@@ -2,6 +2,10 @@ require_relative 'wires'
 
 module ArtDecomp
   class Wirer
+    def self.wires(function, ins:, outs:)
+      new(function, ins: ins, outs: outs).wires
+    end
+
     def initialize(function, ins:, outs:)
       @function, @ins, @outs = function, ins, outs
     end
