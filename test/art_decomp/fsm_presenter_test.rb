@@ -39,8 +39,8 @@ module ArtDecomp
         r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
         r0 = Function.new(ins: r_state, outs: r_coded)
         r1 = Function.new(ins: r_coded, outs: r_state)
-        ins  = f0.ins[0..1] + Puts.new([f1.ins[0]]) + Puts.new([r0.ins[0]])
-        outs = Puts.new([r1.outs[0]]) + f1.outs[2..6]
+        ins  = f0.ins[0..1] + f1.ins[0..0] + r0.ins[0..0]
+        outs = f1.outs[2..6] + r1.outs[0..0]
         wires = Wires.from_array([
           [[:circuit, :ins,         ins,     ins[0],     0, 1, 0],
            [f0,       :ins,         f0.ins,  f0.ins[0],  0, 1, 0]],
@@ -59,7 +59,7 @@ module ArtDecomp
           [[r0,       :outs,        r0.outs, r0.outs[0], 0, 1, 0],
            [f1,       :ins,         f1.ins,  f1.ins[3],  3, 1, 3]],
           [[r1,       :outs,        r1.outs, r1.outs[0], 0, 2, 0],
-           [:circuit, :next_states, outs,    outs[0],    0, 2, 0]],
+           [:circuit, :next_states, outs,    outs[5],    0, 2, 0]],
           [[f1,       :outs,        f1.outs, f1.outs[0], 0, 1, 0],
            [r1,       :ins,         r1.ins,  r1.ins[0],  0, 1, 0]],
           [[f1,       :outs,        f1.outs, f1.outs[1], 1, 1, 1],
