@@ -24,10 +24,14 @@ module ArtDecomp
         fsm.functions.must_equal [function]
         fsm.recoders.must_be :empty?
         fsm.wires.must_equal Wires.from_array([
-          [[:circuit, :ins,    0, 1, 0], [function, :ins,         0, 1, 0]],
-          [[:circuit, :states, 0, 2, 0], [function, :ins,         1, 2, 1]],
-          [[function, :outs,   0, 1, 0], [:circuit, :outs,        0, 1, 0]],
-          [[function, :outs,   1, 2, 1], [:circuit, :next_states, 0, 2, 0]],
+          [[:circuit, :ins,         ins,  ins[0],  0, 1, 0],
+           [function, :ins,         ins,  ins[0],  0, 1, 0]],
+          [[:circuit, :states,      ins,  ins[1],  0, 2, 0],
+           [function, :ins,         ins,  ins[1],  1, 2, 1]],
+          [[function, :outs,        outs, outs[0], 0, 1, 0],
+           [:circuit, :outs,        outs, outs[0], 0, 1, 0]],
+          [[function, :outs,        outs, outs[1], 1, 2, 1],
+           [:circuit, :next_states, outs, outs[1], 0, 2, 0]],
         ])
       end
     end

@@ -70,8 +70,8 @@ module ArtDecomp
           g_outs.map.with_index do |put, i|
             g_offset = g_outs[0...i].binwidth
             h_offset = u_ins.binwidth + g_offset
-            [[g, :outs, i,              put.binwidth, g_offset],
-             [h, :ins,  u_ins.size + i, put.binwidth, h_offset]]
+            [[g, :outs, g.outs, put, i,              put.binwidth, g_offset],
+             [h, :ins,  h.ins,  put, u_ins.size + i, put.binwidth, h_offset]]
           end
         end
 
