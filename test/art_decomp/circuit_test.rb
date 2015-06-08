@@ -21,10 +21,10 @@ module ArtDecomp
         function = Function.new(ins: ins, outs: outs)
         circuit.functions.must_equal [function]
         circuit.wires.must_equal Wires.from_array([
-          [[:circuit, :ins,  ins,          ins[0],          0, 1, 0],
-           [function, :ins,  function.ins, function.ins[0], 0, 1, 0]],
-          [[function, :outs, outs,         outs[0],         0, 1, 0],
-           [:circuit, :outs, outs,         outs[0],         0, 1, 0]],
+          [[:circuit, :ins,  ins,          ins[0]],
+           [function, :ins,  function.ins, function.ins[0]]],
+          [[function, :outs, outs,         outs[0]],
+           [:circuit, :outs, outs,         outs[0]]],
         ])
       end
     end

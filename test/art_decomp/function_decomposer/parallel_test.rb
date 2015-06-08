@@ -32,20 +32,15 @@ module ArtDecomp
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
         wires = Wires.from_array([
-          [[:circuit,    :ins,  ins,              a,    0, 1, 0],
-           [ab_anb,      :ins,  ab_anb.ins,       a,    0, 1, 0]],
-          [[:circuit,    :ins,  ins,              b,    1, 1, 1],
-           [ab_anb,      :ins,  ab_anb.ins,       b,    1, 1, 1]],
-          [[ab_anb,      :outs, ab_anb.outs,      anb,  0, 1, 0],
-           [:circuit,    :outs, outs,             anb,  0, 1, 0]],
-          [[:circuit,    :ins,  ins,              b,    1, 1, 1],
-           [bc_buc_nbuc, :ins,  bc_buc_nbuc.ins,  b,    0, 1, 0]],
-          [[:circuit,    :ins,  ins,              c,    2, 1, 2],
-           [bc_buc_nbuc, :ins,  bc_buc_nbuc.ins,  c,    1, 1, 1]],
-          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, buc,  0, 1, 0],
-           [:circuit,    :outs, outs,             buc,  1, 1, 1]],
-          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, nbuc, 1, 1, 1],
-           [:circuit,    :outs, outs,             nbuc, 2, 1, 2]],
+          [[:circuit, :ins, ins, a], [ab_anb, :ins, ab_anb.ins, a]],
+          [[:circuit, :ins, ins, b], [ab_anb, :ins, ab_anb.ins, b]],
+          [[ab_anb, :outs, ab_anb.outs, anb], [:circuit, :outs, outs, anb]],
+          [[:circuit, :ins, ins, b], [bc_buc_nbuc, :ins, bc_buc_nbuc.ins, b]],
+          [[:circuit, :ins, ins, c], [bc_buc_nbuc, :ins, bc_buc_nbuc.ins, c]],
+          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, buc],
+           [:circuit, :outs, outs, buc]],
+          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, nbuc],
+           [:circuit, :outs, outs, nbuc]],
         ])
         circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc], wires: wires)
         fun = Function.new(ins: ins, outs: outs)

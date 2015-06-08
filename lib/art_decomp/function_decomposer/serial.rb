@@ -66,13 +66,8 @@ module ArtDecomp
           @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
         end
 
-        def g_h_array                          # rubocop:disable Metrics/AbcSize
-          g_outs.map.with_index do |put, i|
-            g_offset = g_outs[0...i].binwidth
-            h_offset = u_ins.binwidth + g_offset
-            [[g, :outs, g.outs, put, i,              put.binwidth, g_offset],
-             [h, :ins,  h.ins,  put, u_ins.size + i, put.binwidth, h_offset]]
-          end
+        def g_h_array
+          g_outs.map { |put| [[g, :outs, g.outs, put], [h, :ins, h.ins, put]] }
         end
 
         def wires                              # rubocop:disable Metrics/AbcSize

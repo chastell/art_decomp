@@ -13,15 +13,15 @@ module ArtDecomp
       Function.new(ins: Puts.from_columns([%i(a b c)]), outs: Puts.new)
     end
     let(:wire) do
-      Wire[Pin[fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-           Pin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 2, 0]]
+      Wire[Pin[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+           Pin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]]
     end
 
     describe '.from_arrays' do
       it 'constructs the Wire from a minimal Array' do
         fa = Wire.from_arrays(
-          [fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-          [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 2, 0],
+          [fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+          [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]],
         )
         fa.must_equal wire
       end

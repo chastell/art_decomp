@@ -18,20 +18,20 @@ module ArtDecomp
 
     let(:wires) do
       Wires.new([
-        Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-                         [fun_b, :ins,  fun_b.ins,  fun_b.ins[1],  1, 1, 1]),
-        Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1], 1, 1, 1],
-                         [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]),
+        Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+                         [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]),
+        Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1]],
+                         [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]),
       ])
     end
 
     describe '.from_array' do
       it 'constructs the Wires from a minimal Array' do
         fa = Wires.from_array([
-          [[fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1],  1, 1, 1]],
-          [[fun_a, :outs, fun_a.outs, fun_a.outs[1], 1, 1, 1],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]],
+          [[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]],
+          [[fun_a, :outs, fun_a.outs, fun_a.outs[1]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]],
         ])
         fa.must_equal wires
       end
@@ -46,12 +46,12 @@ module ArtDecomp
     describe '#+' do
       it 'sums the two Wires objects' do
         a = Wires.from_array([
-          [[fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1],  1, 1, 1]],
+          [[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]],
         ])
         b = Wires.from_array([
-          [[fun_a, :outs, fun_a.outs, fun_a.outs[1], 1, 1, 1],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]],
+          [[fun_a, :outs, fun_a.outs, fun_a.outs[1]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]],
         ])
         (a + b).must_equal wires
       end
@@ -60,16 +60,16 @@ module ArtDecomp
     describe '#==' do
       it 'compares two Wires with regard to contents' do
         wires.must_equal Wires.new([
-          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1],  1, 1, 1]),
-          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1], 1, 1, 1],
-                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]),
+          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]),
+          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1]],
+                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]),
         ])
         wires.wont_equal Wires.new([
-          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]),
-          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1], 1, 1, 1],
-                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1],  1, 1, 1]),
+          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]),
+          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1]],
+                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]),
         ])
       end
     end

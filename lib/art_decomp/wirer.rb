@@ -23,14 +23,11 @@ module ArtDecomp
     end
 
     def in_dst(put)
-      index = function.ins.index(put)
-      [function, :ins, function.ins, put, index, put.binwidth,
-       function.ins[0...index].binwidth]
+      [function, :ins, function.ins, put]
     end
 
     def in_src(put)
-      offset = ins[0...ins.index(put)].binwidth
-      [:circuit, :ins, ins, put, ins.index(put), put.binwidth, offset]
+      [:circuit, :ins, ins, put]
     end
 
     def outs_array
@@ -38,14 +35,11 @@ module ArtDecomp
     end
 
     def out_dst(put)
-      offset = outs[0...outs.index(put)].binwidth
-      [:circuit, :outs, outs, put, outs.index(put), put.binwidth, offset]
+      [:circuit, :outs, outs, put]
     end
 
     def out_src(put)
-      index = function.outs.index(put)
-      [function, :outs, function.outs, put, index, put.binwidth,
-       function.outs[0...index].binwidth]
+      [function, :outs, function.outs, put]
     end
   end
 end

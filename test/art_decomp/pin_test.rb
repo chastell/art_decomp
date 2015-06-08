@@ -9,7 +9,7 @@ module ArtDecomp
       it 'returns self-initialising representation' do
         ins = Puts.from_columns([%i(a b c)])
         function = Function.new(ins: ins, outs: Puts.new)
-        Pin[function, :ins, function.ins, function.ins[0], 0, 2, 0].inspect
+        Pin[function, :ins, function.ins, function.ins[0]].inspect
           .must_equal 'ArtDecomp::Pin[ArtDecomp::Function.new(ins: ' \
             'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), '        \
             'codes: %i(a b c)]]), '                                  \
