@@ -19,32 +19,28 @@ module ArtDecomp
       # 7 | 1 1 1 |  1   1   0
 
       it 'yields decomposed Circuits' do
-        a    = Put[%i(0 0 0 0 1 1 1 1)]
-        b    = Put[%i(0 0 1 1 0 0 1 1)]
-        c    = Put[%i(0 1 0 1 0 1 0 1)]
-        anb  = Put[%i(0 0 0 0 0 0 1 1)]
-        buc  = Put[%i(0 1 1 1 0 1 1 1)]
-        nbuc = Put[%i(1 0 0 0 1 0 0 0)]
-        ab_anb      = Function.new(ins:  Puts.new([a, b]),
-                                   outs: Puts.new([anb]))
-        bc_buc_nbuc = Function.new(ins:  Puts.new([b, c]),
-                                   outs: Puts.new([buc, nbuc]))
+        a     = Put[%i(0 0 0 0 1 1 1 1)]
+        b     = Put[%i(0 0 1 1 0 0 1 1)]
+        c     = Put[%i(0 1 0 1 0 1 0 1)]
+        anb   = Put[%i(0 0 0 0 0 0 1 1)]
+        buc   = Put[%i(0 1 1 1 0 1 1 1)]
+        nbuc  = Put[%i(1 0 0 0 1 0 0 0)]
+        ab    = Function.new(ins: Puts.new([a, b]), outs: Puts.new([anb]))
+        bc    = Function.new(ins: Puts.new([b, c]), outs: Puts.new([buc, nbuc]))
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
         wires = Wires.from_array([
-          [[:circuit, :ins, ins, a], [ab_anb, :ins, ab_anb.ins, a]],
-          [[:circuit, :ins, ins, b], [ab_anb, :ins, ab_anb.ins, b]],
-          [[ab_anb, :outs, ab_anb.outs, anb], [:circuit, :outs, outs, anb]],
-          [[:circuit, :ins, ins, b], [bc_buc_nbuc, :ins, bc_buc_nbuc.ins, b]],
-          [[:circuit, :ins, ins, c], [bc_buc_nbuc, :ins, bc_buc_nbuc.ins, c]],
-          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, buc],
-           [:circuit, :outs, outs, buc]],
-          [[bc_buc_nbuc, :outs, bc_buc_nbuc.outs, nbuc],
-           [:circuit, :outs, outs, nbuc]],
+          [[:circuit, :ins,  ins,     a],    [ab,       :ins,  ab.ins, a]],
+          [[:circuit, :ins,  ins,     b],    [ab,       :ins,  ab.ins, b]],
+          [[ab,       :outs, ab.outs, anb],  [:circuit, :outs, outs,   anb]],
+          [[:circuit, :ins,  ins,     b],    [bc,       :ins,  bc.ins, b]],
+          [[:circuit, :ins,  ins,     c],    [bc,       :ins,  bc.ins, c]],
+          [[bc,       :outs, bc.outs, buc],  [:circuit, :outs, outs,   buc]],
+          [[bc,       :outs, bc.outs, nbuc], [:circuit, :outs, outs,   nbuc]],
         ])
-        circuit = Circuit.new(functions: [ab_anb, bc_buc_nbuc], wires: wires)
+        circuit = Circuit.new(functions: [ab, bc], wires: wires)
         fun = Function.new(ins: ins, outs: outs)
-        FunctionDecomposer::Parallel.decompose(fun).to_a.must_equal [circuit]
+        FunctionDecomposer::Parallel.decompose(fun).must_include circuit
       end
 
       it 'does not yield if it can’t decompose' do
