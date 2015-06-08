@@ -1,18 +1,19 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/function'
+require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Wires do
     let(:fun_a) do
-      Function.new(ins:  Puts.new([fake(Put), fake(Put)]),
-                   outs: Puts.new([fake(Put), fake(Put)]))
+      Function.new(ins:  Puts.from_columns([%i(0 1), %i(1 0)]),
+                   outs: Puts.from_columns([%i(b a), %i(a b)]))
     end
 
     let(:fun_b) do
-      Function.new(ins:  Puts.new([fake(Put), fake(Put)]),
-                   outs: Puts.new([fake(Put), fake(Put)]))
+      Function.new(ins:  Puts.from_columns([%i(b a), %i(a b)]),
+                   outs: Puts.from_columns([%i(0 1), %i(1 0)]))
     end
 
     let(:wires) do
