@@ -14,14 +14,14 @@ module ArtDecomp
     end
     let(:wire) do
       Wire[Pin[fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-           Pin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0]]
+           Pin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 2, 0]]
     end
 
     describe '.from_arrays' do
       it 'constructs the Wire from a minimal Array' do
         fa = Wire.from_arrays(
           [fun_a, :outs, fun_a.outs, fun_a.outs[0], 0, 1, 0],
-          [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 1, 0],
+          [fun_b, :ins,  fun_b.ins,  fun_b.ins[0],  0, 2, 0],
         )
         fa.must_equal wire
       end
@@ -35,7 +35,7 @@ module ArtDecomp
         'codes: %i(a b)]])), :outs, 0, 1, 0], '                                \
         'ArtDecomp::Pin[ArtDecomp::Function.new(ins: '                         \
         'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), codes: %i(a b c)]]), ' \
-        'outs: ArtDecomp::Puts.new([])), :ins, 0, 1, 0]]'
+        'outs: ArtDecomp::Puts.new([])), :ins, 0, 2, 0]]'
       end
     end
   end
