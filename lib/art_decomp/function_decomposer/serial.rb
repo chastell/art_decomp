@@ -71,9 +71,9 @@ module ArtDecomp
         end
 
         def wires                              # rubocop:disable Metrics/AbcSize
-          Wirer.wires(g, ins: function.ins, outs: function.outs) +
-            Wirer.wires(h, ins: function.ins, outs: function.outs) +
-            Wires.from_array(g_h_array)
+          Wires.from_array(g_h_array) +
+            Wirer.wires(g, ins: function.ins, outs: function.outs) +
+            Wirer.wires(h, ins: function.ins, outs: function.outs)
         end
       end
     end
