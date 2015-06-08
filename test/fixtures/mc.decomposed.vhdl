@@ -6,14 +6,12 @@ entity mc is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        circ_ins: in  std_logic_vector(0 to 2);
-        circ_outs: out std_logic_vector(0 to 4)
+        circ_ins: in  std_logic_vector(0 to 4);
+        circ_outs: out std_logic_vector(0 to 6)
       );
 end mc;
 
 architecture behaviour of mc is
-  signal circ_states, circ_next_states: std_logic_vector(0 to 1);
-
   signal f0_ins: std_logic_vector(0 to 2);
   signal f0_outs: std_logic_vector(0 to 1);
   signal f1_ins: std_logic_vector(0 to 3);
@@ -26,15 +24,15 @@ architecture behaviour of mc is
 begin
   f0_ins(0) <= circ_ins(0);
   f0_ins(1) <= circ_ins(1);
-  r0_ins(0) <= circ_states(0);
-  r0_ins(1) <= circ_states(1);
+  r0_ins(0) <= circ_ins(3);
+  r0_ins(1) <= circ_ins(4);
   f0_ins(2) <= r0_outs(1);
   f1_ins(0) <= circ_ins(2);
   f1_ins(1) <= f0_outs(0);
   f1_ins(2) <= f0_outs(1);
   f1_ins(3) <= r0_outs(0);
-  circ_next_states(0) <= r1_outs(0);
-  circ_next_states(1) <= r1_outs(1);
+  circ_outs(5) <= r1_outs(0);
+  circ_outs(6) <= r1_outs(1);
   r1_ins(0) <= f1_outs(0);
   r1_ins(1) <= f1_outs(1);
   circ_outs(0) <= f1_outs(2);
@@ -42,12 +40,6 @@ begin
   circ_outs(2) <= f1_outs(4);
   circ_outs(3) <= f1_outs(5);
   circ_outs(4) <= f1_outs(6);
-
-  process(reset, clock) begin
-    if reset = '1' then circ_states <= "00";
-    elsif rising_edge(clock) then circ_states <= circ_next_states;
-    end if;
-  end process;
 
   f0: process(f0_ins) begin
     f0_outs <= (others => '-');

@@ -29,12 +29,8 @@ module ArtDecomp
     end
 
     def in_src(put)
-      if put.state?
-        [:circuit, :states, ins, put, 0, put.binwidth, 0]
-      else
-        offset = ins[0...ins.index(put)].binwidth
-        [:circuit, :ins, ins, put, ins.index(put), put.binwidth, offset]
-      end
+      offset = ins[0...ins.index(put)].binwidth
+      [:circuit, :ins, ins, put, ins.index(put), put.binwidth, offset]
     end
 
     def outs_array
@@ -42,12 +38,8 @@ module ArtDecomp
     end
 
     def out_dst(put)
-      if put.state?
-        [:circuit, :next_states, outs, put, 0, put.binwidth, 0]
-      else
-        offset = outs[0...outs.index(put)].binwidth
-        [:circuit, :outs, outs, put, outs.index(put), put.binwidth, offset]
-      end
+      offset = outs[0...outs.index(put)].binwidth
+      [:circuit, :outs, outs, put, outs.index(put), put.binwidth, offset]
     end
 
     def out_src(put)

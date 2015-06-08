@@ -12,8 +12,6 @@ entity <%= name %> is
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
-  signal circ_states, circ_next_states: std_logic_vector(0 to <%= state_binwidth - 1 %>);
-
 % functions.each.with_index do |fun, i|
   signal f<%= i %>_ins: std_logic_vector(0 to <%= fun.ins.binwidth - 1 %>);
   signal f<%= i %>_outs: std_logic_vector(0 to <%= fun.outs.binwidth - 1 %>);
@@ -27,12 +25,6 @@ begin
 % wire_labels.each do |src_label, dst_label|
   <%= dst_label %> <= <%= src_label %>;
 % end
-
-  process(reset, clock) begin
-    if reset = '1' then circ_states <= "<%= '0' * state_binwidth %>";
-    elsif rising_edge(clock) then circ_states <= circ_next_states;
-    end if;
-  end process;
 
 % functions.each.with_index do |fun, i|
   f<%= i %>: process(f<%= i %>_ins) begin
