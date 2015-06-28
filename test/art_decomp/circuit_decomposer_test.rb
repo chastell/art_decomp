@@ -19,7 +19,7 @@ module ArtDecomp
         mock(solder).replace(circuit, fun, c2) { d2 }
         decs = CircuitDecomposer.decompose(circuit, function_decomposer: fd,
                                                     circuit_solder: solder)
-        decs.to_a.must_equal [d1, d2]
+        _(decs.to_a).must_equal [d1, d2]
       end
     end
   end
