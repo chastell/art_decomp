@@ -15,7 +15,7 @@ module ArtDecomp
 
       it 'returns VHDL for the given Circuit' do
         vhdl = CircuitPresenter.vhdl_for(bin, name: 'bin')
-        vhdl.must_equal File.read('test/fixtures/bin.vhdl')
+        _(vhdl).must_equal File.read('test/fixtures/bin.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
@@ -44,7 +44,7 @@ module ArtDecomp
         ])
         bin_decd = bin.update(functions: [f0, f1], wires: wires)
         vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
-        vhdl.must_equal File.read('test/fixtures/bin.decomposed.vhdl')
+        _(vhdl).must_equal File.read('test/fixtures/bin.decomposed.vhdl')
       end
     end
   end
