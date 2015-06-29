@@ -23,8 +23,8 @@ module ArtDecomp
         stub(cd).decompose(c121) { []              }
         stub(cd).decompose(c13)  { []              }
         decs = Decomposer.decompositions(c1, circuit_decomposer: cd)
-        decs.must_be_kind_of Enumerator
-        decs.to_a.must_equal [c1, c12, c11, c112, c13, c111, c121]
+        _(decs).must_be_kind_of Enumerator
+        _(decs.to_a).must_equal [c1, c12, c11, c112, c13, c111, c121]
       end
     end
   end
