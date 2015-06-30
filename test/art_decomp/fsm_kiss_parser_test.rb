@@ -20,7 +20,7 @@ module ArtDecomp
                                  codes: %i(0 1)) +
                Puts.new([StatePut[%i(-  s2 s1), codes: %i(s1 s2 s3)]])
         fsm  = FSM.from_puts(ins: ins, outs: outs)
-        FSMKISSParser.circuit_for(kiss).must_equal fsm
+        _(FSMKISSParser.circuit_for(kiss)).must_equal fsm
       end
     end
   end
