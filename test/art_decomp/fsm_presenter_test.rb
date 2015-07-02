@@ -15,7 +15,7 @@ module ArtDecomp
 
       it 'returns VHDL for the given Circuit' do
         vhdl = FSMPresenter.vhdl_for(mc, name: 'mc')
-        vhdl.must_equal File.read('test/fixtures/mc.vhdl')
+        _(vhdl).must_equal File.read('test/fixtures/mc.vhdl')
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
@@ -61,7 +61,7 @@ module ArtDecomp
         ])
         mc_decd = FSM.new(functions: [f0, f1], recoders: [r0, r1], wires: wires)
         vhdl = FSMPresenter.vhdl_for(mc_decd, name: 'mc')
-        vhdl.must_equal File.read('test/fixtures/mc.decomposed.vhdl')
+        _(vhdl).must_equal File.read('test/fixtures/mc.decomposed.vhdl')
       end
     end
   end
