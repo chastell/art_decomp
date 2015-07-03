@@ -21,9 +21,9 @@ module ArtDecomp
         outs = Puts.new([Put[%i(1 0)], StatePut[%i(s3 s1 s2)]])
         fsm  = FSM.from_puts(ins: ins, outs: outs)
         function = Function.new(ins: ins, outs: outs)
-        fsm.functions.must_equal [function]
-        fsm.recoders.must_be :empty?
-        fsm.wires.must_equal Wires.from_array([
+        _(fsm.functions).must_equal [function]
+        _(fsm.recoders).must_be :empty?
+        _(fsm.wires).must_equal Wires.from_array([
           [[:circuit, :ins,  ins,  ins[0]],  [function, :ins,  ins,  ins[0]]],
           [[:circuit, :ins,  ins,  ins[1]],  [function, :ins,  ins,  ins[1]]],
           [[function, :outs, outs, outs[0]], [:circuit, :outs, outs, outs[0]]],
@@ -34,7 +34,7 @@ module ArtDecomp
 
     describe '#recoders' do
       it 'gets the Recorders' do
-        empty.update(recoders: recs = fake(Array)).recoders.must_equal recs
+        _(empty.update(recoders: recs = fake(Array)).recoders).must_equal recs
       end
     end
   end
