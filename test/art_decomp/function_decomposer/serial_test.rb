@@ -77,7 +77,7 @@ module ArtDecomp
            [:circuit, :outs, f.outs, f.outs[0]]],
         ])
         circuit = Circuit.new(functions: [g1, h], wires: wires)
-        FunctionDecomposer::Serial.decompose(f).must_include circuit
+        _(FunctionDecomposer::Serial.decompose(f)).must_include circuit
       end
 
       it 'can decompose the largest function further' do
@@ -93,7 +93,7 @@ module ArtDecomp
            [:circuit, :outs, h.outs, h.outs[0]]],
         ])
         circuit = Circuit.new(functions: [g2, g3], wires: wires)
-        FunctionDecomposer::Serial.decompose(h).must_include circuit
+        _(FunctionDecomposer::Serial.decompose(h)).must_include circuit
       end
     end
   end
