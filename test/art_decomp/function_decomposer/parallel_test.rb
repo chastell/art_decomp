@@ -40,7 +40,7 @@ module ArtDecomp
         ])
         circuit = Circuit.new(functions: [ab, bc], wires: wires)
         fun = Function.new(ins: ins, outs: outs)
-        FunctionDecomposer::Parallel.decompose(fun).must_include circuit
+        _(FunctionDecomposer::Parallel.decompose(fun)).must_include circuit
       end
 
       it 'does not yield if it can’t decompose' do
@@ -49,7 +49,7 @@ module ArtDecomp
         anb = %i(0 0 0 0 0 0 1 1)
         fun = Function.new(ins:  Puts.from_columns([a,b]),
                            outs: Puts.from_columns([anb]))
-        FunctionDecomposer::Parallel.decompose(fun).to_a.must_be_empty
+        _(FunctionDecomposer::Parallel.decompose(fun).to_a).must_be_empty
       end
     end
   end
