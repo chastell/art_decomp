@@ -18,7 +18,7 @@ module ArtDecomp
         stub(serial).decompose(function)   { [s1, s2].to_enum }
         decs = FunctionDecomposer.decompose(function, parallel: parallel,
                                                       serial: serial)
-        decs.to_a.must_equal [p1, p2, s1, s2]
+        _(decs.to_a).must_equal [p1, p2, s1, s2]
       end
     end
   end
