@@ -17,9 +17,6 @@ Metrics/ModuleLength:
   Exclude:
     - test/art_decomp/puts_test.rb
 
-Performance/ParallelAssignment:
-  Enabled: false
-
 Style/AndOr:
   Enabled: false
 
@@ -27,6 +24,9 @@ Style/Documentation:
   Enabled: false
 
 Style/Not:
+  Enabled: false
+
+Style/ParallelAssignment:
   Enabled: false
 
 Style/SingleLineBlockParams:
