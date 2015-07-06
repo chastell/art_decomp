@@ -45,15 +45,15 @@ module ArtDecomp
       end
 
       it 'merges passed Functions according to their inputs' do
-        FunctionMerger.merge([f1, f2, f3]).must_equal [f1, f23]
+        _(FunctionMerger.merge([f1, f2, f3])).must_equal [f1, f23]
       end
 
       it 'optimises the merged functions' do
-        FunctionMerger.merge([f1, f2, f3, f2]).must_equal [f1, f23]
+        _(FunctionMerger.merge([f1, f2, f3, f2])).must_equal [f1, f23]
       end
 
       it 'doesn’t discriminate by input order' do
-        FunctionMerger.merge([f1, f2, f4]).must_equal [f1, f23]
+        _(FunctionMerger.merge([f1, f2, f4])).must_equal [f1, f23]
       end
     end
   end
