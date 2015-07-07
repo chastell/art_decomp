@@ -51,8 +51,8 @@ module ArtDecomp
         .sort_by { |row| -popcounts[row] }
     end
 
-    def separates?(a, b)
-      matrix[a] and not matrix[a].zero? and not matrix[a][b].zero?
+    def separates?(row, col)
+      matrix[row] and matrix[row][col].nonzero?
     end
 
     def seps_of(row)
