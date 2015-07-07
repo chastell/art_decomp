@@ -28,8 +28,7 @@ module ArtDecomp
       alias_method :function, :__getobj__
 
       def uv_ins                               # rubocop:disable Metrics/AbcSize
-        f_seps = outs.seps
-        sorted = ins.sort_by { |put| (f_seps & put.seps).count }
+        sorted = ins.sort_by { |put| (outs.seps & put.seps).count }
         Enumerator.new do |yielder|
           [3, 2].each do |g_width|
             sorted.combination(g_width).each do |v_ins|
