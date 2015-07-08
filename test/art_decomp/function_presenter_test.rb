@@ -19,7 +19,7 @@ module ArtDecomp
                Puts.from_columns([%i(HG HG HY HY FG FG FY FY FY HG)])
         function = Function.new(ins: ins, outs: outs)
         function_presenter = FunctionPresenter.new(function)
-        function_presenter.rows.must_equal [
+        _(function_presenter.rows).must_equal [
           %w(0--10 0001010),
           %w(-0-10 0001010),
           %w(11-10 1001011),
