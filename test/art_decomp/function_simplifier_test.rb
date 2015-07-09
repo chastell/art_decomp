@@ -27,18 +27,18 @@ module ArtDecomp
       it 'returns the simplest implementation of a Function' do
         ab_anb  = Function.new(ins: Puts.new([a,b]),   outs: Puts.new([anb]))
         abc_anb = Function.new(ins: Puts.new([a,b,c]), outs: Puts.new([anb]))
-        FunctionSimplifier.simplify(abc_anb).must_equal ab_anb
+        _(FunctionSimplifier.simplify(abc_anb)).must_equal ab_anb
       end
 
       it 'maintains put order' do
         abc_buc = Function.new(ins: Puts.new([a,b,c]), outs: Puts.new([buc]))
         bc_buc  = Function.new(ins: Puts.new([b,c]),   outs: Puts.new([buc]))
-        FunctionSimplifier.simplify(abc_buc).must_equal bc_buc
+        _(FunctionSimplifier.simplify(abc_buc)).must_equal bc_buc
       end
 
       it 'does not modify Functions that are the simplest already' do
         ab_anb = Function.new(ins: Puts.new([a,b]), outs: Puts.new([anb]))
-        FunctionSimplifier.simplify(ab_anb).must_equal ab_anb
+        _(FunctionSimplifier.simplify(ab_anb)).must_equal ab_anb
       end
     end
   end
