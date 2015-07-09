@@ -95,11 +95,15 @@ module ArtDecomp
 
       def next_put(missing)
         missing.nonempty_by_popcount.permutation do |order|
-          column = Array.new(size, :-)
-          order.each { |row| column[row] = code_for(column, row, missing) }
-          put = Put[column]
+          put = put_for_order(order, missing)
           return put unless (missing & put.seps).empty?
         end
+      end
+
+      def put_for_order(order, missing)
+        column = Array.new(size, :-)
+        order.each { |row| column[row] = code_for(column, row, missing) }
+        Put[column]
       end
     end
   end
