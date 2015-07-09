@@ -2,7 +2,11 @@ DuplicateMethodCall:
   exclude:
     - ArtDecomp::ArchSizer#min_quarters
     - ArtDecomp::FunctionDecomposer#decompose
+    - ArtDecomp::Puts::PutsFromSeps#puts
     - ArtDecomp::Seps#self.from_column
+    - ArtDecomp::Seps#separates?
+    - ArtDecomp::Wirer#ins_array
+    - ArtDecomp::Wirer#outs_array
 
 IrresponsibleModule:
   enabled: false
