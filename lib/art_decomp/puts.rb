@@ -33,6 +33,10 @@ module ArtDecomp
       self.class.new(puts + other.puts)
     end
 
+    def -(other)
+      self.class.new(puts - other.puts)
+    end
+
     def [](index_or_range)
       case index_or_range
       when Integer then puts[index_or_range]

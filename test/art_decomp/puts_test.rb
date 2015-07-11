@@ -89,6 +89,12 @@ module ArtDecomp
       end
     end
 
+    describe '#-' do
+      it 'creates a difference of Puts' do
+        (puts - Puts.new([a0b1])).must_equal Puts.new([a1b0])
+      end
+    end
+
     describe '#[]' do
       it 'returns the Put at the given index' do
         puts[0].must_equal a0b1
