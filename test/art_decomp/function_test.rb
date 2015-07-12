@@ -18,14 +18,14 @@ module ArtDecomp
 
     describe '#arch' do
       it 'returns the Arch' do
-        function.arch.must_equal Arch[3,3]
-        Function.new(ins: Puts.new, outs: Puts.new).arch.must_equal Arch[0,0]
+        _(function.arch).must_equal Arch[3,3]
+        _(Function.new(ins: Puts.new, outs: Puts.new).arch).must_equal Arch[0,0]
       end
     end
 
     describe '#inspect' do
       it 'returns a self-initialising representation' do
-        function.inspect.must_equal 'ArtDecomp::Function.new('               \
+        _(function.inspect).must_equal 'ArtDecomp::Function.new('            \
           'ins: '                                                            \
           'ArtDecomp::Puts.new([ArtDecomp::Put[%i(0 1 -), codes: %i(0 1)], ' \
           'ArtDecomp::Put[%i(s1 s2 s3), codes: %i(s1 s2 s3)]]), '            \
@@ -37,19 +37,19 @@ module ArtDecomp
 
     describe '#ins' do
       it 'returns the Function’s inputs' do
-        function.ins.must_equal ins
+        _(function.ins).must_equal ins
       end
     end
 
     describe '#outs' do
       it 'returns the Function’s outputs' do
-        function.outs.must_equal outs
+        _(function.outs).must_equal outs
       end
     end
 
     describe '#to_s' do
       it 'returns a readable representation' do
-        function.to_s.must_equal <<-end.dedent
+        _(function.to_s).must_equal <<-end.dedent
           0 s1 | 1 s3
           1 s2 | - s1
           - s3 | 0 s2
