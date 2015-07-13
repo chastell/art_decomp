@@ -12,14 +12,14 @@ module ArtDecomp
     describe '.from_columns' do
       it 'creates Puts from an Array of columns' do
         puts = Puts.from_columns([%i(a b -), %i(b - c)], codes: %i(a b c))
-        puts.must_equal Puts.new([Put[%i(a b -), codes: %i(a b c)],
-                                  Put[%i(b - c), codes: %i(a b c)]])
+        _(puts).must_equal Puts.new([Put[%i(a b -), codes: %i(a b c)],
+                                     Put[%i(b - c), codes: %i(a b c)]])
       end
 
       it 'infers codes on a per-column basis' do
         puts = Puts.from_columns([%i(0 1 -), %i(a b c)])
-        puts.must_equal Puts.new([Put[%i(0 1 -), codes: %i(0 1)],
-                                  Put[%i(a b c), codes: %i(a b c)]])
+        _(puts).must_equal Puts.new([Put[%i(0 1 -), codes: %i(0 1)],
+                                     Put[%i(a b c), codes: %i(a b c)]])
       end
     end
 
@@ -48,7 +48,7 @@ module ArtDecomp
           0b000100100,
         ])
         puts = Puts.from_seps(allowed: allowed, required: required, size: 9)
-        puts.must_equal Puts.from_columns([%i(b b b b - b - a a)])
+        _(puts).must_equal Puts.from_columns([%i(b b b b - b - a a)])
       end
 
       it 'honours allowed separations' do
@@ -65,44 +65,44 @@ module ArtDecomp
           0b0001,
         ])
         puts = Puts.from_seps(allowed: allowed, required: required, size: 4)
-        puts.must_equal Puts.from_columns([%i(a b a -), %i(a - - b)])
+        _(puts).must_equal Puts.from_columns([%i(a b a -), %i(a - - b)])
       end
     end
 
     describe '#==' do
       it 'compares Puts according to contents' do
-        Puts.new([a0b1]).must_equal Puts.new([a0b1])
-        Puts.new([a0b1]).wont_equal Puts.new([a1b0])
+        _(Puts.new([a0b1])).must_equal Puts.new([a0b1])
+        _(Puts.new([a0b1])).wont_equal Puts.new([a1b0])
       end
     end
 
     describe '#&' do
       it 'creates an intersection of Puts' do
-        (puts & Puts.new([a0b1])).must_equal Puts.new([a0b1])
-        (puts & Puts.new([a1b0])).must_equal Puts.new([a1b0])
+        _(puts & Puts.new([a0b1])).must_equal Puts.new([a0b1])
+        _(puts & Puts.new([a1b0])).must_equal Puts.new([a1b0])
       end
     end
 
     describe '#+' do
       it 'creates a sum of Puts' do
-        (Puts.new([a0b1]) + Puts.new([a1b0])).must_equal puts
+        _(Puts.new([a0b1]) + Puts.new([a1b0])).must_equal puts
       end
     end
 
     describe '#-' do
       it 'creates a difference of Puts' do
-        (puts - Puts.new([a0b1])).must_equal Puts.new([a1b0])
+        _(puts - Puts.new([a0b1])).must_equal Puts.new([a1b0])
       end
     end
 
     describe '#[]' do
       it 'returns the Put at the given index' do
-        puts[0].must_equal a0b1
-        puts[1].must_equal a1b0
+        _(puts[0]).must_equal a0b1
+        _(puts[1]).must_equal a1b0
       end
 
       it 'returns the Puts from the given Range' do
-        puts[0..1].must_equal puts
+        _(puts[0..1]).must_equal puts
       end
     end
 
@@ -114,14 +114,15 @@ module ArtDecomp
           Puts.new([a0b1, a1b0])   => 2,
           Puts.new([a1b0, a0b1c2]) => 3,
         }.each do |puts, binwidth|
-          puts.binwidth.must_equal binwidth
+          _(puts.binwidth).must_equal binwidth
         end
       end
     end
 
     describe '#each' do
       it 'yields subsequent Puts' do
-        puts.each.with_object([]) { |p, ary| ary << p }.must_equal [a0b1, a1b0]
+        array = puts.each.with_object([]) { |put, arr| arr << put }
+        _(array).must_equal [a0b1, a1b0]
       end
     end
 
@@ -134,14 +135,14 @@ module ArtDecomp
 
     describe '#index' do
       it 'returns the index of the given Put' do
-        puts.index(a0b1).must_equal 0
-        puts.index(a1b0).must_equal 1
+        _(puts.index(a0b1)).must_equal 0
+        _(puts.index(a1b0)).must_equal 1
       end
     end
 
     describe '#inspect' do
       it 'returns a self-initialising representation' do
-        puts.inspect.must_equal 'ArtDecomp::Puts.new([' \
+        _(puts.inspect).must_equal 'ArtDecomp::Puts.new([' \
           'ArtDecomp::Put[%i(a b), codes: %i(a b)], '   \
           'ArtDecomp::Put[%i(b a), codes: %i(a b)]])'
       end
@@ -150,24 +151,24 @@ module ArtDecomp
     describe '#seps' do
       it 'returns the combined Seps of all the Puts' do
         seps = Seps.new([0b110, 0b101, 0b011])
-        Puts.new([Put[%i(a a b)], Put[%i(a b b)]]).seps.must_equal seps
+        _(Puts.new([Put[%i(a a b)], Put[%i(a b b)]]).seps).must_equal seps
       end
 
       it 'returns empty Seps for empty Puts' do
-        Puts.new.seps.must_equal Seps.new
+        _(Puts.new.seps).must_equal Seps.new
       end
     end
 
     describe '#size' do
       it 'returns the number of Puts' do
-        Puts.new.size.must_equal 0
-        puts.size.must_equal 2
+        _(Puts.new.size).must_equal 0
+        _(puts.size).must_equal 2
       end
     end
 
     describe '#to_s' do
       it 'returns a readable representation' do
-        puts.to_s.must_equal <<-end.dedent
+        _(puts.to_s).must_equal <<-end.dedent
           a b
           b a
         end
@@ -176,7 +177,7 @@ module ArtDecomp
 
     describe '#uniq' do
       it 'returns a Puts with only unique members' do
-        Puts.new([a0b1, a1b0, a0b1]).uniq.must_equal puts
+        _(Puts.new([a0b1, a1b0, a0b1]).uniq).must_equal puts
       end
     end
   end
