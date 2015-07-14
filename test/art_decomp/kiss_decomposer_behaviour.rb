@@ -13,8 +13,8 @@ module ArtDecomp
                 decs       = [c1, c2].to_enum
                 decomposer = fake(Decomposer, as: :class, decompositions: decs)
                 presenter  = fake(:circuit_presenter, as: :class)
-                stub(presenter).vhdl_for(c1, name: 'foo_0') { 'VHDL for foo_0' }
-                stub(presenter).vhdl_for(c2, name: 'foo_1') { 'VHDL for foo_1' }
+                stub(presenter).vhdl_for(c1, name: 'foo_0') { 'foo_0 VHDL' }
+                stub(presenter).vhdl_for(c2, name: 'foo_1') { 'foo_1 VHDL' }
                 parser = fake(:circ_kiss_parser, circuit_for: fake(:circ))
                 args   = %W(--dir=#{vhdl_path} baz/bar/foo.kiss)
                 decomp = kiss_decomposer.new(args,
@@ -23,8 +23,8 @@ module ArtDecomp
                                              kiss_parser: parser)
                 decomp.decompose
               end
-              File.read("#{vhdl_path}/foo_0.vhdl").must_equal 'VHDL for foo_0'
-              File.read("#{vhdl_path}/foo_1.vhdl").must_equal 'VHDL for foo_1'
+              _(File.read("#{vhdl_path}/foo_0.vhdl")).must_equal 'foo_0 VHDL'
+              _(File.read("#{vhdl_path}/foo_1.vhdl")).must_equal 'foo_1 VHDL'
             end
           end
         end
