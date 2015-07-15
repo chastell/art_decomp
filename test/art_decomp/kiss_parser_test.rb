@@ -16,7 +16,7 @@ module ArtDecomp
         outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)],
                                  codes: %i(0 1))
         circuit = Circuit.from_puts(ins: ins, outs: outs)
-        KISSParser.circuit_for(kiss).must_equal circuit
+        _(KISSParser.circuit_for(kiss)).must_equal circuit
       end
     end
   end
