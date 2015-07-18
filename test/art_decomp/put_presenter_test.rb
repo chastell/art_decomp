@@ -6,11 +6,11 @@ module ArtDecomp
   describe PutPresenter do
     describe '#bin_column' do
       it 'returns binary column representation of the Put' do
-        PutPresenter.new(Put[%i(0 - 1)]).bin_column.must_equal %w(0 - 1)
+        _(PutPresenter.new(Put[%i(0 - 1)]).bin_column).must_equal %w(0 - 1)
       end
 
       it 'represents inputs alphabetically with enough bits' do
-        PutPresenter.new(Put[%i(HG HG HY FG FY -)]).bin_column.must_equal %w(
+        _(PutPresenter.new(Put[%i(HG HG HY FG FY -)]).bin_column).must_equal %w(
           10
           10
           11
@@ -21,7 +21,7 @@ module ArtDecomp
       end
 
       it 'returns encoded binary inputs with their values' do
-        PutPresenter.new(Put[%i(1 - 0)]).bin_column.must_equal %w(1 - 0)
+        _(PutPresenter.new(Put[%i(1 - 0)]).bin_column).must_equal %w(1 - 0)
       end
     end
   end
