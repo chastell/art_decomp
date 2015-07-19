@@ -23,21 +23,21 @@ module ArtDecomp
       let(:rpf) { RequiredPutsFilter       }
 
       it 'returns an Array of Puts required by the given Seps' do
-        anb = Put[%i(0 0 0 0 0 0 1 1)]
-        rpf.required(puts: Puts.new([a, b, c]), required_seps: anb.seps)
-          .must_equal Puts.new([a, b])
+        anb  = Put[%i(0 0 0 0 0 0 1 1)]
+        puts = rpf.required(puts: Puts.new([a, b, c]), required_seps: anb.seps)
+        _(puts).must_equal Puts.new([a, b])
       end
 
       it 'preserves Put order' do
-        buc = Put[%i(0 1 1 1 0 1 1 1)]
-        rpf.required(puts: Puts.new([a, b, c]), required_seps: buc.seps)
-          .must_equal Puts.new([b, c])
+        buc  = Put[%i(0 1 1 1 0 1 1 1)]
+        puts = rpf.required(puts: Puts.new([a, b, c]), required_seps: buc.seps)
+        _(puts).must_equal Puts.new([b, c])
       end
 
       it 'returns an empty Array if there are no Seps' do
-        one = Put[%i(1 1 1 1 1 1 1 1)]
-        rpf.required(puts: Puts.new([a, b, c]), required_seps: one.seps)
-          .must_be_empty
+        one  = Put[%i(1 1 1 1 1 1 1 1)]
+        puts = rpf.required(puts: Puts.new([a, b, c]), required_seps: one.seps)
+        _(puts).must_be_empty
       end
     end
   end
