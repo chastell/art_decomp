@@ -10,7 +10,7 @@ module ArtDecomp
                                   %i(- 0 1 - - 0 - 1 - -),
                                   %i(- - - 0 1 - - - 0 1)]) +
                Puts.from_columns([%i(HG HG HG HY HY FG FG FG FY FY)])
-        PutsPresenter.new(puts).bin_columns.must_equal %w(
+        _(PutsPresenter.new(puts).bin_columns).must_equal %w(
           0--10
           -0-10
           11-10
