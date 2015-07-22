@@ -23,13 +23,13 @@ module ArtDecomp
           [fun_a, :outs, fun_a.outs, fun_a.outs[0]],
           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]],
         )
-        fa.must_equal wire
+        _(fa).must_equal wire
       end
     end
 
     describe '#inspect' do
       it 'returns self-initialising representation' do
-        wire.inspect.must_equal 'ArtDecomp::Wire[ArtDecomp::Pin['              \
+        _(wire.inspect).must_equal 'ArtDecomp::Wire[ArtDecomp::Pin['           \
         'ArtDecomp::Function.new(ins: ArtDecomp::Puts.new([]), '               \
         'outs: ArtDecomp::Puts.new([ArtDecomp::Put[%i(b a), '                  \
         'codes: %i(a b)]])), :outs, 0, 1, 0], '                                \
