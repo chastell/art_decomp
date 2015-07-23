@@ -33,13 +33,13 @@ module ArtDecomp
           [[fun_a, :outs, fun_a.outs, fun_a.outs[1]],
            [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]],
         ])
-        fa.must_equal wires
+        _(fa).must_equal wires
       end
     end
 
     describe '.new' do
       it 'defaults to empty Wires' do
-        Wires.new.must_equal Wires.new([])
+        _(Wires.new).must_equal Wires.new([])
       end
     end
 
@@ -53,19 +53,19 @@ module ArtDecomp
           [[fun_a, :outs, fun_a.outs, fun_a.outs[1]],
            [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]],
         ])
-        (a + b).must_equal wires
+        _(a + b).must_equal wires
       end
     end
 
     describe '#==' do
       it 'compares two Wires with regard to contents' do
-        wires.must_equal Wires.new([
+        _(wires).must_equal Wires.new([
           Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
                            [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]),
           Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1]],
                            [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]),
         ])
-        wires.wont_equal Wires.new([
+        _(wires).wont_equal Wires.new([
           Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
                            [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]),
           Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[1]],
@@ -78,7 +78,7 @@ module ArtDecomp
       it 'allows iterating over the contents' do
         coll = []
         wires.each { |wire| coll << wire }
-        coll.flat_map(&:destination).map(&:index).must_equal [1, 0]
+        _(coll.flat_map(&:destination).map(&:index)).must_equal [1, 0]
       end
     end
   end
