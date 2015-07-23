@@ -93,7 +93,7 @@ DEPENDENCIES
   minitest-focus (~> 1.1)
   pry (~> 0.10.0)
   rake (~> 10.1)
-  reek (~> 3.0)
+  reek (~> 3.1)
   rerun (~> 0.10.0)
   rubocop (~> 0.32.0)
 
