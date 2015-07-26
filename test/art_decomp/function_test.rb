@@ -47,6 +47,12 @@ module ArtDecomp
       end
     end
 
+    describe '#size' do
+      it 'returns the number of rows' do
+        _(function.size).must_equal 3
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         _(function.to_s).must_equal <<-end.dedent

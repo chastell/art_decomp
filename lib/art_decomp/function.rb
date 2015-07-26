@@ -14,6 +14,10 @@ module ArtDecomp
       "#{self.class}.new(ins: #{ins.inspect}, outs: #{outs.inspect})"
     end
 
+    def size
+      ins.first.size
+    end
+
     def to_s
       FunctionPresenter.new(self).simple
     end
