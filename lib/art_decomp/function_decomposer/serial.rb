@@ -58,7 +58,7 @@ module ArtDecomp
         def g_outs
           @g_outs ||= Puts.from_seps(allowed:  v_ins.seps,
                                      required: function.outs.seps - u_ins.seps,
-                                     size:     function.ins.first.size)
+                                     size:     function.size)
         end
 
         def h
