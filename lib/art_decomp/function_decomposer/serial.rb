@@ -15,7 +15,7 @@ module ArtDecomp
 
       def decompositions
         Enumerator.new do |yielder|
-          uv_ins.each do |u_ins, v_ins|
+          each_uv do |u_ins, v_ins|
             dec = Decomposition.new(function: function,
                                     u_ins: u_ins, v_ins: v_ins)
             yielder << dec.circuit if dec.sensible?
@@ -27,13 +27,11 @@ module ArtDecomp
 
       alias_method :function, :__getobj__
 
-      def uv_ins                               # rubocop:disable Metrics/AbcSize
+      def each_uv                              # rubocop:disable Metrics/AbcSize
         sorted = ins.sort_by { |put| (outs.seps & put.seps).count }
-        Enumerator.new do |yielder|
-          [3, 2].each do |g_width|
-            sorted.combination(g_width).each do |v_ins|
-              yielder << [Puts.new(ins.puts - v_ins), Puts.new(v_ins)]
-            end
+        [3, 2].each do |g_width|
+          sorted.combination(g_width).each do |v_ins|
+            yield Puts.new(ins.puts - v_ins), Puts.new(v_ins)
           end
         end
       end
