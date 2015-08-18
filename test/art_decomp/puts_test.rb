@@ -119,6 +119,18 @@ module ArtDecomp
       end
     end
 
+    describe '#combination' do
+      it 'yields subsequent Puts with different Put combinations' do
+        puts = Puts.from_columns([%i(a b c), %i(b a c), %i(c a b)])
+        _(puts.combination(2)).must_be_kind_of Enumerator
+        _(puts.combination(2).to_a).must_equal [
+          Puts.from_columns([%i(a b c), %i(b a c)]),
+          Puts.from_columns([%i(a b c), %i(c a b)]),
+          Puts.from_columns([%i(b a c), %i(c a b)]),
+        ]
+      end
+    end
+
     describe '#each' do
       it 'yields subsequent Puts' do
         array = puts.each.with_object([]) { |put, arr| arr << put }

@@ -50,6 +50,12 @@ module ArtDecomp
       map(&:binwidth).reduce(0, :+)
     end
 
+    def combination(size)
+      Enumerator.new do |yielder|
+        puts.combination(size).each { |puts| yielder << self.class.new(puts) }
+      end
+    end
+
     def inspect
       "#{self.class}.new(#{puts.inspect})"
     end
