@@ -166,6 +166,15 @@ module ArtDecomp
       end
     end
 
+    describe '#sort_by' do
+      it 'returns a Puts sorted according to the passed block' do
+        random = Puts.from_columns([%i(a a a), %i(a b c), %i(a b b)])
+        sorted = Puts.from_columns([%i(a b c), %i(a b b), %i(a a a)])
+        _(random.sort_by).must_be_kind_of Enumerator
+        _(random.sort_by { |put| -put.seps.count }).must_equal sorted
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         _(puts.to_s).must_equal <<-end.dedent
