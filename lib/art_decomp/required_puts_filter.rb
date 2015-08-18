@@ -13,11 +13,11 @@ module ArtDecomp
 
     def required_puts
       remaining = required_seps
-      Puts.new(sorted_puts.take_while do |put|
+      sorted_puts.take_while do |put|
         empty = remaining.empty?
         remaining -= put.seps
         not empty
-      end)
+      end
     end
 
     private_attr_reader :required_seps, :sorted_puts

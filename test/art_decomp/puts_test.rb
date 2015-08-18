@@ -187,6 +187,18 @@ module ArtDecomp
       end
     end
 
+    describe '#take_while' do
+      it 'returns a Puts consisting of first Puts matching the block' do
+        aaa = Put[%i(a a a)]
+        abb = Put[%i(a b b)]
+        abc = Put[%i(a b c)]
+        puts = Puts.new([aaa, abc, abb])
+        _(puts.take_while).must_be_kind_of Enumerator
+        _(puts.take_while { |put| put.seps.empty? }).must_equal Puts.new([aaa])
+        _(puts.take_while { |put| put != abb }).must_equal Puts.new([aaa, abc])
+      end
+    end
+
     describe '#to_s' do
       it 'returns a readable representation' do
         _(puts.to_s).must_equal <<-end.dedent

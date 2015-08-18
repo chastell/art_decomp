@@ -69,6 +69,11 @@ module ArtDecomp
       self.class.new(puts.sort_by(&block))
     end
 
+    def take_while(&block)
+      return to_enum(__method__) unless block_given?
+      self.class.new(puts.take_while(&block))
+    end
+
     def to_s
       PutsPresenter.new(self).simple.join("\n") + "\n"
     end
