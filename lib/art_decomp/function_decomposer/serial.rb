@@ -27,12 +27,10 @@ module ArtDecomp
 
       alias_method :function, :__getobj__
 
-      def each_uv                              # rubocop:disable Metrics/AbcSize
+      def each_uv
         sorted = ins.sort_by { |put| (outs.seps & put.seps).count }
         [3, 2].each do |g_width|
-          sorted.puts.combination(g_width).each do |v_ins|
-            yield Puts.new(ins.puts - v_ins), Puts.new(v_ins)
-          end
+          sorted.combination(g_width).each { |v_ins| yield ins - v_ins, v_ins }
         end
       end
 
