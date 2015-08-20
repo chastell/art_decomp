@@ -100,8 +100,8 @@ module ArtDecomp
       private
 
       def acceptable?(column, row, code)
-        column.map.with_index.all? do |other, i|
-          other == :- or other == code or allowed.separates?(row, i)
+        column.map.with_index.all? do |other, index|
+          other == :- or other == code or allowed.separates?(row, index)
         end
       end
 
