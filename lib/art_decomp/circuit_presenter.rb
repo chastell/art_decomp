@@ -79,7 +79,7 @@ module ArtDecomp
           end
 
           def labels
-            Array.new(binwidth) { |n| "#{prefix}_#{suffix(n)}" }
+            Array.new(binwidth) { |index| "#{prefix}_#{suffix(index)}" }
           end
 
           private
@@ -96,8 +96,8 @@ module ArtDecomp
             end
           end
 
-          def suffix(n)
-            "#{group}(#{offset + n})"
+          def suffix(index)
+            "#{group}(#{offset + index})"
           end
         end
       end
