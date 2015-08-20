@@ -9,7 +9,7 @@ module ArtDecomp
 
     def self.from_column(column)               # rubocop:disable Metrics/AbcSize
       ones   = (1 << column.size) - 1
-      coding = (0...column.size).group_by { |i| column[i] }
+      coding = (0...column.size).group_by(&column.method(:[]))
       matrix = column.map do |code|
         code == :- ? 0 : ones & ~B[*coding[code]] & ~B[*coding[:-]]
       end
