@@ -18,8 +18,8 @@ module ArtDecomp
 
     def decompose
       circuit = kiss_parser.circuit_for(File.read(kiss_path))
-      decomposer.decompositions(circuit).each.with_index do |dc, i|
-        name = "#{File.basename(kiss_path, '.kiss')}_#{i}"
+      decomposer.decompositions(circuit).each.with_index do |dc, index|
+        name = "#{File.basename(kiss_path, '.kiss')}_#{index}"
         vhdl = circuit_presenter.vhdl_for(dc, name: name)
         File.write "#{vhdl_path}/#{name}.vhdl", vhdl
       end
