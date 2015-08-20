@@ -20,15 +20,18 @@ module ArtDecomp
       @matrix = MatrixNormaliser.normalise(matrix)
     end
 
+    # :reek:UncommunicativeVariableName
     def &(other)
       smaller, larger = [matrix, other.matrix].sort_by(&:size)
       self.class.new(smaller.zip(larger).map { |a, b| a & b })
     end
 
+    # :reek:UncommunicativeVariableName
     def -(other)
       self.class.new(matrix.zip(other.matrix).map { |a, b| b ? a & ~b : a })
     end
 
+    # :reek:UncommunicativeVariableName
     def |(other)
       smaller, larger = [matrix, other.matrix].sort_by(&:size)
       self.class.new(larger.zip(smaller).map { |a, b| b ? a | b : a })

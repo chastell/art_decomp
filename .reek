@@ -1,47 +1,8 @@
 DuplicateMethodCall:
-  exclude:
-    - ArtDecomp::ArchSizer#min_quarters
-    - ArtDecomp::FunctionDecomposer#decompose
-    - ArtDecomp::Puts::PutsFromSeps#puts
-    - ArtDecomp::Seps#self.from_column
-    - ArtDecomp::Seps#separates?
-    - ArtDecomp::Wirer#ins_array
-    - ArtDecomp::Wirer#outs_array
+  max_calls: 2
 
 IrresponsibleModule:
   enabled: false
 
-LongParameterList:
-  exclude:
-    - ArtDecomp::FSM#self.from_puts
-
 NestedIterators:
   max_allowed_nesting: 2
-
-TooManyStatements:
-  exclude:
-    - ArtDecomp::ArchSizer#max_quarters
-    - ArtDecomp::Seps#self.from_column
-
-UncommunicativeModuleName:
-  exclude:
-    - ArtDecomp::B
-
-UncommunicativeParameterName:
-  exclude:
-    - ArtDecomp::Arch#self.[]
-    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#suffix
-
-UncommunicativeVariableName:
-  exclude:
-    - ArtDecomp::Circuit::Wirer#ins_wires
-    - ArtDecomp::Circuit::Wirer#outs_wires
-    - ArtDecomp::CircuitPresenter::WiresPresenter::WirePresenter::PinPresenter#labels
-    - ArtDecomp::FunctionDecomposer::Parallel#decompositions
-    - ArtDecomp::FunctionDecomposer::Parallel#merged
-    - ArtDecomp::KISSDecomposer#decompose
-    - ArtDecomp::RequiredPutsFilter#initialize
-    - ArtDecomp::Seps#&
-    - ArtDecomp::Seps#-
-    - ArtDecomp::Seps#self.from_column
-    - ArtDecomp::Seps#|

@@ -1,4 +1,5 @@
 module ArtDecomp
+  # :reek:UncommunicativeModuleName
   module B
     module_function
 

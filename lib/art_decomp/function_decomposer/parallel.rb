@@ -28,6 +28,7 @@ module ArtDecomp
 
       alias_method :function, :__getobj__
 
+      # :reek:UncommunicativeVariableName
       def merged
         @merged ||= begin
           split = outs.map { |o| Function.new(ins: ins, outs: Puts.new([o])) }

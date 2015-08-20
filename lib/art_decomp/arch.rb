@@ -4,6 +4,7 @@ module ArtDecomp
   class Arch
     include Anima.new(:i, :o)
 
+    # :reek:UncommunicativeParameterName
     def self.[](i, o)
       new(i: i, o: o)
     end

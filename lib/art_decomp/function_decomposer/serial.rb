@@ -47,6 +47,7 @@ module ArtDecomp
 
         private
 
+        # :reek:UncommunicativeMethodName
         def g
           @g ||= Function.new(ins: v_ins, outs: g_outs)
         end
@@ -57,6 +58,7 @@ module ArtDecomp
                                      size:     function.size)
         end
 
+        # :reek:UncommunicativeMethodName
         def h
           @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
         end
