@@ -21,7 +21,7 @@ GEM
       parser (~> 2.2)
     bogus (0.1.6)
       dependor (>= 0.0.4)
-    celluloid (0.16.1)
+    celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
     concord (0.1.5)
@@ -99,4 +99,4 @@ DEPENDENCIES
   rubocop (~> 0.33.0)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
