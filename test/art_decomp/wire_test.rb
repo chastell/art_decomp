@@ -32,10 +32,10 @@ module ArtDecomp
         _(wire.inspect).must_equal 'ArtDecomp::Wire[ArtDecomp::Pin['           \
         'ArtDecomp::Function.new(ins: ArtDecomp::Puts.new([]), '               \
         'outs: ArtDecomp::Puts.new([ArtDecomp::Put[%i(b a), '                  \
-        'codes: %i(a b)]])), :outs, 0, 1, 0], '                                \
+        'codes: %i(a b)]])), :outs, 1, 0], '                                   \
         'ArtDecomp::Pin[ArtDecomp::Function.new(ins: '                         \
         'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), codes: %i(a b c)]]), ' \
-        'outs: ArtDecomp::Puts.new([])), :ins, 0, 2, 0]]'
+        'outs: ArtDecomp::Puts.new([])), :ins, 2, 0]]'
       end
     end
   end

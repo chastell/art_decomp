@@ -13,7 +13,7 @@ module ArtDecomp
           .must_equal 'ArtDecomp::Pin[ArtDecomp::Function.new(ins: ' \
             'ArtDecomp::Puts.new([ArtDecomp::Put[%i(a b c), '        \
             'codes: %i(a b c)]]), '                                  \
-            'outs: ArtDecomp::Puts.new([])), :ins, 0, 2, 0]'
+            'outs: ArtDecomp::Puts.new([])), :ins, 2, 0]'
       end
     end
   end

@@ -78,7 +78,7 @@ module ArtDecomp
       it 'allows iterating over the contents' do
         coll = []
         wires.each { |wire| coll << wire }
-        _(coll.flat_map(&:destination).map(&:index)).must_equal [1, 0]
+        _(coll.flat_map(&:destination).map(&:group)).must_equal [:ins, :ins]
       end
     end
   end

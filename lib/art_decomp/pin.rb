@@ -13,17 +13,13 @@ module ArtDecomp
       put.binwidth
     end
 
-    def index
-      puts.index(put)
-    end
-
     def inspect
       "#{self.class}" \
-      "[#{object.inspect}, #{group.inspect}, #{index}, #{binwidth}, #{offset}]"
+      "[#{object.inspect}, #{group.inspect}, #{binwidth}, #{offset}]"
     end
 
     def offset
-      puts[0...index].binwidth
+      puts[0...puts.index(put)].binwidth
     end
   end
 end
