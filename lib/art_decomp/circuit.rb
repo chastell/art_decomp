@@ -14,7 +14,12 @@ module ArtDecomp
       new(functions: [function], wires: wires)
     end
 
-    def adm_size(archs_sizer: ArchsSizer)
+    def initialize(archs_sizer: ArchSizer, **anima_attributes)
+      super(**anima_attributes)
+      @archs_sizer = archs_sizer
+    end
+
+    def adm_size
       @adm_size ||= archs_sizer.adm_size(function_archs)
     end
 
@@ -26,15 +31,17 @@ module ArtDecomp
       functions.max_by(&:arch)
     end
 
-    def max_size(archs_sizer: ArchsSizer)
+    def max_size
       @max_size ||= archs_sizer.max_size(function_archs)
     end
 
-    def min_size(archs_sizer: ArchsSizer)
+    def min_size
       @min_size ||= archs_sizer.min_size(function_archs)
     end
 
     private
+
+    private_attr_reader :archs_sizer
 
     def function_archs
       functions.map(&:arch)

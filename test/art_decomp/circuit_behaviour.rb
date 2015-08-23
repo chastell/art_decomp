@@ -6,10 +6,12 @@ module ArtDecomp
   module CircuitBehaviour
     def self.included(spec_class)
       spec_class.class_eval do
+        let(:archs_sizer) { fake(ArchsSizer, as: :class) }
+
         describe '#adm_size' do
           it 'returns the admissible heuristic size of the Circuit' do
-            stub(cs = fake(ArchsSizer, as: :class)).adm_size([]) { 7 }
-            _(empty.adm_size(archs_sizer: cs)).must_equal 7
+            stub(archs_sizer).adm_size([]) { 7 }
+            _(empty.adm_size).must_equal 7
           end
         end
 
@@ -43,15 +45,15 @@ module ArtDecomp
 
         describe '#max_size' do
           it 'returns the maximum size of the Circuit' do
-            stub(cs = fake(ArchsSizer, as: :class)).max_size([]) { 7 }
-            _(empty.max_size(archs_sizer: cs)).must_equal 7
+            stub(archs_sizer).max_size([]) { 7 }
+            _(empty.max_size).must_equal 7
           end
         end
 
         describe '#min_size' do
           it 'returns the smallest possible size of the Circuit' do
-            stub(cs = fake(ArchsSizer, as: :class)).min_size([]) { 7 }
-            _(empty.min_size(archs_sizer: cs)).must_equal 7
+            stub(archs_sizer).min_size([]) { 7 }
+            _(empty.min_size).must_equal 7
           end
         end
 

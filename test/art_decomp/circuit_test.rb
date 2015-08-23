@@ -10,7 +10,7 @@ module ArtDecomp
     include CircuitBehaviour
 
     let(:empty) do
-      Circuit.new(functions: [], wires: Wires.new)
+      Circuit.new(archs_sizer: archs_sizer, functions: [], wires: Wires.new)
     end
 
     describe '.from_puts' do
