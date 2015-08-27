@@ -37,8 +37,7 @@ module ArtDecomp
             f23 = fake(Function, arch: Arch[2,3])
             f32 = fake(Function, arch: Arch[3,2])
             f33 = fake(Function, arch: Arch[3,3])
-            functions = [f23, f32, f33]
-            nonempty = empty.update(functions: functions)
+            nonempty = empty.update(functions: [f23, f32, f33])
             _(nonempty.largest_function).must_equal f33
           end
         end
