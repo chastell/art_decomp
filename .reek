@@ -1,6 +1,3 @@
-DuplicateMethodCall:
-  max_calls: 2
-
 IrresponsibleModule:
   enabled: false
 
