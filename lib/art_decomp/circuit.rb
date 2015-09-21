@@ -6,7 +6,6 @@ require_relative 'wirer'
 module ArtDecomp
   class Circuit
     include Anima.new(:functions, :wires)
-    include Anima::Update
 
     def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)

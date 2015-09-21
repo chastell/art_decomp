@@ -35,7 +35,7 @@ module ArtDecomp
 
     describe '#recoders' do
       it 'gets the Recorders' do
-        _(empty.update(recoders: recs = fake(Array)).recoders).must_equal recs
+        _(empty.with(recoders: recs = fake(Array)).recoders).must_equal recs
       end
     end
   end

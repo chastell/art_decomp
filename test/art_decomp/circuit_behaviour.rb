@@ -18,7 +18,7 @@ module ArtDecomp
         describe '#functions' do
           it 'gets the functions' do
             functions = fake(Array)
-            _(empty.update(functions: functions).functions).must_equal functions
+            _(empty.with(functions: functions).functions).must_equal functions
           end
         end
 
@@ -26,7 +26,7 @@ module ArtDecomp
           it 'returns a readable representation' do
             f1 = fake(Function, arch: Arch[2,1])
             f2 = fake(Function, arch: Arch[4,3])
-            inspect = empty.update(functions: [f1, f2]).inspect
+            inspect = empty.with(functions: [f1, f2]).inspect
             _(inspect).must_equal "#{empty.class}([ArtDecomp::Arch[2,1], " \
                                                   'ArtDecomp::Arch[4,3]])'
           end
@@ -37,7 +37,7 @@ module ArtDecomp
             f23 = fake(Function, arch: Arch[2,3])
             f32 = fake(Function, arch: Arch[3,2])
             f33 = fake(Function, arch: Arch[3,3])
-            nonempty = empty.update(functions: [f23, f32, f33])
+            nonempty = empty.with(functions: [f23, f32, f33])
             _(nonempty.largest_function).must_equal f33
           end
         end
@@ -58,7 +58,7 @@ module ArtDecomp
 
         describe '#wires' do
           it 'gets the wires' do
-            _(empty.update(wires: wires = fake(Array)).wires).must_equal wires
+            _(empty.with(wires: wires = fake(Array)).wires).must_equal wires
           end
         end
       end
