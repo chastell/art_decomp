@@ -13,12 +13,7 @@ module ArtDecomp
         FSMKISSParser.circuit_for(File.read('test/fixtures/mc.kiss'))
       end
 
-      it 'returns VHDL for the given Circuit' do
-        vhdl = FSMPresenter.vhdl_for(mc, name: 'mc')
-        _(vhdl).must_equal File.read('test/fixtures/mc.vhdl')
-      end
-
-      it 'returns VHDL for the given decomposed Circuit' do
+      let(:mc_decd) do
         f0ins  = Puts.from_columns([%i(0 0 0 0 1 1 1 1), %i(0 0 1 1 0 0 1 1)]) +
                  Puts.from_columns([%i(a b a b a b a b)])
         f0outs = Puts.from_columns([%i(b a b a a a b b), %i(a b a b a b a b)])
@@ -59,7 +54,15 @@ module ArtDecomp
           [[f1, :outs, f1.outs, f1.outs[5]], [:circuit, :outs, outs, outs[3]]],
           [[f1, :outs, f1.outs, f1.outs[6]], [:circuit, :outs, outs, outs[4]]],
         ])
-        mc_decd = FSM.new(functions: [f0, f1], recoders: [r0, r1], wires: wires)
+        FSM.new(functions: [f0, f1], recoders: [r0, r1], wires: wires)
+      end
+
+      it 'returns VHDL for the given Circuit' do
+        vhdl = FSMPresenter.vhdl_for(mc, name: 'mc')
+        _(vhdl).must_equal File.read('test/fixtures/mc.vhdl')
+      end
+
+      it 'returns VHDL for the given decomposed Circuit' do
         vhdl = FSMPresenter.vhdl_for(mc_decd, name: 'mc')
         _(vhdl).must_equal File.read('test/fixtures/mc.decomposed.vhdl')
       end
