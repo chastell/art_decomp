@@ -9,7 +9,7 @@ module ArtDecomp
     extend Forwardable
 
     def initialize(args, circuit_presenter: CircuitPresenter,
-                         decomposer: Decomposer, kiss_parser: KISSParser)
+                   decomposer: Decomposer, kiss_parser: KISSParser)
       @circuit_presenter = circuit_presenter
       @decomposer        = decomposer
       @kiss_parser       = kiss_parser

@@ -6,7 +6,7 @@ require_relative 'kiss_decomposer'
 module ArtDecomp
   class FSMKISSDecomposer < KISSDecomposer
     def initialize(args, circuit_presenter: FSMPresenter,
-                         decomposer: Decomposer, kiss_parser: FSMKISSParser)
+                   decomposer: Decomposer, kiss_parser: FSMKISSParser)
       super
     end
   end
