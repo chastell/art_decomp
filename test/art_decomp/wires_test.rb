@@ -47,11 +47,11 @@ module ArtDecomp
       it 'sums the two Wires objects' do
         a = Wires.from_array([
           [[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]]]
         ])
         b = Wires.from_array([
           [[fun_a, :outs, fun_a.outs, fun_a.outs[1]],
-           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]],
+           [fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]]
         ])
         _(a + b).must_equal wires
       end
