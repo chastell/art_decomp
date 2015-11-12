@@ -81,5 +81,15 @@ module ArtDecomp
         _(coll.flat_map(&:destination).map(&:group)).must_equal [:ins, :ins]
       end
     end
+
+    describe '#reject' do
+      it 'returns a Wires with the given Wire objects rejected' do
+        smaller = wires.reject { |wire| wire.source.offset == 1 }
+        _(smaller).must_equal Wires.new([
+          Wire.from_arrays([fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+                           [fun_b, :ins,  fun_b.ins,  fun_b.ins[1]])
+        ])
+      end
+    end
   end
 end

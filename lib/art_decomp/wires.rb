@@ -21,5 +21,9 @@ module ArtDecomp
     end
 
     delegate each: :wires
+
+    def reject
+      self.class.new(super)
+    end
   end
 end

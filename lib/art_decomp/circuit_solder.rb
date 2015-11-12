@@ -52,9 +52,9 @@ module ArtDecomp
     end
 
     def new_wires
-      Wires.new(decomposed.wires.reject do |wire|
+      decomposed.wires.reject do |wire|
         wire.source.object == :circuit or wire.destination.object == :circuit
-      end)
+      end
     end
 
     def source_pin(wire)
