@@ -5,14 +5,15 @@ require_relative 'wires'
 
 module ArtDecomp
   class CircuitSolder
-    def self.replace(circuit, function, decomposed)
-      new(circuit, function, decomposed).replaced
+    def self.replace(composed:, decomposed:, function:)
+      cs = new(composed: composed, decomposed: decomposed, function: function)
+      cs.replaced
     end
 
-    def initialize(circuit, function, decomposed)
-      @circuit    = circuit
-      @function   = function
+    def initialize(composed:, decomposed:, function:)
+      @composed   = composed
       @decomposed = decomposed
+      @function   = function
     end
 
     def replaced
@@ -21,7 +22,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :circuit, :function, :decomposed
+    private_attr_reader :composed, :decomposed, :function
 
     def adjusted_wire(wire)
       case
@@ -35,7 +36,7 @@ module ArtDecomp
     end
 
     def adjusted_wires
-      Wires.new(circuit.wires.map { |wire| adjusted_wire(wire) })
+      Wires.new(composed.wires.map { |wire| adjusted_wire(wire) })
     end
 
     def destination_pin(wire)
@@ -47,7 +48,7 @@ module ArtDecomp
     end
 
     def functions
-      circuit.functions - [function] + decomposed.functions
+      composed.functions - [function] + decomposed.functions
     end
 
     def new_wires

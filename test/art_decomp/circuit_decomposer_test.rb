@@ -15,8 +15,10 @@ module ArtDecomp
         mock(fd).decompose(fun) { [c1, c2] }
         d1, d2  = fake(Circuit), fake(Circuit)
         solder  = fake(CircuitSolder, as: :class)
-        mock(solder).replace(circuit, fun, c1) { d1 }
-        mock(solder).replace(circuit, fun, c2) { d2 }
+        mock(solder).replace(composed: circuit, decomposed: c1,
+                             function: fun) { d1 }
+        mock(solder).replace(composed: circuit, decomposed: c2,
+                             function: fun) { d2 }
         decs = CircuitDecomposer.decompose(circuit, function_decomposer: fd,
                                                     circuit_solder: solder)
         _(decs.to_a).must_equal [d1, d2]
