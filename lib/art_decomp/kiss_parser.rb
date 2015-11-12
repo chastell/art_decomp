@@ -1,4 +1,5 @@
 require_relative 'circuit'
+require_relative 'function'
 require_relative 'puts'
 
 module ArtDecomp
@@ -7,12 +8,20 @@ module ArtDecomp
       new(kiss).circuit
     end
 
+    def self.function_for(kiss)
+      new(kiss).function
+    end
+
     def initialize(kiss)
       @kiss = kiss
     end
 
     def circuit
       Circuit.from_puts(puts)
+    end
+
+    def function
+      Function.new(puts)
     end
 
     private
