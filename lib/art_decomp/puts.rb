@@ -69,9 +69,9 @@ module ArtDecomp
       self.class.new(super)
     end
 
-    def take_while(&block)
+    def take_while
       return to_enum(__method__) unless block_given?
-      self.class.new(puts.take_while(&block))
+      self.class.new(super)
     end
 
     def to_s
