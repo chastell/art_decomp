@@ -1,6 +1,6 @@
 module ArtDecomp
   class CircuitSolder
-    def replace(circuit, function, decomposed)
+    def self.replace(circuit, function, decomposed)
     end
   end
 end

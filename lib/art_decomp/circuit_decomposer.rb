@@ -5,7 +5,7 @@ module ArtDecomp
   module CircuitDecomposer
     module_function
 
-    def decompose(circuit, circuit_solder: CircuitSolder.new,
+    def decompose(circuit, circuit_solder: CircuitSolder,
                   function_decomposer: FunctionDecomposer)
       function = circuit.largest_function
       Enumerator.new do |yielder|
