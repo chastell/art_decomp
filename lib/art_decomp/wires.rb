@@ -17,7 +17,7 @@ module ArtDecomp
     end
 
     def +(other)
-      Wires.new(wires + other.wires)
+      self.class.new(wires + other.wires)
     end
 
     delegate each: :wires
