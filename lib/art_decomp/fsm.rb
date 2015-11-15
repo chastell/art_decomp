@@ -12,10 +12,5 @@ module ArtDecomp
       wires = Wirer.wires(function, ins: ins, outs: outs)
       new(functions: [function], recoders: [], wires: wires)
     end
-
-    # FIXME: figure out a way to inherit this
-    def inspect
-      "#{self.class}(#{function_archs})"
-    end
   end
 end

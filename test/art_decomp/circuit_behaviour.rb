@@ -22,16 +22,6 @@ module ArtDecomp
           end
         end
 
-        describe '#inspect' do
-          it 'returns a readable representation' do
-            f1 = fake(Function, arch: Arch[2,1])
-            f2 = fake(Function, arch: Arch[4,3])
-            inspect = empty.with(functions: [f1, f2]).inspect
-            _(inspect).must_equal "#{empty.class}([ArtDecomp::Arch[2,1], " \
-                                                  'ArtDecomp::Arch[4,3]])'
-          end
-        end
-
         describe '#largest_function' do
           it 'returns the largest Function (input- and output-wise)' do
             f23 = fake(Function, arch: Arch[2,3])

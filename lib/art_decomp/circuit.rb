@@ -22,10 +22,6 @@ module ArtDecomp
       @adm_size ||= archs_sizer.adm_size(function_archs)
     end
 
-    def inspect
-      "#{self.class}(#{function_archs})"
-    end
-
     def largest_function
       functions.max_by(&:arch)
     end
