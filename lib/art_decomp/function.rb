@@ -1,6 +1,5 @@
 require 'anima'
 require_relative 'arch'
-require_relative 'function_presenter'
 
 module ArtDecomp
   class Function
@@ -16,10 +15,6 @@ module ArtDecomp
 
     def size
       ins.first.size
-    end
-
-    def to_s
-      FunctionPresenter.new(self).simple
     end
   end
 end

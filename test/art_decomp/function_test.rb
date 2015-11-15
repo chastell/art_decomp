@@ -52,15 +52,5 @@ module ArtDecomp
         _(function.size).must_equal 3
       end
     end
-
-    describe '#to_s' do
-      it 'returns a readable representation' do
-        _(function.to_s).must_equal <<-end.dedent
-          0 s1 | 1 s3
-          1 s2 | - s1
-          - s3 | 0 s2
-        end
-      end
-    end
   end
 end
