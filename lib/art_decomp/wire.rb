@@ -12,9 +12,5 @@ module ArtDecomp
     def self.from_arrays(source, destination)
       new(source: Pin[*source], destination: Pin[*destination])
     end
-
-    def inspect
-      "#{self.class}[#{source.inspect}, #{destination.inspect}]"
-    end
   end
 end
