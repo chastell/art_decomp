@@ -162,15 +162,5 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
         _(sep_03_13.seps_of(4)).must_equal []
       end
     end
-
-    describe '#to_s' do
-      it 'returns a readable representation' do
-        _(sep_01_02.to_s).must_equal <<-end.dedent
-          . x x
-          x . .
-          x . .
-        end
-      end
-    end
   end
 end
