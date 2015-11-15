@@ -1,7 +1,6 @@
 require 'anima'
 require 'forwardable'
 require_relative 'put'
-require_relative 'puts_presenter'
 require_relative 'seps'
 
 module ArtDecomp
@@ -72,10 +71,6 @@ module ArtDecomp
     def take_while
       return to_enum(__method__) unless block_given?
       self.class.new(super)
-    end
-
-    def to_s
-      PutsPresenter.new(self).simple.join("\n") + "\n"
     end
 
     def uniq
