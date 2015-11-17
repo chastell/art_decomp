@@ -23,18 +23,6 @@ module ArtDecomp
       end
     end
 
-    describe '#inspect' do
-      it 'returns a self-initialising representation' do
-        _(function.inspect).must_equal 'ArtDecomp::Function.new('            \
-          'ins: '                                                            \
-          'ArtDecomp::Puts.new([ArtDecomp::Put[%i(0 1 -), codes: %i(0 1)], ' \
-          'ArtDecomp::Put[%i(s1 s2 s3), codes: %i(s1 s2 s3)]]), '            \
-          'outs: '                                                           \
-          'ArtDecomp::Puts.new([ArtDecomp::Put[%i(1 - 0), codes: %i(0 1)], ' \
-          'ArtDecomp::Put[%i(s3 s1 s2), codes: %i(s1 s2 s3)]]))'
-      end
-    end
-
     describe '#ins' do
       it 'returns the Function’s inputs' do
         _(function.ins).must_equal ins
