@@ -130,14 +130,6 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
-    describe '#inspect' do
-      it 'returns a self-initialising representation' do
-        _(Seps.from_column([]).inspect).must_equal 'ArtDecomp::Seps.new([])'
-        _(Seps.from_column(%i(a - b)).inspect)
-          .must_equal 'ArtDecomp::Seps.new([0b100, 0b000, 0b001])'
-      end
-    end
-
     describe '#nonempty_by_popcount' do
       it 'returns non-empty row numbers in their reverse popcount order' do
         _(sep_01_02_03_13.nonempty_by_popcount).must_equal [0, 1, 3, 2]

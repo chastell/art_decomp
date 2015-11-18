@@ -43,12 +43,6 @@ module ArtDecomp
 
     delegate empty?: :matrix
 
-    def inspect
-      bits = matrix.map(&:bit_length).max
-      rows = matrix.map { |int| "0b#{int.to_s(2).rjust(bits, '0')}" }
-      "#{self.class}.new([#{rows.join(', ')}])"
-    end
-
     def nonempty_by_popcount
       (0...matrix.size).reject { |row| matrix[row].zero? }
         .sort_by { |row| -popcounts[row] }
