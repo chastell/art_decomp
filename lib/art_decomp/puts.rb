@@ -55,10 +55,6 @@ module ArtDecomp
       end
     end
 
-    def inspect
-      "#{self.class}.new(#{puts.inspect})"
-    end
-
     def seps
       @seps ||= puts.map(&:seps).reduce(Seps.new, :|)
     end

@@ -152,14 +152,6 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
-    describe '#inspect' do
-      it 'returns a self-initialising representation' do
-        _(puts.inspect).must_equal 'ArtDecomp::Puts.new([' \
-          'ArtDecomp::Put[%i(a b), codes: %i(a b)], '   \
-          'ArtDecomp::Put[%i(b a), codes: %i(a b)]])'
-      end
-    end
-
     describe '#seps' do
       it 'returns the combined Seps of all the Puts' do
         seps = Seps.new([0b110, 0b101, 0b011])
