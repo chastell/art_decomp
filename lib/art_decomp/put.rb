@@ -20,10 +20,6 @@ module ArtDecomp
       (codes.size - 1).bit_length
     end
 
-    def inspect
-      "#{self.class}[%i(#{column.join(' ')}), codes: %i(#{codes.join(' ')})]"
-    end
-
     def seps
       @seps ||= Seps.from_column(column)
     end

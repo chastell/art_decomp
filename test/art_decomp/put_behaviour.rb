@@ -48,15 +48,6 @@ module ArtDecomp
           end
         end
 
-        describe '#inspect' do
-          it 'returns self-initialising representation' do
-            _(put_class[%i(a - b)].inspect)
-              .must_equal put_class.to_s + '[%i(a - b), codes: %i(a b)]'
-            _(put_class[%i(1 0)].inspect)
-              .must_equal put_class.to_s + '[%i(1 0), codes: %i(0 1)]'
-          end
-        end
-
         describe '#seps' do
           it 'returns the put_class’s Seps' do
             seps = put_class[%i(a - b)].seps
