@@ -10,7 +10,7 @@ module ArtDecomp
     end
 
     def self.from_arrays(source, destination)
-      new(source: Pin[*source], destination: Pin[*destination])
+      new(source: SrcPin[*source], destination: DstPin[*destination])
     end
   end
 end

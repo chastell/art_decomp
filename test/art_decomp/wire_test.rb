@@ -13,8 +13,8 @@ module ArtDecomp
       Function.new(ins: Puts.from_columns([%i(a b c)]), outs: Puts.new)
     end
     let(:wire) do
-      Wire[Pin[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
-           Pin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]]
+      Wire[SrcPin[fun_a, :outs, fun_a.outs, fun_a.outs[0]],
+           DstPin[fun_b, :ins,  fun_b.ins,  fun_b.ins[0]]]
     end
 
     describe '.from_arrays' do

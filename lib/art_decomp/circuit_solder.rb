@@ -41,8 +41,8 @@ module ArtDecomp
 
     def destination_pin(wire)
       found = decomposed.wires.find do |dw|
-        dw.source == Pin[:circuit, :ins, wire.destination.puts,
-                         wire.destination.put]
+        dw.source == SrcPin[:circuit, :ins, wire.destination.puts,
+                            wire.destination.put]
       end
       found.destination
     end
@@ -59,8 +59,8 @@ module ArtDecomp
 
     def source_pin(wire)
       found = decomposed.wires.find do |dw|
-        dw.destination == Pin[:circuit, :outs, wire.source.puts,
-                              wire.source.put]
+        dw.destination == DstPin[:circuit, :outs, wire.source.puts,
+                                 wire.source.put]
       end
       found.source
     end
