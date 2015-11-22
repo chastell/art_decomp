@@ -2,11 +2,10 @@ require 'anima'
 
 module ArtDecomp
   class Pin
-    include Anima.new(:object, :group, :puts, :put)
+    include Anima.new(:object, :puts, :put)
 
-    # :reek:LongParameterList: { max_params: 4 }
-    def self.[](object, group, puts, put)
-      new(object: object, group: group, puts: puts, put: put)
+    def self.[](object, puts, put)
+      new(object: object, puts: puts, put: put)
     end
 
     def binwidth

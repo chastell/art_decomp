@@ -33,14 +33,14 @@ module ArtDecomp
         ins  = f1.ins[0..1] + f0.ins[0..2] + f1.ins[2..2]
         outs = f1.outs[0..0]
         wires = Wires.from_array([
-          [[:circuit, :ins, ins, ins[2]],    [f0, :ins, f0.ins, f0.ins[0]]],
-          [[:circuit, :ins, ins, ins[3]],    [f0, :ins, f0.ins, f0.ins[1]]],
-          [[:circuit, :ins, ins, ins[4]],    [f0, :ins, f0.ins, f0.ins[2]]],
-          [[:circuit, :ins, ins, ins[0]],    [f1, :ins, f1.ins, f1.ins[0]]],
-          [[:circuit, :ins, ins, ins[1]],    [f1, :ins, f1.ins, f1.ins[1]]],
-          [[:circuit, :ins, ins, ins[5]],    [f1, :ins, f1.ins, f1.ins[2]]],
-          [[f0, :outs, f0.outs, f0.outs[0]], [f1, :ins, f1.ins, f1.ins[3]]],
-          [[f1, :outs, f1.outs, f1.outs[0]], [:circuit, :outs, outs, outs[0]]],
+          [[:circuit, ins,     ins[2]],     [f0,       f0.ins, f0.ins[0]]],
+          [[:circuit, ins,     ins[3]],     [f0,       f0.ins, f0.ins[1]]],
+          [[:circuit, ins,     ins[4]],     [f0,       f0.ins, f0.ins[2]]],
+          [[:circuit, ins,     ins[0]],     [f1,       f1.ins, f1.ins[0]]],
+          [[:circuit, ins,     ins[1]],     [f1,       f1.ins, f1.ins[1]]],
+          [[:circuit, ins,     ins[5]],     [f1,       f1.ins, f1.ins[2]]],
+          [[f0,       f0.outs, f0.outs[0]], [f1,       f1.ins, f1.ins[3]]],
+          [[f1,       f1.outs, f1.outs[0]], [:circuit, outs,   outs[0]]],
         ])
         bin_decd = bin.with(functions: [f0, f1], wires: wires)
         vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')

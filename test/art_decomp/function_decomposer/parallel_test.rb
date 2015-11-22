@@ -30,13 +30,13 @@ module ArtDecomp
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
         wires = Wires.from_array([
-          [[:circuit, :ins,  ins,     a],    [ab,       :ins,  ab.ins, a]],
-          [[:circuit, :ins,  ins,     b],    [ab,       :ins,  ab.ins, b]],
-          [[ab,       :outs, ab.outs, anb],  [:circuit, :outs, outs,   anb]],
-          [[:circuit, :ins,  ins,     b],    [bc,       :ins,  bc.ins, b]],
-          [[:circuit, :ins,  ins,     c],    [bc,       :ins,  bc.ins, c]],
-          [[bc,       :outs, bc.outs, buc],  [:circuit, :outs, outs,   buc]],
-          [[bc,       :outs, bc.outs, nbuc], [:circuit, :outs, outs,   nbuc]],
+          [[:circuit, ins,     a],    [ab,       ab.ins, a]],
+          [[:circuit, ins,     b],    [ab,       ab.ins, b]],
+          [[ab,       ab.outs, anb],  [:circuit, outs,   anb]],
+          [[:circuit, ins,     b],    [bc,       bc.ins, b]],
+          [[:circuit, ins,     c],    [bc,       bc.ins, c]],
+          [[bc,       bc.outs, buc],  [:circuit, outs,   buc]],
+          [[bc,       bc.outs, nbuc], [:circuit, outs,   nbuc]],
         ])
         circuit = Circuit.new(functions: [ab, bc], wires: wires)
         fun = Function.new(ins: ins, outs: outs)

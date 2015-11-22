@@ -20,13 +20,13 @@ module ArtDecomp
 
     def ins_array
       (function.ins & ins).map do |put|
-        [[:circuit, :ins, ins, put], [function, :ins, function.ins, put]]
+        [[:circuit, ins, put], [function, function.ins, put]]
       end
     end
 
     def outs_array
       (function.outs & outs).map do |put|
-        [[function, :outs, function.outs, put], [:circuit, :outs, outs, put]]
+        [[function, function.outs, put], [:circuit, outs, put]]
       end
     end
   end

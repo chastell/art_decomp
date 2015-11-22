@@ -13,11 +13,11 @@ module ArtDecomp
       end
 
       it 'must be :ins for circuit pins' do
-        _(SrcPin[:circuit, :ins, fun.ins, fun.ins.first].group).must_equal :ins
+        _(SrcPin[:circuit, fun.ins, fun.ins.first].group).must_equal :ins
       end
 
       it 'must be :outs for function pins' do
-        _(SrcPin[fun, :outs, fun.outs, fun.outs.first].group).must_equal :outs
+        _(SrcPin[fun, fun.outs, fun.outs.first].group).must_equal :outs
       end
     end
   end

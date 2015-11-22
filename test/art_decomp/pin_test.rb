@@ -8,7 +8,7 @@ module ArtDecomp
     describe '#bindiwth' do
       it 'returns the binwidth of the Put' do
         put = Put[%i(a b c)]
-        _(Pin[:circuit, :ins, Puts.new(put), put].binwidth).must_equal 2
+        _(Pin[:circuit, Puts.new(put), put].binwidth).must_equal 2
       end
     end
   end
