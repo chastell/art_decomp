@@ -1,7 +1,8 @@
 require_relative '../test_helper'
+require_relative '../../lib/art_decomp/dst_pin'
 require_relative '../../lib/art_decomp/function'
-require_relative '../../lib/art_decomp/pin'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/src_pin'
 require_relative '../../lib/art_decomp/wire'
 
 module ArtDecomp

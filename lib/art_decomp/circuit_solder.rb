@@ -1,5 +1,6 @@
 require_relative 'circuit'
-require_relative 'pin'
+require_relative 'dst_pin'
+require_relative 'src_pin'
 require_relative 'wire'
 require_relative 'wires'
 

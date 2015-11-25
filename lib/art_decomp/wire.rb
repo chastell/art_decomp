@@ -1,5 +1,6 @@
 require 'anima'
-require_relative 'pin'
+require_relative 'dst_pin'
+require_relative 'src_pin'
 
 module ArtDecomp
   class Wire
