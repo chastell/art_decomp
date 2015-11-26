@@ -1,9 +1,6 @@
 require_relative '../test_helper'
-require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/circuit_presenter'
-require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
-require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
@@ -19,17 +16,28 @@ module ArtDecomp
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
-        f0ins  = Puts.from_columns([%i(0 0 0 0 1 1 0 1),
-                                    %i(1 - 0 1 1 1 0 0),
-                                    %i(- 0 0 1 - 0 1 -)])
-        f0outs = Puts.from_columns([%i(0 0 0 0 0 0 1 1)])
-        f1ins  = Puts.from_columns([%i(0 0 - 0 0 - 1 0 - 1),
-                                    %i(1 1 1 1 0 - - 0 1 -),
-                                    %i(0 0 - - 1 1 - 0 - -),
-                                    %i(0 0 0 0 - 0 0 - 1 1)])
-        f1outs = Puts.from_columns([%i(0 0 0 0 0 0 0 1 1 1)])
-        f0 = Function.new(ins: f0ins, outs: f0outs)
-        f1 = Function.new(ins: f1ins, outs: f1outs)
+        f0 = KISSParser.function_for <<-end
+          01- 0
+          0-0 0
+          000 0
+          011 0
+          11- 0
+          110 0
+          001 1
+          10- 1
+        end
+        f1 = KISSParser.function_for <<-end
+          0100 0
+          0100 0
+          -1-0 0
+          01-0 0
+          001- 0
+          --10 0
+          1--0 0
+          000- 1
+          -1-1 1
+          1--1 1
+        end
         ins  = f1.ins[0..1] + f0.ins[0..2] + f1.ins[2..2]
         outs = f1.outs[0..0]
         wires = Wires.from_array([
