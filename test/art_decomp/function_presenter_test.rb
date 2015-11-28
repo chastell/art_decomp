@@ -1,22 +1,23 @@
 require_relative '../test_helper'
-require_relative '../../lib/art_decomp/function'
+require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/function_presenter'
-require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe FunctionPresenter do
     let(:function_presenter) do
-      ins  = Puts.from_columns([%i(0 - 1 - - 1 0 - - -),
-                                %i(- 0 1 - - 0 - 1 - -),
-                                %i(- - - 0 1 - - - 0 1)]) +
-             Puts.from_columns([%i(HG HG HG HY HY FG FG FG FY FY)])
-      outs = Puts.from_columns([%i(0 0 1 0 1 0 1 1 0 1),
-                                %i(0 0 0 0 0 1 1 1 1 1),
-                                %i(0 0 0 1 1 0 0 0 0 0),
-                                %i(1 1 1 1 1 0 0 0 0 0),
-                                %i(0 0 0 0 0 0 0 0 1 1)]) +
-             Puts.from_columns([%i(HG HG HY HY FG FG FY FY FY HG)])
-      FunctionPresenter.new(Function.new(ins: ins, outs: outs))
+      function = FSMKISSParser.function_for <<-end
+        0-- HG HG 00010
+        -0- HG HG 00010
+        11- HG HY 10010
+        --0 HY HY 00110
+        --1 HY FG 10110
+        10- FG FG 01000
+        0-- FG FY 11000
+        -1- FG FY 11000
+        --0 FY FY 01001
+        --1 FY HG 11001
+      end
+      FunctionPresenter.new(function)
     end
 
     describe '#simple' do
