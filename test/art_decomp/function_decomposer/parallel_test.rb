@@ -2,6 +2,7 @@ require_relative '../../test_helper'
 require_relative '../../../lib/art_decomp/circuit'
 require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/parallel'
+require_relative '../../../lib/art_decomp/kiss_parser'
 require_relative '../../../lib/art_decomp/puts'
 
 module ArtDecomp
@@ -44,11 +45,12 @@ module ArtDecomp
       end
 
       it 'does not yield if it can’t decompose' do
-        a   = %i(0 0 0 0 1 1 1 1)
-        b   = %i(0 0 1 1 0 0 1 1)
-        anb = %i(0 0 0 0 0 0 1 1)
-        fun = Function.new(ins:  Puts.from_columns([a,b]),
-                           outs: Puts.from_columns([anb]))
+        fun = KISSParser.function_for <<-end
+          00 0
+          01 0
+          10 0
+          11 1
+        end
         _(FunctionDecomposer::Parallel.decompose(fun).to_a).must_be_empty
       end
     end
