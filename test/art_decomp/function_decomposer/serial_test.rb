@@ -1,5 +1,6 @@
 require_relative '../../test_helper'
 require_relative '../../../lib/art_decomp/circuit'
+require_relative '../../../lib/art_decomp/kiss_parser'
 require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/serial'
 require_relative '../../../lib/art_decomp/puts'
@@ -8,16 +9,18 @@ module ArtDecomp
   describe FunctionDecomposer::Serial do
     describe '.decompose' do
       let(:f) do
-        ins = Puts.from_columns([
-          %i(0 0 - 0 0 - 1 0 - 1),
-          %i(1 1 1 1 0 - - 0 1 -),
-          %i(0 0 0 0 1 1 1 - 0 1),
-          %i(1 - 0 1 - 1 1 - 0 0),
-          %i(- 0 0 1 - - 0 - 1 -),
-          %i(0 0 - - 1 1 - 0 - -),
-        ])
-        outs = Puts.from_columns([%i(0 0 0 0 0 0 0 1 1 1)])
-        Function.new(ins: ins, outs: outs)
+        KISSParser.function_for <<-end
+          0101-0 0
+          010-00 0
+          -1000- 0
+          01011- 0
+          001--1 0
+          --11-1 0
+          1-110- 0
+          00---0 1
+          -1001- 1
+          1-10-- 1
+        end
       end
 
       let(:g1) do
