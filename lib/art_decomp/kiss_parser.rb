@@ -1,5 +1,6 @@
 require_relative 'circuit'
 require_relative 'function'
+require_relative 'put'
 require_relative 'puts'
 
 module ArtDecomp
@@ -41,14 +42,17 @@ module ArtDecomp
     end
 
     class BlockParser
-      def initialize(block, codes: %i(0 1))
+      def initialize(block, codes: nil)
         @block = block
         @codes = codes
       end
 
       def puts
         cols = block.map { |row| row.split('').map(&:to_sym) }.transpose
-        Puts.from_columns(cols, codes: codes)
+        puts = cols.map do |column|
+          Put.new(column: column, codes: codes || column.uniq - [:-])
+        end
+        Puts.new(puts)
       end
 
       private_attr_reader :block, :codes

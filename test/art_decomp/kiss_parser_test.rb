@@ -9,17 +9,16 @@ module ArtDecomp
     let(:kiss) do
       <<-end.dedent
         .some comments
-        0- 0--
-        11 1--
-        -0 --0
+        0-a 0--
+        11b 1--
+        -0c --0
       end
     end
 
     let(:puts) do
       {
-        ins:  Puts.from_columns([%i(0 1 -), %i(- 1 0)]),
-        outs: Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)],
-                                codes: %i(0 1)),
+        ins:  Puts.from_columns([%i(0 1 -), %i(- 1 0), %i(a b c)]),
+        outs: Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)]),
       }
     end
 
