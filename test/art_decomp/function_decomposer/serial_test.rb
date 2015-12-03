@@ -24,13 +24,18 @@ module ArtDecomp
       end
 
       let(:g1) do
-        ins = Puts.from_columns([
-          %i(- 0 0 1 - - 0 - 1 -),
-          %i(0 0 0 0 1 1 1 - 0 1),
-          %i(1 - 0 1 - 1 1 - 0 0),
-        ])
-        outs = Puts.from_columns([%i(b b b b - b b - a a)])
-        Function.new(ins: ins, outs: outs)
+        KISSParser.function_for <<-end
+          -01 b
+          00- b
+          000 b
+          101 b
+          -1- -
+          -11 b
+          011 b
+          --- -
+          100 a
+          -10 a
+        end
       end
 
       let(:h) do
