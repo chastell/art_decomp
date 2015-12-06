@@ -1,11 +1,9 @@
 require_relative '../../test_helper'
 require_relative '../../../lib/art_decomp/circuit'
 require_relative '../../../lib/art_decomp/kiss_parser'
-require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/serial'
-require_relative '../../../lib/art_decomp/puts'
 
-module ArtDecomp
+module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
   describe FunctionDecomposer::Serial do
     describe '.decompose' do
       let(:f) do
@@ -69,13 +67,18 @@ module ArtDecomp
       end
 
       let(:g3) do
-        ins = Puts.from_columns([
-          %i(0 0 - - 1 1 - 0 - -),
-          %i(b b b b - - b a a a),
-          %i(- - - - a a - - b b),
-        ])
-        outs = Puts.from_columns([%i(0 0 0 0 0 0 0 1 1 1)])
-        Function.new(ins: ins, outs: outs)
+        KISSParser.function_for <<-end
+          0b- 0
+          0b- 0
+          -b- 0
+          -b- 0
+          1-a 0
+          1-a 0
+          -b- 0
+          0a- 1
+          -ab 1
+          -ab 1
+        end
       end
 
       it 'yields decomposed Circuits' do
