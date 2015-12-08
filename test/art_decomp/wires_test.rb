@@ -1,19 +1,22 @@
 require_relative '../test_helper'
-require_relative '../../lib/art_decomp/function'
-require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/wire'
 require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Wires do
     let(:fun_a) do
-      Function.new(ins:  Puts.from_columns([%i(0 1), %i(1 0)]),
-                   outs: Puts.from_columns([%i(b a), %i(a b)]))
+      KISSParser.function_for <<-end
+        01 ba
+        10 ab
+      end
     end
 
     let(:fun_b) do
-      Function.new(ins:  Puts.from_columns([%i(b a), %i(a b)]),
-                   outs: Puts.from_columns([%i(0 1), %i(1 0)]))
+      KISSParser.function_for <<-end
+        ba 01
+        ab 10
+      end
     end
 
     let(:wires) do
