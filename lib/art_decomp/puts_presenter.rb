@@ -17,6 +17,7 @@ module ArtDecomp
 
       private
 
+      # :reek:UncommunicativeVariableName
       def mapping
         @mapping ||= begin
           encs = Array.new(codes.size) { |i| i.to_s(2).rjust(binwidth, '0') }
