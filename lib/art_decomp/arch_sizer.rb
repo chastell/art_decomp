@@ -7,6 +7,7 @@ module ArtDecomp
       i <= 8
     end
 
+    # :reek:TooManyStatements { max_statements: 6 }
     def max_quarters                           # rubocop:disable Metrics/AbcSize
       case
       when i.zero?, o.zero? then 0
