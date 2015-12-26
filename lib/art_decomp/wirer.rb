@@ -18,12 +18,14 @@ module ArtDecomp
 
     private_attr_reader :function, :ins, :outs
 
+    # :reek:DuplicateMethodCall { max_calls: 2 }
     def ins_array
       (function.ins & ins).map do |put|
         [[:circuit, ins, put], [function, function.ins, put]]
       end
     end
 
+    # :reek:DuplicateMethodCall { max_calls: 2 }
     def outs_array
       (function.outs & outs).map do |put|
         [[function, function.outs, put], [:circuit, outs, put]]
