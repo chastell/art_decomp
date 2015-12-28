@@ -49,6 +49,7 @@ module ArtDecomp
         .sort_by { |row| -popcounts[row] }
     end
 
+    # :reek:DuplicateMethodCall { max_calls: 2 }
     def separates?(row, col)
       matrix[row] and matrix[row][col].nonzero?
     end
