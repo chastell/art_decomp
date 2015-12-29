@@ -27,7 +27,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :circuit_presenter, :decomposer, :kiss_parser, :settings
+    attr_reader :circuit_presenter, :decomposer, :kiss_parser, :settings
 
     delegate %i(kiss_path vhdl_path) => :settings
   end

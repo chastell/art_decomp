@@ -27,7 +27,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :kiss
+    attr_reader :kiss
 
     def blocks
       kiss.lines.reject { |line| line.start_with?('.') }.map(&:split).transpose
@@ -55,7 +55,9 @@ module ArtDecomp
         Puts.new(puts)
       end
 
-      private_attr_reader :block, :codes
+      private
+
+      attr_reader :block, :codes
     end
   end
 end

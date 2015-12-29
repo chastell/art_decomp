@@ -23,7 +23,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :composed, :decomposed, :function
+    attr_reader :composed, :decomposed, :function
 
     def adjusted_wire(wire)
       case

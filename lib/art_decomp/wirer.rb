@@ -16,7 +16,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :function, :ins, :outs
+    attr_reader :function, :ins, :outs
 
     # :reek:DuplicateMethodCall { max_calls: 2 }
     def ins_array

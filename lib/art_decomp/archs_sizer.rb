@@ -32,7 +32,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :archs
+    attr_reader :archs
 
     def max_for_fitting
       archs.select(&:fits?).map(&:max_quarters)

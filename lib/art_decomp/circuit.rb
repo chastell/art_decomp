@@ -36,7 +36,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :archs_sizer
+    attr_reader :archs_sizer
 
     def function_archs
       functions.map(&:arch)

@@ -22,6 +22,8 @@ module ArtDecomp
       end
     end
 
-    private_attr_reader :circuit_decomposer, :queue
+    private
+
+    attr_reader :circuit_decomposer, :queue
   end
 end

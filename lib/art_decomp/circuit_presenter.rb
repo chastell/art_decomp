@@ -18,7 +18,7 @@ module ArtDecomp
 
     private
 
-    private_attr_reader :name
+    attr_reader :name
 
     alias_method :circuit, :__getobj__
 
@@ -54,7 +54,9 @@ module ArtDecomp
         flat_map { |wire| WirePresenter.new(wire, circuit: circuit).labels }
       end
 
-      private_attr_reader :circuit
+      private
+
+      attr_reader :circuit
 
       class WirePresenter < SimpleDelegator
         def initialize(wire, circuit:)
@@ -68,7 +70,9 @@ module ArtDecomp
           src_labels.zip(dst_labels)
         end
 
-        private_attr_reader :circuit
+        private
+
+        attr_reader :circuit
 
         class PinPresenter < SimpleDelegator
           extend Forwardable
@@ -84,7 +88,7 @@ module ArtDecomp
 
           private
 
-          private_attr_reader :circuit
+          attr_reader :circuit
 
           delegate %i(functions recoders) => :circuit
 
