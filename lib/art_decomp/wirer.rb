@@ -2,12 +2,12 @@ require_relative 'wires'
 
 module ArtDecomp
   class Wirer
-    def self.wires(function, ins:, outs:)
-      new(function, ins: ins, outs: outs).wires
+    def self.wires(function, own:)
+      new(function, own: own).wires
     end
 
-    def initialize(function, ins:, outs:)
-      @function, @ins, @outs = function, ins, outs
+    def initialize(function, own:)
+      @function, @own = function, own
     end
 
     def wires
@@ -16,17 +16,17 @@ module ArtDecomp
 
     private
 
-    attr_reader :function, :ins, :outs
+    attr_reader :function, :own
 
     def ins_array
-      (function.ins & ins).map do |put|
-        [[:circuit, ins, put], [function, function.ins, put]]
+      (function.ins & own.ins).map do |put|
+        [[:circuit, own.ins, put], [function, function.ins, put]]
       end
     end
 
     def outs_array
-      (function.outs & outs).map do |put|
-        [[function, function.outs, put], [:circuit, outs, put]]
+      (function.outs & own.outs).map do |put|
+        [[function, function.outs, put], [:circuit, own.outs, put]]
       end
     end
   end

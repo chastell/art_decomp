@@ -67,10 +67,10 @@ module ArtDecomp
           g_outs.map { |put| [[g, g.outs, put], [h, h.ins, put]] }
         end
 
-        def wires                              # rubocop:disable Metrics/AbcSize
+        def wires
           Wires.from_array(g_h_array) +
-            Wirer.wires(g, ins: function.ins, outs: function.outs) +
-            Wirer.wires(h, ins: function.ins, outs: function.outs)
+            Wirer.wires(g, own: function) +
+            Wirer.wires(h, own: function)
         end
       end
     end
