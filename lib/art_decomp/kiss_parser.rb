@@ -18,7 +18,7 @@ module ArtDecomp
     end
 
     def circuit
-      Circuit.from_puts(puts)
+      Circuit.from_function(function)
     end
 
     def function

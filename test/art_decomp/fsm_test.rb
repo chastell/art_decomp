@@ -17,12 +17,12 @@ module ArtDecomp
               wires: Wires.new)
     end
 
-    describe '.from_puts' do
-      it 'creates an FSM from Puts' do
-        ins  = Puts.new([Put[%i(0 1)], StatePut[%i(s1 s2 s3)]])
-        outs = Puts.new([Put[%i(1 0)], StatePut[%i(s3 s1 s2)]])
-        fsm  = FSM.from_puts(ins: ins, outs: outs)
+    describe '.from_function' do
+      it 'creates an FSM from Function' do
+        ins      = Puts.new([Put[%i(0 1)], StatePut[%i(s1 s2 s3)]])
+        outs     = Puts.new([Put[%i(1 0)], StatePut[%i(s3 s1 s2)]])
         function = Function.new(ins: ins, outs: outs)
+        fsm      = FSM.from_function(function)
         _(fsm.functions).must_equal [function]
         _(fsm.own).must_equal function
         _(fsm.recoders).must_be :empty?

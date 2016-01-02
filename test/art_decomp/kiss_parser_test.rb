@@ -15,22 +15,21 @@ module ArtDecomp
       end
     end
 
-    let(:puts) do
-      {
-        ins:  Puts.from_columns([%i(0 1 -), %i(- 1 0), %i(a b c)]),
-        outs: Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)]),
-      }
+    let(:function) do
+      Function.new(ins:  Puts.from_columns([%i(0 1 -), %i(- 1 0), %i(a b c)]),
+                   outs: Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)]))
     end
 
     describe '.circuit_for' do
       it 'returns a Circuit represented by the KISS source' do
-        _(KISSParser.circuit_for(kiss)).must_equal Circuit.from_puts(puts)
+        circuit = Circuit.from_function(function)
+        _(KISSParser.circuit_for(kiss)).must_equal circuit
       end
     end
 
     describe '.function_for' do
       it 'returns a Function represented by the KISS source' do
-        _(KISSParser.function_for(kiss)).must_equal Function.new(puts)
+        _(KISSParser.function_for(kiss)).must_equal function
       end
     end
   end

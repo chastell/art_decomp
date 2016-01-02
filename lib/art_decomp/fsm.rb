@@ -7,8 +7,7 @@ module ArtDecomp
   class FSM < Circuit
     include Anima.new(:functions, :own, :recoders, :wires)
 
-    def self.from_puts(ins:, outs:)
-      function = Function.new(ins: ins, outs: outs)
+    def self.from_function(function)
       wires = Wirer.wires(function, own: function)
       new(functions: [function], own: function, recoders: [], wires: wires)
     end

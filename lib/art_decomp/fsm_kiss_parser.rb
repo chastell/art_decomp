@@ -6,7 +6,7 @@ require_relative 'state_put'
 module ArtDecomp
   class FSMKISSParser < KISSParser
     def circuit
-      FSM.from_puts(puts)
+      FSM.from_function(function)
     end
 
     private
