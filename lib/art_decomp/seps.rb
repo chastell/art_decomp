@@ -7,7 +7,6 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:matrix)
 
-    # :reek:DuplicateMethodCall { max_calls: 2 }
     def self.from_column(column)               # rubocop:disable Metrics/AbcSize
       ones   = (1 << column.size) - 1
       coding = (0...column.size).group_by(&column.method(:[]))
@@ -49,7 +48,6 @@ module ArtDecomp
         .sort_by { |row| -popcounts[row] }
     end
 
-    # :reek:DuplicateMethodCall { max_calls: 2 }
     def separates?(row, col)
       matrix[row] and matrix[row][col].nonzero?
     end

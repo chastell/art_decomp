@@ -19,7 +19,6 @@ module ArtDecomp
       end
     end
 
-    # :reek:DuplicateMethodCall { max_calls: 2 }
     def min_quarters                           # rubocop:disable Metrics/AbcSize
       case
       when i.zero?, o.zero? then 0
