@@ -39,7 +39,9 @@ module ArtDecomp
           [[bc,       bc.outs, buc],  [:circuit, outs,   buc]],
           [[bc,       bc.outs, nbuc], [:circuit, outs,   nbuc]],
         ])
-        circuit = Circuit.new(functions: [ab, bc], wires: wires)
+        circuit = Circuit.new(functions: [ab, bc],
+                              own: Function.new(ins: ins, outs: outs),
+                              wires: wires)
         fun = Function.new(ins: ins, outs: outs)
         _(FunctionDecomposer::Parallel.decompose(fun)).must_include circuit
       end

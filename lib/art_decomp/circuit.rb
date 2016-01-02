@@ -5,12 +5,12 @@ require_relative 'wirer'
 
 module ArtDecomp
   class Circuit
-    include Anima.new(:functions, :wires)
+    include Anima.new(:functions, :own, :wires)
 
     def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)
       wires = Wirer.wires(function, ins: ins, outs: outs)
-      new(functions: [function], wires: wires)
+      new(functions: [function], own: function, wires: wires)
     end
 
     def initialize(archs_sizer: ArchSizer, **anima_attributes)

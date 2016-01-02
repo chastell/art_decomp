@@ -5,12 +5,12 @@ require_relative 'wirer'
 
 module ArtDecomp
   class FSM < Circuit
-    include Anima.new(:functions, :recoders, :wires)
+    include Anima.new(:functions, :own, :recoders, :wires)
 
     def self.from_puts(ins:, outs:)
       function = Function.new(ins: ins, outs: outs)
       wires = Wirer.wires(function, ins: ins, outs: outs)
-      new(functions: [function], recoders: [], wires: wires)
+      new(functions: [function], own: function, recoders: [], wires: wires)
     end
   end
 end

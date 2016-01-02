@@ -19,7 +19,8 @@ module ArtDecomp
             wires = merged.map do |fun|
               Wirer.wires(fun, ins: ins, outs: outs)
             end.reduce(:+)
-            yielder << Circuit.new(functions: merged, wires: wires)
+            circ = Circuit.new(functions: merged, own: function, wires: wires)
+            yielder << circ
           end
         end
       end
