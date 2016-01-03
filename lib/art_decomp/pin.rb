@@ -12,6 +12,10 @@ module ArtDecomp
 
     delegate binwidth: :put
 
+    def circuit?
+      object == :circuit
+    end
+
     def offset
       puts[0...puts.index(put)].binwidth
     end
