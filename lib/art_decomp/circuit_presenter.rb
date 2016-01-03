@@ -27,11 +27,11 @@ module ArtDecomp
     end
 
     def ins_binwidth
-      wires.map(&:source).select(&:circuit?).map(&:binwidth).reduce(0, :+)
+      own.ins.binwidth
     end
 
     def outs_binwidth
-      wires.map(&:destination).select(&:circuit?).map(&:binwidth).reduce(0, :+)
+      own.outs.binwidth
     end
 
     def recoders
