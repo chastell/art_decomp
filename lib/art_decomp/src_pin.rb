@@ -3,7 +3,7 @@ require_relative 'pin'
 module ArtDecomp
   class SrcPin < Pin
     def group
-      object == :circuit ? :ins : :outs
+      circuit? ? :ins : :outs
     end
   end
 end
