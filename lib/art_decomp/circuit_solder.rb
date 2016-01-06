@@ -38,7 +38,7 @@ module ArtDecomp
     end
 
     def adjusted_wires
-      Wires.new(composed.wires.map { |wire| adjusted_wire(wire) })
+      Wires.new(composed.wires.map(&method(:adjusted_wire)))
     end
 
     def destination_pin(wire)
