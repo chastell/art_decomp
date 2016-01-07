@@ -26,8 +26,8 @@ module ArtDecomp
 
         describe '#==' do
           it 'compares two put_class instances by value' do
-            assert put_class[%i(a - b)] == put_class[%i(a - b)].dup
-            refute put_class[%i(a - b)] == put_class[%i(b - a)]
+            _(put_class[%i(a - b)]).must_equal put_class[%i(a - b)]
+            _(put_class[%i(a - b)]).wont_equal put_class[%i(b - a)]
           end
         end
 
