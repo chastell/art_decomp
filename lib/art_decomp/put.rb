@@ -11,6 +11,10 @@ module ArtDecomp
       new(column: column, codes: codes)
     end
 
+    def <=>(other)
+      (column <=> other.column).nonzero? or codes <=> other.codes
+    end
+
     def initialize(column:, codes: column.uniq - [:-])
       @codes  = codes.sort
       @column = column

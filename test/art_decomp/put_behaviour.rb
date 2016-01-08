@@ -24,6 +24,15 @@ module ArtDecomp
           end
         end
 
+        describe '#<=>' do
+          it 'allows sorting put_class instances by column and codes' do
+            ab  = put_class[%i(a b)]
+            abc = put_class[%i(a b), codes: %i(a b c)]
+            ba  = put_class[%i(b a)]
+            _([ba, abc, ab].sort).must_equal [ab, abc, ba]
+          end
+        end
+
         describe '#==' do
           it 'compares two put_class instances by value' do
             _(put_class[%i(a - b)]).must_equal put_class[%i(a - b)]
