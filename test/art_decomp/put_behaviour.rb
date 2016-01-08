@@ -57,6 +57,18 @@ module ArtDecomp
           end
         end
 
+        describe '#eql?' do
+          it 'discriminates between two otherwise-equal puts' do
+            refute put_class[%i(a b)].eql?(put_class[%i(a b)])
+          end
+        end
+
+        describe '#hash' do
+          it 'discriminates between two otherwise-equal puts' do
+            _(put_class[%i(a b)].hash).wont_equal put_class[%i(a b)].hash
+          end
+        end
+
         describe '#seps' do
           it 'returns the put_class’s Seps' do
             seps = put_class[%i(a - b)].seps

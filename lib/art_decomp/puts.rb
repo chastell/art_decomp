@@ -55,6 +55,12 @@ module ArtDecomp
       end
     end
 
+    alias_method :eql?, :==
+
+    def hash
+      puts.map(&:column).hash ^ puts.map(&:codes).hash
+    end
+
     def seps
       @seps ||= puts.map(&:seps).reduce(Seps.new, :|)
     end
