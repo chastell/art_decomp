@@ -188,6 +188,14 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#sort' do
+      it 'returns a Puts with sorted members' do
+        unsorted = Puts.from_columns([%i(b a), %i(b c), %i(a b)])
+        sorted   = Puts.from_columns([%i(a b), %i(b a), %i(b c)])
+        _(unsorted.sort).must_equal sorted
+      end
+    end
+
     describe '#sort_by' do
       it 'returns a Puts sorted according to the passed block' do
         random = Puts.from_columns([%i(a a a), %i(a b c), %i(a b b)])

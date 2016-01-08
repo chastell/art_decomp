@@ -59,6 +59,10 @@ module ArtDecomp
       @seps ||= puts.map(&:seps).reduce(Seps.new, :|)
     end
 
+    def sort
+      self.class.new(puts.sort)
+    end
+
     def sort_by
       return to_enum(__method__) unless block_given?
       self.class.new(super)
