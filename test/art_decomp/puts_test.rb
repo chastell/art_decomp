@@ -71,8 +71,8 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#==' do
       it 'compares Puts according to contents' do
-        _(Puts.new([a0b1])).must_equal Puts.new([a0b1])
-        _(Puts.new([a0b1])).wont_equal Puts.new([a1b0])
+        _(Puts.new([Put[%i(a b)]])).must_equal Puts.new([Put[%i(a b)]])
+        _(Puts.new([Put[%i(a b)]])).wont_equal Puts.new([Put[%i(b a)]])
       end
     end
 
