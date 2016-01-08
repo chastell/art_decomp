@@ -145,6 +145,13 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#eql?' do
+      it 'compares Puts according to contents' do
+        assert Puts.new([Put[%i(a b)]]).eql?(Puts.new([Put[%i(a b)]]))
+        refute Puts.new([Put[%i(a b)]]).eql?(Puts.new([Put[%i(b a)]]))
+      end
+    end
+
     describe '#index' do
       it 'returns the index of the given Put' do
         _(puts.index(a0b1)).must_equal 0
