@@ -152,6 +152,17 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#hash' do
+      it 'compares Puts according to contents' do
+        _(Puts.new([Put[%i(a b)]]).hash)
+          .must_equal Puts.new([Put[%i(a b)]]).hash
+        _(Puts.new([Put[%i(a b)]]).hash)
+          .wont_equal Puts.new([Put[%i(b a)]]).hash
+        _(Puts.new([Put[%i(a b)]]).hash)
+          .wont_equal Puts.new([Put[%i(a b), codes: %i(a b c)]]).hash
+      end
+    end
+
     describe '#index' do
       it 'returns the index of the given Put' do
         _(puts.index(a0b1)).must_equal 0
