@@ -38,7 +38,7 @@ module ArtDecomp
         include Anima.new(:function, :u_ins, :v_ins)
 
         def circuit
-          Circuit.new(functions: [g, h], own: function, wires: wires)
+          Circuit.new(functions: [g, h], lines: {}, own: function, wires: wires)
         end
 
         def sensible?

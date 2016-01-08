@@ -39,7 +39,7 @@ module ArtDecomp
           [[bc,       bc.outs, buc],  [:circuit, outs,   buc]],
           [[bc,       bc.outs, nbuc], [:circuit, outs,   nbuc]],
         ])
-        circuit = Circuit.new(functions: [ab, bc],
+        circuit = Circuit.new(functions: [ab, bc], lines: {},
                               own: Function.new(ins: ins, outs: outs),
                               wires: wires)
         fun = Function.new(ins: ins, outs: outs)

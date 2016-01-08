@@ -18,7 +18,7 @@ module ArtDecomp
     end
 
     def replaced
-      Circuit.new(functions: functions, own: composed.own,
+      Circuit.new(functions: functions, lines: {}, own: composed.own,
                   wires: adjusted_wires + new_wires)
     end
 

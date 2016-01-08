@@ -72,11 +72,11 @@ module ArtDecomp
           [[f1, f1.outs, f1.outs[0]],   [:circuit, fun.outs, fun.outs[0]]],
           [[f0, f0.outs, f0.outs[0]],   [f1,       f1.ins,   f1.ins[3]]],
         ])
-        composed   = Circuit.new(functions: [fun], own: fun,
+        composed   = Circuit.new(functions: [fun], lines: {}, own: fun,
                                  wires: composed_wires)
-        decomposed = Circuit.new(functions: [f0, f1], own: fun,
+        decomposed = Circuit.new(functions: [f0, f1], lines: {}, own: fun,
                                  wires: decomposed_wires)
-        replaced   = Circuit.new(functions: [f0, f1], own: fun,
+        replaced   = Circuit.new(functions: [f0, f1], lines: {}, own: fun,
                                  wires: replaced_wires)
         result     = CircuitSolder.replace(composed: composed,
                                            decomposed: decomposed,
