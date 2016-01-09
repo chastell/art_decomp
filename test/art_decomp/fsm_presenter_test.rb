@@ -63,8 +63,9 @@ module ArtDecomp
           [[f1,       f1.outs, f1.outs[5]], [:circuit, outs,   outs[3]]],
           [[f1,       f1.outs, f1.outs[6]], [:circuit, outs,   outs[4]]],
         ])
-        FSM.new(functions: [f0, f1], own: Function.new(ins: ins, outs: outs),
-                recoders: [r0, r1], wires: wires)
+        FSM.new(functions: [f0, f1], lines: {},
+                own: Function.new(ins: ins, outs: outs), recoders: [r0, r1],
+                wires: wires)
       end
 
       it 'returns VHDL for the given Circuit' do

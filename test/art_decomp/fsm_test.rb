@@ -12,7 +12,7 @@ module ArtDecomp
     include CircuitBehaviour
 
     let(:empty) do
-      FSM.new(archs_sizer: archs_sizer, functions: [],
+      FSM.new(archs_sizer: archs_sizer, functions: [], lines: {},
               own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [],
               wires: Wires.new)
     end
