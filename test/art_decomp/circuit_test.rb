@@ -24,7 +24,7 @@ module ArtDecomp
         _(circuit.functions).must_equal [function]
         _(circuit.own).must_equal function
         _(circuit.wires).must_equal Wires.from_array([
-          [[:circuit, ins, ins[0]], [function, function.ins, function.ins[0]]],
+          [[:circuit, ins,  ins[0]],  [function, ins,  ins[0]]],
           [[function, outs, outs[0]], [:circuit, outs, outs[0]]],
         ])
       end
