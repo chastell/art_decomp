@@ -14,7 +14,7 @@ module ArtDecomp
     end
 
     describe '.from_function' do
-      it 'creates a Circuit representing the FSM' do
+      it 'creates a Circuit representing the Function' do
         ins  = Puts.from_columns([%i(0 1)])
         outs = Puts.from_columns([%i(1 0)])
         function = Function.new(ins: ins, outs: outs)

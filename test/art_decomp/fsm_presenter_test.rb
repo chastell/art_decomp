@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require_relative '../../lib/art_decomp/fsm'
 require_relative '../../lib/art_decomp/fsm_presenter'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'

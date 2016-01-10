@@ -1,4 +1,4 @@
-require_relative 'fsm'
+require_relative 'circuit'
 require_relative 'kiss_parser'
 require_relative 'puts'
 require_relative 'state_put'
@@ -6,7 +6,7 @@ require_relative 'state_put'
 module ArtDecomp
   class FSMKISSParser < KISSParser
     def circuit
-      FSM.from_function(function)
+      Circuit.from_function(function)
     end
 
     private
