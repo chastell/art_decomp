@@ -57,6 +57,10 @@ module ArtDecomp
 
     alias_method :eql?, :==
 
+    def include?(target)
+      puts.any? { |put| put.eql?(target) }
+    end
+
     def index(target)
       puts.index { |put| put.eql?(target) }
     end

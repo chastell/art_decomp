@@ -163,6 +163,13 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       end
     end
 
+    describe '#include?' do
+      it 'is a predicate whether the given Put is included based on identity' do
+        assert puts.include?(a0b1)
+        refute puts.include?(Put[%i(a b)])
+      end
+    end
+
     describe '#index' do
       it 'returns the index of the given Put based on its identity' do
         ab1  = Put[%i(a b)]
