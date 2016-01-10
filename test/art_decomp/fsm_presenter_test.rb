@@ -5,7 +5,6 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/puts'
-require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe FSMPresenter do
@@ -43,26 +42,6 @@ module ArtDecomp
         r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
         r0 = Function.new(ins: r_state, outs: r_coded)
         r1 = Function.new(ins: r_coded, outs: r_state)
-        ins  = f0.ins[0..1] + f1.ins[0..0] + r0.ins[0..0]
-        outs = f1.outs[2..6] + r1.outs[0..0]
-        wires = Wires.from_array([
-          [[:circuit, ins,     ins[0]],     [f0,       f0.ins, f0.ins[0]]],
-          [[:circuit, ins,     ins[1]],     [f0,       f0.ins, f0.ins[1]]],
-          [[:circuit, ins,     ins[3]],     [r0,       r0.ins, r0.ins[0]]],
-          [[r0,       r0.outs, r0.outs[1]], [f0,       f0.ins, f0.ins[2]]],
-          [[:circuit, ins,     ins[2]],     [f1,       f1.ins, f1.ins[0]]],
-          [[f0,       f0.outs, f0.outs[0]], [f1,       f1.ins, f1.ins[1]]],
-          [[f0,       f0.outs, f0.outs[1]], [f1,       f1.ins, f1.ins[2]]],
-          [[r0,       r0.outs, r0.outs[0]], [f1,       f1.ins, f1.ins[3]]],
-          [[r1,       r1.outs, r1.outs[0]], [:circuit, outs,   outs[5]]],
-          [[f1,       f1.outs, f1.outs[0]], [r1,       r1.ins, r1.ins[0]]],
-          [[f1,       f1.outs, f1.outs[1]], [r1,       r1.ins, r1.ins[1]]],
-          [[f1,       f1.outs, f1.outs[2]], [:circuit, outs,   outs[0]]],
-          [[f1,       f1.outs, f1.outs[3]], [:circuit, outs,   outs[1]]],
-          [[f1,       f1.outs, f1.outs[4]], [:circuit, outs,   outs[2]]],
-          [[f1,       f1.outs, f1.outs[5]], [:circuit, outs,   outs[3]]],
-          [[f1,       f1.outs, f1.outs[6]], [:circuit, outs,   outs[4]]],
-        ])
         lines = {
           f0.ins[0]      => mc.own.ins[0],
           f0.ins[1]      => mc.own.ins[1],
@@ -81,8 +60,7 @@ module ArtDecomp
           mc.own.outs[3] => f1.outs[5],
           mc.own.outs[4] => f1.outs[6],
         }
-        mc.with(functions: [f0, f1], lines: lines, recoders: [r0, r1],
-                wires: wires)
+        mc.with(functions: [f0, f1], lines: lines, recoders: [r0, r1])
       end
 
       it 'returns VHDL for the given Circuit' do

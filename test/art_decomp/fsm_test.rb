@@ -4,7 +4,6 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/state_put'
-require_relative '../../lib/art_decomp/wires'
 require_relative 'circuit_behaviour'
 
 module ArtDecomp
@@ -13,8 +12,7 @@ module ArtDecomp
 
     let(:empty) do
       FSM.new(archs_sizer: archs_sizer, functions: [], lines: {},
-              own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [],
-              wires: Wires.new)
+              own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [])
     end
 
     describe '.from_function' do
@@ -28,12 +26,6 @@ module ArtDecomp
                                 outs[0] => outs[0], outs[1] => outs[1]
         _(fsm.own).must_equal function
         _(fsm.recoders).must_be :empty?
-        _(fsm.wires).must_equal Wires.from_array([
-          [[:circuit, ins,  ins[0]],  [function, ins,  ins[0]]],
-          [[:circuit, ins,  ins[1]],  [function, ins,  ins[1]]],
-          [[function, outs, outs[0]], [:circuit, outs, outs[0]]],
-          [[function, outs, outs[1]], [:circuit, outs, outs[1]]],
-        ])
       end
     end
 

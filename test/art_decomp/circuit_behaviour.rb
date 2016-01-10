@@ -51,12 +51,6 @@ module ArtDecomp
             _(empty.min_size).must_equal 7
           end
         end
-
-        describe '#wires' do
-          it 'gets the wires' do
-            _(empty.with(wires: wires = fake(Array)).wires).must_equal wires
-          end
-        end
       end
     end
   end

@@ -2,7 +2,6 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/circuit_solder'
 require_relative '../../lib/art_decomp/kiss_parser'
-require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe CircuitSolder do
@@ -43,35 +42,6 @@ module ArtDecomp
           1--1 1
         end
         f_ins = fun.ins
-        composed_wires = Wires.from_array([
-          [[:circuit, f_ins, f_ins[0]],  [fun, f_ins, f_ins[0]]],
-          [[:circuit, f_ins, f_ins[1]],  [fun, f_ins, f_ins[1]]],
-          [[:circuit, f_ins, f_ins[2]],  [fun, f_ins, f_ins[2]]],
-          [[:circuit, f_ins, f_ins[3]],  [fun, f_ins, f_ins[3]]],
-          [[:circuit, f_ins, f_ins[4]],  [fun, f_ins, f_ins[4]]],
-          [[:circuit, f_ins, f_ins[5]],  [fun, f_ins, f_ins[5]]],
-          [[fun, fun.outs, fun.outs[0]], [:circuit, fun.outs, fun.outs[0]]],
-        ])
-        decomposed_wires = Wires.from_array([
-          [[:circuit, f_ins,   f_ins[2]],   [f0,       f0.ins,   f0.ins[0]]],
-          [[:circuit, f_ins,   f_ins[3]],   [f0,       f0.ins,   f0.ins[1]]],
-          [[:circuit, f_ins,   f_ins[4]],   [f0,       f0.ins,   f0.ins[2]]],
-          [[:circuit, f_ins,   f_ins[0]],   [f1,       f1.ins,   f1.ins[0]]],
-          [[:circuit, f_ins,   f_ins[1]],   [f1,       f1.ins,   f1.ins[1]]],
-          [[:circuit, f_ins,   f_ins[5]],   [f1,       f1.ins,   f1.ins[2]]],
-          [[f0,       f0.outs, f0.outs[0]], [f1,       f1.ins,   f1.ins[3]]],
-          [[f1,       f1.outs, f1.outs[0]], [:circuit, fun.outs, fun.outs[0]]],
-        ])
-        replaced_wires = Wires.from_array([
-          [[:circuit, f_ins, f_ins[0]], [f1, f1.ins, f1.ins[0]]],
-          [[:circuit, f_ins, f_ins[1]], [f1, f1.ins, f1.ins[1]]],
-          [[:circuit, f_ins, f_ins[2]], [f0, f0.ins, f0.ins[0]]],
-          [[:circuit, f_ins, f_ins[3]], [f0, f0.ins, f0.ins[1]]],
-          [[:circuit, f_ins, f_ins[4]], [f0, f0.ins, f0.ins[2]]],
-          [[:circuit, f_ins, f_ins[5]], [f1, f1.ins, f1.ins[2]]],
-          [[f1, f1.outs, f1.outs[0]],   [:circuit, fun.outs, fun.outs[0]]],
-          [[f0, f0.outs, f0.outs[0]],   [f1,       f1.ins,   f1.ins[3]]],
-        ])
         composed_lines = {
           f_ins[0]    => f_ins[0],
           f_ins[1]    => f_ins[1],
@@ -102,11 +72,11 @@ module ArtDecomp
           f1.ins[3]   => f0.outs[0],
         }
         composed   = Circuit.new(functions: [fun], lines: composed_lines,
-                                 own: fun, wires: composed_wires)
+                                 own: fun)
         decomposed = Circuit.new(functions: [f0, f1], lines: decomposed_lines,
-                                 own: fun, wires: decomposed_wires)
+                                 own: fun)
         replaced   = Circuit.new(functions: [f0, f1], lines: replaced_lines,
-                                 own: fun, wires: replaced_wires)
+                                 own: fun)
         result     = CircuitSolder.replace(composed: composed,
                                            decomposed: decomposed,
                                            function: fun)

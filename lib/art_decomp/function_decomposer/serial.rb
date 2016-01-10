@@ -3,8 +3,6 @@ require 'delegate'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../puts'
-require_relative '../wirer'
-require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
@@ -42,8 +40,7 @@ module ArtDecomp
           out_lines = function.outs.map { |put| { put => put } }
           gh_lines  = g_outs.map { |put| { put => put } }
           lines     = (in_lines + out_lines + gh_lines).reduce({}, :merge)
-          Circuit.new(functions: [g, h], lines: lines, own: function,
-                      wires: wires)
+          Circuit.new(functions: [g, h], lines: lines, own: function)
         end
 
         def sensible?
@@ -66,16 +63,6 @@ module ArtDecomp
         # :reek:UncommunicativeMethodName
         def h
           @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
-        end
-
-        def g_h_array
-          g_outs.map { |put| [[g, g.outs, put], [h, h.ins, put]] }
-        end
-
-        def wires
-          Wires.from_array(g_h_array) +
-            Wirer.wires(g, own: function) +
-            Wirer.wires(h, own: function)
         end
       end
     end

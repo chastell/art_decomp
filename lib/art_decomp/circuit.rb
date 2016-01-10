@@ -2,19 +2,17 @@ require 'anima'
 require 'equalizer'
 require_relative 'archs_sizer'
 require_relative 'function'
-require_relative 'wirer'
 
 module ArtDecomp
   class Circuit
-    include Anima.new(:functions, :lines, :own, :wires)
-    include Equalizer.new(:functions, :own, :wires)
+    include Anima.new(:functions, :lines, :own)
+    include Equalizer.new(:functions, :own)
 
     def self.from_function(function)
       in_lines  = function.ins.map  { |put| { put => put } }
       out_lines = function.outs.map { |put| { put => put } }
       lines     = (in_lines + out_lines).reduce({}, :merge)
-      wires     = Wirer.wires(function, own: function)
-      new(functions: [function], lines: lines, own: function, wires: wires)
+      new(functions: [function], lines: lines, own: function)
     end
 
     def initialize(archs_sizer: ArchSizer, **anima_attributes)
