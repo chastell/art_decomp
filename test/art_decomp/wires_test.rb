@@ -38,5 +38,16 @@ module ArtDecomp
         _(Wires.new(ab => cd).invert).must_equal Wires.new(cd => ab)
       end
     end
+
+    describe '#reject' do
+      it 'returns an Enumerator when there’s no block' do
+        _(Wires.new(ab => cd).reject).must_be_kind_of Enumerator
+      end
+
+      it 'rejects the given wires' do
+        wires = Wires.new(ab => cd, ef => gh)
+        _(wires.reject { |dst, _src| dst == ab }).must_equal Wires.new(ef => gh)
+      end
+    end
   end
 end

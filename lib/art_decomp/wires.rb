@@ -22,6 +22,11 @@ module ArtDecomp
       self.class.new(wires.invert)
     end
 
+    def reject(&block)
+      return to_enum(__method__) unless block_given?
+      self.class.new(wires.reject(&block))
+    end
+
     protected
 
     attr_reader :wires
