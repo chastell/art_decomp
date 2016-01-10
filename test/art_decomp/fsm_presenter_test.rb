@@ -5,6 +5,7 @@ require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/recoder'
 
 module ArtDecomp
   describe FSMPresenter do
@@ -40,8 +41,8 @@ module ArtDecomp
         end
         r_state = Puts.from_columns([%i(FG FY HG HY)])
         r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
-        r0 = Function.new(ins: r_state, outs: r_coded)
-        r1 = Function.new(ins: r_coded, outs: r_state)
+        r0 = Recoder.new(ins: r_state, outs: r_coded)
+        r1 = Recoder.new(ins: r_coded, outs: r_state)
         wires = {
           f0.ins[0]      => mc.own.ins[0],
           f0.ins[1]      => mc.own.ins[1],
