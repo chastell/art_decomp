@@ -16,25 +16,25 @@ architecture behaviour of mc is
   signal f0_outs: std_logic_vector(0 to 1);
   signal f1_ins: std_logic_vector(0 to 3);
   signal f1_outs: std_logic_vector(0 to 6);
-  signal r0_ins: std_logic_vector(0 to 1);
-  signal r0_outs: std_logic_vector(0 to 1);
-  signal r1_ins: std_logic_vector(0 to 1);
-  signal r1_outs: std_logic_vector(0 to 1);
+  signal f2_ins: std_logic_vector(0 to 1);
+  signal f2_outs: std_logic_vector(0 to 1);
+  signal f3_ins: std_logic_vector(0 to 1);
+  signal f3_outs: std_logic_vector(0 to 1);
 
 begin
   f0_ins(0) <= circ_ins(0);
   f0_ins(1) <= circ_ins(1);
-  r0_ins(0) <= circ_ins(3);
-  r0_ins(1) <= circ_ins(4);
-  f0_ins(2) <= r0_outs(1);
+  f2_ins(0) <= circ_ins(3);
+  f2_ins(1) <= circ_ins(4);
+  f0_ins(2) <= f2_outs(1);
   f1_ins(0) <= circ_ins(2);
   f1_ins(1) <= f0_outs(0);
   f1_ins(2) <= f0_outs(1);
-  f1_ins(3) <= r0_outs(0);
-  circ_outs(5) <= r1_outs(0);
-  circ_outs(6) <= r1_outs(1);
-  r1_ins(0) <= f1_outs(0);
-  r1_ins(1) <= f1_outs(1);
+  f1_ins(3) <= f2_outs(0);
+  circ_outs(5) <= f3_outs(0);
+  circ_outs(6) <= f3_outs(1);
+  f3_ins(0) <= f1_outs(0);
+  f3_ins(1) <= f1_outs(1);
   circ_outs(0) <= f1_outs(2);
   circ_outs(1) <= f1_outs(3);
   circ_outs(2) <= f1_outs(4);
@@ -69,20 +69,20 @@ begin
     elsif std_match(f1_ins, "1111") then f1_outs <= "0010110";
     end if;
   end process;
-  r0: process(r0_ins) begin
-    r0_outs <= (others => '-');
-    if std_match(r0_ins, "00") then r0_outs <= "00";
-    elsif std_match(r0_ins, "01") then r0_outs <= "10";
-    elsif std_match(r0_ins, "10") then r0_outs <= "01";
-    elsif std_match(r0_ins, "11") then r0_outs <= "11";
+  f2: process(f2_ins) begin
+    f2_outs <= (others => '-');
+    if std_match(f2_ins, "00") then f2_outs <= "00";
+    elsif std_match(f2_ins, "01") then f2_outs <= "10";
+    elsif std_match(f2_ins, "10") then f2_outs <= "01";
+    elsif std_match(f2_ins, "11") then f2_outs <= "11";
     end if;
   end process;
-  r1: process(r1_ins) begin
-    r1_outs <= (others => '-');
-    if std_match(r1_ins, "00") then r1_outs <= "00";
-    elsif std_match(r1_ins, "10") then r1_outs <= "01";
-    elsif std_match(r1_ins, "01") then r1_outs <= "10";
-    elsif std_match(r1_ins, "11") then r1_outs <= "11";
+  f3: process(f3_ins) begin
+    f3_outs <= (others => '-');
+    if std_match(f3_ins, "00") then f3_outs <= "00";
+    elsif std_match(f3_ins, "10") then f3_outs <= "01";
+    elsif std_match(f3_ins, "01") then f3_outs <= "10";
+    elsif std_match(f3_ins, "11") then f3_outs <= "11";
     end if;
   end process;
 end behaviour;

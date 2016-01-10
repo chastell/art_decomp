@@ -61,7 +61,7 @@ module ArtDecomp
           mc.own.outs[3] => f1.outs[5],
           mc.own.outs[4] => f1.outs[6],
         }
-        mc.with(functions: [f0, f1], recoders: [r0, r1], wires: wires)
+        mc.with(functions: [f0, f1, r0, r1], wires: wires)
       end
 
       it 'returns VHDL for the given Circuit' do
