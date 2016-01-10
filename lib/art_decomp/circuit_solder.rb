@@ -18,7 +18,21 @@ module ArtDecomp
     end
 
     def replaced
-      Circuit.new(functions: functions, lines: {}, own: composed.own,
+      adjusted_lines = composed.lines.map do |dst, src|
+        case
+        when function.ins.include?(dst)
+          { decomposed.lines.invert[src] => src }
+        when function.outs.include?(src)
+          { dst => decomposed.lines[dst] }
+        else
+          { dst => src }
+        end
+      end.reduce({}, :merge)
+      new_lines = decomposed.lines.reject do |dst, src|
+        decomposed.own.ins.include?(src) or decomposed.own.outs.include?(dst)
+      end
+      lines = adjusted_lines.merge(new_lines)
+      Circuit.new(functions: functions, lines: lines, own: composed.own,
                   wires: adjusted_wires + new_wires)
     end
 

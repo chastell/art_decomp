@@ -72,12 +72,41 @@ module ArtDecomp
           [[f1, f1.outs, f1.outs[0]],   [:circuit, fun.outs, fun.outs[0]]],
           [[f0, f0.outs, f0.outs[0]],   [f1,       f1.ins,   f1.ins[3]]],
         ])
-        composed   = Circuit.new(functions: [fun], lines: {}, own: fun,
-                                 wires: composed_wires)
-        decomposed = Circuit.new(functions: [f0, f1], lines: {}, own: fun,
-                                 wires: decomposed_wires)
-        replaced   = Circuit.new(functions: [f0, f1], lines: {}, own: fun,
-                                 wires: replaced_wires)
+        composed_lines = {
+          f_ins[0]    => f_ins[0],
+          f_ins[1]    => f_ins[1],
+          f_ins[2]    => f_ins[2],
+          f_ins[3]    => f_ins[3],
+          f_ins[4]    => f_ins[4],
+          f_ins[5]    => f_ins[5],
+          fun.outs[0] => fun.outs[0],
+        }
+        decomposed_lines = {
+          f0.ins[0]   => f_ins[2],
+          f0.ins[1]   => f_ins[3],
+          f0.ins[2]   => f_ins[4],
+          f1.ins[0]   => f_ins[0],
+          f1.ins[1]   => f_ins[1],
+          f1.ins[2]   => f_ins[5],
+          f1.ins[3]   => f0.outs[0],
+          fun.outs[0] => f1.outs[0],
+        }
+        replaced_lines = {
+          f1.ins[0]   => f_ins[0],
+          f1.ins[1]   => f_ins[1],
+          f0.ins[0]   => f_ins[2],
+          f0.ins[1]   => f_ins[3],
+          f0.ins[2]   => f_ins[4],
+          f1.ins[2]   => f_ins[5],
+          fun.outs[0] => f1.outs[0],
+          f1.ins[3]   => f0.outs[0],
+        }
+        composed   = Circuit.new(functions: [fun], lines: composed_lines,
+                                 own: fun, wires: composed_wires)
+        decomposed = Circuit.new(functions: [f0, f1], lines: decomposed_lines,
+                                 own: fun, wires: decomposed_wires)
+        replaced   = Circuit.new(functions: [f0, f1], lines: replaced_lines,
+                                 own: fun, wires: replaced_wires)
         result     = CircuitSolder.replace(composed: composed,
                                            decomposed: decomposed,
                                            function: fun)
