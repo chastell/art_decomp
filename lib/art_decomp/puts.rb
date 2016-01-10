@@ -43,7 +43,7 @@ module ArtDecomp
       end
     end
 
-    delegate %i(each empty? index size) => :puts
+    delegate %i(each empty? size) => :puts
 
     def binwidth
       map(&:binwidth).reduce(0, :+)
@@ -56,6 +56,10 @@ module ArtDecomp
     end
 
     alias_method :eql?, :==
+
+    def index(target)
+      puts.index { |put| put.eql?(target) }
+    end
 
     def hash
       puts.map(&:column).hash ^ puts.map(&:codes).hash

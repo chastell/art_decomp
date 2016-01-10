@@ -164,9 +164,14 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
     end
 
     describe '#index' do
-      it 'returns the index of the given Put' do
-        _(puts.index(a0b1)).must_equal 0
-        _(puts.index(a1b0)).must_equal 1
+      it 'returns the index of the given Put based on its identity' do
+        ab1  = Put[%i(a b)]
+        ab2  = Put[%i(a b)]
+        ba   = Put[%i(b a)]
+        puts = Puts.new([ab1, ba, ab2])
+        _(puts.index(ab1)).must_equal 0
+        _(puts.index(ba)).must_equal 1
+        _(puts.index(ab2)).must_equal 2
       end
     end
 
