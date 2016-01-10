@@ -3,6 +3,7 @@ require 'delegate'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../puts'
+require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
@@ -36,10 +37,8 @@ module ArtDecomp
         include Anima.new(:function, :u_ins, :v_ins)
 
         def circuit
-          in_wires  = function.ins.map  { |put| { put => put } }
-          out_wires = function.outs.map { |put| { put => put } }
-          gh_wires  = g_outs.map { |put| { put => put } }
-          wires     = (in_wires + out_wires + gh_wires).reduce({}, :merge)
+          gh_wires = g_outs.map { |put| { put => put } }.reduce({}, :merge)
+          wires    = Wires.from_function(function).merge(gh_wires)
           Circuit.new(functions: [g, h], own: function, wires: wires)
         end
 

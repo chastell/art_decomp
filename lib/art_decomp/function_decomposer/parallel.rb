@@ -4,6 +4,7 @@ require_relative '../function'
 require_relative '../function_merger'
 require_relative '../function_simplifier'
 require_relative '../puts'
+require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
@@ -15,10 +16,8 @@ module ArtDecomp
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            in_wires  = function.ins.map  { |put| { put => put } }
-            out_wires = function.outs.map { |put| { put => put } }
-            wires     = (in_wires + out_wires).reduce({}, :merge)
-            circ = Circuit.new(functions: merged, own: function, wires: wires)
+            wires = Wires.from_function(function)
+            circ  = Circuit.new(functions: merged, own: function, wires: wires)
             yielder << circ
           end
         end
