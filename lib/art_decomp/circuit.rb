@@ -1,4 +1,5 @@
 require 'anima'
+require 'equalizer'
 require_relative 'archs_sizer'
 require_relative 'function'
 require_relative 'wirer'
@@ -6,6 +7,7 @@ require_relative 'wirer'
 module ArtDecomp
   class Circuit
     include Anima.new(:functions, :lines, :own, :wires)
+    include Equalizer.new(:functions, :own, :wires)
 
     def self.from_function(function)
       wires = Wirer.wires(function, own: function)
@@ -15,6 +17,11 @@ module ArtDecomp
     def initialize(archs_sizer: ArchSizer, **anima_attributes)
       super(**anima_attributes)
       @archs_sizer = archs_sizer
+    end
+
+    def ==(other)
+      super and lines.keys == other.lines.keys and
+        lines.values == other.lines.values
     end
 
     def adm_size
