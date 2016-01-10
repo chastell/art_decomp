@@ -32,5 +32,11 @@ module ArtDecomp
         _(abcd).must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
       end
     end
+
+    describe '#invert' do
+      it 'inverts the connections' do
+        _(Wires.new(ab => cd).invert).must_equal Wires.new(cd => ab)
+      end
+    end
   end
 end

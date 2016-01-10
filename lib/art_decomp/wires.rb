@@ -18,6 +18,10 @@ module ArtDecomp
       wires.keys == other.wires.keys and wires.values == other.wires.values
     end
 
+    def invert
+      self.class.new(wires.invert)
+    end
+
     protected
 
     attr_reader :wires
