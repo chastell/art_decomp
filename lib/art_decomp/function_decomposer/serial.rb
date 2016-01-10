@@ -38,7 +38,12 @@ module ArtDecomp
         include Anima.new(:function, :u_ins, :v_ins)
 
         def circuit
-          Circuit.new(functions: [g, h], lines: {}, own: function, wires: wires)
+          in_lines  = function.ins.map  { |put| { put => put } }
+          out_lines = function.outs.map { |put| { put => put } }
+          gh_lines  = g_outs.map { |put| { put => put } }
+          lines     = (in_lines + out_lines + gh_lines).reduce({}, :merge)
+          Circuit.new(functions: [g, h], lines: lines, own: function,
+                      wires: wires)
         end
 
         def sensible?

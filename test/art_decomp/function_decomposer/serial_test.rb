@@ -92,7 +92,17 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
           [[:circuit, f.ins,   f.ins[5]],   [h,        h.ins,  h.ins[2]]],
           [[h,        h.outs,  h.outs[0]],  [:circuit, f.outs, f.outs[0]]],
         ])
-        circuit = Circuit.new(functions: [g1, h], lines: {}, own: f,
+        lines = {
+          h.ins[0]  => f.ins[0],
+          h.ins[1]  => f.ins[1],
+          g1.ins[1] => f.ins[2],
+          g1.ins[2] => f.ins[3],
+          g1.ins[0] => f.ins[4],
+          h.ins[2]  => f.ins[5],
+          f.outs[0] => h.outs[0],
+          h.ins[3]  => g1.outs[0],
+        }
+        circuit = Circuit.new(functions: [g1, h], lines: lines, own: f,
                               wires: wires)
         _(FunctionDecomposer::Serial.decompose(f)).must_include circuit
       end
@@ -107,7 +117,16 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
           [[:circuit, h.ins,   h.ins[2]],   [g3,       g3.ins, g3.ins[0]]],
           [[g3,       g3.outs, g3.outs[0]], [:circuit, h.outs, h.outs[0]]],
         ])
-        circuit = Circuit.new(functions: [g2, g3], lines: {}, own: h,
+        lines = {
+          g2.ins[0] => h.ins[0],
+          g2.ins[1] => h.ins[1],
+          g3.ins[0] => h.ins[2],
+          g2.ins[2] => h.ins[3],
+          h.outs[0] => g3.outs[0],
+          g3.ins[1] => g2.outs[0],
+          g3.ins[2] => g2.outs[1],
+        }
+        circuit = Circuit.new(functions: [g2, g3], lines: lines, own: h,
                               wires: wires)
         _(FunctionDecomposer::Serial.decompose(h)).must_include circuit
       end
