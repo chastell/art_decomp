@@ -6,20 +6,23 @@ require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Wires do
+    let(:ab) { Put[%i(a b)] }
+    let(:cd) { Put[%i(c d)] }
+    let(:ef) { Put[%i(e f)] }
+    let(:gh) { Put[%i(g h)] }
+
     describe '.from_function' do
       it 'returns a set of Wires from the given Function' do
-        i1, i2 = Put[%i(a b)], Put[%i(c d)]
-        o1, o2 = Put[%i(e f)], Put[%i(g h)]
-        fun    = Function.new(ins: Puts.new([i1, i2]), outs: Puts.new([o1, o2]))
-        wires  = { i1 => i1, i2 => i2, o1 => o1, o2 => o2 }
+        fun    = Function.new(ins: Puts.new([ab, cd]), outs: Puts.new([ef, gh]))
+        wires  = Wires.new(ab => ab, cd => cd, ef => ef, gh => gh)
         _(Wires.from_function(fun)).must_equal wires
       end
     end
 
     describe '#==' do
       it 'compares sets of Wires by value' do
-        _(Wires.new(Put[%i(a b)] => Put[%i(c d)]))
-          .must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
+        abcd = Wires.new(ab => cd)
+        _(abcd).must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
       end
     end
   end
