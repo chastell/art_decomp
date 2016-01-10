@@ -19,6 +19,13 @@ module ArtDecomp
       end
     end
 
+    describe '#+' do
+      it 'returns a sum of two sets of Wires' do
+        abcd_plus_efgh = Wires.new(ab => cd) + Wires.new(ef => gh)
+        _(abcd_plus_efgh).must_equal Wires.new(ab => cd, ef => gh)
+      end
+    end
+
     describe '#==' do
       it 'compares sets of Wires by value' do
         abcd = Wires.new(ab => cd)
