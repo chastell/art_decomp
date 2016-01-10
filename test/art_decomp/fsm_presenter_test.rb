@@ -42,7 +42,7 @@ module ArtDecomp
         r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
         r0 = Function.new(ins: r_state, outs: r_coded)
         r1 = Function.new(ins: r_coded, outs: r_state)
-        lines = {
+        wires = {
           f0.ins[0]      => mc.own.ins[0],
           f0.ins[1]      => mc.own.ins[1],
           r0.ins[0]      => mc.own.ins[3],
@@ -60,7 +60,7 @@ module ArtDecomp
           mc.own.outs[3] => f1.outs[5],
           mc.own.outs[4] => f1.outs[6],
         }
-        mc.with(functions: [f0, f1], lines: lines, recoders: [r0, r1])
+        mc.with(functions: [f0, f1], recoders: [r0, r1], wires: wires)
       end
 
       it 'returns VHDL for the given Circuit' do

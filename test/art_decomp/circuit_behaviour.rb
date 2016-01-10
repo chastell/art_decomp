@@ -32,12 +32,6 @@ module ArtDecomp
           end
         end
 
-        describe '#lines' do
-          it 'gets the lines' do
-            _(empty.with(lines: lines = fake(Hash)).lines).must_equal lines
-          end
-        end
-
         describe '#max_size' do
           it 'returns the maximum size of the Circuit' do
             stub(archs_sizer).max_size([]) { 7 }
@@ -49,6 +43,12 @@ module ArtDecomp
           it 'returns the smallest possible size of the Circuit' do
             stub(archs_sizer).min_size([]) { 7 }
             _(empty.min_size).must_equal 7
+          end
+        end
+
+        describe '#wires' do
+          it 'gets the wires' do
+            _(empty.with(wires: wires = fake(Hash)).wires).must_equal wires
           end
         end
       end

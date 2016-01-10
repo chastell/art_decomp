@@ -9,8 +9,8 @@ module ArtDecomp
     include CircuitBehaviour
 
     let(:empty) do
-      Circuit.new(archs_sizer: archs_sizer, functions: [], lines: {},
-                  own: Function.new(ins: Puts.new, outs: Puts.new))
+      Circuit.new(archs_sizer: archs_sizer, functions: [],
+                  own: Function.new(ins: Puts.new, outs: Puts.new), wires: {})
     end
 
     describe '.from_function' do
@@ -20,7 +20,7 @@ module ArtDecomp
         function = Function.new(ins: ins, outs: outs)
         circuit  = Circuit.from_function(function)
         _(circuit.functions).must_equal [function]
-        _(circuit.lines).must_equal ins[0] => ins[0], outs[0] => outs[0]
+        _(circuit.wires).must_equal ins[0] => ins[0], outs[0] => outs[0]
         _(circuit.own).must_equal function
       end
     end

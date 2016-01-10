@@ -30,7 +30,7 @@ module ArtDecomp
         bc    = Function.new(ins: Puts.new([b, c]), outs: Puts.new([buc, nbuc]))
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
-        lines = {
+        wires = {
           a    => a,
           b    => b,
           c    => c,
@@ -39,7 +39,7 @@ module ArtDecomp
           nbuc => nbuc,
         }
         function = Function.new(ins: ins, outs: outs)
-        circuit  = Circuit.new(functions: [ab, bc], lines: lines, own: function)
+        circuit  = Circuit.new(functions: [ab, bc], own: function, wires: wires)
         _(FunctionDecomposer::Parallel.decompose(function)).must_include circuit
       end
 

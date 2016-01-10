@@ -36,11 +36,11 @@ module ArtDecomp
         include Anima.new(:function, :u_ins, :v_ins)
 
         def circuit
-          in_lines  = function.ins.map  { |put| { put => put } }
-          out_lines = function.outs.map { |put| { put => put } }
-          gh_lines  = g_outs.map { |put| { put => put } }
-          lines     = (in_lines + out_lines + gh_lines).reduce({}, :merge)
-          Circuit.new(functions: [g, h], lines: lines, own: function)
+          in_wires  = function.ins.map  { |put| { put => put } }
+          out_wires = function.outs.map { |put| { put => put } }
+          gh_wires  = g_outs.map { |put| { put => put } }
+          wires     = (in_wires + out_wires + gh_wires).reduce({}, :merge)
+          Circuit.new(functions: [g, h], own: function, wires: wires)
         end
 
         def sensible?

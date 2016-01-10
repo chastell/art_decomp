@@ -15,10 +15,10 @@ module ArtDecomp
       def decompositions
         Enumerator.new do |yielder|
           unless merged == [function]
-            in_lines  = function.ins.map  { |put| { put => put } }
-            out_lines = function.outs.map { |put| { put => put } }
-            lines     = (in_lines + out_lines).reduce({}, :merge)
-            circ = Circuit.new(functions: merged, lines: lines, own: function)
+            in_wires  = function.ins.map  { |put| { put => put } }
+            out_wires = function.outs.map { |put| { put => put } }
+            wires     = (in_wires + out_wires).reduce({}, :merge)
+            circ = Circuit.new(functions: merged, own: function, wires: wires)
             yielder << circ
           end
         end

@@ -11,8 +11,9 @@ module ArtDecomp
     include CircuitBehaviour
 
     let(:empty) do
-      FSM.new(archs_sizer: archs_sizer, functions: [], lines: {},
-              own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [])
+      FSM.new(archs_sizer: archs_sizer, functions: [],
+              own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [],
+              wires: {})
     end
 
     describe '.from_function' do
@@ -22,7 +23,7 @@ module ArtDecomp
         function = Function.new(ins: ins, outs: outs)
         fsm      = FSM.from_function(function)
         _(fsm.functions).must_equal [function]
-        _(fsm.lines).must_equal ins[0]  => ins[0],  ins[1]  => ins[1],
+        _(fsm.wires).must_equal ins[0]  => ins[0],  ins[1]  => ins[1],
                                 outs[0] => outs[0], outs[1] => outs[1]
         _(fsm.own).must_equal function
         _(fsm.recoders).must_be :empty?

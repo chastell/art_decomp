@@ -5,14 +5,14 @@ require_relative 'function'
 
 module ArtDecomp
   class Circuit
-    include Anima.new(:functions, :lines, :own)
+    include Anima.new(:functions, :own, :wires)
     include Equalizer.new(:functions, :own)
 
     def self.from_function(function)
-      in_lines  = function.ins.map  { |put| { put => put } }
-      out_lines = function.outs.map { |put| { put => put } }
-      lines     = (in_lines + out_lines).reduce({}, :merge)
-      new(functions: [function], lines: lines, own: function)
+      in_wires  = function.ins.map  { |put| { put => put } }
+      out_wires = function.outs.map { |put| { put => put } }
+      wires     = (in_wires + out_wires).reduce({}, :merge)
+      new(functions: [function], own: function, wires: wires)
     end
 
     def initialize(archs_sizer: ArchSizer, **anima_attributes)
@@ -21,8 +21,8 @@ module ArtDecomp
     end
 
     def ==(other)
-      super and lines.keys == other.lines.keys and
-        lines.values == other.lines.values
+      super and wires.keys == other.wires.keys and
+        wires.values == other.wires.values
     end
 
     def adm_size
