@@ -10,8 +10,11 @@ module ArtDecomp
     include Equalizer.new(:functions, :own, :recoders, :wires)
 
     def self.from_function(function)
-      wires = Wirer.wires(function, own: function)
-      new(functions: [function], lines: {}, own: function, recoders: [],
+      in_lines  = function.ins.map  { |put| { put => put } }
+      out_lines = function.outs.map { |put| { put => put } }
+      lines     = (in_lines + out_lines).reduce({}, :merge)
+      wires     = Wirer.wires(function, own: function)
+      new(functions: [function], lines: lines, own: function, recoders: [],
           wires: wires)
     end
   end
