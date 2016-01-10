@@ -30,6 +30,55 @@ module ArtDecomp
       own.ins.binwidth
     end
 
+    def line_labels
+      lines.flat_map do |dst, src|
+        if own.outs.include?(dst)
+          dst_prefix = 'circ_outs'
+          dst_puts   = own.outs
+        else
+          functions.find.with_index do |function, fi|
+            if function.ins.include?(dst)
+              dst_prefix = "f#{fi}_ins"
+              dst_puts   = function.ins
+            end
+          end
+        end
+        unless dst_prefix and dst_puts
+          recoders.find.with_index do |recoder, ri|
+            if recoder.ins.include?(dst)
+              dst_prefix = "r#{ri}_ins"
+              dst_puts   = recoder.ins
+            end
+          end
+        end
+        if own.ins.include?(src)
+          src_prefix = 'circ_ins'
+          src_puts   = own.ins
+        else
+          functions.find.with_index do |function, fi|
+            if function.outs.include?(src)
+              src_prefix = "f#{fi}_outs"
+              src_puts   = function.outs
+            end
+          end
+        end
+        unless src_prefix and src_puts
+          recoders.find.with_index do |recoder, ri|
+            if recoder.outs.include?(src)
+              src_prefix = "r#{ri}_outs"
+              src_puts   = recoder.outs
+            end
+          end
+        end
+        dst_offset = dst_puts[0...dst_puts.index(dst)].binwidth
+        src_offset = src_puts[0...src_puts.index(src)].binwidth
+        Array.new(dst.binwidth) do |bit|
+          ["#{dst_prefix}(#{dst_offset + bit})",
+           "#{src_prefix}(#{src_offset + bit})"]
+        end
+      end
+    end
+
     def outs_binwidth
       own.outs.binwidth
     end

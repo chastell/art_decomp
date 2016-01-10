@@ -50,7 +50,17 @@ module ArtDecomp
           [[f0,       f0.outs, f0.outs[0]], [f1,       f1.ins, f1.ins[3]]],
           [[f1,       f1.outs, f1.outs[0]], [:circuit, outs,   outs[0]]],
         ])
-        bin_decd = bin.with(functions: [f0, f1], wires: wires)
+        lines = {
+          f0.ins[0]       => bin.own.ins[2],
+          f0.ins[1]       => bin.own.ins[3],
+          f0.ins[2]       => bin.own.ins[4],
+          f1.ins[0]       => bin.own.ins[0],
+          f1.ins[1]       => bin.own.ins[1],
+          f1.ins[2]       => bin.own.ins[5],
+          f1.ins[3]       => f0.outs[0],
+          bin.own.outs[0] => f1.outs[0],
+        }
+        bin_decd = bin.with(functions: [f0, f1], lines: lines, wires: wires)
         vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
         _(vhdl).must_equal File.read('test/fixtures/bin.decomposed.vhdl')
       end

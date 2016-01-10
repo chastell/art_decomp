@@ -63,8 +63,25 @@ module ArtDecomp
           [[f1,       f1.outs, f1.outs[5]], [:circuit, outs,   outs[3]]],
           [[f1,       f1.outs, f1.outs[6]], [:circuit, outs,   outs[4]]],
         ])
-        FSM.new(functions: [f0, f1], lines: {},
-                own: Function.new(ins: ins, outs: outs), recoders: [r0, r1],
+        lines = {
+          f0.ins[0]      => mc.own.ins[0],
+          f0.ins[1]      => mc.own.ins[1],
+          r0.ins[0]      => mc.own.ins[3],
+          f0.ins[2]      => r0.outs[1],
+          f1.ins[0]      => mc.own.ins[2],
+          f1.ins[1]      => f0.outs[0],
+          f1.ins[2]      => f0.outs[1],
+          f1.ins[3]      => r0.outs[0],
+          mc.own.outs[5] => r1.outs[0],
+          r1.ins[0]      => f1.outs[0],
+          r1.ins[1]      => f1.outs[1],
+          mc.own.outs[0] => f1.outs[2],
+          mc.own.outs[1] => f1.outs[3],
+          mc.own.outs[2] => f1.outs[4],
+          mc.own.outs[3] => f1.outs[5],
+          mc.own.outs[4] => f1.outs[6],
+        }
+        mc.with(functions: [f0, f1], lines: lines, recoders: [r0, r1],
                 wires: wires)
       end
 

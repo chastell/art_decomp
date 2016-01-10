@@ -18,7 +18,7 @@ architecture behaviour of <%= name %> is
 % end
 
 begin
-% wire_labels.each do |src_label, dst_label|
+% line_labels.each do |dst_label, src_label|
   <%= dst_label %> <= <%= src_label %>;
 % end
 
