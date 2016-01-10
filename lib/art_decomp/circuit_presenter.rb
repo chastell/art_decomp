@@ -34,10 +34,6 @@ module ArtDecomp
       own.outs.binwidth
     end
 
-    def recoders
-      @recoders ||= super.map { |recoder| FunctionPresenter.new(recoder) }
-    end
-
     def wire_labels
       wires.flat_map do |dst, src|
         dst_prefix, dst_puts = wire_dst(dst)
@@ -56,18 +52,12 @@ module ArtDecomp
       functions.each.with_index do |function, fi|
         return "f#{fi}_ins", function.ins if function.ins.include?(dst)
       end
-      recoders.each.with_index do |recoder, ri|
-        return "r#{ri}_ins", recoder.ins if recoder.ins.include?(dst)
-      end
     end
 
     def wire_src(src)
       return 'circ_ins', own.ins if own.ins.include?(src)
       functions.each.with_index do |function, fi|
         return "f#{fi}_outs", function.outs if function.outs.include?(src)
-      end
-      recoders.each.with_index do |recoder, ri|
-        return "r#{ri}_outs", recoder.outs if recoder.outs.include?(src)
       end
     end
   end

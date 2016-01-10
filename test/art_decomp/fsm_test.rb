@@ -12,8 +12,7 @@ module ArtDecomp
 
     let(:empty) do
       FSM.new(archs_sizer: archs_sizer, functions: [],
-              own: Function.new(ins: Puts.new, outs: Puts.new), recoders: [],
-              wires: {})
+              own: Function.new(ins: Puts.new, outs: Puts.new), wires: {})
     end
 
     describe '.from_function' do
@@ -26,13 +25,6 @@ module ArtDecomp
         _(fsm.wires).must_equal ins[0]  => ins[0],  ins[1]  => ins[1],
                                 outs[0] => outs[0], outs[1] => outs[1]
         _(fsm.own).must_equal function
-        _(fsm.recoders).must_be :empty?
-      end
-    end
-
-    describe '#recoders' do
-      it 'gets the Recorders' do
-        _(empty.with(recoders: recs = fake(Array)).recoders).must_equal recs
       end
     end
   end
