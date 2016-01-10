@@ -39,11 +39,18 @@ module ArtDecomp
           [[bc,       bc.outs, buc],  [:circuit, outs,   buc]],
           [[bc,       bc.outs, nbuc], [:circuit, outs,   nbuc]],
         ])
-        circuit = Circuit.new(functions: [ab, bc], lines: {},
-                              own: Function.new(ins: ins, outs: outs),
-                              wires: wires)
-        fun = Function.new(ins: ins, outs: outs)
-        _(FunctionDecomposer::Parallel.decompose(fun)).must_include circuit
+        lines = {
+          a    => a,
+          b    => b,
+          c    => c,
+          anb  => anb,
+          buc  => buc,
+          nbuc => nbuc,
+        }
+        function = Function.new(ins: ins, outs: outs)
+        circuit  = Circuit.new(functions: [ab, bc], lines: lines, own: function,
+                               wires: wires)
+        _(FunctionDecomposer::Parallel.decompose(function)).must_include circuit
       end
 
       it 'does not yield if it can’t decompose' do

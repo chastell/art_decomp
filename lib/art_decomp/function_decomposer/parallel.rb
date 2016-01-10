@@ -19,7 +19,10 @@ module ArtDecomp
             wires = merged.map do |fun|
               Wirer.wires(fun, own: function)
             end.reduce(:+)
-            circ = Circuit.new(functions: merged, lines: {}, own: function,
+            in_lines  = function.ins.map  { |put| { put => put } }
+            out_lines = function.outs.map { |put| { put => put } }
+            lines     = (in_lines + out_lines).reduce({}, :merge)
+            circ = Circuit.new(functions: merged, lines: lines, own: function,
                                wires: wires)
             yielder << circ
           end
