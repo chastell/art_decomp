@@ -5,10 +5,6 @@ require_relative 'state_put'
 
 module ArtDecomp
   class FSMKISSParser < KISSParser
-    def circuit
-      Circuit.from_function(function)
-    end
-
     private
 
     def puts                                   # rubocop:disable Metrics/AbcSize
