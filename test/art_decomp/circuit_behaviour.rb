@@ -32,6 +32,12 @@ module ArtDecomp
           end
         end
 
+        describe '#lines' do
+          it 'gets the lines' do
+            _(empty.with(lines: lines = fake(Hash)).lines).must_equal lines
+          end
+        end
+
         describe '#max_size' do
           it 'returns the maximum size of the Circuit' do
             stub(archs_sizer).max_size([]) { 7 }
