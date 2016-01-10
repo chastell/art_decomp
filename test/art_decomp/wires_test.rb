@@ -15,5 +15,12 @@ module ArtDecomp
         _(Wires.from_function(fun)).must_equal wires
       end
     end
+
+    describe '#==' do
+      it 'compares sets of Wires by value' do
+        _(Wires.new(Put[%i(a b)] => Put[%i(c d)]))
+          .must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
+      end
+    end
   end
 end
