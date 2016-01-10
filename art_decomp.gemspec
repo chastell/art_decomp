@@ -19,7 +19,8 @@ Gem::Specification.new do |gem|
     gem.signing_key = Pathname.new('~/.ssh/gem-private_key.pem').expand_path
   end
 
-  gem.add_dependency 'anima', '~> 0.3.0'
+  gem.add_dependency 'anima',     '~> 0.3.0'
+  gem.add_dependency 'equalizer', '~> 0.0.11'
 
   gem.add_development_dependency 'bogus',          '~> 0.1.3'
   gem.add_development_dependency 'minitest',       '~> 5.6'
