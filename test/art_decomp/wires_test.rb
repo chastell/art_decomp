@@ -45,6 +45,14 @@ module ArtDecomp
       end
     end
 
+    describe '#map' do
+      it 'maps subsequent destination-source pairs' do
+        wires = Wires.new(ab => cd, ef => gh)
+        _(wires.map { |dst, src| [dst.binwidth, src.state?] })
+          .must_equal [[1, false], [1, false]]
+      end
+    end
+
     describe '#reject' do
       it 'returns an Enumerator when there’s no block' do
         _(Wires.new(ab => cd).reject).must_be_kind_of Enumerator

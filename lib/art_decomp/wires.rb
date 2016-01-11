@@ -3,6 +3,7 @@ require 'forwardable'
 module ArtDecomp
   class Wires
     extend Forwardable
+    include Enumerable
 
     def self.from_function(function)
       in_wires  = function.ins.map  { |put| { put => put } }
@@ -22,7 +23,7 @@ module ArtDecomp
       wires.keys == other.wires.keys and wires.values == other.wires.values
     end
 
-    delegate %i([]) => :wires
+    delegate %i([] each) => :wires
 
     def invert
       self.class.new(wires.invert)
