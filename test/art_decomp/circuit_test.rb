@@ -4,6 +4,7 @@ require_relative '../../lib/art_decomp/archs_sizer'
 require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/function'
 require_relative '../../lib/art_decomp/puts'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Circuit do
@@ -11,7 +12,8 @@ module ArtDecomp
 
     let(:empty) do
       Circuit.new(archs_sizer: archs_sizer, functions: [],
-                  own: Function.new(ins: Puts.new, outs: Puts.new), wires: {})
+                  own: Function.new(ins: Puts.new, outs: Puts.new),
+                  wires: Wires.new({}))
     end
 
     describe '.from_function' do
@@ -20,9 +22,10 @@ module ArtDecomp
         outs = Puts.from_columns([%i(1 0)])
         function = Function.new(ins: ins, outs: outs)
         circuit  = Circuit.from_function(function)
+        wires    = Wires.new(ins[0] => ins[0], outs[0] => outs[0])
         _(circuit.functions).must_equal [function]
-        _(circuit.wires).must_equal ins[0] => ins[0], outs[0] => outs[0]
         _(circuit.own).must_equal function
+        _(circuit.wires).must_equal wires
       end
     end
 
@@ -66,7 +69,7 @@ module ArtDecomp
 
     describe '#wires' do
       it 'gets the wires' do
-        _(empty.with(wires: wires = fake(Hash)).wires).must_equal wires
+        _(empty.with(wires: wires = fake(Wires)).wires).must_equal wires
       end
     end
   end

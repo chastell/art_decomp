@@ -1,4 +1,5 @@
 require_relative 'circuit'
+require_relative 'wires'
 
 module ArtDecomp
   class CircuitSolder
@@ -17,17 +18,17 @@ module ArtDecomp
       adjusted_wires = composed.wires.map do |dst, src|
         case
         when function.ins.include?(dst)
-          { decomposed.wires.invert[src] => src }
+          Wires.new(decomposed.wires.invert[src] => src)
         when function.outs.include?(src)
-          { dst => decomposed.wires[dst] }
+          Wires.new(dst => decomposed.wires[dst])
         else
-          { dst => src }
+          Wires.new(dst => src)
         end
-      end.reduce({}, :merge)
+      end.reduce(Wires.new({}), :+)
       new_wires = decomposed.wires.reject do |dst, src|
         decomposed.own.ins.include?(src) or decomposed.own.outs.include?(dst)
       end
-      wires = adjusted_wires.merge(new_wires)
+      wires = adjusted_wires + new_wires
       Circuit.new(functions: functions, own: composed.own, wires: wires)
     end
 

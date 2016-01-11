@@ -4,6 +4,7 @@ require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/kiss_parser'
 require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/recoder'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe CircuitPresenter do
@@ -45,7 +46,7 @@ module ArtDecomp
         r_coded = Puts.from_columns([%i(a b a b), %i(a a b b)])
         r0 = Recoder.new(ins: r_state, outs: r_coded)
         r1 = Recoder.new(ins: r_coded, outs: r_state)
-        wires = {
+        wires = Wires.new(
           f0.ins[0]      => mc.own.ins[0],
           f0.ins[1]      => mc.own.ins[1],
           r0.ins[0]      => mc.own.ins[3],
@@ -62,7 +63,7 @@ module ArtDecomp
           mc.own.outs[2] => f1.outs[4],
           mc.own.outs[3] => f1.outs[5],
           mc.own.outs[4] => f1.outs[6],
-        }
+        )
         mc.with(functions: [f0, f1, r0, r1], wires: wires)
       end
 
@@ -94,7 +95,7 @@ module ArtDecomp
           -1-1 1
           1--1 1
         end
-        wires = {
+        wires = Wires.new(
           f0.ins[0]       => bin.own.ins[2],
           f0.ins[1]       => bin.own.ins[3],
           f0.ins[2]       => bin.own.ins[4],
@@ -103,7 +104,7 @@ module ArtDecomp
           f1.ins[2]       => bin.own.ins[5],
           f1.ins[3]       => f0.outs[0],
           bin.own.outs[0] => f1.outs[0],
-        }
+        )
         bin_decd = bin.with(functions: [f0, f1], wires: wires)
         vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
         _(vhdl).must_equal File.read('test/fixtures/bin.decomposed.vhdl')

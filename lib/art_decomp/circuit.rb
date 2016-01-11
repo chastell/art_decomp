@@ -20,8 +20,7 @@ module ArtDecomp
     end
 
     def ==(other)
-      super and wires.keys == other.wires.keys and
-        wires.values == other.wires.values
+      super and wires == other.wires
     end
 
     def adm_size

@@ -2,6 +2,7 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/circuit_solder'
 require_relative '../../lib/art_decomp/kiss_parser'
+require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe CircuitSolder do
@@ -42,7 +43,7 @@ module ArtDecomp
           1--1 1
         end
         f_ins = fun.ins
-        composed_wires = {
+        composed_wires = Wires.new(
           f_ins[0]    => f_ins[0],
           f_ins[1]    => f_ins[1],
           f_ins[2]    => f_ins[2],
@@ -50,8 +51,8 @@ module ArtDecomp
           f_ins[4]    => f_ins[4],
           f_ins[5]    => f_ins[5],
           fun.outs[0] => fun.outs[0],
-        }
-        decomposed_wires = {
+        )
+        decomposed_wires = Wires.new(
           f0.ins[0]   => f_ins[2],
           f0.ins[1]   => f_ins[3],
           f0.ins[2]   => f_ins[4],
@@ -60,8 +61,8 @@ module ArtDecomp
           f1.ins[2]   => f_ins[5],
           f1.ins[3]   => f0.outs[0],
           fun.outs[0] => f1.outs[0],
-        }
-        replaced_wires = {
+        )
+        replaced_wires = Wires.new(
           f1.ins[0]   => f_ins[0],
           f1.ins[1]   => f_ins[1],
           f0.ins[0]   => f_ins[2],
@@ -70,7 +71,7 @@ module ArtDecomp
           f1.ins[2]   => f_ins[5],
           fun.outs[0] => f1.outs[0],
           f1.ins[3]   => f0.outs[0],
-        }
+        )
         composed   = Circuit.new(functions: [fun], own: fun,
                                  wires: composed_wires)
         decomposed = Circuit.new(functions: [f0, f1], own: fun,

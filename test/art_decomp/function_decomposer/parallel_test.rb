@@ -4,6 +4,7 @@ require_relative '../../../lib/art_decomp/function'
 require_relative '../../../lib/art_decomp/function_decomposer/parallel'
 require_relative '../../../lib/art_decomp/kiss_parser'
 require_relative '../../../lib/art_decomp/puts'
+require_relative '../../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
@@ -30,14 +31,14 @@ module ArtDecomp
         bc    = Function.new(ins: Puts.new([b, c]), outs: Puts.new([buc, nbuc]))
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
-        wires = {
+        wires = Wires.new(
           a    => a,
           b    => b,
           c    => c,
           anb  => anb,
           buc  => buc,
           nbuc => nbuc,
-        }
+        )
         function = Function.new(ins: ins, outs: outs)
         circuit  = Circuit.new(functions: [ab, bc], own: function, wires: wires)
         _(FunctionDecomposer::Parallel.decompose(function)).must_include circuit
