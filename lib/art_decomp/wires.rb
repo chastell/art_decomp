@@ -1,5 +1,9 @@
+require 'forwardable'
+
 module ArtDecomp
   class Wires
+    extend Forwardable
+
     def self.from_function(function)
       in_wires  = function.ins.map  { |put| { put => put } }
       out_wires = function.outs.map { |put| { put => put } }
@@ -17,6 +21,8 @@ module ArtDecomp
     def ==(other)
       wires.keys == other.wires.keys and wires.values == other.wires.values
     end
+
+    delegate %i([]) => :wires
 
     def invert
       self.class.new(wires.invert)

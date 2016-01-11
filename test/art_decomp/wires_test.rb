@@ -33,6 +33,12 @@ module ArtDecomp
       end
     end
 
+    describe '#[]' do
+      it 'returns the source Put for the given destination' do
+        _(Wires.new(ab => cd)[ab]).must_equal cd
+      end
+    end
+
     describe '#invert' do
       it 'inverts the connections' do
         _(Wires.new(ab => cd).invert).must_equal Wires.new(cd => ab)
