@@ -23,17 +23,20 @@ module ArtDecomp
 
     attr_reader :composed, :decomposed, :function
 
+    def adjusted_wire(dst, src)
+      case
+      when function.ins.include?(dst)
+        { decomposed.wires.invert[src] => src }
+      when function.outs.include?(src)
+        { dst => decomposed.wires[dst] }
+      else
+        { dst => src }
+      end
+    end
+
     def adjusted_wires
-      composed.wires.map do |dst, src|
-        case
-        when function.ins.include?(dst)
-          Wires.new(decomposed.wires.invert[src] => src)
-        when function.outs.include?(src)
-          Wires.new(dst => decomposed.wires[dst])
-        else
-          Wires.new(dst => src)
-        end
-      end.reduce(Wires.new({}), :+)
+      hashes = composed.wires.map { |dst, src| adjusted_wire(dst, src) }
+      Wires.new(hashes.reduce({}, :merge))
     end
 
     def functions
