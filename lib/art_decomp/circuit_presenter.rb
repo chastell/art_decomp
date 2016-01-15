@@ -45,8 +45,6 @@ module ArtDecomp
       include Anima.new(:circuit, :dst, :src)
 
       def labels
-        dst_prefix, dst_puts = wire_dst(dst)
-        src_prefix, src_puts = wire_src(src)
         dst_offset = dst_puts[0...dst_puts.index(dst)].binwidth
         src_offset = src_puts[0...src_puts.index(src)].binwidth
         Array.new(dst.binwidth) do |bit|
@@ -57,17 +55,31 @@ module ArtDecomp
 
       private
 
-      def wire_dst(dst)
-        return 'circ_outs', circuit.own.outs if circuit.own.outs.include?(dst)
+      def dst_prefix
+        return 'circ_outs' if circuit.own.outs.include?(dst)
         circuit.functions.each.with_index do |function, fi|
-          return "f#{fi}_ins", function.ins if function.ins.include?(dst)
+          return "f#{fi}_ins" if function.ins.include?(dst)
         end
       end
 
-      def wire_src(src)
-        return 'circ_ins', circuit.own.ins if circuit.own.ins.include?(src)
+      def dst_puts
+        return circuit.own.outs if circuit.own.outs.include?(dst)
+        circuit.functions.each do |function|
+          return function.ins if function.ins.include?(dst)
+        end
+      end
+
+      def src_prefix
+        return 'circ_ins' if circuit.own.ins.include?(src)
         circuit.functions.each.with_index do |function, fi|
-          return "f#{fi}_outs", function.outs if function.outs.include?(src)
+          return "f#{fi}_outs" if function.outs.include?(src)
+        end
+      end
+
+      def src_puts
+        return circuit.own.ins if circuit.own.ins.include?(src)
+        circuit.functions.each do |function|
+          return function.outs if function.outs.include?(src)
         end
       end
     end
