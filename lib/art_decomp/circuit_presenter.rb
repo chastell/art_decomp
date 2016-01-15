@@ -45,8 +45,6 @@ module ArtDecomp
       include Anima.new(:circuit, :dst, :src)
 
       def labels
-        dst_offset = dst_puts[0...dst_puts.index(dst)].binwidth
-        src_offset = src_puts[0...src_puts.index(src)].binwidth
         Array.new(dst.binwidth) do |bit|
           ["#{dst_prefix}(#{dst_offset + bit})",
            "#{src_prefix}(#{src_offset + bit})"]
@@ -54,6 +52,10 @@ module ArtDecomp
       end
 
       private
+
+      def dst_offset
+        dst_puts[0...dst_puts.index(dst)].binwidth
+      end
 
       def dst_prefix
         return 'circ_outs' if circuit.own.outs.include?(dst)
@@ -67,6 +69,10 @@ module ArtDecomp
         circuit.functions.each do |function|
           return function.ins if function.ins.include?(dst)
         end
+      end
+
+      def src_offset
+        src_puts[0...src_puts.index(src)].binwidth
       end
 
       def src_prefix
