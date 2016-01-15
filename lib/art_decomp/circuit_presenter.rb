@@ -34,24 +34,26 @@ module ArtDecomp
       own.outs.binwidth
     end
 
-    def wire_labels
-      wires.flat_map do |dst, src|
-        dst_prefix, dst_puts = wire_dst(dst)
-        src_prefix, src_puts = wire_src(src)
-        dst_offset = dst_puts[0...dst_puts.index(dst)].binwidth
-        src_offset = src_puts[0...src_puts.index(src)].binwidth
-        Array.new(dst.binwidth) do |bit|
-          ["#{dst_prefix}(#{dst_offset + bit})",
-           "#{src_prefix}(#{src_offset + bit})"]
-        end
-      end
-    end
-
     def wire_dst(dst)
       return 'circ_outs', own.outs if own.outs.include?(dst)
       functions.each.with_index do |function, fi|
         return "f#{fi}_ins", function.ins if function.ins.include?(dst)
       end
+    end
+
+    def wire_label(dst, src)
+      dst_prefix, dst_puts = wire_dst(dst)
+      src_prefix, src_puts = wire_src(src)
+      dst_offset = dst_puts[0...dst_puts.index(dst)].binwidth
+      src_offset = src_puts[0...src_puts.index(src)].binwidth
+      Array.new(dst.binwidth) do |bit|
+        ["#{dst_prefix}(#{dst_offset + bit})",
+         "#{src_prefix}(#{src_offset + bit})"]
+      end
+    end
+
+    def wire_labels
+      wires.flat_map { |dst, src| wire_label(dst, src) }
     end
 
     def wire_src(src)
