@@ -64,8 +64,8 @@ module ArtDecomp
 
       def dst_prefix
         return 'circ_outs' if circuit.own.outs.include?(dst)
-        circuit.functions.each.with_index do |function, fi|
-          return "f#{fi}_ins" if function.ins.include?(dst)
+        circuit.functions.map(&:ins).each.with_index do |ins, fi|
+          return "f#{fi}_ins" if ins.include?(dst)
         end
       end
 
@@ -80,8 +80,8 @@ module ArtDecomp
 
       def src_prefix
         return 'circ_ins' if circuit.own.ins.include?(src)
-        circuit.functions.each.with_index do |function, fi|
-          return "f#{fi}_outs" if function.outs.include?(src)
+        circuit.functions.map(&:outs).each.with_index do |outs, fi|
+          return "f#{fi}_outs" if outs.include?(src)
         end
       end
 
