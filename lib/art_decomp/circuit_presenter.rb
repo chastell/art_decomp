@@ -37,11 +37,11 @@ module ArtDecomp
 
     def wire_labels
       wires.flat_map do |dst, src|
-        WireLabel.new(circuit: circuit, dst: dst, src: src).labels
+        WireLabels.new(circuit: circuit, dst: dst, src: src).labels
       end
     end
 
-    class WireLabel
+    class WireLabels
       include Anima.new(:circuit, :dst, :src)
 
       def labels
