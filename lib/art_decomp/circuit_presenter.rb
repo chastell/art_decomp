@@ -72,12 +72,14 @@ module ArtDecomp
         private
 
         def prefix
-          index = groups.index { |group| group.equal?(puts) }
-          index.zero? ? 'circ' : "f#{index - 1}"
+          @prefix ||= begin
+            index = groups.index { |group| group.equal?(puts) }
+            index.zero? ? 'circ' : "f#{index - 1}"
+          end
         end
 
         def puts
-          groups.find { |puts| puts.include?(put) }
+          @puts ||= groups.find { |puts| puts.include?(put) }
         end
       end
     end
