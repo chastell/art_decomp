@@ -45,51 +45,45 @@ module ArtDecomp
       include Anima.new(:circuit, :dst, :src)
 
       def labels
-        Array.new(binwidth) do |bit|
-          ["#{dst_prefix}(#{dst_offset + bit})",
-           "#{src_prefix}(#{src_offset + bit})"]
-        end
+        fail 'wire binwidths don’t match' unless dst.binwidth == src.binwidth
+        dst_labels.zip(src_labels)
       end
 
       private
 
-      def binwidth
-        fail 'wire binwidths don’t match' unless dst.binwidth == src.binwidth
-        dst.binwidth
+      def dst_labels
+        groups = [circuit.own.outs] + circuit.functions.map(&:ins)
+        PutLabels.new(groups: groups, put: dst, type: :dst).labels
       end
 
-      def dst_offset
-        dst_puts[0...dst_puts.index(dst)].binwidth
+      def src_labels
+        groups = [circuit.own.ins] + circuit.functions.map(&:outs)
+        PutLabels.new(groups: groups, put: src, type: :src).labels
       end
 
-      def dst_prefix
-        index = dst_puts_groups.index { |puts| puts.equal?(dst_puts) }
-        index.zero? ? 'circ_outs' : "f#{index - 1}_ins"
-      end
+      class PutLabels
+        include Anima.new(:groups, :put, :type)
 
-      def dst_puts
-        dst_puts_groups.find { |puts| puts.include?(dst) }
-      end
+        def labels
+          Array.new(put.binwidth) { |bit| "#{prefix}(#{offset + bit})" }
+        end
 
-      def dst_puts_groups
-        [circuit.own.outs] + circuit.functions.map(&:ins)
-      end
+        private
 
-      def src_offset
-        src_puts[0...src_puts.index(src)].binwidth
-      end
+        def offset
+          puts[0...puts.index(put)].binwidth
+        end
 
-      def src_prefix
-        index = src_puts_groups.index { |puts| puts.equal?(src_puts) }
-        index.zero? ? 'circ_ins' : "f#{index - 1}_outs"
-      end
+        def prefix
+          index = groups.index { |group| group.equal?(puts) }
+          ctype = type == :dst ? :outs : :ins
+          ftype = type == :dst ? :ins : :outs
+          index.zero? ? "circ_#{ctype}" : "f#{index - 1}_#{ftype}"
+        end
 
-      def src_puts
-        src_puts_groups.find { |puts| puts.include?(src) }
-      end
-
-      def src_puts_groups
-        [circuit.own.ins] + circuit.functions.map(&:outs)
+        def puts
+          groups.find { |puts| puts.include?(put) }
+        end
       end
     end
   end
