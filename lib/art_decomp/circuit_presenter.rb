@@ -65,7 +65,7 @@ module ArtDecomp
         include Anima.new(:groups, :put, :type)
 
         def labels
-          Array.new(put.binwidth) { |bit| "#{prefix}(#{offset + bit})" }
+          Array.new(put.binwidth) { |bit| "#{prefix}_#{type}(#{offset + bit})" }
         end
 
         private
@@ -76,9 +76,7 @@ module ArtDecomp
 
         def prefix
           index = groups.index { |group| group.equal?(puts) }
-          ctype = type == :dst ? :dst : :src
-          ftype = type == :dst ? :dst : :src
-          index.zero? ? "circ_#{ctype}" : "f#{index - 1}_#{ftype}"
+          index.zero? ? 'circ' : "f#{index - 1}"
         end
 
         def puts
