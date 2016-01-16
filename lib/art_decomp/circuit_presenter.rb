@@ -63,10 +63,8 @@ module ArtDecomp
       end
 
       def dst_prefix
-        return 'circ_outs' if circuit.own.outs.equal?(dst_puts)
-        fins  = circuit.functions.map(&:ins)
-        index = (0...fins.size).find { |fi| fins[fi].equal?(dst_puts) }
-        "f#{index}_ins"
+        index = dst_puts_groups.index { |puts| puts.equal?(dst_puts) }
+        index.zero? ? 'circ_outs' : "f#{index - 1}_ins"
       end
 
       def dst_puts
@@ -82,10 +80,8 @@ module ArtDecomp
       end
 
       def src_prefix
-        return 'circ_ins' if circuit.own.ins.equal?(src_puts)
-        fouts = circuit.functions.map(&:outs)
-        index = (0...fouts.size).find { |fi| fouts[fi].equal?(src_puts) }
-        "f#{index}_outs"
+        index = src_puts_groups.index { |puts| puts.equal?(src_puts) }
+        index.zero? ? 'circ_ins' : "f#{index - 1}_outs"
       end
 
       def src_puts
