@@ -6,83 +6,83 @@ entity mc is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        circ_ins: in  std_logic_vector(0 to 4);
-        circ_outs: out std_logic_vector(0 to 6)
+        circ_src: in  std_logic_vector(0 to 4);
+        circ_dst: out std_logic_vector(0 to 6)
       );
 end mc;
 
 architecture behaviour of mc is
-  signal f0_ins: std_logic_vector(0 to 2);
-  signal f0_outs: std_logic_vector(0 to 1);
-  signal f1_ins: std_logic_vector(0 to 3);
-  signal f1_outs: std_logic_vector(0 to 6);
-  signal f2_ins: std_logic_vector(0 to 1);
-  signal f2_outs: std_logic_vector(0 to 1);
-  signal f3_ins: std_logic_vector(0 to 1);
-  signal f3_outs: std_logic_vector(0 to 1);
+  signal f0_dst: std_logic_vector(0 to 2);
+  signal f0_src: std_logic_vector(0 to 1);
+  signal f1_dst: std_logic_vector(0 to 3);
+  signal f1_src: std_logic_vector(0 to 6);
+  signal f2_dst: std_logic_vector(0 to 1);
+  signal f2_src: std_logic_vector(0 to 1);
+  signal f3_dst: std_logic_vector(0 to 1);
+  signal f3_src: std_logic_vector(0 to 1);
 
 begin
-  f0_ins(0) <= circ_ins(0);
-  f0_ins(1) <= circ_ins(1);
-  f2_ins(0) <= circ_ins(3);
-  f2_ins(1) <= circ_ins(4);
-  f0_ins(2) <= f2_outs(1);
-  f1_ins(0) <= circ_ins(2);
-  f1_ins(1) <= f0_outs(0);
-  f1_ins(2) <= f0_outs(1);
-  f1_ins(3) <= f2_outs(0);
-  circ_outs(5) <= f3_outs(0);
-  circ_outs(6) <= f3_outs(1);
-  f3_ins(0) <= f1_outs(0);
-  f3_ins(1) <= f1_outs(1);
-  circ_outs(0) <= f1_outs(2);
-  circ_outs(1) <= f1_outs(3);
-  circ_outs(2) <= f1_outs(4);
-  circ_outs(3) <= f1_outs(5);
-  circ_outs(4) <= f1_outs(6);
+  f0_dst(0) <= circ_src(0);
+  f0_dst(1) <= circ_src(1);
+  f2_dst(0) <= circ_src(3);
+  f2_dst(1) <= circ_src(4);
+  f0_dst(2) <= f2_src(1);
+  f1_dst(0) <= circ_src(2);
+  f1_dst(1) <= f0_src(0);
+  f1_dst(2) <= f0_src(1);
+  f1_dst(3) <= f2_src(0);
+  circ_dst(5) <= f3_src(0);
+  circ_dst(6) <= f3_src(1);
+  f3_dst(0) <= f1_src(0);
+  f3_dst(1) <= f1_src(1);
+  circ_dst(0) <= f1_src(2);
+  circ_dst(1) <= f1_src(3);
+  circ_dst(2) <= f1_src(4);
+  circ_dst(3) <= f1_src(5);
+  circ_dst(4) <= f1_src(6);
 
-  f0: process(f0_ins) begin
-    f0_outs <= (others => '-');
-    if std_match(f0_ins, "000") then f0_outs <= "10";
-    elsif std_match(f0_ins, "001") then f0_outs <= "01";
-    elsif std_match(f0_ins, "010") then f0_outs <= "10";
-    elsif std_match(f0_ins, "011") then f0_outs <= "01";
-    elsif std_match(f0_ins, "100") then f0_outs <= "00";
-    elsif std_match(f0_ins, "101") then f0_outs <= "01";
-    elsif std_match(f0_ins, "110") then f0_outs <= "10";
-    elsif std_match(f0_ins, "111") then f0_outs <= "11";
+  f0: process(f0_dst) begin
+    f0_src <= (others => '-');
+    if std_match(f0_dst, "000") then f0_src <= "10";
+    elsif std_match(f0_dst, "001") then f0_src <= "01";
+    elsif std_match(f0_dst, "010") then f0_src <= "10";
+    elsif std_match(f0_dst, "011") then f0_src <= "01";
+    elsif std_match(f0_dst, "100") then f0_src <= "00";
+    elsif std_match(f0_dst, "101") then f0_src <= "01";
+    elsif std_match(f0_dst, "110") then f0_src <= "10";
+    elsif std_match(f0_dst, "111") then f0_src <= "11";
     end if;
   end process;
-  f1: process(f1_ins) begin
-    f1_outs <= (others => '-');
-    if std_match(f1_ins, "-000") then f1_outs <= "0001000";
-    elsif std_match(f1_ins, "-010") then f1_outs <= "0100010";
-    elsif std_match(f1_ins, "-100") then f1_outs <= "1011000";
-    elsif std_match(f1_ins, "-110") then f1_outs <= "1110010";
-    elsif std_match(f1_ins, "0001") then f1_outs <= "1001001";
-    elsif std_match(f1_ins, "0011") then f1_outs <= "1100110";
-    elsif std_match(f1_ins, "0101") then f1_outs <= "1001001";
-    elsif std_match(f1_ins, "0111") then f1_outs <= "1100110";
-    elsif std_match(f1_ins, "1001") then f1_outs <= "0111001";
-    elsif std_match(f1_ins, "1011") then f1_outs <= "0010110";
-    elsif std_match(f1_ins, "1101") then f1_outs <= "0111001";
-    elsif std_match(f1_ins, "1111") then f1_outs <= "0010110";
+  f1: process(f1_dst) begin
+    f1_src <= (others => '-');
+    if std_match(f1_dst, "-000") then f1_src <= "0001000";
+    elsif std_match(f1_dst, "-010") then f1_src <= "0100010";
+    elsif std_match(f1_dst, "-100") then f1_src <= "1011000";
+    elsif std_match(f1_dst, "-110") then f1_src <= "1110010";
+    elsif std_match(f1_dst, "0001") then f1_src <= "1001001";
+    elsif std_match(f1_dst, "0011") then f1_src <= "1100110";
+    elsif std_match(f1_dst, "0101") then f1_src <= "1001001";
+    elsif std_match(f1_dst, "0111") then f1_src <= "1100110";
+    elsif std_match(f1_dst, "1001") then f1_src <= "0111001";
+    elsif std_match(f1_dst, "1011") then f1_src <= "0010110";
+    elsif std_match(f1_dst, "1101") then f1_src <= "0111001";
+    elsif std_match(f1_dst, "1111") then f1_src <= "0010110";
     end if;
   end process;
-  f2: process(f2_ins) begin
-    f2_outs <= (others => '-');
-    if std_match(f2_ins, "00") then f2_outs <= "00";
-    elsif std_match(f2_ins, "01") then f2_outs <= "10";
-    elsif std_match(f2_ins, "10") then f2_outs <= "01";
-    elsif std_match(f2_ins, "11") then f2_outs <= "11";
+  f2: process(f2_dst) begin
+    f2_src <= (others => '-');
+    if std_match(f2_dst, "00") then f2_src <= "00";
+    elsif std_match(f2_dst, "01") then f2_src <= "10";
+    elsif std_match(f2_dst, "10") then f2_src <= "01";
+    elsif std_match(f2_dst, "11") then f2_src <= "11";
     end if;
   end process;
-  f3: process(f3_ins) begin
-    f3_outs <= (others => '-');
-    if std_match(f3_ins, "00") then f3_outs <= "00";
-    elsif std_match(f3_ins, "10") then f3_outs <= "01";
-    elsif std_match(f3_ins, "01") then f3_outs <= "10";
-    elsif std_match(f3_ins, "11") then f3_outs <= "11";
+  f3: process(f3_dst) begin
+    f3_src <= (others => '-');
+    if std_match(f3_dst, "00") then f3_src <= "00";
+    elsif std_match(f3_dst, "10") then f3_src <= "01";
+    elsif std_match(f3_dst, "01") then f3_src <= "10";
+    elsif std_match(f3_dst, "11") then f3_src <= "11";
     end if;
   end process;
 end behaviour;

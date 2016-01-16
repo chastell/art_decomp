@@ -76,8 +76,8 @@ module ArtDecomp
 
         def prefix
           index = groups.index { |group| group.equal?(puts) }
-          ctype = type == :dst ? :outs : :ins
-          ftype = type == :dst ? :ins : :outs
+          ctype = type == :dst ? :dst : :src
+          ftype = type == :dst ? :dst : :src
           index.zero? ? "circ_#{ctype}" : "f#{index - 1}_#{ftype}"
         end
 

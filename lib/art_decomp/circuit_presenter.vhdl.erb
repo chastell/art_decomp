@@ -6,15 +6,15 @@ entity <%= name %> is
   port(
         reset: in  std_logic;
         clock: in  std_logic;
-        circ_ins: in  std_logic_vector(0 to <%= ins_binwidth - 1 %>);
-        circ_outs: out std_logic_vector(0 to <%= outs_binwidth - 1 %>)
+        circ_src: in  std_logic_vector(0 to <%= ins_binwidth - 1 %>);
+        circ_dst: out std_logic_vector(0 to <%= outs_binwidth - 1 %>)
       );
 end <%= name %>;
 
 architecture behaviour of <%= name %> is
 % functions.each.with_index do |fun, i|
-  signal f<%= i %>_ins: std_logic_vector(0 to <%= fun.ins.binwidth - 1 %>);
-  signal f<%= i %>_outs: std_logic_vector(0 to <%= fun.outs.binwidth - 1 %>);
+  signal f<%= i %>_dst: std_logic_vector(0 to <%= fun.ins.binwidth - 1 %>);
+  signal f<%= i %>_src: std_logic_vector(0 to <%= fun.outs.binwidth - 1 %>);
 % end
 
 begin
@@ -23,10 +23,10 @@ begin
 % end
 
 % functions.each.with_index do |fun, i|
-  f<%= i %>: process(f<%= i %>_ins) begin
-    f<%= i %>_outs <= (others => '-');
+  f<%= i %>: process(f<%= i %>_dst) begin
+    f<%= i %>_src <= (others => '-');
 % fun.rows.each.with_index do |(input, output), rownum|
-    <%= rownum.zero? ? 'if' : 'elsif' %> std_match(f<%= i %>_ins, "<%= input %>") then f<%= i %>_outs <= "<%= output %>";
+    <%= rownum.zero? ? 'if' : 'elsif' %> std_match(f<%= i %>_dst, "<%= input %>") then f<%= i %>_src <= "<%= output %>";
 % end
     end if;
   end process;
