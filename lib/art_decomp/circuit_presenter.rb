@@ -45,13 +45,18 @@ module ArtDecomp
       include Anima.new(:circuit, :dst, :src)
 
       def labels
-        Array.new(dst.binwidth) do |bit|
+        Array.new(binwidth) do |bit|
           ["#{dst_prefix}(#{dst_offset + bit})",
            "#{src_prefix}(#{src_offset + bit})"]
         end
       end
 
       private
+
+      def binwidth
+        fail 'wire binwidths don’t match' unless dst.binwidth == src.binwidth
+        dst.binwidth
+      end
 
       def dst_offset
         dst_puts[0...dst_puts.index(dst)].binwidth
