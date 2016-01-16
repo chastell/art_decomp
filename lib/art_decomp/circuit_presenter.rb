@@ -70,8 +70,11 @@ module ArtDecomp
       end
 
       def dst_puts
-        puts_groups = [circuit.own.outs] + circuit.functions.map(&:ins)
-        puts_groups.find { |puts| puts.include?(dst) }
+        dst_puts_groups.find { |puts| puts.include?(dst) }
+      end
+
+      def dst_puts_groups
+        [circuit.own.outs] + circuit.functions.map(&:ins)
       end
 
       def src_offset
@@ -86,8 +89,11 @@ module ArtDecomp
       end
 
       def src_puts
-        put_groups = [circuit.own.ins] + circuit.functions.map(&:outs)
-        put_groups.find { |puts| puts.include?(src) }
+        src_puts_groups.find { |puts| puts.include?(src) }
+      end
+
+      def src_puts_groups
+        [circuit.own.ins] + circuit.functions.map(&:outs)
       end
     end
   end
