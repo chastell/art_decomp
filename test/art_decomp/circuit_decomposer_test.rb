@@ -9,19 +9,22 @@ module ArtDecomp
   describe CircuitDecomposer do
     describe '.decompose' do
       it 'yields subsequent decomposed Circuits' do
-        circuit = fake(Circuit, largest_function: fun = fake(Function))
-        c1, c2  = fake(Circuit), fake(Circuit)
-        fd      = fake(FunctionDecomposer, as: :class)
-        mock(fd).decompose(fun) { [c1, c2] }
-        d1, d2  = fake(Circuit), fake(Circuit)
-        solder  = fake(CircuitSolder, as: :class)
-        mock(solder).replace(composed: circuit, decomposed: c1,
-                             function: fun) { d1 }
-        mock(solder).replace(composed: circuit, decomposed: c2,
-                             function: fun) { d2 }
-        decs = CircuitDecomposer.decompose(circuit, function_decomposer: fd,
-                                                    circuit_solder: solder)
-        _(decs.to_a).must_equal [d1, d2]
+        largest_function = fake(Function)
+        decomposed_a = fake(Circuit)
+        decomposed_b = fake(Circuit)
+        fd = fake(FunctionDecomposer, as: :class)
+        mock(fd).decompose(largest_function) { [decomposed_a, decomposed_b] }
+        composed   = fake(Circuit, largest_function: largest_function)
+        replaced_a = fake(Circuit)
+        replaced_b = fake(Circuit)
+        solder = fake(CircuitSolder, as: :class)
+        mock(solder).replace(composed: composed, decomposed: decomposed_a,
+                             function: largest_function) { replaced_a }
+        mock(solder).replace(composed: composed, decomposed: decomposed_b,
+                             function: largest_function) { replaced_b }
+        decs = CircuitDecomposer.decompose(composed, function_decomposer: fd,
+                                                     circuit_solder: solder)
+        _(decs.to_a).must_equal [replaced_a, replaced_b]
       end
     end
   end
