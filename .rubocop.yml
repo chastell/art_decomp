@@ -26,13 +26,15 @@ Style/Not:
   Enabled: false
 
 Style/ParallelAssignment:
-  Enabled: false
+  Exclude:
+    - test/**/*
 
 Style/SingleLineBlockParams:
   Enabled: false
 
 Style/SpaceAfterComma:
-  Enabled: false
+  Exclude:
+    - test/**/*
 
 Style/TrailingComma:
   EnforcedStyleForMultiline: comma
