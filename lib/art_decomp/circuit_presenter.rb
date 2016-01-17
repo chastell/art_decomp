@@ -6,15 +6,14 @@ require_relative 'function_presenter'
 
 module ArtDecomp
   class CircuitPresenter < SimpleDelegator
-    TEMPLATE_PATH = 'lib/art_decomp/circuit_presenter.vhdl.erb'
-
     def self.vhdl_for(circuit, name:)
       new(circuit).vhdl(name: name)
     end
 
     def vhdl(name:)
       @name = name
-      ERB.new(File.read(self.class::TEMPLATE_PATH), nil, '%').result(binding)
+      template = File.read('lib/art_decomp/circuit_presenter.vhdl.erb')
+      ERB.new(template, nil, '%').result(binding)
     end
 
     private
