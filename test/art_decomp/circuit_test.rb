@@ -12,15 +12,14 @@ module ArtDecomp
 
     let(:empty) do
       Circuit.new(archs_sizer: archs_sizer, functions: [],
-                  own: Function.new(ins: Puts.new, outs: Puts.new),
-                  wires: Wires.new({}))
+                  own: Function[Puts.new, Puts.new], wires: Wires.new({}))
     end
 
     describe '.from_function' do
       it 'creates a Circuit representing the Function' do
         ins  = Puts.from_columns([%i(0 1)])
         outs = Puts.from_columns([%i(1 0)])
-        function = Function.new(ins: ins, outs: outs)
+        function = Function[ins, outs]
         circuit  = Circuit.from_function(function)
         wires    = Wires.new(ins[0] => ins[0], outs[0] => outs[0])
         _(circuit.functions).must_equal [function]

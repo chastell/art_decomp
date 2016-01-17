@@ -23,25 +23,13 @@ module ArtDecomp
       let(:buc)  { %i(0 1 1 1 0 1 1 1) }
       let(:nbuc) { %i(1 0 0 0 1 0 0 0) }
 
-      let(:f1) do
-        Function.new(ins:  Puts.from_columns([a,b]),
-                     outs: Puts.from_columns([anb]))
-      end
-      let(:f2) do
-        Function.new(ins:  Puts.from_columns([b,c]),
-                     outs: Puts.from_columns([buc]))
-      end
-      let(:f3) do
-        Function.new(ins:  Puts.from_columns([b,c]),
-                     outs: Puts.from_columns([nbuc]))
-      end
-      let(:f4) do
-        Function.new(ins:  Puts.from_columns([c,b]),
-                     outs: Puts.from_columns([nbuc]))
-      end
+      let(:f1) { Function[Puts.from_columns([a,b]), Puts.from_columns([anb])]  }
+      let(:f2) { Function[Puts.from_columns([b,c]), Puts.from_columns([buc])]  }
+      let(:f3) { Function[Puts.from_columns([b,c]), Puts.from_columns([nbuc])] }
+      let(:f4) { Function[Puts.from_columns([c,b]), Puts.from_columns([nbuc])] }
+
       let(:f23) do
-        Function.new(ins:  Puts.from_columns([b,c]),
-                     outs: Puts.from_columns([buc,nbuc]))
+        Function[Puts.from_columns([b,c]), Puts.from_columns([buc,nbuc])]
       end
 
       it 'merges passed Functions according to their inputs' do

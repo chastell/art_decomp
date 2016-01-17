@@ -13,7 +13,7 @@ module ArtDecomp
 
     describe '.from_function' do
       it 'returns a set of Wires from the given Function' do
-        fun    = Function.new(ins: Puts.new([ab, cd]), outs: Puts.new([ef, gh]))
+        fun    = Function[Puts.new([ab, cd]), Puts.new([ef, gh])]
         wires  = Wires.new(ab => ab, cd => cd, ef => ef, gh => gh)
         _(Wires.from_function(fun)).must_equal wires
       end

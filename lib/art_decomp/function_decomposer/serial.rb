@@ -51,7 +51,7 @@ module ArtDecomp
 
         # :reek:UncommunicativeMethodName
         def g
-          @g ||= Function.new(ins: v_ins, outs: g_outs)
+          @g ||= Function[v_ins, g_outs]
         end
 
         def g_outs
@@ -62,7 +62,7 @@ module ArtDecomp
 
         # :reek:UncommunicativeMethodName
         def h
-          @h ||= Function.new(ins: u_ins + g_outs, outs: function.outs)
+          @h ||= Function[u_ins + g_outs, function.outs]
         end
       end
     end

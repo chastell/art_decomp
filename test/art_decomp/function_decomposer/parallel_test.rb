@@ -27,8 +27,8 @@ module ArtDecomp
         anb   = Put[%i(0 0 0 0 0 0 1 1)]
         buc   = Put[%i(0 1 1 1 0 1 1 1)]
         nbuc  = Put[%i(1 0 0 0 1 0 0 0)]
-        ab    = Function.new(ins: Puts.new([a, b]), outs: Puts.new([anb]))
-        bc    = Function.new(ins: Puts.new([b, c]), outs: Puts.new([buc, nbuc]))
+        ab    = Function[Puts.new([a, b]), Puts.new([anb])]
+        bc    = Function[Puts.new([b, c]), Puts.new([buc, nbuc])]
         ins   = Puts.new([a, b, c])
         outs  = Puts.new([anb, buc, nbuc])
         wires = Wires.new(
@@ -39,7 +39,7 @@ module ArtDecomp
           buc  => buc,
           nbuc => nbuc,
         )
-        function = Function.new(ins: ins, outs: outs)
+        function = Function[ins, outs]
         circuit  = Circuit.new(functions: [ab, bc], own: function, wires: wires)
         _(FunctionDecomposer::Parallel.decompose(function)).must_include circuit
       end

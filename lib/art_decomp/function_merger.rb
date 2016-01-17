@@ -9,7 +9,7 @@ module ArtDecomp
     def merge(functions)
       functions.group_by { |fun| fun.ins.uniq.sort }.map do |ins, funs|
         outs = funs.map(&:outs).reduce(:+).uniq
-        Function.new(ins: ins, outs: outs)
+        Function[ins, outs]
       end
     end
   end
