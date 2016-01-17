@@ -11,9 +11,9 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '.from_columns' do
       it 'creates Puts from an Array of columns' do
-        puts = Puts.from_columns([%i(a b -), %i(b - c)], codes: %i(a b c))
-        _(puts).must_equal Puts.new([Put[%i(a b -), codes: %i(a b c)],
-                                     Put[%i(b - c), codes: %i(a b c)]])
+        puts = Puts.from_columns([%i(a b -), %i(b - c)])
+        _(puts).must_equal Puts.new([Put[%i(a b -), codes: %i(a b)],
+                                     Put[%i(b - c), codes: %i(b c)]])
       end
 
       it 'infers codes on a per-column basis' do

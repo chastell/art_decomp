@@ -9,11 +9,8 @@ module ArtDecomp
     include Enumerable
     include Anima.new(:puts)
 
-    def self.from_columns(columns, codes: nil)
-      puts = columns.map do |column|
-        Put.new(column: column, codes: codes || column.uniq - [:-])
-      end
-      new(puts)
+    def self.from_columns(columns)
+      new(columns.map(&Put.method(:[])))
     end
 
     def self.from_seps(allowed:, required:, size:)
