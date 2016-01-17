@@ -25,10 +25,6 @@ Style/ExtraSpacing:
 Style/Not:
   Enabled: false
 
-Style/ParallelAssignment:
-  Exclude:
-    - test/**/*
-
 Style/SingleLineBlockParams:
   Enabled: false
 
