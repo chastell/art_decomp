@@ -7,6 +7,7 @@ module ArtDecomp
     extend Forwardable
     include Anima.new(:matrix)
 
+    # :reek:TooManyStatements: { max_statements: 6 }
     def self.from_column(column)               # rubocop:disable Metrics/AbcSize
       ones   = (1 << column.size) - 1
       coding = (0...column.size).group_by(&column.method(:[]))
