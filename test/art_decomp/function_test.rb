@@ -9,6 +9,12 @@ module ArtDecomp
     let(:ins)      { Puts.from_columns([%i(0 1 -), %i(s1 s2 s3)]) }
     let(:outs)     { Puts.from_columns([%i(1 - 0), %i(s3 s1 s2)]) }
 
+    describe '.[]' do
+      it 'creates a new Function from the given ins and outs' do
+        _(Function[ins, outs]).must_equal Function.new(ins: ins, outs: outs)
+      end
+    end
+
     describe '#==' do
       it 'compares two Functions by value' do
         assert function == Function.new(ins: ins, outs: outs)
