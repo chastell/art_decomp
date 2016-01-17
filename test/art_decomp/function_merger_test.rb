@@ -23,14 +23,11 @@ module ArtDecomp
       let(:buc)  { %i(0 1 1 1 0 1 1 1) }
       let(:nbuc) { %i(1 0 0 0 1 0 0 0) }
 
-      let(:f1) { Function[Puts.from_columns([a,b]), Puts.from_columns([anb])]  }
-      let(:f2) { Function[Puts.from_columns([b,c]), Puts.from_columns([buc])]  }
-      let(:f3) { Function[Puts.from_columns([b,c]), Puts.from_columns([nbuc])] }
-      let(:f4) { Function[Puts.from_columns([c,b]), Puts.from_columns([nbuc])] }
-
-      let(:f23) do
-        Function[Puts.from_columns([b,c]), Puts.from_columns([buc,nbuc])]
-      end
+      let(:f1)  { Function[Puts[a,b], Puts[anb]]      }
+      let(:f2)  { Function[Puts[b,c], Puts[buc]]      }
+      let(:f3)  { Function[Puts[b,c], Puts[nbuc]]     }
+      let(:f4)  { Function[Puts[c,b], Puts[nbuc]]     }
+      let(:f23) { Function[Puts[b,c], Puts[buc,nbuc]] }
 
       it 'merges passed Functions according to their inputs' do
         _(FunctionMerger.merge([f1, f2, f3])).must_equal [f1, f23]

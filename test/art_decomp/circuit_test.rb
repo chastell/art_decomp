@@ -17,11 +17,11 @@ module ArtDecomp
 
     describe '.from_function' do
       it 'creates a Circuit representing the Function' do
-        ins  = Puts.from_columns([%i(0 1)])
-        outs = Puts.from_columns([%i(1 0)])
+        ins      = Puts[%i(0 1)]
+        outs     = Puts[%i(1 0)]
         function = Function[ins, outs]
-        circuit  = Circuit.from_function(function)
         wires    = Wires.new(ins[0] => ins[0], outs[0] => outs[0])
+        circuit  = Circuit.from_function(function)
         _(circuit.functions).must_equal [function]
         _(circuit.own).must_equal function
         _(circuit.wires).must_equal wires

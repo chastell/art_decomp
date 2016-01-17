@@ -14,9 +14,9 @@ module ArtDecomp
           11 s1 s2 1--
           -0 s3 s1 --0
         end
-        ins  = Puts.from_columns([%i(0 1 -), %i(- 1 0)]) +
+        ins  = Puts[%i(0 1 -), %i(- 1 0)] +
                Puts.new([StatePut[%i(s1 s1 s3), codes: %i(s1 s2 s3)]])
-        outs = Puts.from_columns([%i(0 1 -), %i(- - -), %i(- - 0)]) +
+        outs = Puts[%i(0 1 -), %i(- - -), %i(- - 0)] +
                Puts.new([StatePut[%i(-  s2 s1), codes: %i(s1 s2 s3)]])
         circ = Circuit.from_function(Function[ins, outs])
         _(FSMKISSParser.circuit_for(kiss)).must_equal circ

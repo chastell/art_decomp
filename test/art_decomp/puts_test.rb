@@ -9,15 +9,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
     let(:a1b0)   { Put[%i(b a)]           }
     let(:puts)   { Puts.new([a0b1, a1b0]) }
 
-    describe '.from_columns' do
-      it 'creates Puts from an Array of columns' do
-        puts = Puts.from_columns([%i(a b -), %i(b - c)])
+    describe '.[]' do
+      it 'creates Puts from a list of columns' do
+        puts = Puts[%i(a b -), %i(b - c)]
         _(puts).must_equal Puts.new([Put[%i(a b -), codes: %i(a b)],
                                      Put[%i(b - c), codes: %i(b c)]])
       end
 
       it 'infers codes on a per-column basis' do
-        puts = Puts.from_columns([%i(0 1 -), %i(a b c)])
+        puts = Puts[%i(0 1 -), %i(a b c)]
         _(puts).must_equal Puts.new([Put[%i(0 1 -), codes: %i(0 1)],
                                      Put[%i(a b c), codes: %i(a b c)]])
       end
@@ -48,7 +48,7 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
           0b000100100,
         ])
         puts = Puts.from_seps(allowed: allowed, required: required, size: 9)
-        _(puts).must_equal Puts.from_columns([%i(b b b b - b - a a)])
+        _(puts).must_equal Puts[%i(b b b b - b - a a)]
       end
 
       it 'honours allowed separations' do
@@ -65,7 +65,7 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
           0b0001,
         ])
         puts = Puts.from_seps(allowed: allowed, required: required, size: 4)
-        _(puts).must_equal Puts.from_columns([%i(a b a -), %i(a - - b)])
+        _(puts).must_equal Puts[%i(a b a -), %i(a - - b)]
       end
     end
 
@@ -121,13 +121,11 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#combination' do
       it 'yields subsequent Puts with different Put combinations' do
-        puts = Puts.from_columns([%i(a b c), %i(b a c), %i(c a b)])
+        puts = Puts[%i(a b c), %i(b a c), %i(c a b)]
         _(puts.combination(2)).must_be_kind_of Enumerator
-        _(puts.combination(2).to_a).must_equal [
-          Puts.from_columns([%i(a b c), %i(b a c)]),
-          Puts.from_columns([%i(a b c), %i(c a b)]),
-          Puts.from_columns([%i(b a c), %i(c a b)]),
-        ]
+        _(puts.combination(2).to_a).must_equal [Puts[%i(a b c), %i(b a c)],
+                                                Puts[%i(a b c), %i(c a b)],
+                                                Puts[%i(b a c), %i(c a b)]]
       end
     end
 
@@ -202,16 +200,16 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#sort' do
       it 'returns a Puts with sorted members' do
-        unsorted = Puts.from_columns([%i(b a), %i(b c), %i(a b)])
-        sorted   = Puts.from_columns([%i(a b), %i(b a), %i(b c)])
+        unsorted = Puts[%i(b a), %i(b c), %i(a b)]
+        sorted   = Puts[%i(a b), %i(b a), %i(b c)]
         _(unsorted.sort).must_equal sorted
       end
     end
 
     describe '#sort_by' do
       it 'returns a Puts sorted according to the passed block' do
-        random = Puts.from_columns([%i(a a a), %i(a b c), %i(a b b)])
-        sorted = Puts.from_columns([%i(a b c), %i(a b b), %i(a a a)])
+        random = Puts[%i(a a a), %i(a b c), %i(a b b)]
+        sorted = Puts[%i(a b c), %i(a b b), %i(a a a)]
         _(random.sort_by).must_be_kind_of Enumerator
         _(random.sort_by { |put| -put.seps.count }).must_equal sorted
       end
