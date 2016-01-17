@@ -54,7 +54,7 @@ module ArtDecomp
 
     describe '#max_size' do
       it 'returns the maximum size of the Circuit' do
-        stub(archs_sizer).max_size([]) { 7 }
+        stub(archs_sizer).max([]) { 7 }
         _(empty.max_size).must_equal 7
       end
     end

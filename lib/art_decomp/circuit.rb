@@ -26,7 +26,7 @@ module ArtDecomp
     end
 
     def max_size
-      @max_size ||= archs_sizer.max_size(function_archs)
+      @max_size ||= archs_sizer.max(function_archs)
     end
 
     def min_size

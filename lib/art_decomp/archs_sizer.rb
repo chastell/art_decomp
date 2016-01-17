@@ -6,8 +6,8 @@ module ArtDecomp
       new(archs).admissible
     end
 
-    def self.max_size(archs)
-      new(archs).max_size
+    def self.max(archs)
+      new(archs).max
     end
 
     def self.min_size(archs)
@@ -22,7 +22,7 @@ module ArtDecomp
       ((max_for_fitting + min_for_larger).reduce(0, :+) / 4.0).ceil
     end
 
-    def max_size
+    def max
       (archs.map(&:max_quarters).reduce(0, :+) / 4.0).ceil
     end
 

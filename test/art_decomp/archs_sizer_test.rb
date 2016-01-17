@@ -14,28 +14,28 @@ module ArtDecomp
       end
     end
 
-    describe '.max_size' do
+    describe '.max' do
       it 'returns the maximum size for the given Archs' do
-        _(ArchsSizer.max_size([])).must_equal 0
-        _(ArchsSizer.max_size([Arch[0,0]])).must_equal 0
-        _(ArchsSizer.max_size([Arch[0,1]])).must_equal 0
-        _(ArchsSizer.max_size([Arch[1,1]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[5,2]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[5,3], Arch[5,3], Arch[5,1]])).must_equal 2
-        _(ArchsSizer.max_size([Arch[5,8]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[5,9]])).must_equal 2
-        _(ArchsSizer.max_size([Arch[6,4]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[6,5]])).must_equal 2
-        _(ArchsSizer.max_size([Arch[7,0]])).must_equal 0
-        _(ArchsSizer.max_size([Arch[7,1], Arch[6,1]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[7,2]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[7,3]])).must_equal 2
-        _(ArchsSizer.max_size([Arch[8,1]])).must_equal 1
-        _(ArchsSizer.max_size([Arch[8,2]])).must_equal 2
-        _(ArchsSizer.max_size([Arch[9,0]])).must_equal 0
-        _(ArchsSizer.max_size([Arch[9,1]])).must_equal 3
-        _(ArchsSizer.max_size([Arch[9,4]])).must_equal 9
-        _(ArchsSizer.max_size([Arch[14,7]])).must_equal 485
+        _(ArchsSizer.max([])).must_equal 0
+        _(ArchsSizer.max([Arch[0,0]])).must_equal 0
+        _(ArchsSizer.max([Arch[0,1]])).must_equal 0
+        _(ArchsSizer.max([Arch[1,1]])).must_equal 1
+        _(ArchsSizer.max([Arch[5,2]])).must_equal 1
+        _(ArchsSizer.max([Arch[5,3], Arch[5,3], Arch[5,1]])).must_equal 2
+        _(ArchsSizer.max([Arch[5,8]])).must_equal 1
+        _(ArchsSizer.max([Arch[5,9]])).must_equal 2
+        _(ArchsSizer.max([Arch[6,4]])).must_equal 1
+        _(ArchsSizer.max([Arch[6,5]])).must_equal 2
+        _(ArchsSizer.max([Arch[7,0]])).must_equal 0
+        _(ArchsSizer.max([Arch[7,1], Arch[6,1]])).must_equal 1
+        _(ArchsSizer.max([Arch[7,2]])).must_equal 1
+        _(ArchsSizer.max([Arch[7,3]])).must_equal 2
+        _(ArchsSizer.max([Arch[8,1]])).must_equal 1
+        _(ArchsSizer.max([Arch[8,2]])).must_equal 2
+        _(ArchsSizer.max([Arch[9,0]])).must_equal 0
+        _(ArchsSizer.max([Arch[9,1]])).must_equal 3
+        _(ArchsSizer.max([Arch[9,4]])).must_equal 9
+        _(ArchsSizer.max([Arch[14,7]])).must_equal 485
       end
     end
 
