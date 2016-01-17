@@ -17,7 +17,7 @@ module ArtDecomp
           smallest = queue.shift
           yielder << smallest
           queue.concat circuit_decomposer.decompose(smallest)
-          queue.sort_by!(&:adm_size)
+          queue.sort_by!(&:admissible_size)
         end
       end
     end

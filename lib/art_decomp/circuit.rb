@@ -17,8 +17,8 @@ module ArtDecomp
       @archs_sizer = archs_sizer
     end
 
-    def adm_size
-      @adm_size ||= archs_sizer.adm_size(function_archs)
+    def admissible_size
+      @admissible_size ||= archs_sizer.adm_size(function_archs)
     end
 
     def largest_function

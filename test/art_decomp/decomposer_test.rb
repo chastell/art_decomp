@@ -7,13 +7,13 @@ module ArtDecomp
   describe Decomposer do
     describe '.decompositions' do
       it 'yields subsequent best decompositions' do
-        c1   = fake(Circuit, adm_size: 7)
-        c11  = fake(Circuit, adm_size: 9)
-        c111 = fake(Circuit, adm_size: 12)
-        c112 = fake(Circuit, adm_size: 10)
-        c12  = fake(Circuit, adm_size: 8)
-        c121 = fake(Circuit, adm_size: 13)
-        c13  = fake(Circuit, adm_size: 11)
+        c1   = fake(Circuit, admissible_size: 7)
+        c11  = fake(Circuit, admissible_size: 9)
+        c111 = fake(Circuit, admissible_size: 12)
+        c112 = fake(Circuit, admissible_size: 10)
+        c12  = fake(Circuit, admissible_size: 8)
+        c121 = fake(Circuit, admissible_size: 13)
+        c13  = fake(Circuit, admissible_size: 11)
         cd   = fake(CircuitDecomposer, as: :class)
         stub(cd).decompose(c1)   { [c11, c12, c13] }
         stub(cd).decompose(c11)  { [c111, c112]    }
