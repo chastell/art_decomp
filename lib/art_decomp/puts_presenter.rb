@@ -17,11 +17,10 @@ module ArtDecomp
 
       private
 
-      # :reek:UncommunicativeVariableName
       def mapping
         @mapping ||= begin
-          encs = Array.new(codes.size) { |i| i.to_s(2).rjust(binwidth, '0') }
-          codes.sort.zip(encs).to_h.merge(:- => '-' * binwidth)
+          bin = Array.new(codes.size) { |int| int.to_s(2).rjust(binwidth, '0') }
+          codes.sort.zip(bin).to_h.merge(:- => '-' * binwidth)
         end
       end
     end
