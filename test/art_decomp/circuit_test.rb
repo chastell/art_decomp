@@ -44,9 +44,9 @@ module ArtDecomp
 
     describe '#largest_function' do
       it 'returns the largest Function (input- and output-wise)' do
-        f23 = fake(Function, arch: Arch[2,3])
-        f32 = fake(Function, arch: Arch[3,2])
-        f33 = fake(Function, arch: Arch[3,3])
+        f23 = fake(Function, arch: Arch[2, 3])
+        f32 = fake(Function, arch: Arch[3, 2])
+        f33 = fake(Function, arch: Arch[3, 3])
         nonempty = empty.with(functions: [f23, f32, f33])
         _(nonempty.largest_function).must_equal f33
       end

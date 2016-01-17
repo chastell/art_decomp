@@ -32,9 +32,5 @@ Style/ParallelAssignment:
 Style/SingleLineBlockParams:
   Enabled: false
 
-Style/SpaceAfterComma:
-  Exclude:
-    - test/**/*
-
 Style/TrailingComma:
   EnforcedStyleForMultiline: comma
