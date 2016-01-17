@@ -5,6 +5,7 @@ require 'forwardable'
 require_relative 'function_presenter'
 
 module ArtDecomp
+  # :reek:UnusedPrivateMethod: { exclude: [wire_labels] }
   class CircuitPresenter < SimpleDelegator
     def self.vhdl_for(circuit, name:)
       new(circuit).vhdl(name: name)
