@@ -27,14 +27,6 @@ module ArtDecomp
       @functions ||= super.map { |function| FunctionPresenter.new(function) }
     end
 
-    def ins_binwidth
-      own.ins.binwidth
-    end
-
-    def outs_binwidth
-      own.outs.binwidth
-    end
-
     def wire_labels
       wires.flat_map do |dst, src|
         WireLabels.new(circuit: circuit, dst: dst, src: src).labels
