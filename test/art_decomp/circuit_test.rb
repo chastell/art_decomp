@@ -30,7 +30,7 @@ module ArtDecomp
 
     describe '#admissible_size' do
       it 'returns the admissible heuristic size of the Circuit' do
-        stub(archs_sizer).adm_size([]) { 7 }
+        stub(archs_sizer).admissible([]) { 7 }
         _(empty.admissible_size).must_equal 7
       end
     end

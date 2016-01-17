@@ -4,13 +4,13 @@ require_relative '../../lib/art_decomp/archs_sizer'
 
 module ArtDecomp
   describe ArchsSizer do
-    describe '.adm_size' do
+    describe '.admissible' do
       it 'returns the admissible heuristic size for the given Archs' do
-        _(ArchsSizer.adm_size([])).must_equal 0
-        _(ArchsSizer.adm_size([Arch[8,1]])).must_equal 1
-        _(ArchsSizer.adm_size([Arch[7,1], Arch[10,4]])).must_equal 1
-        _(ArchsSizer.adm_size([Arch[8,2]])).must_equal 2
-        _(ArchsSizer.adm_size([Arch[20,8]])).must_equal 1
+        _(ArchsSizer.admissible([])).must_equal 0
+        _(ArchsSizer.admissible([Arch[8,1]])).must_equal 1
+        _(ArchsSizer.admissible([Arch[7,1], Arch[10,4]])).must_equal 1
+        _(ArchsSizer.admissible([Arch[8,2]])).must_equal 2
+        _(ArchsSizer.admissible([Arch[20,8]])).must_equal 1
       end
     end
 

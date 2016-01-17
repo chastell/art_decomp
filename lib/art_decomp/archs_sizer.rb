@@ -2,8 +2,8 @@ require_relative 'arch_sizer'
 
 module ArtDecomp
   class ArchsSizer
-    def self.adm_size(archs)
-      new(archs).adm_size
+    def self.admissible(archs)
+      new(archs).admissible
     end
 
     def self.max_size(archs)
@@ -18,7 +18,7 @@ module ArtDecomp
       @archs = archs.map { |arch| ArchSizer.new(arch) }
     end
 
-    def adm_size
+    def admissible
       ((max_for_fitting + min_for_larger).reduce(0, :+) / 4.0).ceil
     end
 
