@@ -39,19 +39,19 @@ module ArtDecomp
       end
     end
 
-    describe '.min_size' do
+    describe '.min' do
       it 'returns the smallest possible size for the given Archs' do
-        _(ArchsSizer.min_size([])).must_equal 0
-        _(ArchsSizer.min_size([Arch[0,0]])).must_equal 0
-        _(ArchsSizer.min_size([Arch[0,1]])).must_equal 0
-        _(ArchsSizer.min_size([Arch[1,0]])).must_equal 0
-        _(ArchsSizer.min_size([Arch[1,1]])).must_equal 1
-        _(ArchsSizer.min_size([Arch[5,2]])).must_equal 1
-        _(ArchsSizer.min_size([Arch[5,3], Arch[5,3], Arch[5,1]])).must_equal 2
-        _(ArchsSizer.min_size([Arch[7,0]])).must_equal 0
-        _(ArchsSizer.min_size([Arch[20,8]])).must_equal 1
-        _(ArchsSizer.min_size([Arch[21,8]])).must_equal 2
-        _(ArchsSizer.min_size([Arch[20,9]])).must_equal 2
+        _(ArchsSizer.min([])).must_equal 0
+        _(ArchsSizer.min([Arch[0,0]])).must_equal 0
+        _(ArchsSizer.min([Arch[0,1]])).must_equal 0
+        _(ArchsSizer.min([Arch[1,0]])).must_equal 0
+        _(ArchsSizer.min([Arch[1,1]])).must_equal 1
+        _(ArchsSizer.min([Arch[5,2]])).must_equal 1
+        _(ArchsSizer.min([Arch[5,3], Arch[5,3], Arch[5,1]])).must_equal 2
+        _(ArchsSizer.min([Arch[7,0]])).must_equal 0
+        _(ArchsSizer.min([Arch[20,8]])).must_equal 1
+        _(ArchsSizer.min([Arch[21,8]])).must_equal 2
+        _(ArchsSizer.min([Arch[20,9]])).must_equal 2
       end
     end
   end

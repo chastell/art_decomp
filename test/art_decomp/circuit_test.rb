@@ -61,7 +61,7 @@ module ArtDecomp
 
     describe '#min_size' do
       it 'returns the smallest possible size of the Circuit' do
-        stub(archs_sizer).min_size([]) { 7 }
+        stub(archs_sizer).min([]) { 7 }
         _(empty.min_size).must_equal 7
       end
     end

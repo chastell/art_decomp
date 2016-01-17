@@ -30,7 +30,7 @@ module ArtDecomp
     end
 
     def min_size
-      @min_size ||= archs_sizer.min_size(function_archs)
+      @min_size ||= archs_sizer.min(function_archs)
     end
 
     private

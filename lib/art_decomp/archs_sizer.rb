@@ -10,8 +10,8 @@ module ArtDecomp
       new(archs).max
     end
 
-    def self.min_size(archs)
-      new(archs).min_size
+    def self.min(archs)
+      new(archs).min
     end
 
     def initialize(archs)
@@ -26,7 +26,7 @@ module ArtDecomp
       (archs.map(&:max_quarters).reduce(0, :+) / 4.0).ceil
     end
 
-    def min_size
+    def min
       (archs.map(&:min_quarters).reduce(0, :+) / 4.0).ceil
     end
 
