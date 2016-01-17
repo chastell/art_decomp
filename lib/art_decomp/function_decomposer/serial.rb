@@ -33,6 +33,7 @@ module ArtDecomp
         end
       end
 
+      # :reek:UncommunicativeVariableName
       class Decomposition
         include Anima.new(:function, :u_ins, :v_ins)
 
