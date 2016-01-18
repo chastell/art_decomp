@@ -24,7 +24,7 @@ module ArtDecomp
     alias_method :circuit, :__getobj__
 
     def functions
-      @functions ||= super.map { |function| FunctionPresenter.new(function) }
+      @functions ||= super.map(&FunctionPresenter.method(:new))
     end
 
     def wire_labels
