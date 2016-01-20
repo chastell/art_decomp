@@ -11,56 +11,56 @@ module ArtDecomp
     let(:ef) { Put[%i(e f)] }
     let(:gh) { Put[%i(g h)] }
 
+    let(:abcd)      { Wires.new(ab => cd)           }
+    let(:efgh)      { Wires.new(ef => gh)           }
+    let(:abcd_efgh) { Wires.new(ab => cd, ef => gh) }
+
     describe '.from_function' do
       it 'returns a set of Wires from the given Function' do
-        fun    = Function[Puts.new([ab, cd]), Puts.new([ef, gh])]
-        wires  = Wires.new(ab => ab, cd => cd, ef => ef, gh => gh)
+        fun   = Function[Puts.new([ab, cd]), Puts.new([ef, gh])]
+        wires = Wires.new(ab => ab, cd => cd, ef => ef, gh => gh)
         _(Wires.from_function(fun)).must_equal wires
       end
     end
 
     describe '#+' do
       it 'returns a sum of two sets of Wires' do
-        abcd_plus_efgh = Wires.new(ab => cd) + Wires.new(ef => gh)
-        _(abcd_plus_efgh).must_equal Wires.new(ab => cd, ef => gh)
+        _(abcd + efgh).must_equal abcd_efgh
       end
     end
 
     describe '#==' do
       it 'compares sets of Wires by value' do
-        abcd = Wires.new(ab => cd)
         _(abcd).must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
       end
     end
 
     describe '#[]' do
       it 'returns the source Put for the given destination' do
-        _(Wires.new(ab => cd)[ab]).must_equal cd
+        _(abcd[ab]).must_equal cd
       end
     end
 
     describe '#invert' do
       it 'inverts the connections' do
-        _(Wires.new(ab => cd).invert).must_equal Wires.new(cd => ab)
+        _(abcd.invert).must_equal Wires.new(cd => ab)
       end
     end
 
     describe '#map' do
       it 'maps subsequent destination-source pairs' do
-        wires = Wires.new(ab => cd, ef => gh)
-        _(wires.map { |dst, src| [dst.binwidth, src.state?] })
+        _(abcd_efgh.map { |dst, src| [dst.binwidth, src.state?] })
           .must_equal [[1, false], [1, false]]
       end
     end
 
     describe '#reject' do
       it 'returns an Enumerator when there’s no block' do
-        _(Wires.new(ab => cd).reject).must_be_kind_of Enumerator
+        _(abcd.reject).must_be_kind_of Enumerator
       end
 
       it 'rejects the given wires' do
-        wires = Wires.new(ab => cd, ef => gh)
-        _(wires.reject { |dst, _src| dst == ab }).must_equal Wires.new(ef => gh)
+        _(abcd_efgh.reject { |dst, _src| dst == ab }).must_equal efgh
       end
     end
   end
