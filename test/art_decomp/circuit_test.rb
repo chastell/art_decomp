@@ -12,7 +12,7 @@ module ArtDecomp
 
     let(:empty) do
       Circuit.new(archs_sizer: archs_sizer, functions: [],
-                  own: Function[Puts.new, Puts.new], wires: Wires.new({}))
+                  own: Function[Puts.new, Puts.new], wires: Wires.new)
     end
 
     describe '.from_function' do

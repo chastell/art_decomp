@@ -38,7 +38,7 @@ module ArtDecomp
         include Anima.new(:function, :u_ins, :v_ins)
 
         def circuit
-          gh = g_outs.map { |go| Wires.new(go => go) }.reduce(Wires.new({}), :+)
+          gh = g_outs.map { |go| Wires.new(go => go) }.reduce(Wires.new, :+)
           wires = Wires.from_function(function) + gh
           Circuit.new(functions: [g, h], own: function, wires: wires)
         end

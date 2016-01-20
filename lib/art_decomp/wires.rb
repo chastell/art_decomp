@@ -11,7 +11,7 @@ module ArtDecomp
       new((in_wires + out_wires).reduce({}, :merge))
     end
 
-    def initialize(wires)
+    def initialize(wires = {})
       @wires = wires
     end
 
