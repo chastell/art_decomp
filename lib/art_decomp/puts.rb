@@ -43,7 +43,7 @@ module ArtDecomp
     delegate %i(each empty? size) => :puts
 
     def binwidth
-      map(&:binwidth).reduce(0, :+)
+      @binwidth ||= map(&:binwidth).reduce(0, :+)
     end
 
     def combination(size)
