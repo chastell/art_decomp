@@ -73,6 +73,11 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
         _(ab_ba & Puts.new([ab])).must_equal Puts.new([ab])
         _(ab_ba & Puts.new([ba])).must_equal Puts.new([ba])
       end
+
+      it 'is based on hash/eql? calls' do
+        _(ab_ba & Puts[%i(a b)]).must_be :empty?
+        _(ab_ba & Puts[%i(b a)]).must_be :empty?
+      end
     end
 
     describe '#+' do
