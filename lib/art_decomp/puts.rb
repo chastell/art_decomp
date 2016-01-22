@@ -85,7 +85,7 @@ module ArtDecomp
     end
 
     def uniq
-      self.class.new(puts.uniq)
+      self.class.new(puts.uniq { |put| [put.codes, put.column] })
     end
 
     class PutsFromSeps

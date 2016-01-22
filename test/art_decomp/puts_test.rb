@@ -232,6 +232,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       it 'returns a Puts with only unique members' do
         _(Puts.new([ab, ba, ab]).uniq).must_equal ab_ba
       end
+
+      it 'is based on == comparison' do
+        _(Puts[%i(a b), %i(b a), %i(a b)].uniq).must_equal ab_ba
+      end
+
+      it 'consider code differences' do
+        puts = Puts.new([Put[%i(a b)], Put[%i(a b), codes: %i(a b c)]])
+        _(puts.uniq).must_equal puts
+      end
     end
   end
 end
