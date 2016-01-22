@@ -90,6 +90,10 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
       it 'creates a difference of Puts' do
         _(ab_ba - Puts.new([ab])).must_equal Puts.new([ba])
       end
+
+      it 'is based on hash/eql? calls' do
+        _(ab_ba - Puts[%i(a b)]).must_equal ab_ba
+      end
     end
 
     describe '#[]' do
