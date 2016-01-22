@@ -52,7 +52,7 @@ module ArtDecomp
       end
     end
 
-    alias_method :eql?, :==
+    alias eql? ==
 
     def include?(target)
       puts.any? { |put| put.eql?(target) }

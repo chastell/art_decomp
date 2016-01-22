@@ -24,7 +24,7 @@ module ArtDecomp
 
       private
 
-      alias_method :function, :__getobj__
+      alias function __getobj__
 
       def each_uv
         sorted = ins.sort_by { |put| (outs.seps & put.seps).count }

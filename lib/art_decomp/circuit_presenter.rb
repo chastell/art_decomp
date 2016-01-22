@@ -21,7 +21,7 @@ module ArtDecomp
 
     attr_reader :name
 
-    alias_method :circuit, :__getobj__
+    alias circuit __getobj__
 
     def functions
       @functions ||= super.map(&FunctionPresenter.method(:new))

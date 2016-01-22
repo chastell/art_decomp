@@ -24,8 +24,8 @@ module ArtDecomp
       (codes.size - 1).bit_length
     end
 
-    alias_method :eql?, :equal?
-    alias_method :hash, :object_id
+    alias eql? equal?
+    alias hash object_id
 
     def seps
       @seps ||= Seps.from_column(column)

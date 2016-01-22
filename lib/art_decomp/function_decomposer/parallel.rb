@@ -25,7 +25,7 @@ module ArtDecomp
 
       private
 
-      alias_method :function, :__getobj__
+      alias function __getobj__
 
       def merged
         @merged ||= begin
