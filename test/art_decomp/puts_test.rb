@@ -4,10 +4,10 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
   describe Puts do
-    let(:a0b1)   { Put[%i(a b)]           }
-    let(:a0b1c2) { Put[%i(a b c)]         }
-    let(:a1b0)   { Put[%i(b a)]           }
-    let(:puts)   { Puts.new([a0b1, a1b0]) }
+    let(:ab)    { Put[%i(a b)]       }
+    let(:abc)   { Put[%i(a b c)]     }
+    let(:ba)    { Put[%i(b a)]       }
+    let(:ab_ba) { Puts.new([ab, ba]) }
 
     describe '.[]' do
       it 'creates Puts from a list of columns' do
@@ -78,41 +78,41 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#&' do
       it 'creates an intersection of Puts' do
-        _(puts & Puts.new([a0b1])).must_equal Puts.new([a0b1])
-        _(puts & Puts.new([a1b0])).must_equal Puts.new([a1b0])
+        _(ab_ba & Puts.new([ab])).must_equal Puts.new([ab])
+        _(ab_ba & Puts.new([ba])).must_equal Puts.new([ba])
       end
     end
 
     describe '#+' do
       it 'creates a sum of Puts' do
-        _(Puts.new([a0b1]) + Puts.new([a1b0])).must_equal puts
+        _(Puts.new([ab]) + Puts.new([ba])).must_equal ab_ba
       end
     end
 
     describe '#-' do
       it 'creates a difference of Puts' do
-        _(puts - Puts.new([a0b1])).must_equal Puts.new([a1b0])
+        _(ab_ba - Puts.new([ab])).must_equal Puts.new([ba])
       end
     end
 
     describe '#[]' do
       it 'returns the Put at the given index' do
-        _(puts[0]).must_equal a0b1
-        _(puts[1]).must_equal a1b0
+        _(ab_ba[0]).must_equal ab
+        _(ab_ba[1]).must_equal ba
       end
 
       it 'returns the Puts from the given Range' do
-        _(puts[0..1]).must_equal puts
+        _(ab_ba[0..1]).must_equal ab_ba
       end
     end
 
     describe '#binwidth' do
       it 'returns the binwidth of all the Puts combined' do
         {
-          Puts.new                 => 0,
-          Puts.new([a0b1])         => 1,
-          Puts.new([a0b1, a1b0])   => 2,
-          Puts.new([a1b0, a0b1c2]) => 3,
+          Puts.new            => 0,
+          Puts.new([ab])      => 1,
+          Puts.new([ab, ba])  => 2,
+          Puts.new([ba, abc]) => 3,
         }.each do |puts, binwidth|
           _(puts.binwidth).must_equal binwidth
         end
@@ -131,15 +131,15 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#each' do
       it 'yields subsequent Puts' do
-        array = puts.each.with_object([]) { |put, arr| arr << put }
-        _(array).must_equal [a0b1, a1b0]
+        array = ab_ba.each.with_object([]) { |put, arr| arr << put }
+        _(array).must_equal [ab, ba]
       end
     end
 
     describe '#empty?' do
       it 'is a predicate whether the Puts are empty' do
         assert Puts.new.empty?
-        refute puts.empty?
+        refute ab_ba.empty?
       end
     end
 
@@ -163,8 +163,8 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#include?' do
       it 'is a predicate whether the given Put is included based on identity' do
-        assert puts.include?(a0b1)
-        refute puts.include?(Put[%i(a b)])
+        assert ab_ba.include?(ab)
+        refute ab_ba.include?(Put[%i(a b)])
       end
     end
 
@@ -194,7 +194,7 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
     describe '#size' do
       it 'returns the number of Puts' do
         _(Puts.new.size).must_equal 0
-        _(puts.size).must_equal 2
+        _(ab_ba.size).must_equal 2
       end
     end
 
@@ -229,7 +229,7 @@ module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
 
     describe '#uniq' do
       it 'returns a Puts with only unique members' do
-        _(Puts.new([a0b1, a1b0, a0b1]).uniq).must_equal puts
+        _(Puts.new([ab, ba, ab]).uniq).must_equal ab_ba
       end
     end
   end
