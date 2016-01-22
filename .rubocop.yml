@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - tmp/**/*
+  TargetRubyVersion: 2.3
 
 Lint/UnusedMethodArgument:
   Enabled: false
