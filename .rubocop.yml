@@ -28,5 +28,8 @@ Style/Not:
 Style/SingleLineBlockParams:
   Enabled: false
 
-Style/TrailingComma:
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
