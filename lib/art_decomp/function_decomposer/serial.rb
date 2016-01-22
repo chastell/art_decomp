@@ -2,7 +2,7 @@ require 'anima'
 require 'delegate'
 require_relative '../circuit'
 require_relative '../function'
-require_relative '../puts'
+require_relative '../puts_from_seps'
 require_relative '../wires'
 
 module ArtDecomp
@@ -55,9 +55,11 @@ module ArtDecomp
         end
 
         def g_outs
-          @g_outs ||= Puts.from_seps(allowed:  v_ins.seps,
-                                     required: function.outs.seps - u_ins.seps,
-                                     size:     function.size)
+          @g_outs ||= begin
+            PutsFromSeps.puts(allowed:  v_ins.seps,
+                              required: function.outs.seps - u_ins.seps,
+                              size:     function.size)
+          end
         end
 
         # :reek:UncommunicativeMethodName
