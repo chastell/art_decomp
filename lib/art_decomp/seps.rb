@@ -46,7 +46,7 @@ module ArtDecomp
 
     def nonempty_by_popcount
       (0...matrix.size).reject { |row| matrix[row].zero? }
-        .sort_by { |row| -popcounts[row] }
+                       .sort_by { |row| -popcounts[row] }
     end
 
     def separates?(row, col)
