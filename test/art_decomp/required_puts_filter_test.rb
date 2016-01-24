@@ -30,9 +30,11 @@ module ArtDecomp
       end
 
       it 'preserves Put order' do
-        buc  = Put[%i(0 1 1 1 0 1 1 1)]
-        puts = rpf.required(puts: abc, required_seps: buc.seps)
-        _(puts).must_equal Puts.new([b, c])
+        three = Put[%i(0 1 1 1)].seps
+        two   = Put[%i(0 1 1 0)]
+        one   = Put[%i(0 0 0 1)]
+        puts = rpf.required(puts: Puts.new([one, two]), required_seps: three)
+        _(puts).must_equal Puts.new([one, two])
       end
 
       it 'returns an empty Array if there are no Seps' do
