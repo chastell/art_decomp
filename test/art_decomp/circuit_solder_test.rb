@@ -8,7 +8,7 @@ module ArtDecomp
   describe CircuitSolder do
     describe '.replace' do
       it 'returns a new Circuit with the decomposed Function replaced' do
-        fun = KISSParser.function_for <<-end.dedent
+        fun = KISSParser.function_for <<~end
           0101-0 0
           010-00 0
           -1000- 0
@@ -20,7 +20,7 @@ module ArtDecomp
           -1001- 1
           1-10-- 1
         end
-        f0 = KISSParser.function_for <<-end.dedent
+        f0 = KISSParser.function_for <<~end
           01- 0
           0-0 0
           000 0
@@ -30,7 +30,7 @@ module ArtDecomp
           001 1
           10- 1
         end
-        f1 = KISSParser.function_for <<-end.dedent
+        f1 = KISSParser.function_for <<~end
           0100 0
           0100 0
           -1-0 0

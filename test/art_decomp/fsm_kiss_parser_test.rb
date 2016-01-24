@@ -8,7 +8,7 @@ module ArtDecomp
   describe FSMKISSParser do
     describe '.circuit_for' do
       it 'returns a Circuit represented by the KISS source' do
-        kiss = <<-end.dedent
+        kiss = <<~end
           .some comments
           0- s1 *  0--
           11 s1 s2 1--

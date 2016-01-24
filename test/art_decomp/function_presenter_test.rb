@@ -22,7 +22,7 @@ module ArtDecomp
 
     describe '#simple' do
       it 'returns a simple String representation of the Function' do
-        _(function_presenter.simple).must_equal <<-end.dedent
+        _(function_presenter.simple).must_equal <<~end
           0 - - HG | 0 0 0 1 0 HG
           - 0 - HG | 0 0 0 1 0 HG
           1 1 - HG | 1 0 0 1 0 HY

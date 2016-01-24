@@ -15,9 +15,3 @@ Bogus.fakes do
        as: :class,
        class: -> { [ArtDecomp::KISSParser, ArtDecomp::FSMKISSParser] }
 end
-
-class String
-  def dedent
-    gsub(/^#{scan(/^ +/).min}/, '')
-  end
-end

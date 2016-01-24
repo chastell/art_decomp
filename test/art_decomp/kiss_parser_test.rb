@@ -7,7 +7,7 @@ require_relative '../../lib/art_decomp/puts'
 module ArtDecomp
   describe KISSParser do
     let(:kiss) do
-      <<-end.dedent
+      <<~end
         .some comments
         0-a 0--
         11b 1--
