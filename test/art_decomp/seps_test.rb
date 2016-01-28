@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/seps'
 
-module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
+module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe Seps do
     let(:sep_01)          { Seps.new([0b10, 0b01])                     }
     let(:sep_01_02)       { Seps.new([0b110, 0b001, 0b001])            }

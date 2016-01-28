@@ -7,7 +7,7 @@ module ArtDecomp
   class FSMKISSParser < KISSParser
     private
 
-    def puts                                   # rubocop:disable Metrics/AbcSize
+    def puts # rubocop:disable Metrics/AbcSize
       in_block, state_block, next_block, out_block = blocks
       states = (state_block + next_block - ['*']).uniq.map(&:to_sym)
       ins  = BlockParser.new(in_block).puts +

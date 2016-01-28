@@ -2,7 +2,7 @@ require_relative '../test_helper'
 require_relative '../../lib/art_decomp/put'
 require_relative '../../lib/art_decomp/puts'
 
-module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
+module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe Puts do
     let(:ab)    { Put[%i(a b)]       }
     let(:abc)   { Put[%i(a b c)]     }

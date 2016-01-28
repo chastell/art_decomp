@@ -20,9 +20,6 @@ Style/AndOr:
 Style/Documentation:
   Enabled: false
 
-Style/ExtraSpacing:
-  Enabled: false
-
 Style/Not:
   Enabled: false
 

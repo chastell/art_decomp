@@ -6,7 +6,7 @@ require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/recoder'
 require_relative '../../lib/art_decomp/wires'
 
-module ArtDecomp                          # rubocop:disable Metrics/ModuleLength
+module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe CircuitPresenter do
     describe '.vhdl_for' do
       let(:bin) do
