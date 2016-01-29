@@ -20,17 +20,14 @@ module ArtDecomp
 
     private
 
-    def acceptable?(column, row, code)
-      column.map.with_index.all? do |other, index|
-        other == :- or other == code or allowed.separates?(row, index)
-      end
+    def acceptable?(column)
+      Seps.from_column(column) | allowed == allowed
     end
 
     def code_for(column, row, missing)
       forbidden = column.values_at(*missing.seps_of(row)).uniq
       code = :a
       code = code.next while forbidden.include?(code)
-      code = :- unless acceptable?(column, row, code)
       code
     end
 
@@ -43,7 +40,10 @@ module ArtDecomp
 
     def put_for_order(order, missing)
       column = Array.new(size, :-)
-      order.each { |row| column[row] = code_for(column, row, missing) }
+      order.each do |row|
+        column[row] = code_for(column, row, missing)
+        column[row] = :- unless acceptable?(column)
+      end
       Put[column]
     end
   end
