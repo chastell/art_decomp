@@ -14,6 +14,8 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
     let(:column_to_matrix) do
       {
         %i()    => [],
+        %i(a)   => [],
+        %i(a a) => [],
         %i(a b) => [0b10, 0b01],
         %i(a b d d c) => [
           0b11110,
@@ -58,8 +60,6 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
         column_to_matrix.each do |column, matrix|
           _(Seps.from_column(column)).must_equal Seps.new(matrix)
         end
-        _(Seps.from_column(%i(a))).must_equal Seps.new([])
-        _(Seps.from_column(%i(a a))).must_equal Seps.new([])
       end
     end
 
