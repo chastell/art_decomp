@@ -6,11 +6,11 @@ module ArtDecomp
   class PutsFromSeps
     include Anima.new(:allowed, :required, :size)
 
-    def self.puts(allowed:, required:, size:)
-      new(allowed: allowed, required: required, size: size).puts
+    def self.call(allowed:, required:, size:)
+      new(allowed: allowed, required: required, size: size).call
     end
 
-    def puts
+    def call
       puts = Puts.new
       until (required - puts.seps).empty?
         puts += Puts.new([next_put(required - puts.seps)])
