@@ -4,11 +4,11 @@ require_relative 'required_puts_filter'
 
 module ArtDecomp
   class FunctionSimplifier < SimpleDelegator
-    def self.simplify(function)
-      new(function).simplified
+    def self.call(function)
+      new(function).call
     end
 
-    def simplified
+    def call
       outs_seps    = outs.map(&:seps).reduce(:|)
       required_ins = RequiredPutsFilter.required(puts: ins,
                                                  required_seps: outs_seps)

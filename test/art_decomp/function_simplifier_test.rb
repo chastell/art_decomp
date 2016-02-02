@@ -4,7 +4,7 @@ require_relative '../../lib/art_decomp/kiss_parser'
 
 module ArtDecomp
   describe FunctionSimplifier do
-    describe '.simplify' do
+    describe '.call' do
       it 'returns the simplest implementation of a Function' do
         abc_anb = KISSParser.function_for <<-end
           000 0
@@ -26,7 +26,7 @@ module ArtDecomp
           11 1
           11 1
         end
-        _(FunctionSimplifier.simplify(abc_anb)).must_equal ab_anb
+        _(FunctionSimplifier.call(abc_anb)).must_equal ab_anb
       end
 
       it 'maintains put order' do
@@ -50,7 +50,7 @@ module ArtDecomp
           10 1
           11 1
         end
-        _(FunctionSimplifier.simplify(abc_buc)).must_equal bc_buc
+        _(FunctionSimplifier.call(abc_buc)).must_equal bc_buc
       end
 
       it 'does not modify Functions that are the simplest already' do
@@ -64,7 +64,7 @@ module ArtDecomp
           11 1
           11 1
         end
-        _(FunctionSimplifier.simplify(ab_anb)).must_equal ab_anb
+        _(FunctionSimplifier.call(ab_anb)).must_equal ab_anb
       end
     end
   end

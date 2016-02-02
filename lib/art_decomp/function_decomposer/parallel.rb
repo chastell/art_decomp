@@ -30,7 +30,7 @@ module ArtDecomp
       def merged
         @merged ||= begin
           split = outs.map { |out| Function[ins, Puts.new([out])] }
-          simple = split.map { |fun| FunctionSimplifier.simplify(fun) }
+          simple = split.map { |fun| FunctionSimplifier.call(fun) }
           FunctionMerger.merge(simple)
         end
       end
