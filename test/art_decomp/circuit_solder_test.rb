@@ -6,7 +6,7 @@ require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe CircuitSolder do
-    describe '.replace' do
+    describe '.call' do
       it 'returns a new Circuit with the decomposed Function replaced' do
         fun = KISSParser.function_for <<~end
           0101-0 0
@@ -78,9 +78,8 @@ module ArtDecomp
                                  wires: decomposed_wires)
         replaced   = Circuit.new(functions: [f0, f1], own: fun,
                                  wires: replaced_wires)
-        result     = CircuitSolder.replace(composed: composed,
-                                           decomposed: decomposed,
-                                           function: fun)
+        result = CircuitSolder.call(composed: composed, decomposed: decomposed,
+                                    function: fun)
         _(result).must_equal replaced
       end
     end

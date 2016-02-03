@@ -3,9 +3,8 @@ require_relative 'wires'
 
 module ArtDecomp
   class CircuitSolder
-    def self.replace(composed:, decomposed:, function:)
-      cs = new(composed: composed, decomposed: decomposed, function: function)
-      cs.replaced
+    def self.call(composed:, decomposed:, function:)
+      new(composed: composed, decomposed: decomposed, function: function).call
     end
 
     def initialize(composed:, decomposed:, function:)
@@ -14,7 +13,7 @@ module ArtDecomp
       @function   = function
     end
 
-    def replaced
+    def call
       wires = adjusted_wires + new_wires
       Circuit.new(functions: functions, own: composed.own, wires: wires)
     end

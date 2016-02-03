@@ -10,9 +10,9 @@ module ArtDecomp
       function = circuit.largest_function
       Enumerator.new do |yielder|
         function_decomposer.decompose(function).each do |decomposed|
-          replaced = circuit_solder.replace(composed: circuit,
-                                            decomposed: decomposed,
-                                            function: function)
+          replaced = circuit_solder.call(composed:   circuit,
+                                         decomposed: decomposed,
+                                         function:   function)
           yielder << replaced
         end
       end
