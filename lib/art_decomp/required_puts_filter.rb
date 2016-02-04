@@ -2,8 +2,8 @@ require_relative 'puts'
 
 module ArtDecomp
   class RequiredPutsFilter
-    def self.required(puts:, required_seps:)
-      puts & new(puts: puts, required_seps: required_seps).required_puts
+    def self.call(puts:, required_seps:)
+      puts & new(puts: puts, required_seps: required_seps).call
     end
 
     def initialize(puts:, required_seps:)
@@ -11,7 +11,7 @@ module ArtDecomp
       @sorted_puts   = puts.sort_by { |put| -(put.seps & required_seps).count }
     end
 
-    def required_puts
+    def call
       remaining = required_seps
       sorted_puts.take_while do |put|
         empty = remaining.empty?
