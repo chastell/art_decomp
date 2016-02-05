@@ -5,7 +5,7 @@ require_relative '../../lib/art_decomp/decomposer'
 
 module ArtDecomp
   describe Decomposer do
-    describe '.decompositions' do
+    describe '.call' do
       it 'yields subsequent best decompositions' do
         c1   = fake(Circuit, admissible_size: 7)
         c11  = fake(Circuit, admissible_size: 9)
@@ -22,7 +22,7 @@ module ArtDecomp
         stub(cd).decompose(c12)  { [c121]          }
         stub(cd).decompose(c121) { []              }
         stub(cd).decompose(c13)  { []              }
-        decs = Decomposer.decompositions(c1, circuit_decomposer: cd)
+        decs = Decomposer.call(c1, circuit_decomposer: cd)
         _(decs).must_be_kind_of Enumerator
         _(decs.to_a).must_equal [c1, c12, c11, c112, c13, c111, c121]
       end
