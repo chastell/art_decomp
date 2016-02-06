@@ -7,19 +7,18 @@ require_relative '../../lib/art_decomp/function_decomposer/serial'
 
 module ArtDecomp
   describe FunctionDecomposer do
-    describe '.decompose' do
+    describe '.call' do
       it 'returns parallel and serial decompositions' do
-        function   = fake(Function)
+        fun        = fake(Function)
         par_decd_a = fake(Circuit)
         par_decd_b = fake(Circuit)
         ser_decd_a = fake(Circuit)
         ser_decd_b = fake(Circuit)
         parallel   = fake(FunctionDecomposer::Parallel, as: :class)
         serial     = fake(FunctionDecomposer::Serial,   as: :class)
-        stub(parallel).decompose(function) { [par_decd_a, par_decd_b].to_enum }
-        stub(serial).decompose(function)   { [ser_decd_a, ser_decd_b].to_enum }
-        decs = FunctionDecomposer.decompose(function, parallel: parallel,
-                                                      serial: serial)
+        stub(parallel).call(fun) { [par_decd_a, par_decd_b].to_enum }
+        stub(serial).call(fun)   { [ser_decd_a, ser_decd_b].to_enum }
+        decs = FunctionDecomposer.call(fun, parallel: parallel, serial: serial)
         _(decs.to_a).must_equal [par_decd_a, par_decd_b, ser_decd_a, ser_decd_b]
       end
     end

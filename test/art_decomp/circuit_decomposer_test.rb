@@ -7,13 +7,13 @@ require_relative '../../lib/art_decomp/function_decomposer'
 
 module ArtDecomp
   describe CircuitDecomposer do
-    describe '.decompose' do
+    describe '.call' do
       it 'yields subsequent decomposed Circuits' do
         largest_function = fake(Function)
         decomposed_a = fake(Circuit)
         decomposed_b = fake(Circuit)
         fd = fake(FunctionDecomposer, as: :class)
-        mock(fd).decompose(largest_function) { [decomposed_a, decomposed_b] }
+        mock(fd).call(largest_function) { [decomposed_a, decomposed_b] }
         composed   = fake(Circuit, largest_function: largest_function)
         replaced_a = fake(Circuit)
         replaced_b = fake(Circuit)
@@ -22,8 +22,8 @@ module ArtDecomp
                           function: largest_function) { replaced_a }
         mock(solder).call(composed: composed, decomposed: decomposed_b,
                           function: largest_function) { replaced_b }
-        decs = CircuitDecomposer.decompose(composed, function_decomposer: fd,
-                                                     circuit_solder: solder)
+        decs = CircuitDecomposer.call(composed, function_decomposer: fd,
+                                                circuit_solder: solder)
         _(decs.to_a).must_equal [replaced_a, replaced_b]
       end
     end

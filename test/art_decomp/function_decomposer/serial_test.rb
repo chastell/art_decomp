@@ -6,7 +6,7 @@ require_relative '../../../lib/art_decomp/wires'
 
 module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe FunctionDecomposer::Serial do
-    describe '.decompose' do
+    describe '.call' do
       let(:f) do
         KISSParser.function_for <<-end
           0101-0 0
@@ -94,7 +94,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
           h.ins[3]  => g1.outs[0],
         )
         circuit = Circuit.new(functions: [g1, h], own: f, wires: wires)
-        _(FunctionDecomposer::Serial.decompose(f)).must_include circuit
+        _(FunctionDecomposer::Serial.call(f)).must_include circuit
       end
 
       it 'can decompose the largest function further' do
@@ -108,7 +108,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
           g3.ins[2] => g2.outs[1],
         )
         circuit = Circuit.new(functions: [g2, g3], own: h, wires: wires)
-        _(FunctionDecomposer::Serial.decompose(h)).must_include circuit
+        _(FunctionDecomposer::Serial.call(h)).must_include circuit
       end
     end
   end

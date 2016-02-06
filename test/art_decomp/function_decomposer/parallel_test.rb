@@ -8,7 +8,7 @@ require_relative '../../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
-    describe '.decompose' do
+    describe '.call' do
       #   | a b c | anb buc nbuc
       # --+-------+-------------
       # 0 | 0 0 0 |  0   0   1
@@ -41,7 +41,7 @@ module ArtDecomp
         )
         function = Function[ins, outs]
         circuit  = Circuit.new(functions: [ab, bc], own: function, wires: wires)
-        _(FunctionDecomposer::Parallel.decompose(function)).must_include circuit
+        _(FunctionDecomposer::Parallel.call(function)).must_include circuit
       end
 
       it 'does not yield if it can’t decompose' do
@@ -51,7 +51,7 @@ module ArtDecomp
           10 0
           11 1
         end
-        _(FunctionDecomposer::Parallel.decompose(fun).to_a).must_be_empty
+        _(FunctionDecomposer::Parallel.call(fun).to_a).must_be_empty
       end
     end
   end

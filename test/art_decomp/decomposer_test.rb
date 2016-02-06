@@ -15,13 +15,13 @@ module ArtDecomp
         c121 = fake(Circuit, admissible_size: 13)
         c13  = fake(Circuit, admissible_size: 11)
         cd   = fake(CircuitDecomposer, as: :class)
-        stub(cd).decompose(c1)   { [c11, c12, c13] }
-        stub(cd).decompose(c11)  { [c111, c112]    }
-        stub(cd).decompose(c111) { []              }
-        stub(cd).decompose(c112) { []              }
-        stub(cd).decompose(c12)  { [c121]          }
-        stub(cd).decompose(c121) { []              }
-        stub(cd).decompose(c13)  { []              }
+        stub(cd).call(c1)   { [c11, c12, c13] }
+        stub(cd).call(c11)  { [c111, c112]    }
+        stub(cd).call(c111) { []              }
+        stub(cd).call(c112) { []              }
+        stub(cd).call(c12)  { [c121]          }
+        stub(cd).call(c121) { []              }
+        stub(cd).call(c13)  { []              }
         decs = Decomposer.call(c1, circuit_decomposer: cd)
         _(decs).must_be_kind_of Enumerator
         _(decs.to_a).must_equal [c1, c12, c11, c112, c13, c111, c121]

@@ -5,10 +5,10 @@ module ArtDecomp
   module FunctionDecomposer
     module_function
 
-    def decompose(function, parallel: Parallel, serial: Serial)
+    def call(function, parallel: Parallel, serial: Serial)
       Enumerator.new do |yielder|
-        parallel.decompose(function).each { |circuit| yielder << circuit }
-        serial.decompose(function).each   { |circuit| yielder << circuit }
+        parallel.call(function).each { |circuit| yielder << circuit }
+        serial.call(function).each   { |circuit| yielder << circuit }
       end
     end
   end

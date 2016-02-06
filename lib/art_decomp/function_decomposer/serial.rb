@@ -8,11 +8,11 @@ require_relative '../wires'
 module ArtDecomp
   module FunctionDecomposer
     class Serial < SimpleDelegator
-      def self.decompose(function)
-        new(function).decompositions
+      def self.call(function)
+        new(function).call
       end
 
-      def decompositions
+      def call
         Enumerator.new do |yielder|
           each_uv do |u_ins, v_ins|
             dec = Decomposition.new(function: function,

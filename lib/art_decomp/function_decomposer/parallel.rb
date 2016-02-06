@@ -9,11 +9,11 @@ require_relative '../wires'
 module ArtDecomp
   module FunctionDecomposer
     class Parallel < SimpleDelegator
-      def self.decompose(function)
-        new(function).decompositions
+      def self.call(function)
+        new(function).call
       end
 
-      def decompositions
+      def call
         Enumerator.new do |yielder|
           unless merged == [function]
             wires = Wires.from_function(function)
