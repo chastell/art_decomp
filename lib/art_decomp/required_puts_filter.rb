@@ -7,8 +7,8 @@ module ArtDecomp
     end
 
     def initialize(puts:, required_seps:)
+      @puts          = puts
       @required_seps = required_seps
-      @sorted_puts   = puts.sort_by { |put| -(put.seps & required_seps).count }
     end
 
     def call
@@ -22,6 +22,10 @@ module ArtDecomp
 
     private
 
-    attr_reader :required_seps, :sorted_puts
+    attr_reader :puts, :required_seps
+
+    def sorted_puts
+      puts.sort_by { |put| -(put.seps & required_seps).count }
+    end
   end
 end
