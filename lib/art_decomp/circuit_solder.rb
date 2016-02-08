@@ -1,16 +1,13 @@
+require 'anima'
 require_relative 'circuit'
 require_relative 'wires'
 
 module ArtDecomp
   class CircuitSolder
+    include Anima.new(:composed, :decomposed, :function)
+
     def self.call(composed:, decomposed:, function:)
       new(composed: composed, decomposed: decomposed, function: function).call
-    end
-
-    def initialize(composed:, decomposed:, function:)
-      @composed   = composed
-      @decomposed = decomposed
-      @function   = function
     end
 
     def call
@@ -19,8 +16,6 @@ module ArtDecomp
     end
 
     private
-
-    attr_reader :composed, :decomposed, :function
 
     def adjusted_wire(dst, src)
       case
