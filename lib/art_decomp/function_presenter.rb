@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'delegate'
 require_relative 'puts_presenter'
 

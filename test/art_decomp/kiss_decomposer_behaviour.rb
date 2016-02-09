@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 require_relative '../../lib/art_decomp/circuit'
 require_relative '../../lib/art_decomp/decomposer'

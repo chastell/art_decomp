@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'circuit_presenter'
 require_relative 'decomposer'
 require_relative 'fsm_kiss_parser'

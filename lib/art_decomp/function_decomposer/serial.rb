@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'anima'
 require 'delegate'
 require_relative '../circuit'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'anima'
 require_relative 'circuit'
 require_relative 'wires'

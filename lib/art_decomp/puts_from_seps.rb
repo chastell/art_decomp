@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'anima'
 require_relative 'put'
 require_relative 'puts'

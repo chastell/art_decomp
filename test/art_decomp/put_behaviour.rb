@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/art_decomp/seps'
 
 module ArtDecomp
