@@ -37,7 +37,7 @@ module ArtDecomp
       include Anima.new(:circuit, :dst, :src)
 
       def labels
-        fail 'wire binwidths don’t match' unless dst.binwidth == src.binwidth
+        raise 'wire binwidths don’t match' unless dst.binwidth == src.binwidth
         dst_labels.zip(src_labels)
       end
 
