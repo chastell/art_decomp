@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
+require 'procto'
 require_relative 'circuit_decomposer'
 
 module ArtDecomp
   class Decomposer
-    def self.call(circuit, circuit_decomposer: CircuitDecomposer)
-      new(circuit, circuit_decomposer: circuit_decomposer).call
-    end
+    include Procto.call
 
     def initialize(circuit, circuit_decomposer:)
       @circuit_decomposer = circuit_decomposer

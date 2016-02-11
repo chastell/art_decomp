@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 require 'anima'
+require 'procto'
 require_relative 'put'
 require_relative 'puts'
 
 module ArtDecomp
   class PutsFromSeps
     include Anima.new(:allowed, :required, :size)
-
-    def self.call(allowed:, required:, size:)
-      new(allowed: allowed, required: required, size: size).call
-    end
+    include Procto.call
 
     def call
       puts = Puts.new

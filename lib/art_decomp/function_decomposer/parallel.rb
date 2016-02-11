@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'delegate'
+require 'procto'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../function_merger'
@@ -11,9 +12,7 @@ require_relative '../wires'
 module ArtDecomp
   module FunctionDecomposer
     class Parallel < SimpleDelegator
-      def self.call(function)
-        new(function).call
-      end
+      include Procto.call
 
       def call
         Enumerator.new do |yielder|

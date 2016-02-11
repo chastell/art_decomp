@@ -2,6 +2,7 @@
 
 require 'anima'
 require 'delegate'
+require 'procto'
 require_relative '../circuit'
 require_relative '../function'
 require_relative '../puts_from_seps'
@@ -10,9 +11,7 @@ require_relative '../wires'
 module ArtDecomp
   module FunctionDecomposer
     class Serial < SimpleDelegator
-      def self.call(function)
-        new(function).call
-      end
+      include Procto.call
 
       def call
         Enumerator.new do |yielder|

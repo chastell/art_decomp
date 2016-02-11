@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 require 'anima'
+require 'procto'
 require_relative 'circuit'
 require_relative 'wires'
 
 module ArtDecomp
   class CircuitSolder
     include Anima.new(:composed, :decomposed, :function)
-
-    def self.call(composed:, decomposed:, function:)
-      new(composed: composed, decomposed: decomposed, function: function).call
-    end
+    include Procto.call
 
     def call
       wires = adjusted_wires + new_wires

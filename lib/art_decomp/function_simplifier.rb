@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require 'delegate'
+require 'procto'
 require_relative 'function'
 require_relative 'required_puts_filter'
 
 module ArtDecomp
   class FunctionSimplifier < SimpleDelegator
-    def self.call(function)
-      new(function).call
-    end
+    include Procto.call
 
     def call
       outs_seps = outs.map(&:seps).reduce(:|)
