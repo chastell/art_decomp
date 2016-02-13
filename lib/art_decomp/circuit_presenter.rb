@@ -10,11 +10,15 @@ module ArtDecomp
   # :reek:UnusedPrivateMethod: { exclude: [wire_labels] }
   class CircuitPresenter < SimpleDelegator
     def self.vhdl_for(circuit, name:)
-      new(circuit).vhdl(name: name)
+      new(circuit, name: name).vhdl
     end
 
-    def vhdl(name:)
+    def initialize(circuit, name:)
+      super circuit
       @name = name
+    end
+
+    def vhdl
       template = File.read('lib/art_decomp/circuit_presenter.vhdl.erb')
       ERB.new(template, nil, '%').result(binding)
     end
