@@ -10,7 +10,7 @@ require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe CircuitPresenter do
-    describe '.vhdl_for' do
+    describe '.call' do
       let(:bin) do
         KISSParser.circuit_for(File.read('test/fixtures/bin.kiss'))
       end
@@ -70,7 +70,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       it 'returns VHDL for the given Circuit' do
-        vhdl = CircuitPresenter.vhdl_for(bin, name: 'bin')
+        vhdl = CircuitPresenter.call(bin, name: 'bin')
         _(vhdl).must_equal File.read('test/fixtures/bin.vhdl')
       end
 
@@ -108,17 +108,17 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
           bin.own.outs[0] => f1.outs[0],
         )
         bin_decd = bin.with(functions: [f0, f1], wires: wires)
-        vhdl = CircuitPresenter.vhdl_for(bin_decd, name: 'bin')
+        vhdl = CircuitPresenter.call(bin_decd, name: 'bin')
         _(vhdl).must_equal File.read('test/fixtures/bin.decomposed.vhdl')
       end
 
       it 'returns VHDL for the given FSM' do
-        vhdl = CircuitPresenter.vhdl_for(mc, name: 'mc')
+        vhdl = CircuitPresenter.call(mc, name: 'mc')
         _(vhdl).must_equal File.read('test/fixtures/mc.vhdl')
       end
 
       it 'returns VHDL for the given decomposed FSM' do
-        vhdl = CircuitPresenter.vhdl_for(mc_decd, name: 'mc')
+        vhdl = CircuitPresenter.call(mc_decd, name: 'mc')
         _(vhdl).must_equal File.read('test/fixtures/mc.decomposed.vhdl')
       end
     end

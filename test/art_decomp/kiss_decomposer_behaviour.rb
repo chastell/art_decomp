@@ -17,8 +17,8 @@ module ArtDecomp
                 decs       = [dec_a, dec_b].to_enum
                 decomposer = fake(Decomposer, as: :class, call: decs)
                 presenter  = fake(CircuitPresenter, as: :class)
-                stub(presenter).vhdl_for(dec_a, name: 'foo_0') { 'foo_0 VHDL' }
-                stub(presenter).vhdl_for(dec_b, name: 'foo_1') { 'foo_1 VHDL' }
+                stub(presenter).call(dec_a, name: 'foo_0') { 'foo_0 VHDL' }
+                stub(presenter).call(dec_b, name: 'foo_1') { 'foo_1 VHDL' }
                 parser = fake(:circ_kiss_parser, circuit_for: fake(Circuit))
                 args   = %W(--dir=#{vhdl_path} baz/bar/foo.kiss)
                 decomp = kiss_decomposer.new(args,
