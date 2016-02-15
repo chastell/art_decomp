@@ -4,14 +4,13 @@ require 'anima'
 require 'delegate'
 require 'erb'
 require 'forwardable'
+require 'procto'
 require_relative 'function_presenter'
 
 module ArtDecomp
   # :reek:UnusedPrivateMethod: { exclude: [wire_labels] }
   class CircuitPresenter < SimpleDelegator
-    def self.call(circuit, name:)
-      new(circuit, name: name).call
-    end
+    include Procto.call
 
     def initialize(circuit, name:)
       super circuit
