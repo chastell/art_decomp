@@ -8,7 +8,7 @@ module ArtDecomp
   describe FunctionSimplifier do
     describe '.call' do
       it 'returns the simplest implementation of a Function' do
-        abc_anb = KISSParser.function_for <<-end
+        abc_anb = KISSParser.function <<-end
           000 0
           001 0
           010 0
@@ -18,7 +18,7 @@ module ArtDecomp
           110 1
           111 1
         end
-        ab_anb = KISSParser.function_for <<-end
+        ab_anb = KISSParser.function <<-end
           00 0
           00 0
           01 0
@@ -32,7 +32,7 @@ module ArtDecomp
       end
 
       it 'maintains put order' do
-        abc_buc = KISSParser.function_for <<-end
+        abc_buc = KISSParser.function <<-end
           000 0
           001 1
           010 1
@@ -42,7 +42,7 @@ module ArtDecomp
           110 1
           111 1
         end
-        bc_buc = KISSParser.function_for <<-end
+        bc_buc = KISSParser.function <<-end
           00 0
           01 1
           10 1
@@ -56,7 +56,7 @@ module ArtDecomp
       end
 
       it 'does not modify Functions that are the simplest already' do
-        ab_anb = KISSParser.function_for <<-end
+        ab_anb = KISSParser.function <<-end
           00 0
           00 0
           01 0

@@ -7,7 +7,7 @@ require_relative '../../lib/art_decomp/function_presenter'
 module ArtDecomp
   describe FunctionPresenter do
     let(:function_presenter) do
-      function = FSMKISSParser.function_for <<-end
+      function = FSMKISSParser.function <<-end
         0-- HG HG 00010
         -0- HG HG 00010
         11- HG HY 10010

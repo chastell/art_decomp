@@ -47,7 +47,7 @@ module ArtDecomp
       end
 
       it 'does not yield if it can’t decompose' do
-        fun = KISSParser.function_for <<-end
+        fun = KISSParser.function <<-end
           00 0
           01 0
           10 0

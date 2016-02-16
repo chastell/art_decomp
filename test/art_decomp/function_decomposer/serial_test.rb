@@ -10,7 +10,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe FunctionDecomposer::Serial do
     describe '.call' do
       let(:f) do
-        KISSParser.function_for <<-end
+        KISSParser.function <<-end
           0101-0 0
           010-00 0
           -1000- 0
@@ -25,7 +25,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       let(:g1) do
-        KISSParser.function_for <<-end
+        KISSParser.function <<-end
           -01 b
           00- b
           000 b
@@ -40,7 +40,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       let(:h) do
-        KISSParser.function_for <<-end
+        KISSParser.function <<-end
           010b 0
           010b 0
           -1-b 0
@@ -55,7 +55,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       let(:g2) do
-        KISSParser.function_for <<-end
+        KISSParser.function <<-end
           01b b-
           01b b-
           -1b b-
@@ -70,7 +70,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       let(:g3) do
-        KISSParser.function_for <<-end
+        KISSParser.function <<-end
           0b- 0
           0b- 0
           -b- 0

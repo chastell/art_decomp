@@ -10,7 +10,7 @@ module ArtDecomp
   describe CircuitSolder do
     describe '.call' do
       it 'returns a new Circuit with the decomposed Function replaced' do
-        fun = KISSParser.function_for <<~end
+        fun = KISSParser.function <<~end
           0101-0 0
           010-00 0
           -1000- 0
@@ -22,7 +22,7 @@ module ArtDecomp
           -1001- 1
           1-10-- 1
         end
-        f0 = KISSParser.function_for <<~end
+        f0 = KISSParser.function <<~end
           01- 0
           0-0 0
           000 0
@@ -32,7 +32,7 @@ module ArtDecomp
           001 1
           10- 1
         end
-        f1 = KISSParser.function_for <<~end
+        f1 = KISSParser.function <<~end
           0100 0
           0100 0
           -1-0 0

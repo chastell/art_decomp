@@ -7,11 +7,11 @@ require_relative 'puts'
 
 module ArtDecomp
   class KISSParser
-    def self.circuit_for(kiss)
+    def self.circuit(kiss)
       new(kiss).circuit
     end
 
-    def self.function_for(kiss)
+    def self.function(kiss)
       new(kiss).function
     end
 

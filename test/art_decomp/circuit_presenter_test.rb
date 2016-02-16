@@ -11,16 +11,11 @@ require_relative '../../lib/art_decomp/wires'
 module ArtDecomp # rubocop:disable Metrics/ModuleLength
   describe CircuitPresenter do
     describe '.call' do
-      let(:bin) do
-        KISSParser.circuit_for(File.read('test/fixtures/bin.kiss'))
-      end
-
-      let(:mc) do
-        FSMKISSParser.circuit_for(File.read('test/fixtures/mc.kiss'))
-      end
+      let(:bin) { KISSParser.circuit(File.read('test/fixtures/bin.kiss'))   }
+      let(:mc)  { FSMKISSParser.circuit(File.read('test/fixtures/mc.kiss')) }
 
       let(:mc_decd) do
-        f0 = KISSParser.function_for <<-end
+        f0 = KISSParser.function <<-end
           00a ba
           00b ab
           01a ba
@@ -30,7 +25,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
           11a ba
           11b bb
         end
-        f1 = KISSParser.function_for <<-end
+        f1 = KISSParser.function <<-end
           -aaa aa01000
           -aba ab00010
           -baa ba11000
@@ -75,7 +70,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
       end
 
       it 'returns VHDL for the given decomposed Circuit' do
-        f0 = KISSParser.function_for <<-end
+        f0 = KISSParser.function <<-end
           01- 0
           0-0 0
           000 0
@@ -85,7 +80,7 @@ module ArtDecomp # rubocop:disable Metrics/ModuleLength
           001 1
           10- 1
         end
-        f1 = KISSParser.function_for <<-end
+        f1 = KISSParser.function <<-end
           0100 0
           0100 0
           -1-0 0

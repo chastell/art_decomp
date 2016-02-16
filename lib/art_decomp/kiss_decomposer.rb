@@ -19,7 +19,7 @@ module ArtDecomp
     end
 
     def decompose
-      circuit = kiss_parser.circuit_for(File.read(kiss_path))
+      circuit = kiss_parser.circuit(File.read(kiss_path))
       decomposer.call(circuit).each.with_index do |dc, index|
         name = "#{File.basename(kiss_path, '.kiss')}_#{index}"
         vhdl = circuit_presenter.call(dc, name: name)

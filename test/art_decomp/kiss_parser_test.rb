@@ -22,16 +22,16 @@ module ArtDecomp
                Puts[%i(0 1 -), %i(- - -), %i(- - 0)]]
     end
 
-    describe '.circuit_for' do
+    describe '.circuit' do
       it 'returns a Circuit represented by the KISS source' do
         circuit = Circuit.from_function(function)
-        _(KISSParser.circuit_for(kiss)).must_equal circuit
+        _(KISSParser.circuit(kiss)).must_equal circuit
       end
     end
 
-    describe '.function_for' do
+    describe '.function' do
       it 'returns a Function represented by the KISS source' do
-        _(KISSParser.function_for(kiss)).must_equal function
+        _(KISSParser.function(kiss)).must_equal function
       end
     end
   end
