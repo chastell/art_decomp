@@ -4,7 +4,7 @@ require 'delegate'
 require_relative 'arch'
 
 module ArtDecomp
-  class ArchSizer < SimpleDelegator
+  class ArchSizer < DelegateClass(Arch)
     def fits?
       i <= 8
     end
