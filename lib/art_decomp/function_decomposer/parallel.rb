@@ -11,7 +11,7 @@ require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
-    class Parallel < SimpleDelegator
+    class Parallel < DelegateClass(Function)
       include Procto.call
 
       def call

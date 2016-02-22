@@ -10,7 +10,7 @@ require_relative '../wires'
 
 module ArtDecomp
   module FunctionDecomposer
-    class Serial < SimpleDelegator
+    class Serial < DelegateClass(Function)
       include Procto.call
 
       def call
