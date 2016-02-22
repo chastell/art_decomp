@@ -5,11 +5,12 @@ require 'delegate'
 require 'erb'
 require 'forwardable'
 require 'procto'
+require_relative 'circuit'
 require_relative 'function_presenter'
 
 module ArtDecomp
   # :reek:UnusedPrivateMethod: { exclude: [wire_labels] }
-  class CircuitPresenter < SimpleDelegator
+  class CircuitPresenter < DelegateClass(Circuit)
     include Procto.call
 
     def initialize(circuit, name:)
