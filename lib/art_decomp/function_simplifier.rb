@@ -6,7 +6,7 @@ require_relative 'function'
 require_relative 'required_puts_filter'
 
 module ArtDecomp
-  class FunctionSimplifier < SimpleDelegator
+  class FunctionSimplifier < DelegateClass(Function)
     include Procto.call
 
     def call
