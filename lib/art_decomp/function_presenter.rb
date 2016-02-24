@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'delegate'
+require_relative 'function'
 require_relative 'puts_presenter'
 
 module ArtDecomp
-  class FunctionPresenter < SimpleDelegator
+  class FunctionPresenter < DelegateClass(Function)
     def simple
       ins_cols  = PutsPresenter.new(ins).simple
       outs_cols = PutsPresenter.new(outs).simple
