@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'delegate'
+require_relative 'put'
+require_relative 'puts'
 
 module ArtDecomp
-  class PutsPresenter < SimpleDelegator
+  class PutsPresenter < DelegateClass(Puts)
     def bin_columns
       map(&PutPresenter.method(:new)).map(&:bin_column).transpose.map(&:join)
     end
@@ -12,7 +14,7 @@ module ArtDecomp
       map(&:column).transpose.map { |code| code.join(' ') }
     end
 
-    class PutPresenter < SimpleDelegator
+    class PutPresenter < DelegateClass(Put)
       def bin_column
         column.map { |code| mapping[code] }
       end
