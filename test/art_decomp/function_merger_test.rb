@@ -8,16 +8,6 @@ require_relative '../../lib/art_decomp/puts'
 module ArtDecomp
   describe FunctionMerger do
     describe '.merge' do
-      #   | a b c | anb buc nbuc
-      # --+-------+-------------
-      # 0 | 0 0 0 |  0   0   1
-      # 1 | 0 0 1 |  0   1   0
-      # 2 | 0 1 0 |  0   1   0
-      # 3 | 0 1 1 |  0   1   0
-      # 4 | 1 0 0 |  0   0   1
-      # 5 | 1 0 1 |  0   1   0
-      # 6 | 1 1 0 |  1   1   0
-      # 7 | 1 1 1 |  1   1   0
       let(:a)    { %i(0 0 0 0 1 1 1 1) }
       let(:b)    { %i(0 0 1 1 0 0 1 1) }
       let(:c)    { %i(0 1 0 1 0 1 0 1) }
@@ -25,22 +15,25 @@ module ArtDecomp
       let(:buc)  { %i(0 1 1 1 0 1 1 1) }
       let(:nbuc) { %i(1 0 0 0 1 0 0 0) }
 
-      let(:f1)  { Function[Puts[a, b], Puts[anb]]       }
-      let(:f2)  { Function[Puts[b, c], Puts[buc]]       }
-      let(:f3)  { Function[Puts[b, c], Puts[nbuc]]      }
-      let(:f4)  { Function[Puts[c, b], Puts[nbuc]]      }
-      let(:f23) { Function[Puts[b, c], Puts[buc, nbuc]] }
+      let(:f_anb)      { Function[Puts[a, b], Puts[anb]]       }
+      let(:f_buc)      { Function[Puts[b, c], Puts[buc]]       }
+      let(:f_nbuc)     { Function[Puts[b, c], Puts[nbuc]]      }
+      let(:f_ncub)     { Function[Puts[c, b], Puts[nbuc]]      }
+      let(:f_buc_nbuc) { Function[Puts[b, c], Puts[buc, nbuc]] }
 
       it 'merges passed Functions according to their inputs' do
-        _(FunctionMerger.merge([f1, f2, f3])).must_equal [f1, f23]
+        functions = [f_anb, f_buc, f_nbuc]
+        _(FunctionMerger.merge(functions)).must_equal [f_anb, f_buc_nbuc]
       end
 
       it 'optimises the merged functions' do
-        _(FunctionMerger.merge([f1, f2, f3, f2])).must_equal [f1, f23]
+        functions = [f_anb, f_buc, f_nbuc, f_buc]
+        _(FunctionMerger.merge(functions)).must_equal [f_anb, f_buc_nbuc]
       end
 
       it 'doesn’t discriminate by input order' do
-        _(FunctionMerger.merge([f1, f2, f4])).must_equal [f1, f23]
+        functions = [f_anb, f_buc, f_ncub]
+        _(FunctionMerger.merge(functions)).must_equal [f_anb, f_buc_nbuc]
       end
     end
   end
