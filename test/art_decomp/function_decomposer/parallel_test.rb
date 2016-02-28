@@ -11,17 +11,6 @@ require_relative '../../../lib/art_decomp/wires'
 module ArtDecomp
   describe FunctionDecomposer::Parallel do
     describe '.call' do
-      #   | a b c | anb buc nbuc
-      # --+-------+-------------
-      # 0 | 0 0 0 |  0   0   1
-      # 1 | 0 0 1 |  0   1   0
-      # 2 | 0 1 0 |  0   1   0
-      # 3 | 0 1 1 |  0   1   0
-      # 4 | 1 0 0 |  0   0   1
-      # 5 | 1 0 1 |  0   1   0
-      # 6 | 1 1 0 |  1   1   0
-      # 7 | 1 1 1 |  1   1   0
-
       it 'yields decomposed Circuits' do
         a     = Put[%i(0 0 0 0 1 1 1 1)]
         b     = Put[%i(0 0 1 1 0 0 1 1)]
