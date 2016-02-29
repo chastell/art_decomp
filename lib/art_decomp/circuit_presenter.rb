@@ -80,6 +80,7 @@ module ArtDecomp
           @puts ||= groups.find { |puts| puts.include?(put) }
         end
       end
+      private_constant :PutLabels
     end
   end
 end
