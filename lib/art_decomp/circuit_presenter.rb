@@ -82,5 +82,6 @@ module ArtDecomp
       end
       private_constant :PutLabels
     end
+    private_constant :WireLabels
   end
 end
