@@ -25,5 +25,6 @@ module ArtDecomp
         Puts.new([StatePut[col, codes: codes]])
       end
     end
+    private_constant :BlockParser
   end
 end
