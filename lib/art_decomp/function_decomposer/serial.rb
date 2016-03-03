@@ -68,6 +68,7 @@ module ArtDecomp
           @h ||= Function[u_ins + g_outs, function.outs]
         end
       end
+      private_constant :Decomposition
     end
   end
 end
