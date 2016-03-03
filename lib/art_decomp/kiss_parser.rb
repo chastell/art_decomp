@@ -61,5 +61,6 @@ module ArtDecomp
 
       attr_reader :block, :codes
     end
+    private_constant :BlockParser
   end
 end
