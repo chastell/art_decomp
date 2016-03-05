@@ -28,5 +28,6 @@ module ArtDecomp
         end
       end
     end
+    private_constant :PutPresenter
   end
 end
