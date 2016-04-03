@@ -43,7 +43,7 @@ GEM
     minitest (5.8.4)
     minitest-focus (1.1.2)
       minitest (>= 4, < 6)
-    parser (2.3.0.6)
+    parser (2.3.0.7)
       ast (~> 2.2)
     powerpack (0.1.1)
     procto (0.0.3)
