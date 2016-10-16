@@ -12,8 +12,10 @@ module ArtDecomp
 
     def call
       puts = Puts.new
-      until (required - puts.seps).empty?
-        puts += Puts.new([next_put(required - puts.seps)])
+      missing = required
+      until missing.empty?
+        puts += Puts.new([next_put(missing)])
+        missing -= puts.seps
       end
       puts
     end
