@@ -33,6 +33,7 @@ module ArtDecomp
       code
     end
 
+    # :reek:FeatureEnvy
     def next_put(missing)
       missing.nonempty_by_popcount.permutation do |order|
         put = put_for_order(order, missing)
