@@ -26,6 +26,7 @@ module ArtDecomp
       Seps.from_column(column) | allowed == allowed
     end
 
+    # :reek:UtilityFunction
     def code_for(column, row, missing)
       forbidden = column.values_at(*missing.seps_of(row)).uniq
       code = :a
