@@ -30,5 +30,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'pry',            '~> 0.10.0'
   gem.add_development_dependency 'rake',           '~> 12.0'
   gem.add_development_dependency 'reek',           '~> 4.0'
-  gem.add_development_dependency 'rubocop',        '~> 0.43.0'
+  gem.add_development_dependency 'rubocop',        '~> 0.45.0'
 end
