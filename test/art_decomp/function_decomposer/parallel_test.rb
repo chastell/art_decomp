@@ -12,12 +12,12 @@ module ArtDecomp
   describe FunctionDecomposer::Parallel do
     describe '.call' do
       it 'yields decomposed Circuits' do
-        a     = Put[%i(0 0 0 0 1 1 1 1)]
-        b     = Put[%i(0 0 1 1 0 0 1 1)]
-        c     = Put[%i(0 1 0 1 0 1 0 1)]
-        anb   = Put[%i(0 0 0 0 0 0 1 1)]
-        buc   = Put[%i(0 1 1 1 0 1 1 1)]
-        nbuc  = Put[%i(1 0 0 0 1 0 0 0)]
+        a     = Put[%i[0 0 0 0 1 1 1 1]]
+        b     = Put[%i[0 0 1 1 0 0 1 1]]
+        c     = Put[%i[0 1 0 1 0 1 0 1]]
+        anb   = Put[%i[0 0 0 0 0 0 1 1]]
+        buc   = Put[%i[0 1 1 1 0 1 1 1]]
+        nbuc  = Put[%i[1 0 0 0 1 0 0 0]]
         ab    = Function[Puts.new([a, b]), Puts.new([anb])]
         bc    = Function[Puts.new([b, c]), Puts.new([buc, nbuc])]
         ins   = Puts.new([a, b, c])

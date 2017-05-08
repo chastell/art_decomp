@@ -8,12 +8,12 @@ require_relative '../../lib/art_decomp/puts'
 module ArtDecomp
   describe FunctionMerger do
     describe '.merge' do
-      let(:a)    { %i(0 0 0 0 1 1 1 1) }
-      let(:b)    { %i(0 0 1 1 0 0 1 1) }
-      let(:c)    { %i(0 1 0 1 0 1 0 1) }
-      let(:anb)  { %i(0 0 0 0 0 0 1 1) }
-      let(:buc)  { %i(0 1 1 1 0 1 1 1) }
-      let(:nbuc) { %i(1 0 0 0 1 0 0 0) }
+      let(:a)    { %i[0 0 0 0 1 1 1 1] }
+      let(:b)    { %i[0 0 1 1 0 0 1 1] }
+      let(:c)    { %i[0 1 0 1 0 1 0 1] }
+      let(:anb)  { %i[0 0 0 0 0 0 1 1] }
+      let(:buc)  { %i[0 1 1 1 0 1 1 1] }
+      let(:nbuc) { %i[1 0 0 0 1 0 0 0] }
 
       let(:f_anb)      { Function[Puts[a, b], Puts[anb]]       }
       let(:f_buc)      { Function[Puts[b, c], Puts[buc]]       }

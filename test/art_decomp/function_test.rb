@@ -8,8 +8,8 @@ require_relative '../../lib/art_decomp/puts'
 module ArtDecomp
   describe Function do
     let(:function) { Function[ins, outs]           }
-    let(:ins)      { Puts[%i(0 1 -), %i(s1 s2 s3)] }
-    let(:outs)     { Puts[%i(1 - 0), %i(s3 s1 s2)] }
+    let(:ins)      { Puts[%i[0 1 -], %i[s1 s2 s3]] }
+    let(:outs)     { Puts[%i[1 - 0], %i[s3 s1 s2]] }
 
     describe '.[]' do
       it 'creates a new Function from the given ins and outs' do

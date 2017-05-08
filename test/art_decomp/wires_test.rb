@@ -8,10 +8,10 @@ require_relative '../../lib/art_decomp/wires'
 
 module ArtDecomp
   describe Wires do
-    let(:ab) { Put[%i(a b)] }
-    let(:cd) { Put[%i(c d)] }
-    let(:ef) { Put[%i(e f)] }
-    let(:gh) { Put[%i(g h)] }
+    let(:ab) { Put[%i[a b]] }
+    let(:cd) { Put[%i[c d]] }
+    let(:ef) { Put[%i[e f]] }
+    let(:gh) { Put[%i[g h]] }
 
     let(:abcd)      { Wires.new(ab => cd)           }
     let(:efgh)      { Wires.new(ef => gh)           }
@@ -33,7 +33,7 @@ module ArtDecomp
 
     describe '#==' do
       it 'compares sets of Wires by value' do
-        _(abcd).must_equal Wires.new(Put[%i(a b)] => Put[%i(c d)])
+        _(abcd).must_equal Wires.new(Put[%i[a b]] => Put[%i[c d]])
       end
     end
 

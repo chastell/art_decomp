@@ -25,7 +25,7 @@ module ArtDecomp
       wires.keys == other.wires.keys and wires.values == other.wires.values
     end
 
-    delegate %i([] each) => :wires
+    delegate %i[[] each] => :wires
 
     def invert
       self.class.new(wires.invert)

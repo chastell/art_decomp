@@ -7,16 +7,16 @@ require_relative '../../lib/art_decomp/puts_presenter'
 module ArtDecomp
   describe PutsPresenter do
     let(:puts_presenter) do
-      puts = Puts[%i(0 - 1 - - 1 0 - - -),
-                  %i(- 0 1 - - 0 - 1 - -),
-                  %i(- - - 0 1 - - - 0 1),
-                  %i(HG HG HG HY HY FG FG FG FY FY)]
+      puts = Puts[%i[0 - 1 - - 1 0 - - -],
+                  %i[- 0 1 - - 0 - 1 - -],
+                  %i[- - - 0 1 - - - 0 1],
+                  %i[HG HG HG HY HY FG FG FG FY FY]]
       PutsPresenter.new(puts)
     end
 
     describe '#bin_columns' do
       it 'returns binary-encoded column representation of the Puts' do
-        _(puts_presenter.bin_columns).must_equal %w(
+        _(puts_presenter.bin_columns).must_equal %w[
           0--10
           -0-10
           11-10
@@ -27,7 +27,7 @@ module ArtDecomp
           -1-00
           --001
           --101
-        )
+        ]
       end
     end
 

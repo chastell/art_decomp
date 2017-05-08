@@ -18,8 +18,8 @@ module ArtDecomp
     end
 
     let(:function) do
-      Function[Puts[%i(0 1 -), %i(- 1 0), %i(a b c)],
-               Puts[%i(0 1 -), %i(- - -), %i(- - 0)]]
+      Function[Puts[%i[0 1 -], %i[- 1 0], %i[a b c]],
+               Puts[%i[0 1 -], %i[- - -], %i[- - 0]]]
     end
 
     describe '.circuit' do

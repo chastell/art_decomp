@@ -6,29 +6,29 @@ require_relative '../../lib/art_decomp/puts'
 
 module ArtDecomp
   describe Puts do
-    let(:ab)    { Put[%i(a b)]       }
-    let(:abc)   { Put[%i(a b c)]     }
-    let(:ba)    { Put[%i(b a)]       }
+    let(:ab)    { Put[%i[a b]]       }
+    let(:abc)   { Put[%i[a b c]]     }
+    let(:ba)    { Put[%i[b a]]       }
     let(:ab_ba) { Puts.new([ab, ba]) }
 
     describe '.[]' do
       it 'creates Puts from a list of columns' do
-        puts = Puts[%i(a b -), %i(b - c)]
-        _(puts).must_equal Puts.new([Put[%i(a b -), codes: %i(a b)],
-                                     Put[%i(b - c), codes: %i(b c)]])
+        puts = Puts[%i[a b -], %i[b - c]]
+        _(puts).must_equal Puts.new([Put[%i[a b -], codes: %i[a b]],
+                                     Put[%i[b - c], codes: %i[b c]]])
       end
 
       it 'infers codes on a per-column basis' do
-        puts = Puts[%i(0 1 -), %i(a b c)]
-        _(puts).must_equal Puts.new([Put[%i(0 1 -), codes: %i(0 1)],
-                                     Put[%i(a b c), codes: %i(a b c)]])
+        puts = Puts[%i[0 1 -], %i[a b c]]
+        _(puts).must_equal Puts.new([Put[%i[0 1 -], codes: %i[0 1]],
+                                     Put[%i[a b c], codes: %i[a b c]]])
       end
     end
 
     describe '#==' do
       it 'compares Puts according to contents' do
-        _(Puts.new([Put[%i(a b)]])).must_equal Puts.new([Put[%i(a b)]])
-        _(Puts.new([Put[%i(a b)]])).wont_equal Puts.new([Put[%i(b a)]])
+        _(Puts.new([Put[%i[a b]]])).must_equal Puts.new([Put[%i[a b]]])
+        _(Puts.new([Put[%i[a b]]])).wont_equal Puts.new([Put[%i[b a]]])
       end
     end
 
@@ -39,8 +39,8 @@ module ArtDecomp
       end
 
       it 'is based on hash/eql? calls' do
-        _(ab_ba & Puts[%i(a b)]).must_be :empty?
-        _(ab_ba & Puts[%i(b a)]).must_be :empty?
+        _(ab_ba & Puts[%i[a b]]).must_be :empty?
+        _(ab_ba & Puts[%i[b a]]).must_be :empty?
       end
     end
 
@@ -56,7 +56,7 @@ module ArtDecomp
       end
 
       it 'is based on hash/eql? calls' do
-        _(ab_ba - Puts[%i(a b)]).must_equal ab_ba
+        _(ab_ba - Puts[%i[a b]]).must_equal ab_ba
       end
     end
 
@@ -86,11 +86,11 @@ module ArtDecomp
 
     describe '#combination' do
       it 'yields subsequent Puts with different Put combinations' do
-        puts = Puts[%i(a b c), %i(b a c), %i(c a b)]
+        puts = Puts[%i[a b c], %i[b a c], %i[c a b]]
         _(puts.combination(2)).must_be_kind_of Enumerator
-        _(puts.combination(2).to_a).must_equal [Puts[%i(a b c), %i(b a c)],
-                                                Puts[%i(a b c), %i(c a b)],
-                                                Puts[%i(b a c), %i(c a b)]]
+        _(puts.combination(2).to_a).must_equal [Puts[%i[a b c], %i[b a c]],
+                                                Puts[%i[a b c], %i[c a b]],
+                                                Puts[%i[b a c], %i[c a b]]]
       end
     end
 
@@ -110,34 +110,34 @@ module ArtDecomp
 
     describe '#eql?' do
       it 'compares Puts according to contents' do
-        assert Puts.new([Put[%i(a b)]]).eql?(Puts.new([Put[%i(a b)]]))
-        refute Puts.new([Put[%i(a b)]]).eql?(Puts.new([Put[%i(b a)]]))
+        assert Puts.new([Put[%i[a b]]]).eql?(Puts.new([Put[%i[a b]]]))
+        refute Puts.new([Put[%i[a b]]]).eql?(Puts.new([Put[%i[b a]]]))
       end
     end
 
     describe '#hash' do
       it 'compares Puts according to contents' do
-        _(Puts.new([Put[%i(a b)]]).hash)
-          .must_equal Puts.new([Put[%i(a b)]]).hash
-        _(Puts.new([Put[%i(a b)]]).hash)
-          .wont_equal Puts.new([Put[%i(b a)]]).hash
-        _(Puts.new([Put[%i(a b)]]).hash)
-          .wont_equal Puts.new([Put[%i(a b), codes: %i(a b c)]]).hash
+        _(Puts.new([Put[%i[a b]]]).hash)
+          .must_equal Puts.new([Put[%i[a b]]]).hash
+        _(Puts.new([Put[%i[a b]]]).hash)
+          .wont_equal Puts.new([Put[%i[b a]]]).hash
+        _(Puts.new([Put[%i[a b]]]).hash)
+          .wont_equal Puts.new([Put[%i[a b], codes: %i[a b c]]]).hash
       end
     end
 
     describe '#include?' do
       it 'is a predicate whether the given Put is included based on identity' do
         assert ab_ba.include?(ab)
-        refute ab_ba.include?(Put[%i(a b)])
+        refute ab_ba.include?(Put[%i[a b]])
       end
     end
 
     describe '#index' do
       it 'returns the index of the given Put based on its identity' do
-        ab1  = Put[%i(a b)]
-        ab2  = Put[%i(a b)]
-        ba   = Put[%i(b a)]
+        ab1  = Put[%i[a b]]
+        ab2  = Put[%i[a b]]
+        ba   = Put[%i[b a]]
         puts = Puts.new([ab1, ba, ab2])
         _(puts.index(ab1)).must_equal 0
         _(puts.index(ba)).must_equal 1
@@ -148,7 +148,7 @@ module ArtDecomp
     describe '#seps' do
       it 'returns the combined Seps of all the Puts' do
         seps = Seps.new([0b110, 0b101, 0b011])
-        _(Puts.new([Put[%i(a a b)], Put[%i(a b b)]]).seps).must_equal seps
+        _(Puts.new([Put[%i[a a b]], Put[%i[a b b]]]).seps).must_equal seps
       end
 
       it 'returns empty Seps for empty Puts' do
@@ -165,16 +165,16 @@ module ArtDecomp
 
     describe '#sort' do
       it 'returns a Puts with sorted members' do
-        unsorted = Puts[%i(b a), %i(b c), %i(a b)]
-        sorted   = Puts[%i(a b), %i(b a), %i(b c)]
+        unsorted = Puts[%i[b a], %i[b c], %i[a b]]
+        sorted   = Puts[%i[a b], %i[b a], %i[b c]]
         _(unsorted.sort).must_equal sorted
       end
     end
 
     describe '#sort_by' do
       it 'returns a Puts sorted according to the passed block' do
-        random = Puts[%i(a a a), %i(a b c), %i(a b b)]
-        sorted = Puts[%i(a b c), %i(a b b), %i(a a a)]
+        random = Puts[%i[a a a], %i[a b c], %i[a b b]]
+        sorted = Puts[%i[a b c], %i[a b b], %i[a a a]]
         _(random.sort_by).must_be_kind_of Enumerator
         _(random.sort_by { |put| -put.seps.count }).must_equal sorted
       end
@@ -182,9 +182,9 @@ module ArtDecomp
 
     describe '#take_while' do
       it 'returns a Puts consisting of first Puts matching the block' do
-        aaa = Put[%i(a a a)]
-        abb = Put[%i(a b b)]
-        abc = Put[%i(a b c)]
+        aaa = Put[%i[a a a]]
+        abb = Put[%i[a b b]]
+        abc = Put[%i[a b c]]
         puts = Puts.new([aaa, abc, abb])
         _(puts.take_while).must_be_kind_of Enumerator
         _(puts.take_while { |put| put.seps.empty? }).must_equal Puts.new([aaa])
@@ -198,11 +198,11 @@ module ArtDecomp
       end
 
       it 'is based on == comparison' do
-        _(Puts[%i(a b), %i(b a), %i(a b)].uniq).must_equal ab_ba
+        _(Puts[%i[a b], %i[b a], %i[a b]].uniq).must_equal ab_ba
       end
 
       it 'consider code differences' do
-        puts = Puts.new([Put[%i(a b)], Put[%i(a b), codes: %i(a b c)]])
+        puts = Puts.new([Put[%i[a b]], Put[%i[a b], codes: %i[a b c]]])
         _(puts.uniq).must_equal puts
       end
     end

@@ -20,7 +20,7 @@ module ArtDecomp
                 stub(presenter).call(dec_a, name: 'foo_0') { 'foo_0 VHDL' }
                 stub(presenter).call(dec_b, name: 'foo_1') { 'foo_1 VHDL' }
                 parser = fake(:circ_kiss_parser, circuit: fake(Circuit))
-                args   = %W(--dir=#{vhdl_path} baz/bar/foo.kiss)
+                args   = %W[--dir=#{vhdl_path} baz/bar/foo.kiss]
                 decomp = kiss_decomposer.new(args,
                                              circuit_presenter: presenter,
                                              decomposer: decomposer,

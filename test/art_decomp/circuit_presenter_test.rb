@@ -39,8 +39,8 @@ module ArtDecomp
           1bab ab11001
           1bbb aa10110
         end
-        r_state = Puts[%i(FG FY HG HY)]
-        r_coded = Puts[%i(a b a b), %i(a a b b)]
+        r_state = Puts[%i[FG FY HG HY]]
+        r_coded = Puts[%i[a b a b], %i[a a b b]]
         r0 = Recoder.new(ins: r_state, outs: r_coded)
         r1 = Recoder.new(ins: r_coded, outs: r_state)
         wires = Wires.new(

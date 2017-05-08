@@ -28,7 +28,7 @@ module ArtDecomp
                              0b000101111,
                              0b000100100])
         puts = PutsFromSeps.call(allowed: allowed, required: required, size: 9)
-        _(puts).must_equal Puts[%i(b b b b - b - a a)]
+        _(puts).must_equal Puts[%i[b b b b - b - a a]]
       end
 
       it 'honours allowed separations' do
@@ -41,7 +41,7 @@ module ArtDecomp
                              0b0010,
                              0b0001])
         puts = PutsFromSeps.call(allowed: allowed, required: required, size: 4)
-        _(puts).must_equal Puts[%i(a b a -), %i(a - - b)]
+        _(puts).must_equal Puts[%i[a b a -], %i[a - - b]]
       end
     end
   end

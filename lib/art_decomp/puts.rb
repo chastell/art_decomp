@@ -38,7 +38,7 @@ module ArtDecomp
       end
     end
 
-    delegate %i(each empty? size) => :puts
+    delegate %i[each empty? size] => :puts
 
     def binwidth
       @binwidth ||= map(&:binwidth).reduce(0, :+)
