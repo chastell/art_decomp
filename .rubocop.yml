@@ -2,6 +2,9 @@ AllCops:
   Exclude:
     - tmp/**/*
 
+Layout/SpaceAfterNot:
+  Enabled: false
+
 Lint/UnusedMethodArgument:
   Enabled: false
 
@@ -34,9 +37,6 @@ Style/Not:
   Enabled: false
 
 Style/SingleLineBlockParams:
-  Enabled: false
-
-Style/SpaceAfterNot:
   Enabled: false
 
 Style/TrailingCommaInArguments:
