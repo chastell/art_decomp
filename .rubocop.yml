@@ -2,12 +2,6 @@ AllCops:
   Exclude:
     - tmp/**/*
 
-Layout/SpaceAfterNot:
-  Enabled: false
-
-Lint/UnusedMethodArgument:
-  Enabled: false
-
 Metrics/AbcSize:
   Exclude:
     - test/art_decomp/*_behaviour.rb
@@ -34,9 +28,6 @@ Style/EmptyCaseCondition:
   Enabled: false
 
 Style/Not:
-  Enabled: false
-
-Style/SingleLineBlockParams:
   Enabled: false
 
 Style/TrailingCommaInArguments:
