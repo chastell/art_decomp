@@ -7,12 +7,14 @@ require_relative 'wires'
 
 module ArtDecomp
   class Circuit
-    include Anima.new(:functions, :own, :wires)
-
-    def self.from_function(function)
-      wires = Wires.from_function(function)
-      new(functions: [function], own: function, wires: wires)
+    class << self
+      def from_function(function)
+        wires = Wires.from_function(function)
+        new(functions: [function], own: function, wires: wires)
+      end
     end
+
+    include Anima.new(:functions, :own, :wires)
 
     def initialize(archs_sizer: ArchSizer, **anima_attributes)
       super(**anima_attributes)
