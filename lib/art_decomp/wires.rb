@@ -4,14 +4,16 @@ require 'forwardable'
 
 module ArtDecomp
   class Wires
+    class << self
+      def from_function(function)
+        in_wires  = function.ins.map  { |put| { put => put } }
+        out_wires = function.outs.map { |put| { put => put } }
+        new((in_wires + out_wires).reduce({}, :merge))
+      end
+    end
+
     extend Forwardable
     include Enumerable
-
-    def self.from_function(function)
-      in_wires  = function.ins.map  { |put| { put => put } }
-      out_wires = function.outs.map { |put| { put => put } }
-      new((in_wires + out_wires).reduce({}, :merge))
-    end
 
     def initialize(wires = {})
       @wires = wires
