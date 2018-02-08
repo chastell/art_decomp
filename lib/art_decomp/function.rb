@@ -5,11 +5,13 @@ require_relative 'arch'
 
 module ArtDecomp
   class Function
-    include Anima.new(:ins, :outs)
-
-    def self.[](ins, outs)
-      new(ins: ins, outs: outs)
+    class << self
+      def [](ins, outs)
+        new(ins: ins, outs: outs)
+      end
     end
+
+    include Anima.new(:ins, :outs)
 
     def arch
       Arch[ins.binwidth, outs.binwidth]
