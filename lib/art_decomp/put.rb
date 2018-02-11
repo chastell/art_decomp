@@ -6,12 +6,14 @@ require_relative 'seps'
 
 module ArtDecomp
   class Put
+    class << self
+      def [](column, codes: column.uniq - [:-])
+        new(column: column, codes: codes)
+      end
+    end
+
     extend Forwardable
     include Anima.new(:codes, :column)
-
-    def self.[](column, codes: column.uniq - [:-])
-      new(column: column, codes: codes)
-    end
 
     def initialize(column:, codes: column.uniq - [:-])
       @codes  = codes.sort
