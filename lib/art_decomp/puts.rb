@@ -7,13 +7,15 @@ require_relative 'seps'
 
 module ArtDecomp
   class Puts
+    class << self
+      def [](*columns)
+        new(columns.map(&Put.method(:[])))
+      end
+    end
+
     extend Forwardable
     include Enumerable
     include Anima.new(:puts)
-
-    def self.[](*columns)
-      new(columns.map(&Put.method(:[])))
-    end
 
     def initialize(puts = [])
       @puts = puts
