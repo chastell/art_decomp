@@ -4,16 +4,18 @@ require_relative 'arch_sizer'
 
 module ArtDecomp
   class ArchsSizer
-    def self.admissible(archs)
-      new(archs).admissible
-    end
+    class << self
+      def admissible(archs)
+        new(archs).admissible
+      end
 
-    def self.max(archs)
-      new(archs).max
-    end
+      def max(archs)
+        new(archs).max
+      end
 
-    def self.min(archs)
-      new(archs).min
+      def min(archs)
+        new(archs).min
+      end
     end
 
     def initialize(archs)
