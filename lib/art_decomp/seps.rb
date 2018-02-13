@@ -6,18 +6,20 @@ require_relative 'b'
 
 module ArtDecomp
   class Seps
+    class << self
+      # :reek:TooManyStatements: { max_statements: 6 }
+      def from_column(column) # rubocop:disable Metrics/AbcSize
+        ones   = (1 << column.size) - 1
+        coding = (0...column.size).group_by(&column.method(:[]))
+        matrix = column.map do |code|
+          code == :- ? 0 : ones & ~B[*coding[code]] & ~B[*coding[:-]]
+        end
+        new(matrix)
+      end
+    end
+
     extend Forwardable
     include Anima.new(:matrix)
-
-    # :reek:TooManyStatements: { max_statements: 6 }
-    def self.from_column(column) # rubocop:disable Metrics/AbcSize
-      ones   = (1 << column.size) - 1
-      coding = (0...column.size).group_by(&column.method(:[]))
-      matrix = column.map do |code|
-        code == :- ? 0 : ones & ~B[*coding[code]] & ~B[*coding[:-]]
-      end
-      new(matrix)
-    end
 
     def initialize(matrix = [])
       @matrix = MatrixNormaliser.normalise(matrix)
