@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../test_helper'
 require_relative '../../lib/art_decomp/fsm_kiss_parser'
 require_relative '../../lib/art_decomp/function_presenter'

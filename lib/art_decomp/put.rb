@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'anima'
 require 'forwardable'
 require_relative 'seps'

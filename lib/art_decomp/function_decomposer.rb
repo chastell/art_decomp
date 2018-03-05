@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'function_decomposer/parallel'
 require_relative 'function_decomposer/serial'
 

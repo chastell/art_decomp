@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'circuit'
 require_relative 'kiss_parser'
 require_relative 'puts'

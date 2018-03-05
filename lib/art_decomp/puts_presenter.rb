@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'delegate'
 require_relative 'put'
 require_relative 'puts'

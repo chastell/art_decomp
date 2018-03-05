@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ENV['MT_NO_EXPECTATIONS'] = 'true'
 require 'minitest/autorun'
 require 'minitest/focus'

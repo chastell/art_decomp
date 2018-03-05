@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'forwardable'
 require_relative 'circuit_presenter'
 require_relative 'decomposer'

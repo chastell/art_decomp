@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'anima'
 require 'procto'
 require_relative 'put'
