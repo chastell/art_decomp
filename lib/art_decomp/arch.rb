@@ -4,7 +4,7 @@ module ArtDecomp
   class Arch
     class << self
       # :reek:UncommunicativeParameterName
-      def [](i, o)
+      def [](i, o) # rubocop:disable UncommunicativeMethodParamName
         new(i: i, o: o)
       end
     end
