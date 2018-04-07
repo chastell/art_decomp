@@ -8,7 +8,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
-    - test/**/*.rb
+    - test/**/*
 
 Metrics/MethodLength:
   Exclude:
@@ -16,7 +16,7 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   Exclude:
-    - test/**/*.rb
+    - test/**/*
 
 Naming/HeredocDelimiterCase:
   Enabled: false
