@@ -4,7 +4,7 @@ require_relative '../../../lib/art_decomp/kiss_parser'
 require_relative '../../../lib/art_decomp/function_decomposer/serial'
 require_relative '../../../lib/art_decomp/wires'
 
-module ArtDecomp
+module ArtDecomp # rubocop:disable ModuleLength
   describe FunctionDecomposer::Serial do
     describe '.call' do
       let(:f) do

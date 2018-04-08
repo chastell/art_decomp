@@ -14,10 +14,6 @@ Metrics/MethodLength:
   Exclude:
     - test/art_decomp/*_behaviour.rb
 
-Metrics/ModuleLength:
-  Exclude:
-    - test/**/*
-
 Naming/HeredocDelimiterCase:
   Enabled: false
 

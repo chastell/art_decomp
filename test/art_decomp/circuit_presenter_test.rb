@@ -6,7 +6,7 @@ require_relative '../../lib/art_decomp/puts'
 require_relative '../../lib/art_decomp/recoder'
 require_relative '../../lib/art_decomp/wires'
 
-module ArtDecomp
+module ArtDecomp # rubocop:disable ModuleLength
   describe CircuitPresenter do
     describe '.call' do
       let(:bin) { KISSParser.circuit(File.read('test/fixtures/bin.kiss'))   }
