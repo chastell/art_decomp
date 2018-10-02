@@ -2,6 +2,9 @@ AllCops:
   Exclude:
     - tmp/**/*
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - test/art_decomp/*_behaviour.rb
