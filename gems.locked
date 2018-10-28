@@ -53,7 +53,7 @@ GEM
     procto (0.0.3)
     rainbow (3.0.0)
     rake (12.3.1)
-    reek (5.1.0)
+    reek (5.2.0)
       codeclimate-engine-rb (~> 0.4.0)
       kwalify (~> 0.7.0)
       parser (>= 2.5.0.0, < 2.6, != 2.5.1.1)
@@ -89,4 +89,4 @@ DEPENDENCIES
   rubocop (~> 0.59.0)
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
