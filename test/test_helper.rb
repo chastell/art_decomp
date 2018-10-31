@@ -12,6 +12,6 @@ Bogus.configure { |config| config.search_modules << ArtDecomp }
 
 Bogus.fakes do
   fake :circ_kiss_parser,
-       as: :class,
+       as:    :class,
        class: -> { [ArtDecomp::KISSParser, ArtDecomp::FSMKISSParser] }
 end

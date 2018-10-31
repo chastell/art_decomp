@@ -21,8 +21,8 @@ module ArtDecomp
                 args   = %W[--dir=#{vhdl_path} baz/bar/foo.kiss]
                 decomp = kiss_decomposer.new(args,
                                              circuit_presenter: presenter,
-                                             decomposer: decomposer,
-                                             kiss_parser: parser)
+                                             decomposer:        decomposer,
+                                             kiss_parser:       parser)
                 decomp.decompose
               end
               _(File.read("#{vhdl_path}/foo_0.vhdl")).must_equal 'foo_0 VHDL'

@@ -23,7 +23,7 @@ module ArtDecomp
         mock(solder).call(composed: composed, decomposed: decomposed_b,
                           function: largest_function) { replaced_b }
         decs = CircuitDecomposer.call(composed, function_decomposer: fd,
-                                                circuit_solder: solder)
+                                                circuit_solder:      solder)
         _(decs.to_a).must_equal [replaced_a, replaced_b]
       end
     end

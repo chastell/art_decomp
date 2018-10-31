@@ -13,10 +13,10 @@ module ArtDecomp # rubocop:disable ModuleLength
 
     let(:column_to_matrix) do
       {
-        %i[]    => [],
-        %i[a]   => [],
-        %i[a a] => [],
-        %i[a b] => [0b10, 0b01],
+        %i[]          => [],
+        %i[a]         => [],
+        %i[a a]       => [],
+        %i[a b]       => [0b10, 0b01],
         %i[a b d d c] => [
           0b11110,
           0b11101,
