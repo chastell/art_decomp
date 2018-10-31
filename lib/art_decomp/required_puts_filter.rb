@@ -12,7 +12,7 @@ module ArtDecomp
       puts & puts_by_relevant_count.take_while do |put|
         empty = remaining.empty?
         remaining -= put.seps
-        not empty # rubocop:disable MultilineOperationIndentation
+        not empty
       end
     end
 
