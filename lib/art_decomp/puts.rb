@@ -4,6 +4,7 @@ require_relative 'put'
 require_relative 'seps'
 
 module ArtDecomp
+  # :reek:TooManyMethods
   class Puts
     class << self
       def [](*columns)
