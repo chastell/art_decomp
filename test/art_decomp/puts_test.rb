@@ -133,13 +133,13 @@ module ArtDecomp # rubocop:disable ModuleLength
 
     describe '#index' do
       it 'returns the index of the given Put based on its identity' do
-        ab1  = Put[%i[a b]]
-        ab2  = Put[%i[a b]]
-        ba   = Put[%i[b a]]
-        puts = Puts.new([ab1, ba, ab2])
-        _(puts.index(ab1)).must_equal 0
-        _(puts.index(ba)).must_equal 1
-        _(puts.index(ab2)).must_equal 2
+        first  = Put[%i[a b]]
+        last   = Put[%i[a b]]
+        middle = Put[%i[b a]]
+        puts = Puts.new([first, middle, last])
+        _(puts.index(first)).must_equal 0
+        _(puts.index(middle)).must_equal 1
+        _(puts.index(last)).must_equal 2
       end
     end
 
