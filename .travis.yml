@@ -1,3 +1,5 @@
+allow_failures:
+  - ruby-head
 before_install: bundle
 language: ruby
 rvm:
