@@ -1,5 +1,7 @@
 detectors:
   DuplicateMethodCall:
+    exclude:
+      - ArtDecomp::KISSDecomposerBehaviour
     max_calls: 2
 
   IrresponsibleModule:
