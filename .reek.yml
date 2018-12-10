@@ -13,4 +13,5 @@ detectors:
 
   TooManyStatements:
     exclude:
+      - ArtDecomp::KISSDecomposerBehaviour
       - ArtDecomp::PutBehaviour
