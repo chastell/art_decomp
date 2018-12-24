@@ -21,3 +21,7 @@ detectors:
       - a
       - b
       - c
+      - f0
+      - f1
+      - r0
+      - r1
