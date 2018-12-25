@@ -23,5 +23,8 @@ detectors:
       - c
       - f0
       - f1
+      - f23
+      - f32
+      - f33
       - r0
       - r1
