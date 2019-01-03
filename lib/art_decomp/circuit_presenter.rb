@@ -18,7 +18,7 @@ module ArtDecomp
 
     def call
       template = File.read('lib/art_decomp/circuit_presenter.vhdl.erb')
-      ERB.new(template, nil, '%').result(binding)
+      ERB.new(template, trim_mode: '%').result(binding)
     end
 
     private
