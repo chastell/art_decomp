@@ -15,7 +15,7 @@ module ArtDecomp
     include Anima.new(:functions, :own, :wires)
 
     def initialize(archs_sizer: ArchSizer, **anima_attributes)
-      super(**anima_attributes)
+      super(anima_attributes)
       @archs_sizer = archs_sizer
     end
 
